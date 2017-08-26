@@ -5,7 +5,7 @@ module.exports = {
     // console.log('Server: req.params:', req.params);
     console.log('Server: req.query:', req.query);
   
-    res.status(200).send({"title":"Taylor Swift","artist":"Taylor Swift","url":"https://www.amazon.com/Taylor-Swift/dp/B0014I4KH6","image":"https://images-na.ssl-images-amazon.com/images/I/61McsadO1OL.jpg","thumbnail_image":"https://i.imgur.com/K3KJ3w4h.jpg"});
+    res.status(200).send('this GET request successful on server dawg, yaaaah!!!');
   },
 
   postImages: (req, res) => {
@@ -13,7 +13,8 @@ module.exports = {
     console.log('Server: req.body:', req.body);
     // console.log('Server: req.params:', req.params);
     // console.log('Server: req.query:', req.query);
+    // console.log('Server: req.query:', req.route);    
   
-    res.status(201).send({});
+    res.status(201).send('this POST request success on server dawg, sweeeeet');
   }
 }

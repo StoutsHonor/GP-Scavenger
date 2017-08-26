@@ -42,6 +42,29 @@ export default class client extends Component {
   }
 
   dummyPost() {
+    console.log(`in dummyPost()`)
+
+    var formData = new FormData()
+    formData.append('jenFirstParm', 'blahvalue1')
+    formData.append('jenSecondParam', 'blahvalue2')
+
+    fetch('http://10.0.2.2:3000/api/images/postImages', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        "jenFirstParm": 'blahvalue1',
+        "jensecondParam": 'blahvalue2'
+      })
+    })
+      .then( (response) => {
+        console.log('whoooosh') 
+        console.log(`${JSON.stringify(response)}`)
+        let app = this
+        this.setState({ dummyData: response }, () => { console.log(`state is now ${JSON.stringify(this.state)}`)})
+      })
   }
 
   render() {
@@ -54,9 +77,18 @@ export default class client extends Component {
         </CardSection>
 
         <CardSection>
-            <Text>Get response is: {JSON.stringify(this.state.dummyData)}</Text>
+            <Text>GET response is: {JSON.stringify(this.state.dummyData)}</Text>
         </CardSection>
 
+        <CardSection>
+          <Button onPress={this.dummyPost}>
+            Test POST!
+          </Button>
+        </CardSection>
+
+        <CardSection>
+            <Text>POST response is: {JSON.stringify(this.state.dummyData)}</Text>
+        </CardSection>
       </Card>
     );
   }
