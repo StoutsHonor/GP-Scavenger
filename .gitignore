@@ -57,3 +57,6 @@ buck-out/
 fastlane/report.xml
 fastlane/Preview.html
 fastlane/screenshots
+
+# database
+server/database/config.js
