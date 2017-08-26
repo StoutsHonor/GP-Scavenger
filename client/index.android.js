@@ -53,6 +53,10 @@ export default class client extends Component {
           </Button>
         </CardSection>
 
+        <CardSection>
+            <Text>Get response is: {JSON.stringify(this.state.dummyData)}</Text>
+        </CardSection>
+
       </Card>
     );
   }
