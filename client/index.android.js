@@ -14,6 +14,19 @@ import {
 import Button from './src/components/Button'
 import Card from './src/components/Card'
 import CardSection from './src/components/CardSection'
+import { Router, Scene } from 'react-native-router-flux';
+
+import Draw from './components/Draw';
+import Friends from './components/Friends';
+import HomePage from './components/HomePage';
+import Login from './components/Login';
+import Nearby from './components/Nearby';
+import Notifications from './components/Notifications';
+import OtherUsers from './components/OtherUsers';
+import Photos from './components/Photos';
+import Profile from './components/Profile';
+import Settings from './components/Settings';
+import ViewFinder from './components/ViewFinder';
 
 export default class client extends Component {
   constructor() {
@@ -69,27 +82,90 @@ export default class client extends Component {
 
   render() {
     return (
-      <Card>
-        <CardSection>
-          <Button onPress={this.dummyGet}>
-            Test GET!
-          </Button>
-        </CardSection>
+      <Router>
+        <Scene key="root">
+          <Scene key="login"
+            component={Login}
+            title="Login Page"
+            initial
+          />
+          <Scene key="homepage"
+            component={HomePage}
+            title="Home Page"
+          />
+          <Scene key="settings"
+            component={Settings}
+            title="Settings"
+          />
 
-        <CardSection>
-            <Text>GET response is: {JSON.stringify(this.state.dummyData)}</Text>
-        </CardSection>
+          <Scene key="viewfindermain" tabs={true}>
+            <Scene
+              key="viewfinder"
+              component={ViewFinder}
+              title="View Finder"
+            />
+            <Scene
+              key="nearby"
+              component={Nearby}
+              title="Nearby"
+            />
+          </Scene>
 
-        <CardSection>
-          <Button onPress={this.dummyPost}>
-            Test POST!
-          </Button>
-        </CardSection>
+          <Scene key="photos"
+            component={Photos}
+            title="Photos"
+          />
+          <Scene key="profilemain" tabs={true}>
+            <Scene
+              key="profile"
+              component={Profile}
+              title="Profile"
+            />
+            <Scene
+              key="friends"
+              component={Friends}
+              title="Friends"
+            />
+            <Scene
+              key="other users"
+              component={OtherUsers}
+              title="Other Users"
+            />
+          </Scene>
 
-        <CardSection>
-            <Text>POST response is: {JSON.stringify(this.state.dummyData)}</Text>
-        </CardSection>
-      </Card>
+          <Scene
+            key="draw"
+            component={Draw}
+            title="Draw"
+          />
+          <Scene
+            key="notifications"
+            component={Notifications}
+            title="Notifications"
+          />
+        </Scene>
+      </Router>
+      // <Card>
+      //   <CardSection>
+      //     <Button onPress={this.dummyGet}>
+      //       Test GET!
+      //     </Button>
+      //   </CardSection>
+
+      //   <CardSection>
+      //       <Text>GET response is: {JSON.stringify(this.state.dummyData)}</Text>
+      //   </CardSection>
+
+      //   <CardSection>
+      //     <Button onPress={this.dummyPost}>
+      //       Test POST!
+      //     </Button>
+      //   </CardSection>
+
+      //   <CardSection>
+      //       <Text>POST response is: {JSON.stringify(this.state.dummyData)}</Text>
+      //   </CardSection>
+      // </Card>
     );
   }
 }
