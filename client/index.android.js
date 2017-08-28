@@ -11,9 +11,16 @@ import {
   Text,
   View
 } from 'react-native';
+
+import firebase from 'firebase'
+import firebaseconfig from './config/firebaseconfig.js'
+import LoginForm from './components/LoginForm'
+import TitledInput from './components/TitledInput'
+
 import Button from './src/components/Button'
 import Card from './src/components/Card'
 import CardSection from './src/components/CardSection'
+
 import { Router, Scene } from 'react-native-router-flux';
 
 import CreateGame from './components/CreateGame';
@@ -36,13 +43,25 @@ export default class client extends Component {
     this.dummyGet = this.dummyGet.bind(this)
     this.dummyPost = this.dummyPost.bind(this)
     this.state = {
-      dummyData: ''
+      dummyData: '',
+      user: null
     }
+
+    this.authSetUser = this.authSetUser.bind(this)
   }
 
 
   componentWillMount() {
     console.log('index.android.js has loaded')
+
+    firebase.initializeApp({
+      apiKey: firebaseconfig.apiKey,
+      authDomain: firebaseconfig.authDomain,
+      databaseURL: firebaseconfig.databaseURL,
+      projectId: firebaseconfig.projectId,
+      storageBucket: firebaseconfig.storageBucket,
+      messagingSenderId: firebaseconfig.messagingSenderId
+    })
   }
 
   dummyGet() {
@@ -82,9 +101,22 @@ export default class client extends Component {
       })
   }
 
+  authSetUser(){
+    this.setState({user: firebase.auth().currentUser})
+    .then(console.log('Current user: ', this.state.user))
+    
+  }
+
   render() {
-    return (
-      <Router>
+
+    if (!this.state.user) {
+      return (
+        <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
+      )
+    } else {
+
+      return (
+        <Router>
         <Scene key="root">
           <Scene key="login"
             component={Login}
@@ -143,42 +175,43 @@ export default class client extends Component {
               component={OtherUsers}
               title="Other Users"
             />
+            </Scene>
+
+            <Scene key="preferences"
+              component={Preferences}
+              title="Home Page"
+            />
+
+            <Scene key="notifications"
+              component={Notifications}
+              title="Notifications"
+            />
+
           </Scene>
-
-          <Scene key="preferences"
-            component={Preferences}
-            title="Home Page"
-          />
-
-          <Scene key="notifications"
-            component={Notifications}
-            title="Notifications"
-          />
-
-        </Scene>
-      </Router>
+        </Router>
       // <Card>
       //   <CardSection>
       //     <Button onPress={this.dummyGet}>
       //       Test GET!
       //     </Button>
       //   </CardSection>
-
+      
       //   <CardSection>
       //       <Text>GET response is: {JSON.stringify(this.state.dummyData)}</Text>
       //   </CardSection>
-
+      
       //   <CardSection>
       //     <Button onPress={this.dummyPost}>
       //       Test POST!
       //     </Button>
       //   </CardSection>
-
+      
       //   <CardSection>
       //       <Text>POST response is: {JSON.stringify(this.state.dummyData)}</Text>
       //   </CardSection>
       // </Card>
     );
+    }
   }
 }
 
