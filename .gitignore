@@ -60,3 +60,6 @@ fastlane/screenshots
 
 # database
 server/database/config.js
+
+# client
+client/config/firebaseconfig.js
