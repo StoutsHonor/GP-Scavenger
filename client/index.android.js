@@ -11,9 +11,14 @@ import {
   Text,
   View
 } from 'react-native';
+
+import firebase from 'firebase';
+import firebaseconfig from './config/firebaseconfig.js'
+
 import Button from './src/components/Button'
 import Card from './src/components/Card'
 import CardSection from './src/components/CardSection'
+
 import { Router, Scene } from 'react-native-router-flux';
 
 import CreateGame from './components/CreateGame';
@@ -36,13 +41,23 @@ export default class client extends Component {
     this.dummyGet = this.dummyGet.bind(this)
     this.dummyPost = this.dummyPost.bind(this)
     this.state = {
-      dummyData: ''
+      dummyData: '',
+      user: ''
     }
   }
 
 
   componentWillMount() {
     console.log('index.android.js has loaded')
+
+    firebase.initializeApp({
+      apiKey: firebaseconfig.apiKey,
+      authDomain: firebaseconfig.authDomain,
+      databaseURL: firebaseconfig.databaseURL,
+      projectId: firebaseconfig.projectId,
+      storageBucket: firebaseconfig.storageBucket,
+      messagingSenderId: firebaseconfig.messagingSenderId
+    })
   }
 
   dummyGet() {
