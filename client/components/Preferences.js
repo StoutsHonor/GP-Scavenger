@@ -6,11 +6,11 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-const Settings = () => {
+const Preferences = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>
-        This is the Settings Page
+        This is the Preferences Page
       </Text>
     </View>
   );
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Settings;
+export default Preferences;
