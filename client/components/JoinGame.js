@@ -6,11 +6,11 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-const Draw = () => {
+const JoinGame = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>
-        This is the Draw Page
+        This is the Join Game Page
       </Text>
     </View>
   );
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#00008B',
+    backgroundColor: '#5F9EA0',
   },
   welcome: {
     fontSize: 20,
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Draw;
+export default JoinGame;

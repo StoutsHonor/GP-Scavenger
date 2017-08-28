@@ -6,11 +6,11 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-const Nearby = () => {
+const CreateGame = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>
-        This is the Nearby Page
+        My Games Page
       </Text>
     </View>
   );
@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#5F9EA0',
+    backgroundColor: '#191970',
   },
   welcome: {
     fontSize: 20,
@@ -31,4 +31,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Nearby;
+export default CreateGame;

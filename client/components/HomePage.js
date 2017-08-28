@@ -12,12 +12,10 @@ const HomePage = () => {
       <Text style={styles.welcome}>
         Home Page
       </Text>
-      <Text onPress={() => Actions.settings()}>Settings</Text>
-      <Text onPress={() => Actions.viewfinder()}>View Finder</Text>
-      <Text onPress={() => Actions.photos()}>Photos</Text>
-      <Text onPress={() => Actions.profile()}>Profile</Text>
-      <Text onPress={() => Actions.draw()}>Draw</Text>
-      <Text onPress={() => Actions.notifications()}>Notifications</Text>
+      <Text onPress={() => Actions.startgame()}>Start Your Scavenger Adventure!</Text>
+      <Text onPress={() => Actions.leaderboard()}>Leaderboard</Text>
+      <Text onPress={() => Actions.profile()}>Profile and Stats</Text>
+      <Text onPress={() => Actions.preferences()}>Preferences</Text>
     </View>
   );
 }

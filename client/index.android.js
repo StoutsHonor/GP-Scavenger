@@ -16,17 +16,19 @@ import Card from './src/components/Card'
 import CardSection from './src/components/CardSection'
 import { Router, Scene } from 'react-native-router-flux';
 
-import Draw from './components/Draw';
+import CreateGame from './components/CreateGame';
 import Friends from './components/Friends';
 import HomePage from './components/HomePage';
+import JoinGame from './components/JoinGame';
+import Leaderboard from './components/Leaderboard';
 import Login from './components/Login';
-import Nearby from './components/Nearby';
+import MyGames from './components/MyGames';
 import Notifications from './components/Notifications';
 import OtherUsers from './components/OtherUsers';
-import Photos from './components/Photos';
+import Preferences from './components/Preferences';
 import Profile from './components/Profile';
-import Settings from './components/Settings';
-import ViewFinder from './components/ViewFinder';
+import StartGame from './components/StartGame';
+
 
 export default class client extends Component {
   constructor() {
@@ -89,33 +91,43 @@ export default class client extends Component {
             title="Login Page"
             initial
           />
+
           <Scene key="homepage"
             component={HomePage}
             title="Home Page"
           />
-          <Scene key="settings"
-            component={Settings}
-            title="Settings"
-          />
 
-          <Scene key="viewfindermain" tabs={true}>
-            <Scene
-              key="viewfinder"
-              component={ViewFinder}
-              title="View Finder"
+          <Scene key="games" tabs={true}>
+            <Scene key="startgame"
+              component={StartGame}
+              title="Start A Game"
             />
-            <Scene
-              key="nearby"
-              component={Nearby}
-              title="Nearby"
+            <Scene key="joingame"
+              component={JoinGame}
+              title="Join a Game"
+            />
+            <Scene key="leaderboard"
+              component={Leaderboard}
+              title="Leaderboard"
             />
           </Scene>
 
-          <Scene key="photos"
-            component={Photos}
-            title="Photos"
+          <Scene key="mygames"
+            component={MyGames}
+            title="My Games"
           />
-          <Scene key="profilemain" tabs={true}>
+
+          <Scene key="creategame"
+            component={CreateGame}
+            title="Create Game"
+          />
+
+          <Scene key="leaderboard"
+            component={Leaderboard}
+            title="Leaderboard"
+          />
+
+          <Scene key="profilestats" tabs={true}>
             <Scene
               key="profile"
               component={Profile}
@@ -127,22 +139,22 @@ export default class client extends Component {
               title="Friends"
             />
             <Scene
-              key="other users"
+              key="otherusers"
               component={OtherUsers}
               title="Other Users"
             />
           </Scene>
 
-          <Scene
-            key="draw"
-            component={Draw}
-            title="Draw"
+          <Scene key="preferences"
+            component={Preferences}
+            title="Home Page"
           />
-          <Scene
-            key="notifications"
+
+          <Scene key="notifications"
             component={Notifications}
             title="Notifications"
           />
+
         </Scene>
       </Router>
       // <Card>
