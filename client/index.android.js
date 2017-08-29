@@ -23,18 +23,18 @@ import CardSection from './src/components/CardSection'
 
 import { Router, Scene } from 'react-native-router-flux';
 
-import CreateGame from './components/CreateGame';
-import Friends from './components/Friends';
-import HomePage from './components/HomePage';
-import JoinGame from './components/JoinGame';
-import Leaderboard from './components/Leaderboard';
-import Login from './components/Login';
-import MyGames from './components/MyGames';
-import Notifications from './components/Notifications';
-import OtherUsers from './components/OtherUsers';
-import Preferences from './components/Preferences';
-import Profile from './components/Profile';
-import StartGame from './components/StartGame';
+import CreateGame from './src/components/CreateGame';
+import Friends from './src/components/Friends';
+import HomePage from './src/components/HomePage';
+import JoinGame from './src/components/JoinGame';
+import Leaderboard from './src/components/Leaderboard';
+import Login from './src/components/Login';
+import MyGames from './src/components/MyGames';
+import Notifications from './src/components/Notifications';
+import OtherUsers from './src/components/OtherUsers';
+import Preferences from './src/components/Preferences';
+import Profile from './src/components/Profile';
+import StartGame from './src/components/StartGame';
 
 
 export default class client extends Component {
