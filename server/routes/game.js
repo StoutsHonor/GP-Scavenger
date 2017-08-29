@@ -1,7 +1,7 @@
-// const router = require('express').Router();
-// const controller = require('../controllers/gameController');
+const router = require('express').Router();
+const controller = require('../controllers/gameController');
 
-// router.get('/getGame', controller.getGame)
-// router.post('/postGame', controller.postGame)
+router.get('/findGameByUserId', controller.findGameByUserId)
+router.post('/addGame', controller.addGame)
 
-// module.exports = router;
+module.exports = router;
