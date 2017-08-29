@@ -40,7 +40,8 @@ const Challenge = sequelize.define('challenge', {
 })
 
 const QuestionType = sequelize.define('questionType', {
-  description: { type: Sequelize.STRING, allowNull: false }
+  type: {type: Sequelize.STRING, allowNull: false},
+  description: { type: Sequelize.STRING}
 })
 
 const Riddle = sequelize.define('riddle', {
