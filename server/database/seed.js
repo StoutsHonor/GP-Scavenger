@@ -27,13 +27,3 @@ db.sequelize.sync({force: true}).then( () => {
     })
   })
 }).catch(err => console.log(`Error seeding database!, ${err}`))
-
-// db.sequelize.sync({force: true})
-// .then(() => {db.User.bulkCreate(userSeed)})
-// .then(() => {db.QuestionType.bulkCreate(questionTypeSeed)})
-// .then(() => {db.Riddle.bulkCreate(riddleSeed)})
-// .then(() => {db.Game.bulkCreate(gameSeed)})
-// .then(() => {db.Challenge.bulkCreate(challengeSeed)})
-// .then(() => {db.Rating.bulkCreate(ratingSeed)})
-// .then(() => {db.Review.bulkCreate(reviewSeed)})
-// .catch(err => console.log(`Error seeding database! ${err}`))

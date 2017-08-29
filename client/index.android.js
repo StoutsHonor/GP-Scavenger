@@ -14,8 +14,8 @@ import {
 
 import firebase from 'firebase'
 import firebaseconfig from './config/firebaseconfig.js'
-import LoginForm from './components/LoginForm'
-import TitledInput from './components/TitledInput'
+import LoginForm from './src/components/LoginForm'
+import TitledInput from './src/components/TitledInput'
 
 import Button from './src/components/Button'
 import Card from './src/components/Card'
