@@ -1,7 +1,7 @@
-// const router = require('express').Router();
-// const controller = require('../controllers/questionTypeController');
+const router = require('express').Router();
+const controller = require('../controllers/questionTypeController');
 
-// router.get('/getQuestionType', controller.getQuestionType)
-// router.post('/postQuestionType', controller.postQuestionType)
+router.get('/findQuestionType', controller.findQuestionType)
+router.post('/addQuestionType', controller.addQuestionType)
 
-// module.exports = router;
+module.exports = router;

@@ -1,7 +1,7 @@
-// const router = require('express').Router();
-// const controller = require('../controllers/riddleController');
+const router = require('express').Router();
+const controller = require('../controllers/riddleController');
 
-// router.get('/getRiddle', controller.getRiddle)
-// router.post('/postRiddle', controller.postRiddle)
+router.get('/findRiddle', controller.findRiddle)
+router.post('/addRiddle', controller.addRiddle)
 
-// module.exports = router;
+module.exports = router;
