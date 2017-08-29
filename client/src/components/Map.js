@@ -10,17 +10,24 @@ import MapView from 'react-native-maps';
 
 const {width, height} = Dimensions.get('window');
 
-class SomeMap extends Component {
+class Map extends Component {
   constructor(props){
     super(props)
     this.onRegionChange = this.onRegionChange.bind(this);
     this.state = {
       region: {
-        latitude: 33.9759479,
-        longitude: -118.3929176,
+        latitude: 37.78825,
+        longitude: -122.4324,
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
-      }
+      },
+      markers: [
+        {latitude: 37.78825, longitude: -122.4324},
+        {latitude: 38.78825, longitude: -122.4324},
+        {latitude: 39.78825, longitude: -122.4324},
+        {latitude: 40.78825, longitude: -122.4324},
+        {latitude: 41.78825, longitude: -122.4324}
+      ]
      }
   }
 
@@ -87,8 +94,8 @@ class SomeMap extends Component {
       <View style={styles.mapContainer}>
         <MapView style={styles.map}
             initialRegion={{
-              latitude: 33.9759479,
-              longitude: -118.3929176,
+              latitude: 37.78825,
+              longitude: -122.4324,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}
@@ -97,7 +104,14 @@ class SomeMap extends Component {
 
             region={this.state.region} 
             onRegionChange={this.onRegionChange}
-          />
+        >
+       {this.state.markers.map((loc, index) => {return(
+         <MapView.Marker
+         coordinate={loc}
+         key={index}
+         />
+       )})}
+        </MapView>
 
       </View>
         <View><Text>{JSON.stringify(this.state.region)}</Text></View>
@@ -106,4 +120,4 @@ class SomeMap extends Component {
   }
 }
 
-export default SomeMap
+export default Map
