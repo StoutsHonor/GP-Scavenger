@@ -10,75 +10,98 @@ sequelize
 
 
 const User = sequelize.define('user', {
-  first_name: { type: Sequelize.STRING },
-  last_name: { type: Sequelize.STRING },
+  firstName: { type: Sequelize.STRING },
+  lastName: { type: Sequelize.STRING },
   email: { type: Sequelize.STRING },
   username: { type: Sequelize.STRING },
-  profile_description: { type: Sequelize.STRING },
+  profileDescription: { type: Sequelize.STRING },
   DOB: { type: Sequelize.DATEONLY },
   friends: {type: Sequelize.ARRAY(Sequelize.INTEGER) }
 })
 
+const Game = sequelize.define('game', {
+  name: { type: Sequelize.STRING, allowNull: false },
+  duration: { type: Sequelize.INTEGER },
+  private: { type: Sequelize.BOOLEAN},
+  maxPlayers: { type: Sequelize.INTEGER, allowNull: false },
+  rewardPoints: { type: Sequelize.INTEGER, allowNull: false}
+})
 
-const Image = sequelize.define('image', {
-  image_url: { type: Sequelize.STRING },
-  image_description: { type: Sequelize.STRING },
-  total_downloads: { type: Sequelize.INTEGER }
+const Challenge = sequelize.define('challenge', {
+  name: { type: Sequelize.STRING, allowNull: false },
+  description: { type: Sequelize.STRING, allowNull: false },
+  sequence: { type: Sequelize.INTEGER, allowNull: false },
+  location: { type: Sequelize.STRING, allowNull: false },
+  timeLimit: { type: Sequelize.INTEGER },
+  questionId: { type: Sequelize.INTEGER, allowNull: false }
+})
+
+const QuestionType = sequelize.define('questionType', {
+  description: { type: Sequelize.STRING, allowNull: false }
+})
+
+const Riddle = sequelize.define('riddle', {
+  question: { type: Sequelize.STRING, allowNull: false },
+  answer: { type: Sequelize.STRING, allowNull: false },
+  difficulty: { type: Sequelize.STRING },
+  image_URL: { type: Sequelize.STRING }
+})
+
+const Camera = sequelize.define('camera', {
+  prompt: { type: Sequelize.STRING, allowNull: false }
+})
+
+const Compass = sequelize.define('compass', {
+  prompt: { type: Sequelize.STRING, allowNull: false }
+})
+
+const Rating = sequelize.define('rating', {
+  stars: { type: Sequelize.INTEGER, allowNull: false },
+})
+
+const Review = sequelize.define('review', {
+  comment: { type: Sequelize.STRING, allowNull: false },
 })
 
 
-const Album = sequelize.define('album', {
-  album_name: { type: Sequelize.STRING }
-})
+// const FriendConnection = sequelize.define('friend_connection', {
+// })
 
+User.hasMany(Game);
+Game.belongsTo(User);
 
-const Marker = sequelize.define('marker', {
-  longitude: { type: Sequelize.FLOAT },
-  latitude: { type: Sequelize.FLOAT }
-  
-})
+User.hasMany(Rating);
+Rating.belongsTo(User);
 
+User.hasMany(Review);
+Review.belongsTo(User);
 
-const Like = sequelize.define('like', {
-})
+Game.hasMany(Challenge);
+Challenge.belongsTo(Game);
 
+Game.hasMany(Rating);
+Rating.belongsTo(Game);
 
-const Tag = sequelize.define('tag', {
-  tag_name: { type: Sequelize.STRING }
-})
+Game.hasMany(Review);
+Review.belongsTo(Game);
 
+QuestionType.hasOne(Challenge);
 
-const Comment = sequelize.define('comment', {
-  comment: { type: Sequelize.STRING }
-})
-
-
-const FriendConnection = sequelize.define('friend_connection', {
-})
-
-Comment.belongsTo(User) 
-Image.hasMany(Comment) 
-Like.belongsTo(User) 
-Marker.belongsTo(Image)
-Image.hasOne(Marker)
-Image.hasMany(Like)
-Image.belongsTo(User)
-Image.hasMany(Tag)
-Image.hasMany(Album)
-
-User.belongsToMany(User, { as: 'user', through: 'friend_connection', foreignKey: 'userId' })
-User.belongsToMany(User, { as: 'my_friends', through: 'friend_connection', foreignKey: 'friends' })
+// User.belongsToMany(User, { as: 'user', through: 'friend_connection', foreignKey: 'userId' })
+// User.belongsToMany(User, { as: 'my_friends', through: 'friend_connection', foreignKey: 'friends' })
 
 sequelize.sync( { force: false} )
 
 module.exports = {
   User,
-  Image,
-  Album,
-  Marker,
-  Like,
-  Tag,
-  Comment,
-  FriendConnection,
+  Game,
+  Challenge,
+  QuestionType,
+  Riddle,
+  Camera,
+  Compass,
+  Rating,
+  Review,
+  //FriendConnection,
   sequelize
 }

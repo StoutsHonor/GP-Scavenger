@@ -1,0 +1,22 @@
+[
+  {
+    "comment": "this game is not that good, only one question.",
+    "gameId": 1,
+    "userId": 1
+  },
+  {
+    "comment": "loving this game, just the right amount of difficulty!",
+    "gameId": 2,
+    "userId": 2
+  },
+  {
+    "comment": "The riddles were challenging, but the locations are the same.",
+    "gameId": 2,
+    "userId": 3
+  },
+  {
+    "comment": "I gave it 5 stars, because this game doesn't require me to walk much.",
+    "gameId": 2,
+    "userId": 4
+  }
+]
