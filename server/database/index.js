@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize')
 const db_url = require('./config')
 
-const sequelize = new Sequelize(db_url)
+const sequelize = new Sequelize(db_url, {
+  dialect: 'postgres'
+});
 
 sequelize
   .authenticate()
@@ -14,6 +16,7 @@ const User = sequelize.define('user', {
   lastName: { type: Sequelize.STRING },
   email: { type: Sequelize.STRING },
   username: { type: Sequelize.STRING },
+  profilePicture: { type: Sequelize.STRING },
   profileDescription: { type: Sequelize.STRING },
   DOB: { type: Sequelize.DATEONLY },
   friends: {type: Sequelize.ARRAY(Sequelize.INTEGER) }
@@ -44,15 +47,19 @@ const Riddle = sequelize.define('riddle', {
   question: { type: Sequelize.STRING, allowNull: false },
   answer: { type: Sequelize.STRING, allowNull: false },
   difficulty: { type: Sequelize.STRING },
-  image_URL: { type: Sequelize.STRING }
+  default: { type: Sequelize.BOOLEAN },
+  imageURL: { type: Sequelize.STRING }
 })
 
 const Camera = sequelize.define('camera', {
-  prompt: { type: Sequelize.STRING, allowNull: false }
+  prompt: { type: Sequelize.STRING, allowNull: false },
+  default: {type: Sequelize.BOOLEAN },
+  image_URL: { type: Sequelize.STRING }
 })
 
 const Compass = sequelize.define('compass', {
-  prompt: { type: Sequelize.STRING, allowNull: false }
+  prompt: { type: Sequelize.STRING, allowNull: false },
+  default: { type: Sequelize.BOOLEAN }
 })
 
 const Rating = sequelize.define('rating', {
@@ -64,8 +71,8 @@ const Review = sequelize.define('review', {
 })
 
 
-// const FriendConnection = sequelize.define('friend_connection', {
-// })
+const FriendConnection = sequelize.define('friend_connection', {
+})
 
 User.hasMany(Game);
 Game.belongsTo(User);
@@ -90,7 +97,15 @@ QuestionType.hasOne(Challenge);
 // User.belongsToMany(User, { as: 'user', through: 'friend_connection', foreignKey: 'userId' })
 // User.belongsToMany(User, { as: 'my_friends', through: 'friend_connection', foreignKey: 'friends' })
 
-sequelize.sync( { force: false} )
+User.sync( { force: false} )
+Game.sync( { force: false} )
+Challenge.sync( { force: false} )
+QuestionType.sync( { force: false} )
+Riddle.sync( { force: false} )
+Rating.sync( { force: false} )
+Review.sync( { force: false} )
+Camera.sync( {force: false} )
+Compass.sync( { force: false} )
 
 module.exports = {
   User,

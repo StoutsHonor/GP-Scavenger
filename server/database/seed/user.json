@@ -4,6 +4,7 @@
     "lastName": "Tran",
     "email": "jentran39@gmail.com",
     "username": "bloopusername",
+    "profilePicture": "https://avatars0.githubusercontent.com/u/21377540?v=4&s=460",
     "profileDescription": "i want ice cream with mah art",
     "DOB": "1988-12-24",
     "friends": [2,4]
@@ -13,6 +14,7 @@
     "lastName": "Lee",
     "email": "jeffrey.lee.0116@gmail.com",
     "username": "brickbite",
+    "profilePicture": "https://avatars0.githubusercontent.com/u/21148168?v=4&s=460",
     "profileDescription": "i draw people at hack reactor",
     "DOB": "1988-11-21",
     "friends": [1,3,4]
@@ -22,6 +24,7 @@
     "lastName": "Tamarus",
     "email": "kevintamarus@gmail.com",
     "username": "runforestrun",
+    "profilePicture": "https://avatars0.githubusercontent.com/u/22313410?v=4&s=460",
     "profileDescription": "i like apple cider",
     "DOB": "1976-01-08",
     "friends": [1]
@@ -31,6 +34,7 @@
     "lastName": "Nguyen",
     "email": "miken619@gmail.com",
     "username": "miken",
+    "profilePicture": "https://avatars0.githubusercontent.com/u/11468790?v=4&s=460",
     "profileDescription": "flowers and seeds dawg",
     "DOB": "1986-02-03",
     "friends": [2,3]
