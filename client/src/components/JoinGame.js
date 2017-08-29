@@ -5,12 +5,12 @@ import {
   View
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import SomeMap from './SomeMap'
+import Map from './Map'
 
 const JoinGame = () => {
   return (
     <View>
-      <SomeMap/>
+      <Map/>
     <View style={styles.container}>
       <Text style={styles.welcome}>
         This is the Join Game Page
