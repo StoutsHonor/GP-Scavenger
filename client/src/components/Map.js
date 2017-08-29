@@ -3,10 +3,12 @@ import {
   StyleSheet,
   Text,
   View,
-  Dimensions
+  Dimensions,
+  Image
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import MapView from 'react-native-maps';
+import MapCenterMarker from './MapCenterMarker';
 
 const {width, height} = Dimensions.get('window');
 
@@ -91,7 +93,8 @@ class Map extends Component {
 
     return(
       <View>
-      <View style={styles.mapContainer}>
+        <View style={styles.mapContainer}>
+        <MapCenterMarker/>
         <MapView style={styles.map}
             initialRegion={{
               latitude: 37.78825,
@@ -105,15 +108,16 @@ class Map extends Component {
             region={this.state.region} 
             onRegionChange={this.onRegionChange}
         >
-       {this.state.markers.map((loc, index) => {return(
+
+         {this.state.markers.map((loc, index) => {return(
          <MapView.Marker
          coordinate={loc}
          key={index}
          />
        )})}
         </MapView>
+        </View>
 
-      </View>
         <View><Text>{JSON.stringify(this.state.region)}</Text></View>
       </View>
     )
@@ -121,3 +125,4 @@ class Map extends Component {
 }
 
 export default Map
+

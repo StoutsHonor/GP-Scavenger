@@ -109,7 +109,7 @@ export default class client extends Component {
 
   render() {
 
-    if (!this.state.user === '09999999999999') {
+    if (this.state.user === '09999999999999') {
       return (
         <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
       )
