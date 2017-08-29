@@ -1,7 +1,7 @@
-// const router = require('express').Router();
-// const controller = require('../controllers/challengeController');
+const router = require('express').Router();
+const controller = require('../controllers/challengeController');
 
-// router.get('/getChallenge', controller.getChallenge)
-// router.post('/postChallenge', controller.postChallenge)
+router.get('/findChallengeByGameId', controller.findChallengeByGameId)
+router.post('/addChallenge', controller.addChallenge)
 
-// module.exports = router;
+module.exports = router;

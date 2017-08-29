@@ -2,7 +2,7 @@ const db = require('../database/index');
 
 module.exports = {
   getUser: (req, res) => {
-    db.User.find( {
+    db.User.find({
       where: {
         username: req.query.username
       }
@@ -14,11 +14,15 @@ module.exports = {
   addUser: (req, res) => {
     db.User.findOrCreate({
       where: {
-        username: req.body.username,
+        email: req.query.email,
       },
       defaults: {
-        username: req.body.username,
-        email: req.body.email
+        firstName: req.query.firstName,
+        lastName: req.query.lastName,
+        username: req.query.username,
+        email: req.query.email,
+        profileDescription: req.query.profileDescription,
+        DOB: req.query.DOB
       }
     })
     .then( user => {

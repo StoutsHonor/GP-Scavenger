@@ -11,9 +11,6 @@ const app = express()
   .use('/api', routes)
   .post('/*', function(req, res) {
     console.log('Server: received POST to /*');
-    console.log('Server: req.body:', req.body);
-    // console.log('Server: req.params:', req.params);
-    // console.log('Server: req.query:', req.query);
     res.status(201).send('server response to POST to /*');
   });
 
