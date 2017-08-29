@@ -12,8 +12,8 @@ import {
   View
 } from 'react-native';
 
-// import firebase from 'firebase'
-// import firebaseconfig from './config/firebaseconfig.js'
+import firebase from 'firebase'
+import firebaseconfig from './config/firebaseconfig.js'
 import LoginForm from './src/components/LoginForm'
 import TitledInput from './src/components/TitledInput'
 
@@ -54,14 +54,14 @@ export default class client extends Component {
   componentWillMount() {
     console.log('index.android.js has loaded')
 
-    // firebase.initializeApp({
-    //   apiKey: firebaseconfig.apiKey,
-    //   authDomain: firebaseconfig.authDomain,
-    //   databaseURL: firebaseconfig.databaseURL,
-    //   projectId: firebaseconfig.projectId,
-    //   storageBucket: firebaseconfig.storageBucket,
-    //   messagingSenderId: firebaseconfig.messagingSenderId
-    // })
+    firebase.initializeApp({
+      apiKey: firebaseconfig.apiKey,
+      authDomain: firebaseconfig.authDomain,
+      databaseURL: firebaseconfig.databaseURL,
+      projectId: firebaseconfig.projectId,
+      storageBucket: firebaseconfig.storageBucket,
+      messagingSenderId: firebaseconfig.messagingSenderId
+    })
   }
 
   dummyGet() {
@@ -109,7 +109,7 @@ export default class client extends Component {
 
   render() {
 
-    if (this.state.user === '09999999999999') {
+    if (!this.state.user) {
       return (
         <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
       )
