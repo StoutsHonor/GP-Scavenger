@@ -3,17 +3,28 @@
 
 const db = require('./index')
 const userSeed = require('./seed/user')
-const imageSeed = require('./seed/image')
-// const albumSeed = require('./seed/album')
-// const markerSeed = require('./seed/marker')
-// const likeSeed = require('./seed/tag')
-// const tagSeed = require('./seed/tag')
-// const commentSeed = require('./seed/comment')
-// const friendConnectionSeed = require('./seed/friendConnection')
+const gameSeed = require('./seed/game')
+const challengeSeed = require('./seed/challenge')
+const questionTypeSeed = require('./seed/questionType')
+const riddleSeed = require('./seed/riddle')
+const ratingSeed = require('./seed/rating')
+const reviewSeed = require('./seed/review')
+//const friendConnectionSeed = require('./seed/friendConnection')
 
 
-db.sequelize.sync({force: false}).then( () => {
+db.sequelize.sync({force: true}).then( () => {
   db.User.bulkCreate(userSeed).then( () => {
-    db.Image.bulkCreate(imageSeed)
+    db.QuestionType.bulkCreate(questionTypeSeed).then(() => {
+      db.Riddle.bulkCreate(riddleSeed).then(() => {
+        db.Game.bulkCreate(gameSeed).then(() => {
+          db.Challenge.bulkCreate(challengeSeed).then(() => {
+            db.Rating.bulkCreate(ratingSeed).then(() => {
+              db.Review.bulkCreate(reviewSeed)
+            }) 
+          }) 
+        })    
+      })
+    })
   })
-})
+}).catch(err => console.log(`Error seeding database!, ${err}`))
+

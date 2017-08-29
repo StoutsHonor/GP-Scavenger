@@ -1,46 +1,46 @@
 [
   {
-    "first_name": "Jen",
-    "last_name": "Tran",
+    "firstName": "Jen",
+    "lastName": "Tran",
     "email": "jentran39@gmail.com",
     "username": "bloopusername",
-    "profile_description": "i want ice cream with mah art",
+    "profileDescription": "i want ice cream with mah art",
     "DOB": "1988-12-24",
     "friends": [2,4]
   },
   {
-    "first_name": "Jeffrey",
-    "last_name": "Lee",
+    "firstName": "Jeffrey",
+    "lastName": "Lee",
     "email": "jeffrey.lee.0116@gmail.com",
     "username": "brickbite",
-    "profile_description": "i draw people at hack reactor",
+    "profileDescription": "i draw people at hack reactor",
     "DOB": "1988-11-21",
     "friends": [1,3,4]
   },
   {
-    "first_name": "Kevin",
-    "last_name": "Tamarus",
+    "firstName": "Kevin",
+    "lastName": "Tamarus",
     "email": "kevintamarus@gmail.com",
     "username": "runforestrun",
-    "profile_description": "i like apple cider",
+    "profileDescription": "i like apple cider",
     "DOB": "1976-01-08",
     "friends": [1]
   },
   {
-    "first_name": "Michael",
-    "last_name": "Nguyen",
+    "firstName": "Michael",
+    "lastName": "Nguyen",
     "email": "miken619@gmail.com",
     "username": "miken",
-    "profile_description": "flowers and seeds dawg",
+    "profileDescription": "flowers and seeds dawg",
     "DOB": "1986-02-03",
     "friends": [2,3]
   },
   {
-    "first_name": "Test",
-    "last_name": "Dummy",
+    "firstName": "Test",
+    "lastName": "Dummy",
     "email": "test@gmail.com",
     "username": "dummytestusername",
-    "profile_description": "oooo-raaaah!!!!",
+    "profileDescription": "oooo-raaaah!!!!",
     "DOB": "2010-08-12",
     "friends": []
   }
