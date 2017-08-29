@@ -97,15 +97,15 @@ QuestionType.hasOne(Challenge);
 // User.belongsToMany(User, { as: 'user', through: 'friend_connection', foreignKey: 'userId' })
 // User.belongsToMany(User, { as: 'my_friends', through: 'friend_connection', foreignKey: 'friends' })
 
-User.sync( { force: false} )
-Game.sync( { force: false} )
-Challenge.sync( { force: false} )
-QuestionType.sync( { force: false} )
-Riddle.sync( { force: false} )
-Rating.sync( { force: false} )
-Review.sync( { force: false} )
-Camera.sync( {force: false} )
-Compass.sync( { force: false} )
+// User.sync( { force: false} )
+// Game.sync( { force: false} )
+// Challenge.sync( { force: false} )
+// QuestionType.sync( { force: false} )
+// Riddle.sync( { force: false} )
+// Rating.sync( { force: false} )
+// Review.sync( { force: false} )
+// Camera.sync( {force: false} )
+// Compass.sync( { force: false} )
 
 module.exports = {
   User,
