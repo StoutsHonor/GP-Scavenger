@@ -2,9 +2,12 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  Button
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import CreateList from './CreateList';
+import FloatingButton from './FloatingButton';
 
 const CreateGame = () => {
   return (
@@ -12,6 +15,12 @@ const CreateGame = () => {
       <Text style={styles.welcome}>
         This is the Create Game Page
       </Text>
+      <FloatingButton style={{}}/>
+      <CreateList style={{}}/>
+      <Button onPress={() => {console.log('button pressed!')}}
+        title="Submit"
+        color="#841584"/>
+
     </View>
   );
 }
