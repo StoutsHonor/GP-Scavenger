@@ -27,3 +27,4 @@ db.sequelize.sync({force: true}).then( () => {
     })
   })
 }).catch(err => console.log(`Error seeding database!, ${err}`))
+
