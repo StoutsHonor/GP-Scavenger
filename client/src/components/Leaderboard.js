@@ -4,31 +4,40 @@ import {
   Text,
   View
 } from 'react-native';
+import LeaderboardEntry from './LeaderboardEntry';
 import { Actions } from 'react-native-router-flux';
+import { List, ListItem } from 'react-native-elements';
 
-const Leaderboard = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>
-        This is the Leaderboard Page
-      </Text>
-    </View>
-  );
+class Leaderboard extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      data: []
+    }
+  }
+
+  componentDidMount() {
+    return fetch(`http://192.168.56.1:3000/api/user/findAllUserPoints/`)
+    .then((response) => response.json())
+    .then((data) => {
+      this.setState({data: data});
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  }
+
+  render() {
+    return (
+      <View>
+        {this.state.data.map( (player, key) => {
+          return (
+            <LeaderboardEntry player={player} key={key}/>
+          )
+        })}
+      </View>
+    );
+  }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#FFD700',
-  },
-  welcome: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color: '#DA70D6',
-  },
-});
 
 export default Leaderboard;

@@ -7,7 +7,8 @@
     "profilePicture": "https://avatars0.githubusercontent.com/u/21377540?v=4&s=460",
     "profileDescription": "i want ice cream with mah art",
     "DOB": "1988-12-24",
-    "friends": [2,4]
+    "friends": [2,4],
+    "rewardPoints": 5000
   },
   {
     "firstName": "Jeffrey",
@@ -17,7 +18,7 @@
     "profilePicture": "https://avatars0.githubusercontent.com/u/21148168?v=4&s=460",
     "profileDescription": "i draw people at hack reactor",
     "DOB": "1988-11-21",
-    "friends": [1,3,4]
+    "rewardPoints": 3000
   },
   {
     "firstName": "Kevin",
@@ -27,7 +28,7 @@
     "profilePicture": "https://avatars0.githubusercontent.com/u/22313410?v=4&s=460",
     "profileDescription": "i like apple cider",
     "DOB": "1976-01-08",
-    "friends": [1]
+    "rewardPoints": 2000
   },
   {
     "firstName": "Michael",
@@ -37,7 +38,7 @@
     "profilePicture": "https://avatars0.githubusercontent.com/u/11468790?v=4&s=460",
     "profileDescription": "flowers and seeds dawg",
     "DOB": "1986-02-03",
-    "friends": [2,3]
+    "rewardPoints": 1000
   },
   {
     "firstName": "Test",
@@ -46,6 +47,6 @@
     "username": "dummytestusername",
     "profileDescription": "oooo-raaaah!!!!",
     "DOB": "2010-08-12",
-    "friends": []
+    "rewardPoints": 100
   }
 ]

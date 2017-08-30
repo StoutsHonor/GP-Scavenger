@@ -13,12 +13,12 @@ module.exports = {
 
   addGame: (req, res) => {
     db.Game.create({
-      name: req.query.name,
-      userId: req.query.userId,
-      duration: req.query.duration,
-      maxPlayers: req.query.duration,
-      private: req.query.private,
-      rewardPoints: req.query.rewardPoints
+      name: req.body.name,
+      userId: req.body.userId,
+      duration: req.body.duration,
+      maxPlayers: req.body.duration,
+      private: req.body.private,
+      rewardPoints: req.body.rewardPoints
     })
     .then( game => {
       res.status(201).send(game)

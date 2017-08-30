@@ -13,14 +13,14 @@ module.exports = {
 
   addChallenge: (req, res) => {
     db.Challenge.create({
-      name: req.query.name,
-      description: req.query.description,
-      sequence: req.query.sequence,
-      location: req.query.location,
-      timeLimit: req.query.timeLimit,
-      questionId: req.query.questionId,
-      gameId: req.query.gameId,
-      questionTypeId: req.query.questionTypeId
+      name: req.body.name,
+      description: req.body.description,
+      sequence: req.body.sequence,
+      location: req.body.location,
+      timeLimit: req.body.timeLimit,
+      questionId: req.body.questionId,
+      gameId: req.body.gameId,
+      questionTypeId: req.body.questionTypeId
     })
     .then( challenge => {
       res.status(201).send(challenge)
