@@ -11,7 +11,11 @@
 		"react": "16.0.0-alpha.12",
 		"react-native": "^0.47.2",
 		"react-native-action-button": "^2.7.2",
+<<<<<<< HEAD
 		"react-native-elements": "^0.16.0",
+=======
+		"react-native-android-permissions": "^1.0.0",
+>>>>>>> 0f8bbb0d8978eb4c43c1ff4f0b1792e66b9d2cbd
 		"react-native-maps": "^0.16.2",
 		"react-native-router-flux": "^4.0.0-beta.19",
 		"react-native-sortable-list": "0.0.16",

@@ -10,19 +10,21 @@ import { Actions } from 'react-native-router-flux';
 import MapView from 'react-native-maps';
 
 class MapCenterMarker extends Component {
-
+  constructor(props) {
+    super(props)
+  }
+  
   render() {
     const styles = StyleSheet.create({
       markerStyle: {
         flex: 1,
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center'
+        flexDirection: 'row'
       },
       marker: {
         width: 20,
         height: 34,
-        zIndex: 999999999999999999
+        zIndex: 999999999999999999,
+        top: 175
       }
     })
 
