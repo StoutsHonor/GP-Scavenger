@@ -13,10 +13,10 @@ module.exports = {
 
   addRiddle: (req, res) => {
     db.Riddle.create({
-      question: req.query.question,
-      answer: req.query.answer,
-      difficulty: req.query.difficulty,
-      default: req.query.default
+      question: req.body.question,
+      answer: req.body.answer,
+      difficulty: req.body.difficulty,
+      default: req.body.default
     })
     .then( riddle => {
       res.status(201).send(riddle)

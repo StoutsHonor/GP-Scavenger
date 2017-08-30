@@ -12,8 +12,8 @@ import {
   View
 } from 'react-native';
 
-// import firebase from 'firebase'
-// import firebaseconfig from './config/firebaseconfig.js'
+import firebase from 'firebase'
+import firebaseconfig from './config/firebaseconfig.js'
 import LoginForm from './src/components/LoginForm'
 import TitledInput from './src/components/TitledInput'
 
@@ -26,6 +26,7 @@ import { Router, Scene } from 'react-native-router-flux';
 import CreateGame from './src/components/CreateGame';
 import Friends from './src/components/Friends';
 import HomePage from './src/components/HomePage';
+import InitGame from './src/components/InitGame';
 import JoinGame from './src/components/JoinGame';
 import Leaderboard from './src/components/Leaderboard';
 import Login from './src/components/Login';
@@ -56,14 +57,14 @@ export default class client extends Component {
   componentWillMount() {
     console.log('index.android.js has loaded')
 
-    // firebase.initializeApp({
-    //   apiKey: firebaseconfig.apiKey,
-    //   authDomain: firebaseconfig.authDomain,
-    //   databaseURL: firebaseconfig.databaseURL,
-    //   projectId: firebaseconfig.projectId,
-    //   storageBucket: firebaseconfig.storageBucket,
-    //   messagingSenderId: firebaseconfig.messagingSenderId
-    // })
+    firebase.initializeApp({
+      apiKey: firebaseconfig.apiKey,
+      authDomain: firebaseconfig.authDomain,
+      databaseURL: firebaseconfig.databaseURL,
+      projectId: firebaseconfig.projectId,
+      storageBucket: firebaseconfig.storageBucket,
+      messagingSenderId: firebaseconfig.messagingSenderId
+    })
   }
 
   dummyGet() {
@@ -188,6 +189,11 @@ export default class client extends Component {
               title="Other Users"
             />
             </Scene>
+
+            <Scene key="initgame"
+              component={InitGame}
+              title="Initialize Game"
+            />
 
             <Scene key="preferences"
               component={Preferences}
