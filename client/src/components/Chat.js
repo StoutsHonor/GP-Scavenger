@@ -23,7 +23,7 @@ export default class Chat extends Component {
     }
 
     componentDidMount() {
-      this.socket = io('http://192.168.56.1:3002');
+      this.socket = io('http://192.168.56.1:3000');
       this.socket.on('message', this.onReceivedMessage);
       console.log('Component did mount entered');
     }

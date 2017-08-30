@@ -27,7 +27,7 @@ app.use(parser.urlencoded({extended: true}))
 //   rejectUnauthorized: false
 // };
 
-let port = false || 3002;
+let port = false || 3000;
 
 const server = http.Server(app);
 const websocket = socketio(server);
