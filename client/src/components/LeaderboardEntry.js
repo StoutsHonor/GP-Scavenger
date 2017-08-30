@@ -3,7 +3,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  Image
 } from 'react-native';
 
 class LeaderboardEntry extends Component {
@@ -14,13 +15,16 @@ class LeaderboardEntry extends Component {
   }
 
   render() {
-    console.log(this.props.key, 'key in entry')
     return (
       <View>
-        <Text>{this.props.key}</Text>
+        <Text>{this.props.index + 1}</Text>
+        <Image
+          style={{width: 50, height: 50}}
+          source={{uri: this.props.player.profilePicture}}
+        />
         <Text>{this.props.player.username}</Text>
-        <Text>{this.props.player.firstName + ' ' + this.props.player.lastName}</Text>
-        <Text>{this.props.player.rewardPoints}</Text>
+        <Text>{this.props.player.firstName + " " + this.props.player.lastName}</Text>
+        <Text>{this.props.player.rewardPoints + " points"}</Text>
       </View>
     );
   }

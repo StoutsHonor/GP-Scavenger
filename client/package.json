@@ -21,7 +21,9 @@
     "socket.io": "^2.0.3",
 		"react-redux": "^5.0.6",
 		"redux": "^3.7.2",
-		"redux-promise": "^0.5.3"
+		"redux-promise": "^0.5.3",
+		"class-autobind": "^0.1.4",
+		"react-native-stars-rating": "^0.1.6"
 	},
 	"devDependencies": {
 		"babel-jest": "20.0.3",

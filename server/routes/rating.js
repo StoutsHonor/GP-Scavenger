@@ -1,7 +1,7 @@
-// const router = require('express').Router();
-// const controller = require('../controllers/ratingController');
+const router = require('express').Router();
+const controller = require('../controllers/ratingController');
 
-// router.get('/getRating', controller.getRating)
-// router.post('/postRating', controller.postRating)
+router.get('/findRating', controller.findRating)
+router.post('/addRating', controller.addRating)
 
-// module.exports = router;
+module.exports = router;
