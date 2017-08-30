@@ -9,7 +9,6 @@
 	"dependencies": {
 		"firebase": "^4.3.0",
 		"react": "16.0.0-alpha.12",
-		"react-bootstrap": "^0.31.2",
 		"react-native": "0.47.2",
 		"react-native-action-button": "^2.7.2",
 		"react-native-android-permissions": "^1.0.0",
