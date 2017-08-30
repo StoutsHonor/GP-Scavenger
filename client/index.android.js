@@ -36,6 +36,8 @@ import OtherUsers from './src/components/OtherUsers';
 import Preferences from './src/components/Preferences';
 import Profile from './src/components/Profile';
 import StartGame from './src/components/StartGame';
+import Chat from './src/components/Chat';
+import Camera from './src/components/Camera';
 
 
 export default class client extends Component {
@@ -148,6 +150,16 @@ export default class client extends Component {
           <Scene key="mygames"
             component={MyGames}
             title="My Games"
+          />
+
+          <Scene key="chat"
+            component={Chat}
+            title="Chat"
+          />
+
+          <Scene key="camera"
+            component={Chat}
+            title="Camera"
           />
 
           <Scene key="creategame"

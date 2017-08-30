@@ -15,8 +15,11 @@
   "dependencies": {
     "body-parser": "^1.17.2",
     "express": "^4.15.4",
+    "http": "0.0.0",
+    "nodemon": "^1.11.0",
     "pg": "^7.2.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.7.5"
+    "sequelize": "^4.7.5",
+    "socket.io": "^2.0.3"
   }
 }
