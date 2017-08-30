@@ -109,11 +109,7 @@ export default class client extends Component {
 
   render() {
 
-<<<<<<< 72e1a0bdc0167a520e65bdb9b61d194a1912e432
-    if (!this.state.user) {
-=======
     if (!this.state.user === '09999999999999') {
->>>>>>> Confirmed getCurrentLocation button works and submit
       return (
         <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
       )
