@@ -13,7 +13,10 @@
 		"react-native-action-button": "^2.7.2",
 		"react-native-maps": "^0.16.2",
 		"react-native-router-flux": "^4.0.0-beta.19",
-		"react-native-sortable-list": "0.0.16"
+		"react-native-sortable-list": "0.0.16",
+		"react-redux": "^5.0.6",
+		"redux": "^3.7.2",
+		"redux-promise": "^0.5.3"
 	},
 	"devDependencies": {
 		"babel-jest": "20.0.3",
