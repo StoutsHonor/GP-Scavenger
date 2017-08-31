@@ -175,10 +175,10 @@ export default class client extends Component {
             title="Chat"
           />
 
-          {/* <Scene key="camera"
-            component={Chat}
+          <Scene key="camera"
+            component={Camera}
             title="Camera"
-          /> */}
+          />
 
           <Scene key="profilestats" tabs={true}>
             <Scene
