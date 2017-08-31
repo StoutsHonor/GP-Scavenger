@@ -4,7 +4,7 @@ import io from 'socket.io-client';
 import { GiftedChat } from 'react-native-gifted-chat';
 
 //const USER_ID = '@userId';
-
+const user = { _id: Math.round(Math.random() * 1000000) || -1 };
 
 export default class Chat extends Component {
     constructor(props) {
@@ -18,14 +18,36 @@ export default class Chat extends Component {
       this.onReceivedMessage = this.onReceivedMessage.bind(this);
       this.onSend = this.onSend.bind(this);
       this._storeMessages = this._storeMessages.bind(this);
+      this.roomName = 'room1';
       
       //this.determineUser();
     }
 
     componentDidMount() {
       this.socket = io('http://192.168.56.1:3000');
+      this.socket.emit('createRoom', 'room1');
       this.socket.on('message', this.onReceivedMessage);
       console.log('Component did mount entered');
+
+    
+      fetch(`http://192.168.56.1:3000/api/chat/findChat/?roomName=${this.roomName}`)
+      .then((response) => {
+        return response.json();
+       
+      }).
+      then((messages) => {
+        this.parseJSONData(messages);
+        this._storeMessages(messages.reverse());
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+    }
+
+    parseJSONData(array){
+      for(let val of array) {
+        val.user = {_id: val.user_id};
+      }
     }
 
 
@@ -54,13 +76,33 @@ export default class Chat extends Component {
     }
 
     onSend(messages=[]) {
-      console.log('Onsend messages ', messages);
-      this.socket.emit('message', messages[0]);
-      this._storeMessages(messages);
+      messages[0].roomName = this.roomName;
+      let obj = {};
+      obj.method = 'post';
+      obj.headers = {"Content-type": "application/json"};
+      obj.body = JSON.stringify(messages[0]);
+      console.log('In On send posting');
+      fetch(`http://192.168.56.1:3000/api/chat/addChat`, obj)
+      .then((response) => {
+        return response.json();
+       
+      })
+      .then((data) => {
+        console.log('Data is ' ,  messages[0]);
+        this.socket.emit('message', messages[0]);
+        this._storeMessages(messages);
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+
+     
+     
     }
 
     render() {
-      var user = { _id: 1 || -1 };
+      
       return (
           <GiftedChat
               messages={this.state.messages}

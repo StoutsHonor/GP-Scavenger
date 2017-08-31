@@ -7,5 +7,6 @@ router.use('/questionType', require('./questionType'))
 router.use('/riddle', require('./riddle'))
 router.use('/rating', require('./rating'))
 router.use('/review', require('./review'))
+router.use('/chat', require('./chat'));
 
 module.exports = router;
