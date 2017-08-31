@@ -51,7 +51,10 @@ import Preferences from './src/components/Preferences';
 import Profile from './src/components/Profile';
 import StartGame from './src/components/StartGame';
 import Task from './src/components/Task';
-
+import Chat from './src/components/Chat';
+import GPSChallenge from './src/components/GPSChallenge';
+import CreateChallenge from './src/components/CreateChallenge';
+import CreateGPSChallenge from './src/components/CreateGPSChallenge';
 
 export default class client extends Component {
   constructor() {
@@ -172,10 +175,10 @@ export default class client extends Component {
               title="Leaderboard"
             />
 
-          <Scene key="camera"
+          {/* <Scene key="camera"
             component={Camera}
             title="Camera"
-          />
+          /> */}
 
           <Scene key="profilestats" tabs={true}>
             <Scene
@@ -224,10 +227,20 @@ export default class client extends Component {
                 title="Notifications"
               />
 
+              <Scene key="GPSchallenge"
+                component={GPSChallenge}
+                title="GPS Challenge"
+              />
+
+              <Scene key="createChallenge"
+                component={CreateChallenge}
+                title="Create a Challenge"
+              />
+
               <Scene key="createGPSchallenge"
-              component={GPSChallenge}
-              title="GPS challenge"
-            />
+                component={CreateGPSChallenge}
+                title="Create GPS Challenge"
+              />
 
             </Scene>
           </Router>

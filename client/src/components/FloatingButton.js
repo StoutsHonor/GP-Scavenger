@@ -4,23 +4,13 @@ import ActionButton from 'react-native-action-button';
 import Icon from 'react-native-vector-icons/Ionicons'
 
 export default class FloatingButton extends Component {
+  constructor(props) {
+    super(props)
+
+    
+  }
 
   render() {
-    const styles = StyleSheet.create({
-      actionButtonIcon: {
-        zIndex: 999999999,
-        fontSize: 20,
-        height: 22,
-        color: 'white',
-      },
-      container: {
-        flex: 1, 
-        backgroundColor: '#f3f3f3', 
-        justifyContent: 'center', 
-        alignItems: 'center', 
-        zIndex: 999999999
-      }
-    });
     return (
       <View style={styles.container}>
         {/* Rest of the app comes ABOVE the action button component !*/}
