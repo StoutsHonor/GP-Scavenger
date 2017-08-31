@@ -197,15 +197,15 @@ export default class client extends Component {
             />
             </Scene>
 
-            <Scene key="initgame"
-              component={InitGame}
-              title="Initialize Game"
-            />
+              <Scene key="initgame"
+                component={InitGame}
+                title="Initialize Game"
+              />
 
-            <Scene key="preferences"
-              component={Preferences}
-              title="Home Page"
-            />
+              <Scene key="preferences"
+                component={Preferences}
+                title="Home Page"
+              />
 
               <Scene key="notifications"
                 component={Notifications}

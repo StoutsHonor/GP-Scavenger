@@ -14,11 +14,11 @@ class GameEntry extends Component {
   constructor(props) {
     super(props);
     this.convertToHours = this.convertToHours.bind(this);
-    this.calculateAverageRating = this.calculateAverageRating.bind(this);
     this.initGame = this.initGame.bind(this);
     this.state = {
       challenges: [],
-      averageRating: 0
+      averageRating: 0,
+      renderStars: false
     }
   }
 
@@ -34,15 +34,14 @@ class GameEntry extends Component {
 
     fetch(`http://192.168.56.1:3000/api/rating/findRating/?gameId=${this.props.game.id}`)
     .then((response) => response.json())
-    .then(({stars}) => {
-      console.log(stars,'data')
-      // let total;
-      // data.forEach(obj => {
-      //   total += obj.stars;
-      // })
-      // let rating = total/data.length;
-      // console.log(rating,'this is the rating')
-      // this.setState({averageRating: rating});
+    .then((data) => {
+      let total = 0;
+      data.forEach(obj => {
+        total += obj.stars;
+      })
+      let rating = total/data.length;
+      this.setState({averageRating: Math.round(rating)});
+      this.setState({ renderStars: true });
     })
     .catch((err) => {
       console.error(err);
@@ -59,20 +58,12 @@ class GameEntry extends Component {
     return minutes + ' Minutes';
   }
 
-  calculateAverageRating(data) {
-    let total;
-    data.forEach(obj => {
-      total += obj.stars;
-    })
-    console.log(total, 'accumulated stars')
-    return total/data.length;
-  }
-
   initGame() {
     Actions.initgame();
   }
 
   render() {
+    console.log(this.state.averageRating, 'rating');
     return (
       <View>
         <Card title={this.props.game.name}> 
@@ -80,7 +71,7 @@ class GameEntry extends Component {
             <Text>Number of Challenges: {this.state.challenges.length}</Text>
             <Text>Max Players: {this.props.game.maxPlayers}</Text>
             <Text>Duration of Game: {this.convertToHours(this.props.game.duration)}</Text>
-            <Stars rate={this.state.averageRating} size={35}/>
+            {this.state.renderStars ? <Stars rate={this.state.averageRating} size={35}/> : null}
             <Button
               icon={{name: 'code'}}
               backgroundColor='#03A9F4'
