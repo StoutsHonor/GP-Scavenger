@@ -39,17 +39,17 @@ class Map extends Component {
      }
   }
 
-  componentWillMount() {
-    console.log(`blah componentWillMount in map.js`)
-    let component = this;
-    if (this.props.markers) {
-      console.log(`this.props.markers is ${JSON.stringify(this.props.markers)}`)
-      this.setState({markers: this.props.markers})
-    }
-  }
+  // componentWillMount() {
+  //   console.log(`blah componentWillMount in map.js`)
+  //   let component = this;
+  //   if (this.props.markers) {
+  //     console.log(`this.props.markers is ${JSON.stringify(this.props.markers)}`)
+  //     this.setState({markers: this.props.markers})
+  //   }
+  // }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.markers) {
+    if (nextProps.markers) {
       this.setState({markers: nextProps.markers}, () => {
         console.log(`awww yeaaah ${JSON.stringify(this.state.markers)}`)
       })
@@ -70,7 +70,6 @@ class Map extends Component {
             longitudeDelta: 0.0421,
           }
         })
-
       }, (error) => {console.log(`geolocation fail ${JSON.stringify(error)}`)}, {enableHighAccuracy: true, timeout:500})
   }
 
@@ -110,7 +109,7 @@ class Map extends Component {
       mapContainer: {
         ...StyleSheet.absoluteFillObject,
         height: 400,
-        width: 400,
+        width: width,
         justifyContent: 'flex-end',
         alignItems: 'center'
       },
@@ -118,7 +117,7 @@ class Map extends Component {
         ...StyleSheet.absoluteFillObject,
       }
     });
-    console.log(`this.state.markers is ${this.state.markers}`)
+    console.log(`In Map.js this.state.markers is ${JSON.stringify(this.state.markers)}`)
     return(
       <View>
         <View style={styles.mapContainer}>
@@ -136,13 +135,13 @@ class Map extends Component {
             region={this.state.region} 
             onRegionChange={this.onRegionChange}
         >
-
-         {this.state.markers.map((loc, index) => {return(
+        {this.props.markers.map((loc, index) => {return(
          <MapView.Marker
          coordinate={loc}
          key={index}
          />
        )})}
+
         </MapView>
         <MapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>
         <MapStoreLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} storeMarker={this.storeMarker}/>
