@@ -59,7 +59,9 @@ class CreateGame extends Component {
           title="See Props"
           color="#841584"/>
 
-
+        <Button onPress={() => {Actions.createGPSchallenge()} }
+         title="Create only GPS challenge"
+         color="#841584"/>
 
       </View>
     );
