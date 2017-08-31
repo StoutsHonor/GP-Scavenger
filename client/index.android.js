@@ -33,10 +33,14 @@ import CardSection from './src/components/CardSection'
 
 import { Router, Scene } from 'react-native-router-flux';
 
+import Camera from './src/components/Camera';
+import ChallengeList from './src/components/ChallengeList';
+import Chat from './src/components/Chat';
 import CreateGame from './src/components/CreateGame';
+import GameLog from './src/components/GameLog';
 import Friends from './src/components/Friends';
+import GPSChallenge from './src/components/GPSChallenge';
 import HomePage from './src/components/HomePage';
-import InitGame from './src/components/InitGame';
 import JoinGame from './src/components/JoinGame';
 import Leaderboard from './src/components/Leaderboard';
 import Login from './src/components/Login';
@@ -46,9 +50,7 @@ import OtherUsers from './src/components/OtherUsers';
 import Preferences from './src/components/Preferences';
 import Profile from './src/components/Profile';
 import StartGame from './src/components/StartGame';
-import Chat from './src/components/Chat';
-// import Camera from './src/components/Camera';
-import GPSChallenge from './src/components/GPSChallenge';
+import Task from './src/components/Task';
 
 
 export default class client extends Component {
@@ -145,9 +147,9 @@ export default class client extends Component {
                 component={StartGame}
                 title="Start A Game"
               />
-              <Scene key="joingame"
-                component={JoinGame}
-                title="Join a Game"
+              <Scene key="creategame"
+              component={CreateGame}
+              title="Create Game"
               />
               <Scene key="leaderboard"
                 component={Leaderboard}
@@ -160,20 +162,15 @@ export default class client extends Component {
               title="My Games"
             />
 
-            <Scene key="creategame"
-              component={CreateGame}
-              title="Create Game"
-            />
+            <Scene key="joingame"
+                component={JoinGame}
+                title="Join a Game"
+              />
 
             <Scene key="leaderboard"
               component={Leaderboard}
               title="Leaderboard"
             />
-
-          <Scene key="chat"
-            component={Chat}
-            title="Chat"
-          />
 
           <Scene key="camera"
             component={Camera}
@@ -198,10 +195,24 @@ export default class client extends Component {
             />
             </Scene>
 
-              <Scene key="initgame"
-                component={InitGame}
-                title="Initialize Game"
+            <Scene key="currentgame" tabs={true}>
+              <Scene key="task"
+                component={Task}
+                title="Task"
               />
+              <Scene key="chat"
+                component={Chat}
+                title="Chat"
+              />
+              <Scene key="gamelog"
+                component={GameLog}
+                title="Log"
+              />
+              <Scene key="challengelist"
+                component={ChallengeList}
+                title="List"
+              />
+            </Scene>
 
               <Scene key="preferences"
                 component={Preferences}

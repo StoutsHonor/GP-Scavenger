@@ -47,6 +47,16 @@ const QuestionType = sequelize.define('questionType', {
 })
 
 const Riddle = sequelize.define('riddle', {
+  title: { type: Sequelize.STRING, allowNull: false },
+  question: { type: Sequelize.STRING, allowNull: false },
+  answer: { type: Sequelize.STRING, allowNull: false },
+  difficulty: { type: Sequelize.STRING },
+  default: { type: Sequelize.BOOLEAN },
+  imageURL: { type: Sequelize.STRING }
+})
+
+const LogicPuzzle = sequelize.define('logicPuzzle', {
+  title: { type: Sequelize.STRING, allowNull: false },
   question: { type: Sequelize.STRING, allowNull: false },
   answer: { type: Sequelize.STRING, allowNull: false },
   difficulty: { type: Sequelize.STRING },
@@ -118,6 +128,7 @@ module.exports = {
   Challenge,
   QuestionType,
   Riddle,
+  LogicPuzzle,
   Camera,
   Compass,
   Rating,

@@ -24,6 +24,15 @@
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 600,
-    "startLocation": [33.7860938,-117.9462329]
+    "startLocation": [33.7860938,-117.9462329],
+    "rewardPoints": 500
+  },
+  {
+    "name": "Game #3",
+    "userId": 1, 
+    "duration": 120,
+    "private": false,
+    "maxPlayers": 4,
+    "rewardPoints": 400
   }
 ]

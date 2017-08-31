@@ -6,5 +6,9 @@
   {
     "type": "gps",
     "description": "As Scorpion says...'GET OVER HERE'"
+  },
+  {
+    "type": "logicPuzzle",
+    "description": "To proceed to the next checkpoint, you must solve this logic puzzle before the time limit runs out(if applicable)"
   }
 ]

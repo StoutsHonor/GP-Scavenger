@@ -3,8 +3,11 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  Modal,
+  TouchableHighlight
 } from 'react-native';
+import Review from './Review';
 import { Card } from 'react-native-elements';
 import Stars from 'react-native-stars-rating';
 import { Actions } from 'react-native-router-flux';
@@ -18,7 +21,10 @@ class GameEntry extends Component {
     this.state = {
       challenges: [],
       averageRating: 0,
-      renderStars: false
+      renderStars: false,
+      reviewIcon: false,
+      reviews: [],
+      showReview: false
     }
   }
 
@@ -46,6 +52,18 @@ class GameEntry extends Component {
     .catch((err) => {
       console.error(err);
     });
+
+    fetch(`http://192.168.56.1:3000/api/review/findReview/?gameId=${this.props.game.id}`)
+    .then((response) => response.json())
+    .then((data) => {
+      this.setState({reviews: data});
+      if(this.state.reviews.length > 0) {
+        this.setState({reviewIcon: true});
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   }
 
   convertToHours(minutes) {
@@ -59,19 +77,40 @@ class GameEntry extends Component {
   }
 
   initGame() {
-    Actions.initgame();
+    Actions.task();
   }
 
   render() {
-    console.log(this.state.averageRating, 'rating');
     return (
       <View>
         <Card title={this.props.game.name}> 
           <View >
+          {/* <Modal
+            animationType={"slide"}
+            transparent={false}
+            visible={this.state.showReview}
+            onRequestClose={() => {alert("Modal has been closed.")}}
+            >
+            <View style={{marginTop: 22}}>
+              <View>
+                {this.state.reviews.map( (review, index) => {
+                  <Review review={review} key={index}/>
+                })}
+                <TouchableHighlight onPress={() => {
+                  this.setState({showReview: false});
+                }}>
+                  <Text>Back to Games</Text>
+                </TouchableHighlight>
+
+              </View>
+            </View>
+          </Modal> */}
+
             <Text>Number of Challenges: {this.state.challenges.length}</Text>
             <Text>Max Players: {this.props.game.maxPlayers}</Text>
             <Text>Duration of Game: {this.convertToHours(this.props.game.duration)}</Text>
             {this.state.renderStars ? <Stars rate={this.state.averageRating} size={35}/> : null}
+            {this.state.reviewIcon ? <Text onPress={() => {this.setState({showReview: true})}}>{this.state.reviews.length} Reviews</Text> : null}
             <Button
               icon={{name: 'code'}}
               backgroundColor='#03A9F4'
