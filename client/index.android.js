@@ -48,6 +48,7 @@ import Profile from './src/components/Profile';
 import StartGame from './src/components/StartGame';
 import Chat from './src/components/Chat';
 // import Camera from './src/components/Camera';
+import GPSChallenge from './src/components/GPSChallenge';
 
 
 export default class client extends Component {
@@ -211,6 +212,11 @@ export default class client extends Component {
                 component={Notifications}
                 title="Notifications"
               />
+
+              <Scene key="createGPSchallenge"
+              component={GPSChallenge}
+              title="GPS challenge"
+            />
 
             </Scene>
           </Router>

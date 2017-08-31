@@ -40,26 +40,20 @@ class Map extends Component {
   }
 
   componentWillMount() {
+    console.log(`blah componentWillMount in map.js`)
     let component = this;
-    // navigator.geolocation.getCurrentPosition( (position) => {
-    //   console.log(`Current position is latitude: ${position.coords.latitude} and longitude: ${position.coords.longitude}`)
-    //   console.log(`position.coords is ${JSON.stringify(position.coords)}`)
-    // })
+    if (this.props.markers) {
+      console.log(`this.props.markers is ${JSON.stringify(this.props.markers)}`)
+      this.setState({markers: this.props.markers})
+    }
+  }
 
-
-    // this.setState({
-    //   region: {
-    //     latitude: latitude,
-    //     longitude: longitude,
-    //     latitudeDelta: 0.0922,
-    //     longitudeDelta: 0.0421,
-    //   },
-    //   a: {
-    //     latitude: position.coords.latitude,
-    //     longitude: position.coords.longitude
-    //   }
-
-    // })
+  componentWillReceiveProps(nextProps) {
+    if (this.props.markers) {
+      this.setState({markers: nextProps.markers}, () => {
+        console.log(`awww yeaaah ${JSON.stringify(this.state.markers)}`)
+      })
+    }
   }
 
   getCurrentLocation() {
@@ -88,6 +82,9 @@ class Map extends Component {
     console.log(`im in storeMarker in Map.js now!`)
     this.setState({ marker: { latitude: this.state.region.latitude, longitude: this.state.region.longitude }}, () => {
       console.log(`this.state.marker is now ${JSON.stringify(this.state.marker)}`)
+      if (this.props.onMarkerSubmit) {
+        this.props.onMarkerSubmit(this.state.region)
+      }
     })
   }
 
@@ -121,7 +118,7 @@ class Map extends Component {
         ...StyleSheet.absoluteFillObject,
       }
     });
-
+    console.log(`this.state.markers is ${this.state.markers}`)
     return(
       <View>
         <View style={styles.mapContainer}>

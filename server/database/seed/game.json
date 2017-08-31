@@ -5,7 +5,8 @@
     "duration": 30,
     "private": true,
     "maxPlayers": 4,
-    "rewardPoints": 100
+    "rewardPoints": 100,
+    "startLocation": [33.9759479,-118.3929176]
   },
   {
     "name": "5 times the fun!!!",
@@ -13,6 +14,16 @@
     "duration": 150,
     "private": false,
     "maxPlayers": 4,
-    "rewardPoints": 500
+    "rewardPoints": 500,
+    "startLocation": [33.8120962,-117.9211629]
+  },
+  {
+    "name": "Get over here!!!",
+    "userId": 1,
+    "duration": 180,
+    "private": false,
+    "maxPlayers": 4,
+    "rewardPoints": 600,
+    "startLocation": [33.7860938,-117.9462329]
   }
 ]

@@ -59,27 +59,6 @@ const data = {
   },
 };
 
-export default class CreateList extends Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <FloatingButton />
-        <Text style={styles.title}>Title: Find these cats!</Text>
-        <SortableList
-          style={styles.list}
-          contentContainerStyle={styles.contentContainer}
-          data={data}
-          renderRow={this._renderRow} />
-      </View>
-    );
-  }
-
-  _renderRow = ({data, active}) => {
-    return <Row data={data} active={active} />
-  }
-}
-
-
 const styles = StyleSheet.create({
   container: {
     flex: 6,
@@ -159,3 +138,34 @@ const styles = StyleSheet.create({
     color: '#222222',
   },
 });
+
+
+export default class JoinGameList extends Component {
+  constructor(props) {
+    super(props);
+    this._renderRow = this._renderRow.bind(this);
+  }
+  _renderRow = ({data, active}) => {
+    return <Row data={data} active={active} />
+  }
+  
+  render() {
+    return (
+      <View>
+        <Text>come onnnnn!</Text>
+        <Text>bleep bleep</Text>
+        <FloatingButton />
+        <Text style={styles.title}>Join Game List</Text>
+        <SortableList
+          style={styles.list}
+          contentContainerStyle={styles.contentContainer}
+          data={data}
+          renderRow={this._renderRow} />
+        <Text>bloop bloop</Text>
+      </View>
+    );
+  }
+}
+
+
+

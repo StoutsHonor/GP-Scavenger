@@ -24,5 +24,13 @@ module.exports = {
       res.status(201).send(game)
     })
     .catch(err => res.status(500).send(`Error adding game to database! ${err}`))
+  },
+
+  getAllGames: (req,res) => {
+    db.Game.findAll().then( (games) => {
+      console.log(`im in server, getAllGames`)
+      console.log(`users are ${JSON.stringify(games)}`)
+      res.status(201).send(games)
+    })
   }
 } 
