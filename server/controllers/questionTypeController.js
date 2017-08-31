@@ -13,8 +13,8 @@ module.exports = {
 
   addQuestionType: (req, res) => {
     db.QuestionType.create({
-      type: req.query.type,
-      description: req.query.description
+      type: req.body.type,
+      description: req.body.description
     })
     .then( type => {
       res.status(201).send(type)

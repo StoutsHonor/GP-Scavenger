@@ -18,6 +18,7 @@ const User = sequelize.define('user', {
   username: { type: Sequelize.STRING },
   profilePicture: { type: Sequelize.STRING },
   profileDescription: { type: Sequelize.STRING },
+  rewardPoints: {type: Sequelize.INTEGER },
   DOB: { type: Sequelize.DATEONLY },
   friends: {type: Sequelize.ARRAY(Sequelize.INTEGER) }
 })

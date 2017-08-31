@@ -36,6 +36,7 @@ import { Router, Scene } from 'react-native-router-flux';
 import CreateGame from './src/components/CreateGame';
 import Friends from './src/components/Friends';
 import HomePage from './src/components/HomePage';
+import InitGame from './src/components/InitGame';
 import JoinGame from './src/components/JoinGame';
 import Leaderboard from './src/components/Leaderboard';
 import Login from './src/components/Login';
@@ -45,6 +46,8 @@ import OtherUsers from './src/components/OtherUsers';
 import Preferences from './src/components/Preferences';
 import Profile from './src/components/Profile';
 import StartGame from './src/components/StartGame';
+import Chat from './src/components/Chat';
+import Camera from './src/components/Camera';
 
 
 export default class client extends Component {
@@ -166,28 +169,43 @@ export default class client extends Component {
               title="Leaderboard"
             />
 
-            <Scene key="profilestats" tabs={true}>
-              <Scene
-                key="profile"
-                component={Profile}
-                title="Profile"
-              />
-              <Scene
-                key="friends"
-                component={Friends}
-                title="Friends"
-              />
-              <Scene
-                key="otherusers"
-                component={OtherUsers}
-                title="Other Users"
-              />
-              </Scene>
+          <Scene key="chat"
+            component={Chat}
+            title="Chat"
+          />
 
-              <Scene key="preferences"
-                component={Preferences}
-                title="Home Page"
-              />
+          <Scene key="camera"
+            component={Chat}
+            title="Camera"
+          />
+
+          <Scene key="profilestats" tabs={true}>
+            <Scene
+              key="profile"
+              component={Profile}
+              title="Profile"
+            />
+            <Scene
+              key="friends"
+              component={Friends}
+              title="Friends"
+            />
+            <Scene
+              key="otherusers"
+              component={OtherUsers}
+              title="Other Users"
+            />
+            </Scene>
+
+            <Scene key="initgame"
+              component={InitGame}
+              title="Initialize Game"
+            />
+
+            <Scene key="preferences"
+              component={Preferences}
+              title="Home Page"
+            />
 
               <Scene key="notifications"
                 component={Notifications}
