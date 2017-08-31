@@ -13,7 +13,7 @@ const HomePage = () => {
         Home Page
       </Text>
       <Text onPress={() => Actions.startgame()}>Start Your Scavenger Adventure!</Text>
-      <Text onPress={() => Actions.chat()}>Chat</Text>
+      {/* <Text onPress={() => Actions.chat()}>Chat</Text> */}
       <Text onPress={() => Actions.camera()}>Camera</Text>
       <Text onPress={() => Actions.leaderboard()}>Leaderboard</Text>
       <Text onPress={() => Actions.profile()}>Profile and Stats</Text>

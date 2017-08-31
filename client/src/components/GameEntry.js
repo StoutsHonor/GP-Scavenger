@@ -77,7 +77,7 @@ class GameEntry extends Component {
   }
 
   initGame() {
-    Actions.initgame();
+    Actions.task();
   }
 
   render() {
@@ -85,7 +85,7 @@ class GameEntry extends Component {
       <View>
         <Card title={this.props.game.name}> 
           <View >
-          <Modal
+          {/* <Modal
             animationType={"slide"}
             transparent={false}
             visible={this.state.showReview}
@@ -104,7 +104,7 @@ class GameEntry extends Component {
 
               </View>
             </View>
-          </Modal>
+          </Modal> */}
 
             <Text>Number of Challenges: {this.state.challenges.length}</Text>
             <Text>Max Players: {this.props.game.maxPlayers}</Text>
