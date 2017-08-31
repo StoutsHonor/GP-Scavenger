@@ -1,5 +1,3 @@
-
-
 // List out the types of actions, and export these. The reducers will import these, to know where to make updates.
 
 export const entered_field = 'entered_field';
@@ -39,7 +37,6 @@ export const submittedCreatedGame = (gameInfo) => {
   };
 };
 
-<<<<<<< e47a2a89bef419669f527f7f0414ed8dfd77555a
 export const startLocationSet = (location) => {
   console.log('Game was submitted: ', location);
   return {
@@ -55,10 +52,6 @@ export const challengeLocationSet = (location) => {
       payload: location
   };
 };
-
-
-
-
 
 // client related actions:
 export const user_logged_in = 'user_logged_in';
@@ -90,7 +83,6 @@ export const userEndedGame = (data) => {
       payload: data
   };
 };
-=======
 export const getAllUsersGames = (games) => {
   console.log('Games were submitted: ', games);
   return {
@@ -106,4 +98,3 @@ export const getAllGameChallenges = (challenges) => {
       payload: challenges
   };
 };
->>>>>>> Imported redux
