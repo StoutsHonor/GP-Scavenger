@@ -94,7 +94,13 @@ class CreateChallenge extends Component {
 
         <Button onPress={() => {
           let temp = this.props.createGameChallenges
-          temp.push('some objectchallnge placeholder')
+          temp.push({
+            ChallengeLocation: this.props.createChallengeLocation,
+            ChallengeType: this.props.createChallengeType,
+            ChallengeTitle: this.props.createChallengeTitle,
+            ChallengeObjective: this.props.createChallengeObjective,
+            ChallengeAnswer: this.props.createChallengeAnswer
+          })
           this.props.challengesUpdated(temp);
         }}
         title="Submit Challenge"
