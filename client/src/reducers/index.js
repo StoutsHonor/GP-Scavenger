@@ -4,7 +4,7 @@
 import {combineReducers} from 'redux';
 import CreateReducer from './CreateReducer'
 // import JoinReducer from './JoinReducer'
-// import PlayReducer from './PlayReducer'
+import PlayReducer from './PlayReducer'
 
 /*
  * We combine all reducers into a single object before updated data is dispatched (sent) to store
@@ -14,7 +14,7 @@ import CreateReducer from './CreateReducer'
 const allReducers = combineReducers({
     create: CreateReducer,
     // join: JoinReducer,
-    // play: PlayReducer
+    play: PlayReducer
 });
 
 export default allReducers

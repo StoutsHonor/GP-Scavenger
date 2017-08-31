@@ -7,7 +7,8 @@ export const create_challenges_updated = 'create_challenges_updated';
 export const submitted_create_game = 'submitted_create_game';
 export const start_location_set = 'start_location_set';
 export const challenge_location_set = 'challenge_location_set';
-
+export const get_all_users_games = 'get_all_users_games';
+export const get_all_game_challenges = 'get_all_game_challenges';
 
 // Action Creators: the function that returns the action
 // (the object that is returned is the action)
@@ -38,6 +39,7 @@ export const submittedCreatedGame = (gameInfo) => {
   };
 };
 
+<<<<<<< e47a2a89bef419669f527f7f0414ed8dfd77555a
 export const startLocationSet = (location) => {
   console.log('Game was submitted: ', location);
   return {
@@ -88,3 +90,20 @@ export const userEndedGame = (data) => {
       payload: data
   };
 };
+=======
+export const getAllUsersGames = (games) => {
+  console.log('Games were submitted: ', games);
+  return {
+      type: get_all_users_games,
+      payload: games
+  };
+};
+
+export const getAllGameChallenges = (challenges) => {
+  console.log('Challenges were dispatched to store: ', challenges);
+  return {
+      type: get_all_game_challenges,
+      payload: challenges
+  };
+};
+>>>>>>> Imported redux

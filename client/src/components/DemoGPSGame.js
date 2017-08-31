@@ -1,45 +1,37 @@
 import React, { Component } from 'react';
 import {
-  Animated,
-  Easing,
   StyleSheet,
   Text,
-  Image,
-  View,
-  Dimensions,
-  Platform,
-  ScrollView
+  View
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import GameEntry from './GameEntry';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getAllGameChallenges } from '../actions/index';
+import { getAllUsersGames } from '../action/index';
 
-import {connect} from 'react-redux'
-import {bindActionCreators} from 'redux'
-import {getAllUsersGames} from '../actions/index.js'
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ getAllGameChallenges }, dispatch)
+}
 
 const mapStateToProps = (state) => {
-  console.log('Create Game state: ', state)
+  console.log('mapStateToProps: ', state)
   return {
-    games: state.play.games
+    //gameId: state.app.currentGame,
+    //challenges: state.play.allChallenges
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({getAllUsersGames}, dispatch)
-}
-
-
-
-class MyGames extends Component {
+class DemoGPSGame extends Component {
   constructor(props) {
     super(props);
+
     this.state = {
-      userId: 1,
-      games: []
+      gameId: 3
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     fetch('http://10.0.2.2:3000/api/game/findGameByUserId/?userId=1')
     .then((response) => response.json())
     .then((responseJson) => {
@@ -53,16 +45,13 @@ class MyGames extends Component {
   }
 
   render() {
-    console.log(`this.props.games is ${JSON.stringify(this.props.games)}`)
     return (
-      <ScrollView>
-        {this.props.games.map((game, key) => {
-          return (
-            <GameEntry game={game} key={key}/>
-          )
-        })}
-      </ScrollView>
-    );
+      <View style={styles.container}>
+      <Text style={styles.welcome}>
+        GPS Challenge or Question Challenge Components go hereWheee
+      </Text>
+    </View>
+    )
   }
 }
 
@@ -71,7 +60,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#191970',
+    backgroundColor: '#808000',
   },
   welcome: {
     fontSize: 20,
@@ -81,5 +70,4 @@ const styles = StyleSheet.create({
   },
 });
 
-
-export default connect(mapStateToProps, mapDispatchToProps)(MyGames)
+export default connect(mapStateToProps, mapDispatchToProps)(DemoGPSGame);

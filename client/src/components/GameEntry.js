@@ -11,7 +11,20 @@ import Review from './Review';
 import { Card } from 'react-native-elements';
 import Stars from 'react-native-stars-rating';
 import { Actions } from 'react-native-router-flux';
+import { getAllGameChallenges } from '../actions/index';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ getAllGameChallenges }, dispatch)
+}
+
+const mapStateToProps = (state) => {
+  console.log('mapStateToProps: ', state)
+  return {
+    gameId: state.app.currentGame
+  }
+}
 
 class GameEntry extends Component {
   constructor(props) {
@@ -24,12 +37,13 @@ class GameEntry extends Component {
       renderStars: false,
       reviewIcon: false,
       reviews: [],
-      showReview: false
+      showReview: false,
+      gameId: this.props.game.id
     }
   }
 
   componentDidMount() {
-    fetch(`http://192.168.56.1:3000/api/challenge/findChallengeByGameId/?gameId=${this.props.game.id}`)
+    fetch(`http://10.0.2.2:3000/api/challenge/findChallengeByGameId/?gameId=${this.props.game.id}`)
     .then((response) => response.json())
     .then((data) => {
       this.setState({challenges: data});
@@ -38,7 +52,7 @@ class GameEntry extends Component {
       console.error(err);
     });
 
-    fetch(`http://192.168.56.1:3000/api/rating/findRating/?gameId=${this.props.game.id}`)
+    fetch(`http://10.0.2.2:3000/api/rating/findRating/?gameId=${this.props.game.id}`)
     .then((response) => response.json())
     .then((data) => {
       let total = 0;
@@ -77,7 +91,19 @@ class GameEntry extends Component {
   }
 
   initGame() {
-    Actions.task();
+    //Actions.task();
+    Actions.initgame();
+
+    fetch(`http://10.0.2.2:3000/api/challenge/findChallengeByGameId/?gameId=${this.props.game.id}`)
+      .then((response) => response.json())
+      .then((challenges) => {
+        console.log(`challenges is ${JSON.stringify(challenges)}`)
+        getAllGameChallenges(challenges)
+        console.log(`this is this.props.gameId: ${this.props.gameId}`)
+      })
+      .catch((err) => {
+        console.error(err);
+      });
   }
 
   render() {
@@ -126,4 +152,4 @@ class GameEntry extends Component {
   }
 }
 
-export default GameEntry;
+export default connect(mapStateToProps, mapDispatchToProps)(GameEntry)
