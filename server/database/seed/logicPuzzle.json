@@ -1,0 +1,16 @@
+[
+  {
+    "title": "The Race",
+    "question": "If Jeff overtakes Mike at a Race, and Mike was in 2nd Place, what place is Jeff in?",
+    "answer": "second",
+    "difficulty": "easy",
+    "default": true
+  },
+  {
+    "title": "There's Something About Mary",
+    "question": "Mary's mum has four children.\nThe first child is called April.\nThe second May.\nThe third June.\nWhat is the name of the fourth child?\n",
+    "answer": "mary",
+    "difficulty": "moderate",
+    "default": true
+  }
+]

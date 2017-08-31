@@ -18,5 +18,15 @@
     "stars": 5,
     "gameId": 2,
     "userId": 4
+  },
+  {
+    "stars": 5,
+    "gameId": 3,
+    "userId": 1
+  },
+  {
+    "stars": 3,
+    "gameId": 3,
+    "userId": 3
   }
 ]

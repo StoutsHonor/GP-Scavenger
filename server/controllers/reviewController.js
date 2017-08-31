@@ -2,7 +2,7 @@ const db = require('../database/index');
 
 module.exports = {
   findReview: (req, res) => {
-    db.Review.find({
+    db.Review.findAll({
       where: {
         gameId: req.query.gameId
       }

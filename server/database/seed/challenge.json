@@ -62,5 +62,25 @@
     "sequence": 2,
     "location": [32.715738, -117.161084],
     "timeLimit": 30
+  },
+  {
+    "name": "Easy Logic Question",
+    "description": "Easy Peasy",
+    "gameId": 3,
+    "sequence": 1,
+    "location": "11111",
+    "timeLimit": 30,
+    "questionTypeId": 2,
+    "questionId": 1
+  },
+  {
+    "name": "Not So Easy Logic Question",
+    "description": "Not so Easy",
+    "gameId": 3,
+    "sequence": 2,
+    "location": "11111",
+    "timeLimit": 30,
+    "questionTypeId": 2,
+    "questionId": 2
   }
 ]

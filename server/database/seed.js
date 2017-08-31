@@ -9,6 +9,7 @@ const questionTypeSeed = require('./seed/questionType')
 const riddleSeed = require('./seed/riddle')
 const ratingSeed = require('./seed/rating')
 const reviewSeed = require('./seed/review')
+const logicPuzzleSeed = require('./seed/logicPuzzle')
 //const friendConnectionSeed = require('./seed/friendConnection')
 
 
@@ -19,7 +20,9 @@ db.sequelize.sync({force: true}).then( () => {
         db.Game.bulkCreate(gameSeed).then(() => {
           db.Challenge.bulkCreate(challengeSeed).then(() => {
             db.Rating.bulkCreate(ratingSeed).then(() => {
-              db.Review.bulkCreate(reviewSeed)
+              db.Review.bulkCreate(reviewSeed).then(() => {
+                db.LogicPuzzle.bulkCreate(logicPuzzleSeed)
+              })
             }) 
           }) 
         })    
