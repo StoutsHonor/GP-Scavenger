@@ -52,14 +52,15 @@ let send_messages = [];
 
 websocket.on('connection', (socket) => {
 
-    
-    console.log('Socket made a connection');
-    clients[socket.id] = socket;
+    socket.on('createRoom', roomName => {
+      socket.join(roomName);
+    });
+  
     //socket.on('userJoined', (userId) => onUserJoined(userId, socket));
     socket.on('message', (message) => {
-      send_messages.push(message);
       //onMessageReceived(message, socket)
-      socket.emit('message', message);
+      socket.in(message.roomName).emit('message', message);
+      //socket.in('room2').emit('message', message);
     });
 });
 
@@ -91,8 +92,7 @@ stdin.addListener('data', function(d) {
             _id: 2,
             name: 'React Native'
           },
-    createdAt: new Date(),
-        
+    createdAt: new Date(),    
   };
   send_messages.push(val);
   websocket.emit('message', val);

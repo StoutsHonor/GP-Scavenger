@@ -23,6 +23,14 @@ const User = sequelize.define('user', {
   friends: {type: Sequelize.ARRAY(Sequelize.INTEGER) }
 })
 
+const Chat = sequelize.define('chat', {
+  user_id: { type: Sequelize.INTEGER, allowNull: false },
+  createdAt: { type: Sequelize.STRING, allowNull: false },
+  _id: { type: Sequelize.STRING, allowNull: false },
+  roomName:  { type: Sequelize.STRING, allowNull: false },
+  text:  { type: Sequelize.STRING, allowNull: false }
+})
+
 const Game = sequelize.define('game', {
   name: { type: Sequelize.STRING, allowNull: false },
   duration: { type: Sequelize.INTEGER },
@@ -84,11 +92,15 @@ const Review = sequelize.define('review', {
 })
 
 
+
 // const FriendConnection = sequelize.define('friend_connection', {
 // })
 
 User.hasMany(Game);
 Game.belongsTo(User);
+
+User.hasMany(Chat);
+Chat.belongsTo(User);
 
 User.hasMany(Rating);
 Rating.belongsTo(User);
@@ -110,17 +122,17 @@ QuestionType.hasOne(Challenge);
 // User.belongsToMany(User, { as: 'user', through: 'friend_connection', foreignKey: 'userId' })
 // User.belongsToMany(User, { as: 'my_friends', through: 'friend_connection', foreignKey: 'friends' })
 
-sequelize.sync( {force: false})
+sequelize.sync( {force: false});
 
-// QuestionType.sync( { force: true} )
-// Riddle.sync( { force: true} )
-// Rating.sync( { force: true} )
-// Review.sync( { force: true} )
-// Camera.sync( {force: true} )
-// Compass.sync( { force: true} )
-// User.sync( { force: true} )
-// Game.sync( { force: true} )
-// Challenge.sync( { force: true} )
+// QuestionType.sync( { force: true} );
+// Riddle.sync( { force: true} );
+// Rating.sync( { force: true} );
+// Review.sync( { force: true} );
+// Camera.sync( {force: true} );
+// Compass.sync( { force: true} );
+// User.sync( { force: true} );
+// Game.sync( { force: true} );
+// Challenge.sync( { force: true} );
 
 module.exports = {
   User,
@@ -134,5 +146,6 @@ module.exports = {
   Rating,
   Review,
   //FriendConnection,
-  sequelize
+  sequelize,
+  Chat
 }

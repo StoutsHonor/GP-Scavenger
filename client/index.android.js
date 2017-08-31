@@ -51,8 +51,6 @@ import Preferences from './src/components/Preferences';
 import Profile from './src/components/Profile';
 import StartGame from './src/components/StartGame';
 import Task from './src/components/Task';
-import Chat from './src/components/Chat';
-import GPSChallenge from './src/components/GPSChallenge';
 import CreateChallenge from './src/components/CreateChallenge';
 import CreateGPSChallenge from './src/components/CreateGPSChallenge';
 
