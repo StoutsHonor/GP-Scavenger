@@ -46,8 +46,12 @@ import OtherUsers from './src/components/OtherUsers';
 import Preferences from './src/components/Preferences';
 import Profile from './src/components/Profile';
 import StartGame from './src/components/StartGame';
+<<<<<<< 0457c137b10bd57fcfbac1a62a56811c9f99e315
 import Chat from './src/components/Chat';
 // import Camera from './src/components/Camera';
+=======
+import GPSChallenge from './src/components/GPSChallenge';
+>>>>>>> Added some map components
 
 
 export default class client extends Component {
@@ -122,11 +126,19 @@ export default class client extends Component {
 
   render() {
 
+<<<<<<< 0457c137b10bd57fcfbac1a62a56811c9f99e315
     // if (!this.state.user) {
     //   return (
     //     <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
     //   )
     // } else {
+=======
+    if (this.state.user === '999999999') {
+      return (
+        <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
+      )
+    } else {
+>>>>>>> Added some map components
 
       return (
         <Provider store={createStoreWithMiddleware(allReducers)}>
@@ -212,9 +224,19 @@ export default class client extends Component {
                 title="Notifications"
               />
 
+<<<<<<< 0457c137b10bd57fcfbac1a62a56811c9f99e315
             </Scene>
           </Router>
         </Provider>
+=======
+            <Scene key="createGPSchallenge"
+              component={GPSChallenge}
+              title="GPS challenge"
+            />
+
+          </Scene>
+        </Router>
+>>>>>>> Added some map components
       // <Card>
       //   <CardSection>
       //     <Button onPress={this.dummyGet}>

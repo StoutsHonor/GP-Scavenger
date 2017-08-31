@@ -28,16 +28,17 @@ const Game = sequelize.define('game', {
   duration: { type: Sequelize.INTEGER },
   private: { type: Sequelize.BOOLEAN},
   maxPlayers: { type: Sequelize.INTEGER, allowNull: false },
-  rewardPoints: { type: Sequelize.INTEGER, allowNull: false}
+  rewardPoints: { type: Sequelize.INTEGER, allowNull: false},
+  startLocation: { type: Sequelize.ARRAY(Sequelize.FLOAT), allowNull: false }
 })
 
 const Challenge = sequelize.define('challenge', {
   name: { type: Sequelize.STRING, allowNull: false },
   description: { type: Sequelize.STRING, allowNull: false },
   sequence: { type: Sequelize.INTEGER, allowNull: false },
-  location: { type: Sequelize.STRING, allowNull: false },
+  location: { type: Sequelize.ARRAY(Sequelize.FLOAT) },
   timeLimit: { type: Sequelize.INTEGER },
-  questionId: { type: Sequelize.INTEGER, allowNull: false }
+  questionId: { type: Sequelize.INTEGER, allowNull: true }
 })
 
 const QuestionType = sequelize.define('questionType', {
@@ -73,8 +74,8 @@ const Review = sequelize.define('review', {
 })
 
 
-const FriendConnection = sequelize.define('friend_connection', {
-})
+// const FriendConnection = sequelize.define('friend_connection', {
+// })
 
 User.hasMany(Game);
 Game.belongsTo(User);
@@ -99,15 +100,17 @@ QuestionType.hasOne(Challenge);
 // User.belongsToMany(User, { as: 'user', through: 'friend_connection', foreignKey: 'userId' })
 // User.belongsToMany(User, { as: 'my_friends', through: 'friend_connection', foreignKey: 'friends' })
 
-// User.sync( { force: false} )
-// Game.sync( { force: false} )
-// Challenge.sync( { force: false} )
-// QuestionType.sync( { force: false} )
-// Riddle.sync( { force: false} )
-// Rating.sync( { force: false} )
-// Review.sync( { force: false} )
-// Camera.sync( {force: false} )
-// Compass.sync( { force: false} )
+sequelize.sync( {force: false})
+
+// QuestionType.sync( { force: true} )
+// Riddle.sync( { force: true} )
+// Rating.sync( { force: true} )
+// Review.sync( { force: true} )
+// Camera.sync( {force: true} )
+// Compass.sync( { force: true} )
+// User.sync( { force: true} )
+// Game.sync( { force: true} )
+// Challenge.sync( { force: true} )
 
 module.exports = {
   User,

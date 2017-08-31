@@ -4,7 +4,7 @@
     "description": "You'll never be able to solve this!!!",
     "gameId": 1,
     "sequence": 1,
-    "location": "11111",
+    "location": [37.783692, -122.408967],
     "timeLimit": 30,
     "questionTypeId": 1,
     "questionId": 1
@@ -14,7 +14,7 @@
     "description": "This is the first riddle",
     "gameId": 2,
     "sequence": 1,
-    "location": "11111",
+    "location": [37.783692, -122.408967],
     "timeLimit": 30,
     "questionTypeId": 1,
     "questionId": 2
@@ -24,7 +24,7 @@
     "description": "This is the second riddle",
     "gameId": 2,
     "sequence": 2,
-    "location": "11111",
+    "location": [37.783692, -122.408967],
     "timeLimit": 30,
     "questionTypeId": 1,
     "questionId": 3
@@ -34,9 +34,33 @@
     "description": "This is the third riddle",
     "gameId": 2,
     "sequence": 3,
-    "location": "11111",
+    "location":[37.783692, -122.408967],
     "timeLimit": 30,
     "questionTypeId": 1,
     "questionId": 4
+  },
+  {
+    "name": "GPS #1",
+    "description": "This is the FIRST GPS coordinate",
+    "gameId": 3,
+    "sequence": 1,
+    "location": [37.783692, -122.408967],
+    "timeLimit": 30
+  },
+  {
+    "name": "GPS #2",
+    "description": "This is the SECOND GPS coordinate",
+    "gameId": 3,
+    "sequence": 2,
+    "location": [33.812092, -117.918974],
+    "timeLimit": 30
+  },
+  {
+    "name": "GPS #3",
+    "description": "This is the THIRD GPS coordinate",
+    "gameId": 3,
+    "sequence": 2,
+    "location": [32.715738, -117.161084],
+    "timeLimit": 30
   }
 ]

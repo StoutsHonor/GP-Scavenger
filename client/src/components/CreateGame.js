@@ -65,6 +65,23 @@ class CreateGame extends Component {
     );
   }
 }
+// const CreateGame = () => {
+//   return (
+//     <View style={styles.container}>
+//       <Text style={styles.welcome}>
+//         This is the Create Game Page
+//       </Text>
+//       <CreateList style={{}}/>
+//       <Button onPress={() => {Actions.createGPSchallenge()} }
+//         title="Create only GPS challenge"
+//         color="#841584"/>
+//       <Button onPress={() => {console.log('button pressed!')}}
+//         title="Submit"
+//         color="#841584"/>
+
+//     </View>
+//   );
+// }
 
 const styles = StyleSheet.create({
   container: {
