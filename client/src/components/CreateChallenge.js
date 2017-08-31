@@ -19,7 +19,7 @@ import {enteredField, challengesUpdated, submittedCreatedGame} from '../actions/
 const mapStateToProps = (state) => {
   console.log('Create Game state: ', state)
   return {
-    createChallengeLocation: state.create.createChallengeLocation,
+    createGameChallenges: state.create.createGameChallenges,
     createChallengeLocation: state.create.createChallengeLocation,
     createChallengeType: state.create.createChallengeType,
     createChallengeTitle: state.create.createChallengeTitle,
@@ -92,7 +92,11 @@ class CreateChallenge extends Component {
         title="See Props"
         color="#841584"/>
 
-        <Button onPress={() => {console.log('submit challenge pressed')} }
+        <Button onPress={() => {
+          let temp = this.props.createGameChallenges
+          temp.push('some objectchallnge placeholder')
+          this.props.challengesUpdated(temp);
+        }}
         title="Submit Challenge"
         color="#841584"/>
 

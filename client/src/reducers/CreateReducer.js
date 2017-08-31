@@ -27,6 +27,7 @@ export default function(state = initialState, action) {
     case challenge_location_set:
       return Object.assign({}, state, {createChallengeLocation: action.payload})
     case create_challenges_updated:
+      console.log('reducer heard update, updating challenges to: ', action.payload);
       return Object.assign({}, state, {
         createGameChallenges: action.payload,
         createChallengeLocation: null,
