@@ -8,6 +8,7 @@ import {
   View,
   Dimensions,
   Platform,
+  ScrollView
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import GameEntry from './GameEntry';
@@ -22,7 +23,7 @@ class MyGames extends Component {
   }
 
   componentDidMount() {
-    return fetch('http://192.168.56.1:3000/api/game/findGameByUserId/?userId=1')
+    fetch('http://192.168.56.1:3000/api/game/findGameByUserId/?userId=1')
     .then((response) => response.json())
     .then((responseJson) => {
       this.setState({games: responseJson});
@@ -34,17 +35,13 @@ class MyGames extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text style={styles.welcome}>
-        </Text>
-        <View>
+      <ScrollView>
         {this.state.games.map((game, key) => {
           return (
             <GameEntry game={game} key={key}/>
           )
         })}
-        </View>
-      </View>
+      </ScrollView>
     );
   }
 }

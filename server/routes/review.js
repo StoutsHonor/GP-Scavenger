@@ -1,7 +1,7 @@
-// const router = require('express').Router();
-// const controller = require('../controllers/reviewController');
+const router = require('express').Router();
+const controller = require('../controllers/reviewController');
 
-// router.get('/getReview', controller.getReview)
-// router.post('/postReview', controller.postReview)
+router.get('/findReview', controller.findReview)
+router.post('/addReview', controller.addReview)
 
-// module.exports = router;
+module.exports = router;

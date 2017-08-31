@@ -48,5 +48,15 @@
     "profileDescription": "oooo-raaaah!!!!",
     "DOB": "2010-08-12",
     "rewardPoints": 100
+  },
+  {
+    "firstName": "Ethan",
+    "lastName": "Fung",
+    "email": "test@gmail.com",
+    "username": "manwiththesplendor",
+    "profilePicture": "https://avatars0.githubusercontent.com/u/24540371?v=4&s=460",
+    "profileDescription": "reserve this card",
+    "DOB": "2010-08-12",
+    "rewardPoints": 4000
   }
 ]
