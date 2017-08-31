@@ -20,6 +20,7 @@ const mapStateToProps = (state) => {
   console.log('Create Game state: ', state)
   return {
     createChallengeLocation: state.create.createChallengeLocation,
+    createChallengeLocation: state.create.createChallengeLocation,
     createChallengeType: state.create.createChallengeType,
     createChallengeTitle: state.create.createChallengeTitle,
     createChallengeObjective: state.create.createChallengeObjective,
@@ -41,6 +42,21 @@ class CreateChallenge extends Component {
   render() {
     return (
       <View style={styles.container}>
+
+        <TitledInput
+          label='Challenge Title'
+          placeholder='Enter Here...'
+          value={this.props.createChallengeTitle}
+          onChangeText={(e) => {this.props.enteredField('createChallengeTitle', e)}}
+        />
+
+        <TitledInput
+          label='Challenge Type'
+          placeholder='Enter Here...'
+          value={this.props.createChallengeType}
+          onChangeText={(e) => {this.props.enteredField('createChallengeType', e)}}
+        />
+
         <TitledInput
           label='Challenge Location'
           placeholder='Enter Here...'
@@ -52,22 +68,10 @@ class CreateChallenge extends Component {
          title="Set Location"
          color="#841584"/>
 
-         <Button onPress={() => {console.log('clear location function placeholder')}}
-         title="Clear Location"
-         color="#841584"/>
+        <Button onPress={() => {console.log('clear location function placeholder')}}
+        title="Clear Location"
+        color="#841584"/>
 
-        <TitledInput
-          label='Challenge Type'
-          placeholder='Enter Here...'
-          value={this.props.createChallengeType}
-          onChangeText={(e) => {this.props.enteredField('createChallengeType', e)}}
-        />
-        <TitledInput
-          label='Challenge Title'
-          placeholder='Enter Here...'
-          value={this.props.createChallengeTitle}
-          onChangeText={(e) => {this.props.enteredField('createChallengeTitle', e)}}
-        />
         <TitledInput
           label='Challenge Objective'
           placeholder='Enter Here...'
