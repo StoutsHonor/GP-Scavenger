@@ -12,8 +12,18 @@ import {
   View
 } from 'react-native';
 
-import firebase from 'firebase'
-import firebaseconfig from './config/firebaseconfig.js'
+
+// Redux Imports for Initialization (Create Store)
+import {Provider} from 'react-redux';
+import {createStore, applyMiddleware} from 'redux';
+import promise from 'redux-promise';
+import allReducers from './src/reducers/index.js';
+const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
+
+
+
+// import firebase from 'firebase'
+// import firebaseconfig from './config/firebaseconfig.js'
 import LoginForm from './src/components/LoginForm'
 import TitledInput from './src/components/TitledInput'
 
@@ -57,14 +67,14 @@ export default class client extends Component {
   componentWillMount() {
     console.log('index.android.js has loaded')
 
-    firebase.initializeApp({
-      apiKey: firebaseconfig.apiKey,
-      authDomain: firebaseconfig.authDomain,
-      databaseURL: firebaseconfig.databaseURL,
-      projectId: firebaseconfig.projectId,
-      storageBucket: firebaseconfig.storageBucket,
-      messagingSenderId: firebaseconfig.messagingSenderId
-    })
+    // firebase.initializeApp({
+    //   apiKey: firebaseconfig.apiKey,
+    //   authDomain: firebaseconfig.authDomain,
+    //   databaseURL: firebaseconfig.databaseURL,
+    //   projectId: firebaseconfig.projectId,
+    //   storageBucket: firebaseconfig.storageBucket,
+    //   messagingSenderId: firebaseconfig.messagingSenderId
+    // })
   }
 
   dummyGet() {
@@ -112,45 +122,52 @@ export default class client extends Component {
 
   render() {
 
-    if (!this.state.user === '09999999999999') {
-      return (
-        <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
-      )
-    } else {
+    // if (!this.state.user) {
+    //   return (
+    //     <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
+    //   )
+    // } else {
 
       return (
-        <Router>
-        <Scene key="root">
-          <Scene key="login"
-            component={Login}
-            title="Login Page"
-            initial
-          />
+        <Provider store={createStoreWithMiddleware(allReducers)}>
+          <Router>
+          <Scene key="root">
 
-          <Scene key="homepage"
-            component={HomePage}
-            title="Home Page"
-          />
+            <Scene key="homepage"
+              component={HomePage}
+              title="Home Page"
+              initial
+            />
 
-          <Scene key="games" tabs={true}>
-            <Scene key="startgame"
-              component={StartGame}
-              title="Start A Game"
+            <Scene key="games" tabs={true}>
+              <Scene key="startgame"
+                component={StartGame}
+                title="Start A Game"
+              />
+              <Scene key="joingame"
+                component={JoinGame}
+                title="Join a Game"
+              />
+              <Scene key="leaderboard"
+                component={Leaderboard}
+                title="Leaderboard"
+              />
+            </Scene>
+
+            <Scene key="mygames"
+              component={MyGames}
+              title="My Games"
             />
-            <Scene key="joingame"
-              component={JoinGame}
-              title="Join a Game"
+
+            <Scene key="creategame"
+              component={CreateGame}
+              title="Create Game"
             />
+
             <Scene key="leaderboard"
               component={Leaderboard}
               title="Leaderboard"
             />
-          </Scene>
-
-          <Scene key="mygames"
-            component={MyGames}
-            title="My Games"
-          />
 
           <Scene key="chat"
             component={Chat}
@@ -160,16 +177,6 @@ export default class client extends Component {
           <Scene key="camera"
             component={Chat}
             title="Camera"
-          />
-
-          <Scene key="creategame"
-            component={CreateGame}
-            title="Create Game"
-          />
-
-          <Scene key="leaderboard"
-            component={Leaderboard}
-            title="Leaderboard"
           />
 
           <Scene key="profilestats" tabs={true}>
@@ -200,13 +207,14 @@ export default class client extends Component {
               title="Home Page"
             />
 
-            <Scene key="notifications"
-              component={Notifications}
-              title="Notifications"
-            />
+              <Scene key="notifications"
+                component={Notifications}
+                title="Notifications"
+              />
 
-          </Scene>
-        </Router>
+            </Scene>
+          </Router>
+        </Provider>
       // <Card>
       //   <CardSection>
       //     <Button onPress={this.dummyGet}>
@@ -229,9 +237,13 @@ export default class client extends Component {
       //   </CardSection>
       // </Card>
     );
-    }
+    // }
   }
 }
+
+
+
+
 
 const styles = StyleSheet.create({
   container: {
