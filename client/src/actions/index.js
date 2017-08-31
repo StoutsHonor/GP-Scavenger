@@ -3,8 +3,10 @@
 // List out the types of actions, and export these. The reducers will import these, to know where to make updates.
 
 export const entered_field = 'entered_field';
-export const challenge_added = 'challenge_added';
+export const create_challenges_updated = 'create_challenges_updated';
 export const submitted_create_game = 'submitted_create_game';
+export const start_location_set = 'start_location_set';
+export const challenge_location_set = 'challenge_location_set';
 
 
 // Action Creators: the function that returns the action
@@ -20,10 +22,10 @@ export const enteredField = (field, info) => {
   };
 };
 
-export const challengeAdded = (challengeInfo) => {
-  console.log('Challenge was added: ', challengeInfo);
+export const challengesUpdated = (challengeInfo) => {
+  console.log('Challenges updated: ', challengeInfo);
   return {
-      type: challenge_added,
+      type: create_challenges_updated,
       payload: challengeInfo
   };
 };
@@ -36,4 +38,53 @@ export const submittedCreatedGame = (gameInfo) => {
   };
 };
 
+export const startLocationSet = (location) => {
+  console.log('Game was submitted: ', location);
+  return {
+      type: start_location_set,
+      payload: location
+  };
+};
 
+export const challengeLocationSet = (location) => {
+  console.log('Game was submitted: ', location);
+  return {
+      type: challenge_location_set,
+      payload: location
+  };
+};
+
+
+
+
+
+// client related actions:
+export const user_logged_in = 'user_logged_in';
+export const user_started_game = 'user_started_game';
+export const user_ended_game = 'user_ended_game';
+export const user_added_friend = 'user_added_friend';
+export const user_removed_friend = 'user_removed_friend';
+
+export const userLoggedIn = (data) => {
+  console.log('User Logged In: ', data);
+  return {
+      type: user_logged_in,
+      payload: data
+  };
+};
+
+export const userStartedGame = (data) => {
+  console.log('Game was submitted: ', data);
+  return {
+      type: user_started_game,
+      payload: data
+  };
+};
+
+export const userEndedGame = (data) => {
+  console.log('Game was submitted: ', data);
+  return {
+      type: user_ended_game,
+      payload: data
+  };
+};
