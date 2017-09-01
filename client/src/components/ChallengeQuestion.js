@@ -4,9 +4,12 @@ import {
   Text,
   View,
   Button,
-  Image
+  Image,
+  Modal,
+  TouchableHighlight
 } from 'react-native';
 import { Divider, FormLabel, FormInput } from 'react-native-elements';
+import { Actions } from 'react-native-router-flux';
 import CountdownClock from 'react-native-countdown-clock';
 
 class ChallengeQuestion extends Component {
@@ -14,6 +17,7 @@ class ChallengeQuestion extends Component {
     super(props);
     this.handleClickSubmit = this.handleClickSubmit.bind(this);
     this.handleClickSkip = this.handleClickSkip.bind(this);
+    this.handleClickProceed = this.handleClickProceed.bind(this);
     this.state = {
       userInput: '',
       timeRemaining: 100,
@@ -54,7 +58,9 @@ class ChallengeQuestion extends Component {
         "answer": "call it home",
         "difficulty": "hard",
         "default": true
-      }
+      },
+
+      showCongrats: false,
     }
   }
 
@@ -65,6 +71,7 @@ class ChallengeQuestion extends Component {
   handleClickSubmit() {
     if(this.state.userInput === this.state.challenge.answer) {
       console.log('congratulations');
+      this.setState({showCongrats: true})
     } else {
       console.log('try again');
     }
@@ -74,10 +81,28 @@ class ChallengeQuestion extends Component {
     console.log('skip clicked')
   }
 
+  handleClickProceed() {
+    console.log('proceed button clicked')
+    Actions.challengelist();
+  }
+
   render() {
     return (
       //add image to background, fetch image from database preferred
       <View style={styles.container}>
+        <Modal
+          animationType={"slide"}
+          transparent={false}
+          visible={this.state.showCongrats}
+          onRequestClose={() => {alert("Modal has been closed.")}}
+          >
+          <View style={{marginTop: 22}}>
+            <View>
+              <Text>Congratulations! You Solved this Challenge!</Text>
+              <Button onPress={this.handleClickProceed} title="Click Here for the Next Challenge" color="#1E90FF"/>
+            </View>
+          </View>
+        </Modal>
         <View style={styles.timer}><Text>{this.state.timeRemaining}</Text></View>
         <View style={styles.type}><Text>{this.state.type.toUpperCase()}</Text></View>
         <View style={styles.question}><Text>{this.state.challenge.question}</Text></View>
