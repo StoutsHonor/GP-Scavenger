@@ -10,6 +10,29 @@ import { Actions } from 'react-native-router-flux';
 import CreateList from './CreateList';
 import Map from './Map'
 
+// Redux Imports for binding stateToProps and dispatchToProps to the component
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {startLocationSet, challengeLocationSet} from '../actions/index.js'
+
+// gives the component access to store through props
+const mapStateToProps = (state) => {
+  console.log('Create Game state: ', state)
+  return {
+    createGameChallenges: state.create.createGameChallenges,
+    createChallengeLocation: state.create.createChallengeLocation,
+    createChallengeType: state.create.createChallengeType,
+    createChallengeTitle: state.create.createChallengeTitle,
+    createChallengeObjective: state.create.createChallengeObjective,
+    createChallengeAnswer: state.create.createChallengeAnswer,
+  }
+}
+
+// gives the component access to actions through props
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({startLocationSet, challengeLocationSet}, dispatch)
+}
+
 class CreateGPSChallenge extends Component {
   constructor(props) {
     super(props)
@@ -26,6 +49,7 @@ class CreateGPSChallenge extends Component {
     this.setState({ mapMarker: location }, () => {
       console.log(`this.state.mapMarker is ${JSON.stringify(this.state.mapMarker)}`)
     })
+    this.props.challengeLocationSet(location);
 
   }
 
@@ -44,4 +68,5 @@ class CreateGPSChallenge extends Component {
 
 }
 
-export default CreateGPSChallenge
+// export default CreateGPSChallenge
+export default connect(mapStateToProps, mapDispatchToProps)(CreateGPSChallenge)

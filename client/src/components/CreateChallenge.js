@@ -13,7 +13,7 @@ import TitledInput from './TitledInput';
 // Redux Imports for binding stateToProps and dispatchToProps to the component
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {enteredField, challengesUpdated, submittedCreatedGame} from '../actions/index.js'
+import {enteredField, challengesUpdated, submittedCreatedGame, challengeLocationSet} from '../actions/index.js'
 
 // gives the component access to store through props
 const mapStateToProps = (state) => {
@@ -30,7 +30,7 @@ const mapStateToProps = (state) => {
 
 // gives the component access to actions through props
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({enteredField, challengesUpdated}, dispatch)
+  return bindActionCreators({enteredField, challengesUpdated, challengeLocationSet}, dispatch)
 }
 
 
@@ -60,7 +60,7 @@ class CreateChallenge extends Component {
         <TitledInput
           label='Challenge Location'
           placeholder='Enter Here...'
-          value={this.props.createChallengeLocation}
+          value={this.props.createChallengeLocation ? 'Latitude: ' + JSON.stringify(this.props.createChallengeLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createChallengeLocation.longitude.toFixed(2)) : null}
           onChangeText={(e) => {this.props.enteredField('createChallengeLocation', e)}}
         />
 
@@ -68,7 +68,7 @@ class CreateChallenge extends Component {
          title="Set Location"
          color="#841584"/>
 
-        <Button onPress={() => {console.log('clear location function placeholder')}}
+        <Button onPress={() => {this.props.challengeLocationSet(null)}}
         title="Clear Location"
         color="#841584"/>
 
