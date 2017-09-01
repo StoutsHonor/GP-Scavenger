@@ -20,7 +20,7 @@ class ChallengeQuestion extends Component {
     this.handleClickProceed = this.handleClickProceed.bind(this);
     this.state = {
       userInput: '',
-      timeRemaining: 100,
+      timeRemaining: 30,
       challenges: [{
         "name": "Riddle #1",
         "description": "This is the first riddle",
@@ -66,10 +66,10 @@ class ChallengeQuestion extends Component {
   }
 
   componentDidMount() {
-    // timer.setInterval(function(){
-    //   let count = this.state.timeRemaining - 1;
-    //   this.setState({timeRemaining: count});
-    // },1000);
+    let clock = setInterval(() => {
+      let count = this.state.timeRemaining - 1;
+      this.setState({timeRemaining: count});
+    },1000);
   }
 
   handleClickSubmit() {
@@ -91,6 +91,10 @@ class ChallengeQuestion extends Component {
   }
 
   render() {
+    if(this.state.timeRemaining === 0) {
+      clearInterval(clock);
+      Actions.challengelist();
+    }
     return (
       //add image to background, fetch image from database preferred
       <View style={styles.container}>

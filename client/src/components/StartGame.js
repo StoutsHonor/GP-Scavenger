@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-const Profile = () => {
+const StartGame = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>
@@ -36,4 +36,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Profile;
+export default StartGame;

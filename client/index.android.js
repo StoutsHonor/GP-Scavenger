@@ -33,7 +33,7 @@ import CardSection from './src/components/CardSection'
 
 import { Router, Scene } from 'react-native-router-flux';
 
-import Camera from './src/components/Camera';
+// import Camera from './src/components/Camera';
 import ChallengeList from './src/components/ChallengeList';
 import ChallengeQuestion from './src/components/ChallengeQuestion';
 import Chat from './src/components/Chat';
@@ -219,6 +219,7 @@ export default class client extends Component {
               <Scene key="challengelist"
                 component={ChallengeList}
                 title="List"
+                renderBackButton={()=>(null)}
               />
             </Scene>
 
@@ -250,6 +251,7 @@ export default class client extends Component {
             <Scene key="challengequestion"
               component={ChallengeQuestion}
               title="Challenge Question"
+              renderBackButton={()=>(null)}
             />
 
           </Scene>
