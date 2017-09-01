@@ -35,6 +35,7 @@ import { Router, Scene } from 'react-native-router-flux';
 
 import Camera from './src/components/Camera';
 import ChallengeList from './src/components/ChallengeList';
+import ChallengeQuestion from './src/components/ChallengeQuestion';
 import Chat from './src/components/Chat';
 import CreateGame from './src/components/CreateGame';
 import GameLog from './src/components/GameLog';
@@ -242,8 +243,13 @@ export default class client extends Component {
               />
 
               <Scene key="createGPSchallenge"
-                component={CreateGPSChallenge}
-                title="Create GPS Challenge"
+              component={CreateGPSChallenge}
+              title="Create GPS challenge"
+              />
+
+              <Scene key="challengequestion"
+                component={ChallengeQuestion}
+                title="Challenge Question"
               />
 
             </Scene>

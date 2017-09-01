@@ -13,7 +13,7 @@ const Profile = () => {
         Start a New Game
       </Text>
       <Text onPress={() => Actions.demoGPSGame()}>Test Game GPS</Text>
-      <Text onPress={() => Actions.task()}>Test Game Question</Text>
+      <Text onPress={() => Actions.challengequestion()}>Test Game Question</Text>
       <Text onPress={() => Actions.mygames()}>Choose From My Games</Text>
       <Text onPress={() => Actions.joingame()}>Join An Existing Game</Text>
       <Text onPress={() => Actions.homepage()}>Homepage</Text>
