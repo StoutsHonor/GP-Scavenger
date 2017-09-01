@@ -61,6 +61,7 @@ class ChallengeQuestion extends Component {
       },
 
       showCongrats: false,
+      showTryAgain: false
     }
   }
 
@@ -69,11 +70,11 @@ class ChallengeQuestion extends Component {
   }
 
   handleClickSubmit() {
-    if(this.state.userInput === this.state.challenge.answer) {
-      console.log('congratulations');
-      this.setState({showCongrats: true})
+    if(this.state.userInput.toLowerCase() === this.state.challenge.answer.toLowerCase()) {
+      this.setState({showCongrats: true});
     } else {
-      console.log('try again');
+      this.setState({showTryAgain: true});
+      setTimeout(() => this.setState({showTryAgain: false}), 3000)
     }
   }
 
@@ -82,7 +83,7 @@ class ChallengeQuestion extends Component {
   }
 
   handleClickProceed() {
-    console.log('proceed button clicked')
+    this.setState({showCongrats: false});
     Actions.challengelist();
   }
 
@@ -108,6 +109,7 @@ class ChallengeQuestion extends Component {
         <View style={styles.question}><Text>{this.state.challenge.question}</Text></View>
         <FormLabel>Enter Answer Here:</FormLabel>
         <FormInput onChangeText={userInput => this.setState({userInput})}/>
+        {this.state.showTryAgain ? <View style={styles.tryAgain}><Text style={styles.tryAgainText}>Try Again</Text></View> : null}
         <Button
           onPress={this.handleClickSubmit}
           title="Submit"
@@ -142,6 +144,13 @@ const styles = StyleSheet.create({
     margin: 10,
     marginBottom: 30,
     backgroundColor: '#F0FFFF'
+  },
+  tryAgain: {
+    backgroundColor: "#800000",
+  },
+  tryAgainText: {
+    color: "#FFFFFF",
+    fontSize: 30
   }
 });
 
