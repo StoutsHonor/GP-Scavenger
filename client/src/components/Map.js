@@ -28,32 +28,20 @@ class Map extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
-      markers: [
-        {latitude: 37.78825, longitude: -122.4324},
-        {latitude: 38.78825, longitude: -122.4324},
-        {latitude: 39.78825, longitude: -122.4324},
-        {latitude: 40.78825, longitude: -122.4324},
-        {latitude: 41.78825, longitude: -122.4324}
-      ],
-      marker: {}
+      markers: []
      }
   }
 
-  // componentWillMount() {
-  //   console.log(`blah componentWillMount in map.js`)
-  //   let component = this;
-  //   if (this.props.markers) {
-  //     console.log(`this.props.markers is ${JSON.stringify(this.props.markers)}`)
-  //     this.setState({markers: this.props.markers})
-  //   }
-  // }
+  componentWillMount() {
+    console.log(`componentWillMount() in Map.js`)
+    console.log(`this.props.markers is ${JSON.stringify(this.props.markers)}`)
+    this.setState({markers: this.props.markers})
+  }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.markers) {
       this.setState({markers: nextProps.markers}, () => {
-        console.log(`awww yeaaah ${JSON.stringify(this.state.markers)}`)
+        console.log(`after setState in componentWillReceiveProps() in Map.js ${JSON.stringify(this.state.markers)}`)
       })
-    }
   }
 
   getCurrentLocation() {
@@ -135,7 +123,7 @@ class Map extends Component {
             region={this.state.region} 
             onRegionChange={this.onRegionChange}
         >
-        {this.props.markers.map((loc, index) => {return(
+        {this.state.markers.map((loc, index) => {return(
          <MapView.Marker
          coordinate={loc}
          key={index}

@@ -3,7 +3,9 @@ import {
   StyleSheet,
   Text,
   ScrollView,
-  View
+  View,
+  Modal,
+  TouchableHighlight
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -27,12 +29,14 @@ const mapStateToProps = (state) => {
 class DemoGPSGame extends Component {
   constructor(props) {
     super(props);
-
+    this.challengeCompleted = this.challengeCompleted.bind(this);
+    this.getNextChallenge = this.getNextChallenge.bind(this);
     this.state = {
       gameId: 3,
       challenges: [],
       currentChallengeIndex: 0,
-      currentChallenge: null
+      currentChallenge: null,
+      modalVisible: false
     }
   }
 
@@ -50,12 +54,28 @@ class DemoGPSGame extends Component {
     });
   }
 
+  challengeCompleted() {
+    //render the next GPS coordinate
+    this.setModalVisible(true)
+  }
+
+  getNextChallenge() {
+    //increment the currentChallengeIndex
+    this.setModalVisible(!this.state.modalVisible)
+    let newIndex = this.state.currentChallengeIndex + 1
+    this.setState({currentChallengeIndex: newIndex, currentChallenge: this.state.challenges[newIndex]})
+  }
+
+  setModalVisible(boo) {
+    this.setState({modalVisible: boo})
+  }
+
   render() {
     let challenge = null
     //console.log(`this.state.currentChallenge in DemoGPSGame is ${JSON.stringify(this.state.currentChallenge)} `)
     if (this.state.currentChallenge !== null) {
       if (this.state.currentChallenge.location !== null && this.state.currentChallenge.questionTypeId === null) {
-        challenge = (<GPSChallengeTask currentChallenge={this.state.currentChallenge}/>)
+        challenge = (<GPSChallengeTask currentChallenge={this.state.currentChallenge} challengeCompleted={this.challengeCompleted}/>)
       } else if (this.state.currentChallenge.questionTypeId === 1) {
         challenge= (<Text>Riddles riddlessss</Text>)
       }
@@ -63,6 +83,25 @@ class DemoGPSGame extends Component {
     return (
         <View style={styles.container}>
           {challenge}
+          <Modal
+          animationType={"slide"}
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {alert("Modal has been closed.")}}
+          >
+         <View style={{marginTop: 22}}>
+          <View>
+            <Text>CONGRATS YOU GOT TO THE CHECKPOINT!!!</Text>
+
+            <TouchableHighlight onPress={() => {
+              this.getNextChallenge(!this.state.modalVisible)
+            }}>
+              <Text>GET NEXT CHALLENGE</Text>
+            </TouchableHighlight>
+
+          </View>
+         </View>
+        </Modal>
         </View>
     )
   }
