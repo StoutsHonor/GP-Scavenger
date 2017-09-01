@@ -28,7 +28,8 @@ const Chat = sequelize.define('chat', {
   createdAt: { type: Sequelize.STRING, allowNull: false },
   _id: { type: Sequelize.STRING, allowNull: false },
   roomName:  { type: Sequelize.STRING, allowNull: false },
-  text:  { type: Sequelize.STRING, allowNull: false }
+  text:  { type: Sequelize.STRING, allowNull: false },
+  image:  { type: Sequelize.STRING, allowNull: false }
 })
 
 const Game = sequelize.define('game', {
