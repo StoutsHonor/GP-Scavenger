@@ -58,12 +58,7 @@ class CreateChallenge extends Component {
           onChangeText={(e) => {this.props.enteredField('createChallengeType', e)}}
         />
 
-        <TitledInput
-          label='Challenge Location'
-          placeholder='Enter Here...'
-          value={this.props.createChallengeLocation ? 'Latitude: ' + JSON.stringify(this.props.createChallengeLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createChallengeLocation.longitude.toFixed(2)) : null}
-          onChangeText={(e) => {this.props.enteredField('createChallengeLocation', e)}}
-        />
+        <Text>{'Location: '}{this.props.createChallengeLocation ? 'Latitude: ' + JSON.stringify(this.props.createChallengeLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createChallengeLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
 
         <Button onPress={() => {Actions.createGPSchallenge()}}
          title="Set Location"
