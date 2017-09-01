@@ -31,11 +31,3 @@ class LeaderboardEntry extends Component {
 }
 
 export default LeaderboardEntry;
-
-{/* <List> */}
-  {/* <ListItem
-    key={key}
-    title={player.username}
-    subtitle={player.firstName + player.lastName}
-  /> */}
-{/* </List> */}
