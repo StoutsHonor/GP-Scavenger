@@ -3,7 +3,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  Alert
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CreateList from './CreateList';
@@ -110,7 +111,16 @@ class CreateGame extends Component {
          title="Add a Challenge"
          color="#841584"/>
         
-        <Button onPress={() => {console.log('submit game pressed')} }
+        <Button onPress={() => {
+          console.log('submit game pressed')
+          Alert.alert(
+            '',
+            'Game Submitted!',
+            [
+              {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
+            ]
+          )} 
+        }
         title="Submit Game"
         color="#841584"/>
 
