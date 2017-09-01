@@ -15,7 +15,7 @@ export default class FloatingButton extends Component {
       <View style={styles.container}>
         {/* Rest of the app comes ABOVE the action button component !*/}
 
-        <ActionButton buttonColor="rgba(231,76,60,1)" onPress={() => console.log("notes tapped!")}>
+        <ActionButton buttonColor="rgba(231,76,60,1)" onPress={() => this.props.handleClick()}>
           {/* <ActionButton.Item buttonColor='#9b59b6' title="New Task" onPress={() => console.log("notes tapped!")}>
           </ActionButton.Item>
           <ActionButton.Item buttonColor='#3498db' title="Notifications" onPress={() => {console.log("notification tapped!")}}>

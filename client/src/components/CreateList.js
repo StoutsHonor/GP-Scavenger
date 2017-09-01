@@ -41,6 +41,7 @@ export default class CreateList extends Component {
     this.state = {
       data: {}
     }
+    this.buttonOnClick = this.buttonOnClick.bind(this);
   }
 
 
@@ -64,11 +65,18 @@ export default class CreateList extends Component {
     console.log('create list state mounted, state is: ', this.state)
   }
 
+
+  buttonOnClick() {
+    console.log('create list state: ', this.state)
+    console.log('create list props: ', this.props)
+  }
+
+
   render() {
     return (
       <View style={styles.container}>
-        <FloatingButton />
-        <Text style={styles.title}>Challenges:</Text>
+        <FloatingButton handleClick={this.buttonOnClick}/>
+        <Text style={styles.title} onPress={() => {console.log(this.state); console.log(this.props);}}>Challenges:</Text>
         <SortableList
           style={styles.list}
           contentContainerStyle={styles.contentContainer}
