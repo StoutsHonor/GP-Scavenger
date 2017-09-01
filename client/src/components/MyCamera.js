@@ -80,7 +80,7 @@ export default class MyCamera extends Component {
     let imageObj = {};
     // imageObj.image = this.uploadImage(this.state.path);
     imageObj.image = this.state.path;
-    console.log('Image address is ' + imageObj.image);
+
     imageObj.text = '';
     imageObj._id = Math.round(Math.random() * 1000000);
     imageObj.user = {_id: Math.round(Math.random() * 1000000)};
@@ -108,8 +108,16 @@ export default class MyCamera extends Component {
   }
 
   uploadImage(file){
-  
+    console.log('');
    
+  }
+
+  render() {
+    return (
+      <View style={styles.container}>
+        {this.state.path ? this.renderImage() : this.renderCamera()}
+      </View>
+    );
   }
 
   renderCamera() {
@@ -153,29 +161,7 @@ export default class MyCamera extends Component {
       </View>
     );
   }
-
-  
-
-  renderCamera() {
-    return (
-      <View style={styles.container}>
-        {this.state.path ? this.renderImage() : this.renderCamera()}
-      </View>
-    );
-  }
-};
-
-// function mapStateToProps(state) {
-//   return {
-//     path: state.client
-//   }
-// }
-
-// function matchDispatchToProps(dispatch) {
-//   return bindActionCreators({ acceptImage }, dispatch);
-// }
-
-// export default connect(matchDispatchToProps)(MyCamera);
+}
 
 
 
