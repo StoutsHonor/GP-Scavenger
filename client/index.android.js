@@ -37,8 +37,10 @@ import { Router, Scene } from 'react-native-router-flux';
 import ChallengeList from './src/components/ChallengeList';
 import ChallengeQuestion from './src/components/ChallengeQuestion';
 import Chat from './src/components/Chat';
+import CongratsPage from './src/components/CongratsPage';
 import CreateGame from './src/components/CreateGame';
 import GameLog from './src/components/GameLog';
+import FailedPage from './src/components/FailedPage';
 import Friends from './src/components/Friends';
 import GPSChallenge from './src/components/GPSChallenge';
 import HomePage from './src/components/HomePage';
@@ -251,6 +253,17 @@ export default class client extends Component {
             <Scene key="challengequestion"
               component={ChallengeQuestion}
               title="Challenge Question"
+              renderBackButton={()=>(null)}
+            />
+
+            <Scene key="congratspage"
+            component={CongratsPage}
+            title="COMPLETED!!!"
+            />
+
+            <Scene key="failedpage"
+              component={FailedPage}
+              title="FAILED!!!"
               renderBackButton={()=>(null)}
             />
 
