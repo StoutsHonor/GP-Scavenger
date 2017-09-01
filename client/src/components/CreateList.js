@@ -41,6 +41,7 @@ export default class CreateList extends Component {
     this.state = {
       data: {}
     }
+    this.buttonOnClick = this.buttonOnClick.bind(this);
   }
 
 
@@ -51,7 +52,7 @@ export default class CreateList extends Component {
   componentWillReceiveProps(nextProps) {
     console.log('createlist willreceiveProps, nextProps is: ', nextProps);
     let temp ={};
-    for (let i = 0; i < temp.length; i++) {
+    for (let i = 0; i < nextProps.data.length; i++) {
       temp[i] = nextProps.data[i];
     }
     console.log('create list willreceiveProps, temp is: ', temp);
@@ -64,11 +65,18 @@ export default class CreateList extends Component {
     console.log('create list state mounted, state is: ', this.state)
   }
 
+
+  buttonOnClick() {
+    console.log('create list state: ', this.state)
+    console.log('create list props: ', this.props)
+  }
+
+
   render() {
     return (
       <View style={styles.container}>
-        <FloatingButton />
-        <Text style={styles.title}>Title: Find these cats!</Text>
+        <FloatingButton handleClick={this.buttonOnClick}/>
+        <Text style={styles.title} onPress={() => {console.log(this.state); console.log(this.props);}}>Challenges:</Text>
         <SortableList
           style={styles.list}
           contentContainerStyle={styles.contentContainer}

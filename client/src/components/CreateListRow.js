@@ -51,6 +51,8 @@ export default class SortableListRow extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
+    console.log('Row: this.props.ChallengeTitle: ', this.props.data.ChallengeTitle);
+    console.log('Row: nextProps.ChallengeTitle: ', nextProps.data.ChallengeTitle);
     if (this.props.active !== nextProps.active) {
       Animated.timing(this._active, {
         duration: 300,
@@ -62,14 +64,14 @@ export default class SortableListRow extends Component {
 
   render() {
    const {data, active} = this.props;
-    console.log('row entry data: ',data);
+    console.log('Row: data to render: ',data);
     return (
       <Animated.View style={[
         styles.row,
         this._style,
       ]}>
         {/* <Image source={{uri: data.image}} style={styles.image} /> */}
-        <Text style={styles.text}>{JSON.stringify(data)}</Text>
+        <Text style={styles.text}>{data.ChallengeTitle}</Text>
       </Animated.View>
     );
   }
