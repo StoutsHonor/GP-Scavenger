@@ -89,13 +89,13 @@ class CreateGame extends Component {
         /> */}
 
         {/* <FloatingButton/> */}
-        {/* <CreateList style={{}} data={this.props.createGameChallenges}/> */}
+        <CreateList style={{}} data={this.props.createGameChallenges}/>
 
-        {this.props.createGameChallenges.map((challenge, index) => {
+        {/* {this.props.createGameChallenges.map((challenge, index) => {
           return (
             <Text key={index}>{'#' + JSON.stringify(index + 1) + ': ' + challenge.ChallengeTitle}</Text>
           )
-        })}
+        })} */}
 
 
 
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#6ea1f4',
+    backgroundColor: '#97b8ef',
   },
   welcome: {
     fontSize: 20,

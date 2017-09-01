@@ -69,7 +69,7 @@ export default class SortableListRow extends Component {
         this._style,
       ]}>
         {/* <Image source={{uri: data.image}} style={styles.image} /> */}
-        <Text style={styles.text}>{JSON.stringify(data)}</Text>
+        <Text style={styles.text}>{data.ChallengeTitle}</Text>
       </Animated.View>
     );
   }
