@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Divider, FormLabel, FormInput } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
-import CountdownClock from 'react-native-countdown-clock';
+// import timer from 'react-native-timer';
 
 class ChallengeQuestion extends Component {
   constructor(props) {
@@ -66,7 +66,10 @@ class ChallengeQuestion extends Component {
   }
 
   componentDidMount() {
-
+    // timer.setInterval(function(){
+    //   let count = this.state.timeRemaining - 1;
+    //   this.setState({timeRemaining: count});
+    // },1000);
   }
 
   handleClickSubmit() {
@@ -91,6 +94,16 @@ class ChallengeQuestion extends Component {
     return (
       //add image to background, fetch image from database preferred
       <View style={styles.container}>
+        <Image
+          style={{
+            flex: 1,
+            position: 'absolute',
+            width: '140%',
+            height: '140%',
+            justifyContent: 'center',
+          }}
+          source={{ uri: "https://afterwordsbooks.files.wordpress.com/2013/02/riddle.jpg" }}
+        />
         <Modal
           animationType={"slide"}
           transparent={false}
@@ -104,11 +117,14 @@ class ChallengeQuestion extends Component {
             </View>
           </View>
         </Modal>
-        <View style={styles.timer}><Text>{this.state.timeRemaining}</Text></View>
-        <View style={styles.type}><Text>{this.state.type.toUpperCase()}</Text></View>
+        <View style={styles.timer}><Text style={styles.bigFont}>{this.state.timeRemaining} Seconds</Text></View>
+        <View style={styles.type}><Text style={styles.bigFont}>{this.state.type.toUpperCase()} :</Text></View>
+        <View style={styles.title}><Text style={styles.bigFont}>{this.state.challenge.title}</Text></View>
         <View style={styles.question}><Text>{this.state.challenge.question}</Text></View>
-        <FormLabel>Enter Answer Here:</FormLabel>
-        <FormInput onChangeText={userInput => this.setState({userInput})}/>
+        <View style={styles.form}>
+          <FormLabel >Enter Answer Here:</FormLabel>
+          <FormInput onChangeText={userInput => this.setState({userInput})}/>
+        </View>
         {this.state.showTryAgain ? <View style={styles.tryAgain}><Text style={styles.tryAgainText}>Try Again</Text></View> : null}
         <Button
           onPress={this.handleClickSubmit}
@@ -134,11 +150,15 @@ const styles = StyleSheet.create({
   },
   timer: {
     margin: 10,
-    backgroundColor: '#F0FFFF'
+    backgroundColor: '#F0FFFF',
   },
   type: {
     margin: 10,
-    backgroundColor: '#F0FFFF'
+    backgroundColor: '#F0FFFF',
+  },
+  title: {
+    margin: 10,
+    backgroundColor: '#F0FFFF',
   },
   question: {
     margin: 10,
@@ -150,6 +170,12 @@ const styles = StyleSheet.create({
   },
   tryAgainText: {
     color: "#FFFFFF",
+    fontSize: 30
+  },
+  form: {
+    backgroundColor:'#F0FFFF'
+  },
+  bigFont: {
     fontSize: 30
   }
 });

@@ -135,9 +135,9 @@ export default class client extends Component {
     //   )
     // } else {
 
-      return (
-        <Provider store={createStoreWithMiddleware(allReducers)}>
-          <Router>
+    return (
+      <Provider store={createStoreWithMiddleware(allReducers)}>
+        <Router>
           <Scene key="root">
 
             <Scene key="homepage"
@@ -181,22 +181,22 @@ export default class client extends Component {
             title="Camera"
           /> */}
 
-          <Scene key="profilestats" tabs={true}>
-            <Scene
-              key="profile"
-              component={Profile}
-              title="Profile"
-            />
-            <Scene
-              key="friends"
-              component={Friends}
-              title="Friends"
-            />
-            <Scene
-              key="otherusers"
-              component={OtherUsers}
-              title="Other Users"
-            />
+            <Scene key="profilestats" tabs={true}>
+              <Scene
+                key="profile"
+                component={Profile}
+                title="Profile"
+              />
+              <Scene
+                key="friends"
+                component={Friends}
+                title="Friends"
+              />
+              <Scene
+                key="otherusers"
+                component={OtherUsers}
+                title="Other Users"
+              />
             </Scene>
 
             <Scene key="currentgame" tabs={true}>
@@ -222,62 +222,40 @@ export default class client extends Component {
               />
             </Scene>
 
-              <Scene key="preferences"
-                component={Preferences}
-                title="Home Page"
-              />
+            <Scene key="preferences"
+              component={Preferences}
+              title="Home Page"
+            />
 
-              <Scene key="notifications"
-                component={Notifications}
-                title="Notifications"
-              />
+            <Scene key="notifications"
+              component={Notifications}
+              title="Notifications"
+            />
 
-              <Scene key="GPSchallenge"
-                component={GPSChallenge}
-                title="GPS Challenge"
-              />
+            <Scene key="GPSchallenge"
+              component={GPSChallenge}
+              title="GPS Challenge"
+            />
 
-              <Scene key="createChallenge"
-                component={CreateChallenge}
-                title="Create a Challenge"
-              />
+            <Scene key="createChallenge"
+              component={CreateChallenge}
+              title="Create a Challenge"
+            />
 
-              <Scene key="createGPSchallenge"
-              component={CreateGPSChallenge}
-              title="Create GPS challenge"
-              />
+            <Scene key="createGPSchallenge"
+            component={CreateGPSChallenge}
+            title="Create GPS challenge"
+            />
 
-              <Scene key="challengequestion"
-                component={ChallengeQuestion}
-                title="Challenge Question"
-              />
+            <Scene key="challengequestion"
+              component={ChallengeQuestion}
+              title="Challenge Question"
+            />
 
-            </Scene>
-          </Router>
-        </Provider>
-      // <Card>
-      //   <CardSection>
-      //     <Button onPress={this.dummyGet}>
-      //       Test GET!
-      //     </Button>
-      //   </CardSection>
-      
-      //   <CardSection>
-      //       <Text>GET response is: {JSON.stringify(this.state.dummyData)}</Text>
-      //   </CardSection>
-      
-      //   <CardSection>
-      //     <Button onPress={this.dummyPost}>
-      //       Test POST!
-      //     </Button>
-      //   </CardSection>
-      
-      //   <CardSection>
-      //       <Text>POST response is: {JSON.stringify(this.state.dummyData)}</Text>
-      //   </CardSection>
-      // </Card>
+          </Scene>
+        </Router>
+      </Provider>
     );
-    // }
   }
 }
 
