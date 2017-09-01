@@ -77,6 +77,7 @@ export default class Chat extends Component {
 
     onSend(messages=[]) {
       messages[0].roomName = this.roomName;
+      messages[0].image = '';
       let obj = {};
       obj.method = 'post';
       obj.headers = {"Content-type": "application/json"};
@@ -84,11 +85,10 @@ export default class Chat extends Component {
       console.log('In On send posting');
       fetch(`http://192.168.56.1:3000/api/chat/addChat`, obj)
       .then((response) => {
-        return response.json();
-       
+        return response.json();     
       })
       .then((data) => {
-        console.log('Data is ' ,  messages[0]);
+        console.log('Data is ' ,  data);
         this.socket.emit('message', messages[0]);
         this._storeMessages(messages);
       })
