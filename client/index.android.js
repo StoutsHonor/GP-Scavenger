@@ -53,6 +53,8 @@ import StartGame from './src/components/StartGame';
 import Task from './src/components/Task';
 import CreateChallenge from './src/components/CreateChallenge';
 import CreateGPSChallenge from './src/components/CreateGPSChallenge';
+import DemoGPSGame from './src/components/DemoGPSGame';
+
 
 export default class client extends Component {
   constructor() {
@@ -200,6 +202,10 @@ export default class client extends Component {
               <Scene key="task"
                 component={Task}
                 title="Task"
+              />
+              <Scene key="demoGPSGame"
+                component={DemoGPSGame}
+                title="Demo GPS Game"
               />
               <Scene key="chat"
                 component={Chat}

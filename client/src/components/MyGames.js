@@ -13,6 +13,23 @@ import {
 import { Actions } from 'react-native-router-flux';
 import GameEntry from './GameEntry';
 
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {getAllUsersGames} from '../actions/index.js'
+
+const mapStateToProps = (state) => {
+  console.log('Create Game state: ', state)
+  return {
+    games: state.play.games
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({getAllUsersGames}, dispatch)
+}
+
+
+
 class MyGames extends Component {
   constructor(props) {
     super(props);
@@ -23,10 +40,12 @@ class MyGames extends Component {
   }
 
   componentDidMount() {
-    fetch('http://192.168.56.1:3000/api/game/findGameByUserId/?userId=1')
+    fetch('http://10.0.2.2:3000/api/game/findGameByUserId/?userId=1')
     .then((response) => response.json())
     .then((responseJson) => {
-      this.setState({games: responseJson});
+      //this.setState({games: responseJson});
+      console.log(`getAllUsersGames is ${JSON.stringify(getAllUsersGames)}`)
+      getAllUsersGames(responseJson)
     })
     .catch((error) => {
       console.error(error);
@@ -34,9 +53,10 @@ class MyGames extends Component {
   }
 
   render() {
+    console.log(`this.props.games is ${JSON.stringify(this.props.games)}`)
     return (
       <ScrollView>
-        {this.state.games.map((game, key) => {
+        {this.props.games.map((game, key) => {
           return (
             <GameEntry game={game} key={key}/>
           )
@@ -62,4 +82,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default MyGames;
+export default connect(mapStateToProps, mapDispatchToProps)(MyGames)

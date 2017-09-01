@@ -1,5 +1,3 @@
-
-
 // List out the types of actions, and export these. The reducers will import these, to know where to make updates.
 
 export const entered_field = 'entered_field';
@@ -7,7 +5,8 @@ export const create_challenges_updated = 'create_challenges_updated';
 export const submitted_create_game = 'submitted_create_game';
 export const start_location_set = 'start_location_set';
 export const challenge_location_set = 'challenge_location_set';
-
+export const get_all_users_games = 'get_all_users_games';
+export const get_all_game_challenges = 'get_all_game_challenges';
 
 // Action Creators: the function that returns the action
 // (the object that is returned is the action)
@@ -54,10 +53,6 @@ export const challengeLocationSet = (location) => {
   };
 };
 
-
-
-
-
 // client related actions:
 export const user_logged_in = 'user_logged_in';
 export const user_started_game = 'user_started_game';
@@ -86,5 +81,20 @@ export const userEndedGame = (data) => {
   return {
       type: user_ended_game,
       payload: data
+  };
+};
+export const getAllUsersGames = (games) => {
+  console.log('Games were submitted: ', games);
+  return {
+      type: get_all_users_games,
+      payload: games
+  };
+};
+
+export const getAllGameChallenges = (challenges) => {
+  console.log('Challenges were dispatched to store: ', challenges);
+  return {
+      type: get_all_game_challenges,
+      payload: challenges
   };
 };
