@@ -37,9 +37,18 @@ const mapDispatchToProps = (dispatch) => {
 class CreateGame extends Component {
   constructor(props) {
     super(props)
+    this.state = {
+      dummyState: '',
+      createChallenges: [],
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({dummyState: ''});
   }
 
   render() {
+    console.log('rendering: this.state: ', this.state);
     return (
       <View style={styles.container}>
         <TitledInput
@@ -80,7 +89,15 @@ class CreateGame extends Component {
         /> */}
 
         {/* <FloatingButton/> */}
-        <CreateList style={{}}/>
+        {/* <CreateList style={{}} data={this.props.createGameChallenges}/> */}
+
+        {this.props.createGameChallenges.map((challenge, index) => {
+          return (
+            <Text key={index}>{'#' + JSON.stringify(index + 1) + ': ' + challenge.ChallengeTitle}</Text>
+          )
+        })}
+
+
 
         <Button onPress={() => {
           console.log('button pressed!')

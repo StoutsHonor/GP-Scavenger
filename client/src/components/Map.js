@@ -33,15 +33,19 @@ class Map extends Component {
   }
 
   componentWillMount() {
-    console.log(`componentWillMount() in Map.js`)
-    console.log(`this.props.markers is ${JSON.stringify(this.props.markers)}`)
-    this.setState({markers: this.props.markers})
+    if (this.props.markers) {
+      console.log(`componentWillMount() in Map.js`)
+      console.log(`this.props.markers is ${JSON.stringify(this.props.markers)}`)
+      this.setState({markers: this.props.markers})
+    }
   }
 
   componentWillReceiveProps(nextProps) {
+    if (this.props.markers) {
       this.setState({markers: nextProps.markers}, () => {
         console.log(`after setState in componentWillReceiveProps() in Map.js ${JSON.stringify(this.state.markers)}`)
       })
+    }
   }
 
   getCurrentLocation() {

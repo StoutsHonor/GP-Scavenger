@@ -62,14 +62,14 @@ export default class SortableListRow extends Component {
 
   render() {
    const {data, active} = this.props;
-
+    console.log('row entry data: ',data);
     return (
       <Animated.View style={[
         styles.row,
         this._style,
       ]}>
-        <Image source={{uri: data.image}} style={styles.image} />
-        <Text style={styles.text}>{data.text}</Text>
+        {/* <Image source={{uri: data.image}} style={styles.image} /> */}
+        <Text style={styles.text}>{JSON.stringify(data)}</Text>
       </Animated.View>
     );
   }

@@ -33,33 +33,37 @@ const data = {
     image: 'https://placekitten.com/200/203',
     text: 'Oscar',
   },
-  4: {
-    image: 'https://placekitten.com/200/204',
-    text: 'Dusty',
-  },
-  5: {
-    image: 'https://placekitten.com/200/205',
-    text: 'Spooky',
-  },
-  6: {
-    image: 'https://placekitten.com/200/210',
-    text: 'Kiki',
-  },
-  7: {
-    image: 'https://placekitten.com/200/215',
-    text: 'Smokey',
-  },
-  8: {
-    image: 'https://placekitten.com/200/220',
-    text: 'Gizmo',
-  },
-  9: {
-    image: 'https://placekitten.com/220/239',
-    text: 'Kitty',
-  },
 };
 
 export default class CreateList extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      data: {}
+    }
+  }
+
+
+  _renderRow = ({data, active}) => {
+    return <Row data={data} active={active} />
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log('createlist willreceiveProps, nextProps is: ', nextProps);
+    let temp ={};
+    for (let i = 0; i < temp.length; i++) {
+      temp[i] = nextProps.data[i];
+    }
+    console.log('create list willreceiveProps, temp is: ', temp);
+    this.setState({
+      data: temp
+    })
+  }
+
+  componentDidMount() {
+    console.log('create list state mounted, state is: ', this.state)
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -68,15 +72,12 @@ export default class CreateList extends Component {
         <SortableList
           style={styles.list}
           contentContainerStyle={styles.contentContainer}
-          data={data}
+          data={this.state.data}
           renderRow={this._renderRow} />
       </View>
     );
   }
 
-  _renderRow = ({data, active}) => {
-    return <Row data={data} active={active} />
-  }
 }
 
 
