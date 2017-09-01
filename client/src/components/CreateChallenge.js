@@ -3,7 +3,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  Alert
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CreateList from './CreateList';
@@ -102,6 +103,16 @@ class CreateChallenge extends Component {
             ChallengeAnswer: this.props.createChallengeAnswer
           })
           this.props.challengesUpdated(temp);
+
+
+          Alert.alert(
+            '',
+            'Challenge Submitted!',
+            [
+              {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
+            ]
+          )
+
         }}
         title="Submit Challenge"
         color="#841584"/>

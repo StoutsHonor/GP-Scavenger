@@ -4,7 +4,8 @@ import {
   Text,
   View,
   Button,
-  TextInput
+  TextInput,
+  Alert
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CreateList from './CreateList';
@@ -50,7 +51,13 @@ class CreateGPSChallenge extends Component {
       console.log(`this.state.mapMarker is ${JSON.stringify(this.state.mapMarker)}`)
     })
     this.props.challengeLocationSet(location);
-
+    Alert.alert(
+      '',
+      'Location Set!',
+      [
+        {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
+      ]
+    )
   }
 
   render() {
