@@ -32,17 +32,6 @@ class CreateGPSChallenge extends Component {
   render() {
     return(
       <View style={{padding:10}}>
-        <Text>Title: {this.state.name}</Text>
-        <TextInput style={{height:40}}
-          placeholder="Title of challenge!"
-          onChangeText={ (name) => this.setState({name})} 
-        />
-
-        <Text>Description: {this.state.description}</Text>
-        <TextInput style={{height:40}}
-          placeholder="Description of challenge!"
-          onChangeText={ (description) => this.setState({description})} 
-        />
 
         <Map onMarkerSubmit={this.onMapMarkerSubmit} />
 

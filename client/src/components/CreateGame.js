@@ -80,7 +80,7 @@ class CreateGame extends Component {
         /> */}
 
         {/* <FloatingButton/> */}
-        <CreateList style={{}}/>
+        <CreateList style={{}} data={this.props.createGameChallenges}/>
 
         <Button onPress={() => {
           console.log('button pressed!')
