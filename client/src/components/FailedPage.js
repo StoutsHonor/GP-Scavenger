@@ -6,17 +6,14 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-const StartGame = () => {
+const FailedPage = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>
-        Start a New Game
+        You did not complete the challenges on time...Would you like to try again???
       </Text>
-      <Text onPress={() => Actions.demoGPSGame()}>Test Game GPS</Text>
-      <Text onPress={() => Actions.challengequestion()}>Test Game Question</Text>
-      <Text onPress={() => Actions.mygames()}>Choose From My Games</Text>
-      <Text onPress={() => Actions.joingame()}>Join An Existing Game</Text>
-      <Text onPress={() => Actions.homepage()}>Homepage</Text>
+      <Text onPress={() => Actions.startgame()}>Try Again</Text>
+      <Text onPress={() => Actions.homepage()}>Back to Home</Text>
     </View>
   );
 }
@@ -26,7 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#8B4513',
+    backgroundColor: '#DC143C',
   },
   welcome: {
     fontSize: 20,
@@ -36,4 +33,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default StartGame;
+export default FailedPage;
