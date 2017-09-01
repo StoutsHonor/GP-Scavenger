@@ -44,25 +44,24 @@ export default class CreateList extends Component {
   }
 
 
-
   _renderRow = ({data, active}) => {
     return <Row data={data} active={active} />
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log('createlist, nextProps is: ', nextProps);
+    console.log('createlist willreceiveProps, nextProps is: ', nextProps);
     let temp ={};
     for (let i = 0; i < temp.length; i++) {
       temp[i] = nextProps.data[i];
     }
-    console.log('create list, temp is: ', temp);
+    console.log('create list willreceiveProps, temp is: ', temp);
     this.setState({
       data: temp
     })
   }
 
   componentDidMount() {
-    console.log('create list state: ', this.state)
+    console.log('create list state mounted, state is: ', this.state)
   }
 
   render() {

@@ -20,16 +20,16 @@ const initialState = {
 export default function(state = initialState, action) {
   switch (action.type) {
     case entered_field:
-      console.log('state: ', state);
+      // console.log('state: ', state);
       return Object.assign({}, state, {[action.payload.field]: action.payload.info})
     case start_location_set:
       return Object.assign({}, state, {createGameStartingLocation: action.payload})
     case challenge_location_set:
       return Object.assign({}, state, {createChallengeLocation: action.payload})
     case create_challenges_updated:
-      console.log('reducer heard update, updating challenges to: ', action.payload);
+      // console.log('reducer heard update, updating challenges to: ', action.payload);
       return Object.assign({}, state, {
-        createGameChallenges: action.payload,
+        createGameChallenges: action.payload.slice(),
         createChallengeLocation: null,
         createChallengeType: null,
         createChallengeTitle: null,
