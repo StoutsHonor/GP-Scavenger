@@ -5,11 +5,24 @@ const sequelize = new Sequelize(db_url, {
   dialect: 'postgres'
 });
 
-sequelize
-  .authenticate()
-  .then( () => { console.log('Connection has been established successfully.')})
-  .catch( (err) => { console.error('Unable to connect to the database: ', err) })
+// sequelize
+//   .authenticate()
+//   .then( () => { 
+//     console.log('Connection has been established successfully.')})
+//   .catch( (err) => { console.error('Unable to connect to the database: ', err) })
 
+
+  const User = sequelize.define('user', {
+    firstName: { type: Sequelize.STRING },
+    lastName: { type: Sequelize.STRING },
+    email: { type: Sequelize.STRING },
+    username: { type: Sequelize.STRING },
+    profilePicture: { type: Sequelize.STRING },
+    profileDescription: { type: Sequelize.STRING },
+    rewardPoints: {type: Sequelize.INTEGER },
+    DOB: { type: Sequelize.DATEONLY },
+    friends: {type: Sequelize.ARRAY(Sequelize.INTEGER), allowedNull: true}
+  });
 
 
 const Challenge = sequelize.define('challenge', {
@@ -35,17 +48,7 @@ const Game = sequelize.define('game', {
   startLocation: { type: Sequelize.ARRAY(Sequelize.FLOAT), allowNull: false }
 });
 
-const User = sequelize.define('user', {
-  firstName: { type: Sequelize.STRING },
-  lastName: { type: Sequelize.STRING },
-  email: { type: Sequelize.STRING },
-  username: { type: Sequelize.STRING },
-  profilePicture: { type: Sequelize.STRING },
-  profileDescription: { type: Sequelize.STRING },
-  rewardPoints: {type: Sequelize.INTEGER },
-  DOB: { type: Sequelize.DATEONLY },
-  friends: {type: Sequelize.ARRAY(Sequelize.INTEGER), allowedNull: true}
-});
+
 
 const Chat = sequelize.define('chat', {
   user_id: { type: Sequelize.INTEGER, allowNull: false },
@@ -118,8 +121,8 @@ const Video = sequelize.define('video', {
 
 Challenge.hasOne(QuestionType);
 
-Game.hasMany(Challenge);
-Challenge.belongsTo(Game);
+// Game.hasMany(Challenge);
+// Challenge.belongsTo(Game);
 
 Game.hasMany(User);
 User.belongsTo(Game);
