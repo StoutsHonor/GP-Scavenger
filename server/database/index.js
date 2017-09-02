@@ -20,7 +20,7 @@ const User = sequelize.define('user', {
   profileDescription: { type: Sequelize.STRING },
   rewardPoints: {type: Sequelize.INTEGER },
   DOB: { type: Sequelize.DATEONLY },
-  friends: {type: Sequelize.ARRAY(Sequelize.INTEGER), allowedNull: true}
+  friends: {type: Sequelize.ARRAY(Sequelize.INTEGER), allowedNull: false}
   
 })
 
@@ -120,7 +120,7 @@ Challenge.belongsTo(Game);
 // User.belongsToMany(User, { as: 'user', through: 'friend_connection', foreignKey: 'userId' })
 // User.belongsToMany(User, { as: 'my_friends', through: 'friend_connection', foreignKey: 'friends' })
 
-sequelize.sync( {force: true});
+sequelize.sync( {force: false});
 
 // QuestionType.sync( { force: true} );
 // Riddle.sync( { force: true} );
