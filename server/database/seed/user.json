@@ -7,7 +7,6 @@
     "profilePicture": "https://avatars0.githubusercontent.com/u/21377540?v=4&s=460",
     "profileDescription": "i want ice cream with mah art",
     "DOB": "1988-12-24",
-    "friends": [2,4],
     "rewardPoints": 5000
   },
   {
@@ -45,6 +44,7 @@
     "lastName": "Dummy",
     "email": "test@gmail.com",
     "username": "dummytestusername",
+    "profilePicture": "https://avatars0.githubusercontent.com/u/11468790?v=4&s=460",
     "profileDescription": "oooo-raaaah!!!!",
     "DOB": "2010-08-12",
     "rewardPoints": 100

@@ -1,30 +1,36 @@
 [
   {
+    "comment": "this game is not that good, only one question.",
     "stars": 1,
     "gameId": 1,
     "userId": 1
   },
   {
+    "comment": "loving this game, just the right amount of difficulty!",
     "stars": 5,
     "gameId": 2,
     "userId": 2
   },
   {
+    "comment": "The riddles were challenging, but the locations are the same.",
     "stars": 4,
     "gameId": 2,
     "userId": 3
   },
   {
+    "comment": "I gave it 5 stars, because this game doesn't require me to walk much.",
     "stars": 5,
     "gameId": 2,
     "userId": 4
   },
   {
+    "comment": "I gave it 5 stars, because this game doesn't require me to walk much.",
     "stars": 5,
     "gameId": 3,
     "userId": 1
   },
   {
+    "comment": "The riddles were challenging, but the locations are the same.",
     "stars": 3,
     "gameId": 3,
     "userId": 3

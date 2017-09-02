@@ -45,7 +45,9 @@
     "gameId": 3,
     "sequence": 1,
     "location": [37.783692, -122.408967],
-    "timeLimit": 30
+    "timeLimit": 30,
+    "questionTypeId": 1,
+    "questionId": 1
   },
   {
     "name": "GPS #2",
@@ -53,7 +55,9 @@
     "gameId": 3,
     "sequence": 2,
     "location": [33.812092, -117.918974],
-    "timeLimit": 30
+    "timeLimit": 30,
+    "questionTypeId": 1,
+    "questionId": 2
   },
   {
     "name": "GPS #3",
@@ -61,26 +65,8 @@
     "gameId": 3,
     "sequence": 2,
     "location": [32.715738, -117.161084],
-    "timeLimit": 30
-  },
-  {
-    "name": "Easy Logic Question",
-    "description": "Easy Peasy",
-    "gameId": 3,
-    "sequence": 1,
-    "location": "11111",
     "timeLimit": 30,
-    "questionTypeId": 2,
-    "questionId": 1
-  },
-  {
-    "name": "Not So Easy Logic Question",
-    "description": "Not so Easy",
-    "gameId": 3,
-    "sequence": 2,
-    "location": "11111",
-    "timeLimit": 30,
-    "questionTypeId": 2,
-    "questionId": 2
+    "questionTypeId": 1,
+    "questionId": 3
   }
 ]
