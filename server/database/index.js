@@ -20,7 +20,8 @@ const User = sequelize.define('user', {
   profileDescription: { type: Sequelize.STRING },
   rewardPoints: {type: Sequelize.INTEGER },
   DOB: { type: Sequelize.DATEONLY },
-  friends: {type: Sequelize.ARRAY(Sequelize.INTEGER) }
+  friends: {type: Sequelize.ARRAY(Sequelize.INTEGER), allowedNull: true}
+  
 })
 
 const Chat = sequelize.define('chat', {
@@ -38,7 +39,7 @@ const Game = sequelize.define('game', {
   private: { type: Sequelize.BOOLEAN},
   maxPlayers: { type: Sequelize.INTEGER, allowNull: false },
   rewardPoints: { type: Sequelize.INTEGER, allowNull: false},
-  startLocation: { type: Sequelize.ARRAY(Sequelize.FLOAT), allowNull: false }
+  startLocation: { type: Sequelize.ARRAY(Sequelize.FLOAT), allowNull: true }
 })
 
 const Challenge = sequelize.define('challenge', {
@@ -86,39 +87,33 @@ const Compass = sequelize.define('compass', {
 
 const Rating = sequelize.define('rating', {
   stars: { type: Sequelize.INTEGER, allowNull: false },
+  comment: { type: Sequelize.STRING, allowNull: false }
 })
 
-const Review = sequelize.define('review', {
-  comment: { type: Sequelize.STRING, allowNull: false },
-})
+
 
 
 
 // const FriendConnection = sequelize.define('friend_connection', {
 // })
 
-User.hasMany(Game);
-Game.belongsTo(User);
+Game.hasMany(User);
+User.belongsTo(Game);
 
-User.hasMany(Chat);
-Chat.belongsTo(User);
+Chat.hasMany(User);
+User.belongsTo(Chat);
 
-User.hasMany(Rating);
-Rating.belongsTo(User);
+Rating.hasMany(User);
+User.belongsTo(Rating);
 
-User.hasMany(Review);
-Review.belongsTo(User);
+Rating.hasMany(Game);
+Game.belongsTo(Rating);
 
 Game.hasMany(Challenge);
 Challenge.belongsTo(Game);
 
-Game.hasMany(Rating);
-Rating.belongsTo(Game);
 
-Game.hasMany(Review);
-Review.belongsTo(Game);
-
-QuestionType.hasOne(Challenge);
+Challenge.hasOne(QuestionType);
 
 // User.belongsToMany(User, { as: 'user', through: 'friend_connection', foreignKey: 'userId' })
 // User.belongsToMany(User, { as: 'my_friends', through: 'friend_connection', foreignKey: 'friends' })
@@ -145,7 +140,6 @@ module.exports = {
   Camera,
   Compass,
   Rating,
-  Review,
   //FriendConnection,
   sequelize,
   Chat
