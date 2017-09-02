@@ -6,42 +6,31 @@ const userSeed = require("./seed/user");
 const gameSeed = require("./seed/game");
 const challengeSeed = require("./seed/challenge");
 const questionTypeSeed = require("./seed/questionType");
-const riddleSeed = require("./seed/riddle");
 const ratingSeed = require("./seed/rating");
-const logicPuzzleSeed = require("./seed/logicPuzzle");
-//const friendConnectionSeed = require('./seed/friendConnection')
 
-// db.sequelize.sync({force: true}).then( () => {
-//   db.User.bulkCreate(userSeed).then( () => {
-//     db.QuestionType.bulkCreate(questionTypeSeed).then(() => {
-//       db.Riddle.bulkCreate(riddleSeed).then(() => {
-//         db.Game.bulkCreate(gameSeed).then(() => {
-//           db.Challenge.bulkCreate(challengeSeed).then(() => {
-//             db.Rating.bulkCreate(ratingSeed).then(() => {
-//               db.Review.bulkCreate(reviewSeed).then(() => {
-//                 db.LogicPuzzle.bulkCreate(logicPuzzleSeed)
-//               })
-//             })
-//           })
-//         })
-//       })
-//     })
-//   })
-// }).catch(err => console.log(`Error seeding database!, ${err}`))
+
+const riddleSeed = require("./seed/questionType/riddle");
+const logicPuzzleSeed = require("./seed/questionType/logicPuzzle");
+const photoSeed =  require("./seed/questionType/photo");
+//const videoSeed =  require("./seed/questionType/video");
+
 
 db.sequelize.sync({ force: true }).then(() => {
-    db.User.bulkCreate(userSeed).then(() => {
-      db.QuestionType.bulkCreate(questionTypeSeed).then(() => {
-        db.Challenge.bulkCreate(challengeSeed).then(() => {
-          db.Game.bulkCreate(gameSeed).then(() => {
-            db.Rating.bulkCreate(ratingSeed).then(() => {
-              db.Riddle.bulkCreate(riddleSeed).then(() => {
-                db.LogicPuzzle.bulkCreate(logicPuzzleSeed);
+  db.Riddle.bulkCreate(riddleSeed).then(() => {
+    db.LogicPuzzle.bulkCreate(logicPuzzleSeed).then(() => {
+      db.Photo.bulkCreate(photoSeed).then(() => {
+        db.User.bulkCreate(userSeed).then(() => {
+          db.QuestionType.bulkCreate(questionTypeSeed).then(() => {
+            db.Challenge.bulkCreate(challengeSeed).then(() => {
+              db.Game.bulkCreate(gameSeed).then(() => {
+                db.Rating.bulkCreate(ratingSeed);
               });
             });
           });
         });
+    
       });
     });
-  })
-  .catch(err => console.log(`Error seeding database!, ${err}`));
+  });
+}).catch(err => console.log(`Error seeding database!, ${err}`));
+
