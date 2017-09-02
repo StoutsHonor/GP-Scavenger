@@ -124,16 +124,6 @@ export default class MyCamera extends Component {
    }
 
    xhr.send(data);
-
-    // fetch(CLOUDINARY_UPLOAD_URL, config)
-    // .then((responseData) => {
-
-    //     console.log('Reponse is ', responseData);
-    // })
-    // .catch(err => {
-    //   console.log('Error is ', err);
-    // })
-   
   }
 
   getPosition(file) {
