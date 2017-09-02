@@ -68,6 +68,10 @@ export default class client extends Component {
       dummyData: '',
       user: null
     }
+    
+    console.ignoredYellowBox = [
+      'Setting a timer'
+    ];
 
     this.authSetUser = this.authSetUser.bind(this)
   }
