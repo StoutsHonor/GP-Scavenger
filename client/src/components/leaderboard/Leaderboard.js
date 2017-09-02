@@ -8,6 +8,7 @@ import {
 import LeaderboardEntry from './LeaderboardEntry';
 import { Actions } from 'react-native-router-flux';
 import { List, ListItem } from 'react-native-elements';
+import config from '../../../config/config';
 
 class Leaderboard extends Component {
   constructor(props) {
@@ -18,7 +19,7 @@ class Leaderboard extends Component {
   }
 
   componentDidMount() {
-    return fetch(`http://192.168.56.1:3000/api/user/findAllUserPoints/`)
+    return fetch(`${config.localhost}/api/user/findAllUserPoints/`)
     .then((response) => response.json())
     .then((data) => {
       this.setState({data: data.sort( (a,b) => {

@@ -62,7 +62,8 @@ fastlane/screenshots
 server/database/config.js
 
 # client
-client/config/firebaseconfig.js
+client/config/config.js
 
 # Google Map API_KEY
 client/android/app/src/main/AndroidManifest.xml
+

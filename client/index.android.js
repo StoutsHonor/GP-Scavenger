@@ -9,7 +9,8 @@ import {
   AppRegistry,
   StyleSheet,
   Text,
-  View
+  View,
+  Button
 } from 'react-native';
 
 
@@ -23,8 +24,9 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 
 // import firebase from 'firebase'
-// import firebaseconfig from './config/firebaseconfig.js'
 // import LoginForm from './src/components/login/LoginForm'
+
+import config from './config/config.js'
 
 
 // import Button from './src/components/Button'
@@ -56,6 +58,10 @@ import Chat from './src/components/Chat';
 
 
 // refactoring:
+
+import CurrentChallenge from './src/components/playgame/CurrentChallenge'
+import ChallengeList from './src/components/playgame/ChallengeList'
+
 import HomePage from './src/components/HomePage';
 import Leaderboard from './src/components/leaderboard/Leaderboard';
 import StartNewGame from './src/components/startnewgame/StartNewGame'
@@ -94,18 +100,18 @@ export default class client extends Component {
     console.log('index.android.js has loaded')
 
     // firebase.initializeApp({
-    //   apiKey: firebaseconfig.apiKey,
-    //   authDomain: firebaseconfig.authDomain,
-    //   databaseURL: firebaseconfig.databaseURL,
-    //   projectId: firebaseconfig.projectId,
-    //   storageBucket: firebaseconfig.storageBucket,
-    //   messagingSenderId: firebaseconfig.messagingSenderId
+    //   apiKey: config.firebase.apiKey,
+    //   authDomain: config.firebase.authDomain,
+    //   databaseURL: config.firebase.databaseURL,
+    //   projectId: config.firebase.projectId,
+    //   storageBucket: config.firebase.storageBucket,
+    //   messagingSenderId: config.firebase.messagingSenderId
     // })
   }
 
   dummyGet() {
     console.log(`in dummyGet()`)
-    fetch('http://10.0.2.2:3000/api/images/getImages')
+    fetch(`${config.localhost}/api/images/getImages`)
       .then( (response) => {
         console.log('whoooosh') 
         console.log(`${JSON.stringify(response)}`)
@@ -121,7 +127,7 @@ export default class client extends Component {
     formData.append('jenFirstParm', 'blahvalue1')
     formData.append('jenSecondParam', 'blahvalue2')
 
-    fetch('http://10.0.2.2:3000/api/images/postImages', {
+    fetch(`${config.localhost}/api/images/postImages`, {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -165,16 +171,7 @@ export default class client extends Component {
               initial
             />
 
-            {/* <Scene key="joingame" tabs={true}>
-              <Scene key="List"
-                component={ModularList}
-                title="Join Game"
-              />
-              <Scene key="Map"
-                component={ModularMap}
-                title="Join Game"
-              />
-            </Scene> */}
+
 
             <Scene key="joingame"
               component={JoinGame}
@@ -191,16 +188,26 @@ export default class client extends Component {
               title="Game Lobby"
             />
 
-            {/* <Scene key="startnewgame" tabs={true}>
-            <Scene key="List"
-              component={ModularList}
-              title="Start Game"
-            />
-            <Scene key="Map"
-              component={ModularMap}
-              title="Start Game"
-            />
-          </Scene> */}
+            <Scene key="gameplay" tabs={true}
+              hideNavBar={true}
+            >
+              <Scene key="Current Challenge"
+                component={CurrentChallenge}
+                title="Current"
+                hideNavBar={true}
+              />
+              <Scene key="All Challenges"
+                component={ChallengeList}
+                title="All"
+                hideNavBar={true}
+              />
+              <Scene key="Chat"
+                component={Chat}
+                title="Chat"
+                hideNavBar={true}
+              />
+            </Scene>
+
 
             <Scene key="creategame"
               component={CreateGame}
@@ -224,29 +231,6 @@ export default class client extends Component {
                 title="Chat"
               />
 
-            {/* <Scene key="currentgame" tabs={true}>
-              <Scene key="task"
-                component={Task}
-                title="Task"
-              />
-              <Scene key="demoGPSGame"
-                component={DemoGPSGame}
-                title="Demo GPS Game"
-              />
-              <Scene key="chat"
-                component={Chat}
-                title="Chat"
-              />
-              <Scene key="gamelog"
-                component={GameLog}
-                title="Log"
-              />
-              <Scene key="challengelist"
-                component={ChallengeList}
-                title="List"
-                renderBackButton={()=>(null)}
-              />
-            </Scene> */}
 
             {/* <Scene key="preferences"
               component={Preferences}
@@ -256,11 +240,6 @@ export default class client extends Component {
             {/* <Scene key="notifications"
               component={Notifications}
               title="Notifications"
-            /> */}
-
-            {/* <Scene key="GPSchallenge"
-              component={GPSChallenge}
-              title="GPS Challenge"
             /> */}
 
             <Scene key="createChallenge"
@@ -273,11 +252,6 @@ export default class client extends Component {
             title="Create GPS challenge"
             />
 
-            {/* <Scene key="challengequestion"
-              component={ChallengeQuestion}
-              title="Challenge Question"
-              renderBackButton={()=>(null)}
-            /> */}
 
             {/* <Scene key="congratspage"
             component={CongratsPage}

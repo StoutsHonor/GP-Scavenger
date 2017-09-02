@@ -8,6 +8,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import ModularMap from '../reusable/ModularMap'
 import ModularList from '../reusable/ModularList'
+import config from '../../../config/config'
 
 class JoinGame extends Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class JoinGame extends Component {
     //make a call to the database for games
     //load the markers into 
     console.log(`im in JoinGame.js componentWillMount`)
-    fetch('http://10.0.2.2:3000/api/game/getAllGames')
+    fetch(`${config.localhost}/api/game/getAllGames`)
       .then( (response) => {
         console.log(`im in joinGame.js componentWillMount()`)
         console.log(`response is ${JSON.stringify(response)}`)
