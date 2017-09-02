@@ -233,10 +233,10 @@ export default class client extends Component {
                 component={DemoGPSGame}
                 title="Demo GPS Game"
               />
-              {/* <Scene key="chat"
+              <Scene key="chat"
                 component={Chat}
                 title="Chat"
-              /> */}
+              />
               <Scene key="gamelog"
                 component={GameLog}
                 title="Log"
