@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import SortableList from 'react-native-sortable-list';
 import Row from './CreateListRow';
-import FloatingButton from './FloatingButton'
+import FloatingButton from '../reusable/FloatingButton'
 
 const window = Dimensions.get('window');
 

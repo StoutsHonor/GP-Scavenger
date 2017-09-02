@@ -9,12 +9,12 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CreateList from './CreateList';
-import Map from './Map'
+import Map from '../Map'
 
 // Redux Imports for binding stateToProps and dispatchToProps to the component
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {startLocationSet, challengeLocationSet} from '../actions/index.js'
+import {startLocationSet, challengeLocationSet} from '../../actions/index.js'
 
 // gives the component access to store through props
 const mapStateToProps = (state) => {

@@ -12,11 +12,15 @@ const HomePage = () => {
       <Text style={styles.welcome}>
         Home Page
       </Text>
-      <Text onPress={() => Actions.startgame()}>Start Your Scavenger Adventure!</Text>
-      <Text onPress={() => Actions.camera()}>Camera</Text>
+      {/* <Text onPress={() => Actions.startgame()}>Start Your Scavenger Adventure!</Text>
+      <Text onPress={() => Actions.camera()}>Camera</Text> */}
+
+      <Text onPress={() => Actions.joingame({listtype: 'join'})}>Join</Text>
+      <Text onPress={() => Actions.startnewgame({listtype: 'start'})}>Start New Game</Text>
+      <Text onPress={() => Actions.creategame()}>Create Game</Text>
       <Text onPress={() => Actions.leaderboard()}>Leaderboard</Text>
-      <Text onPress={() => Actions.profile()}>Profile and Stats</Text>
-      <Text onPress={() => Actions.preferences()}>Preferences</Text>
+      <Text onPress={() => Actions.friends()}>Friends</Text>
+
     </View>
   );
 }
