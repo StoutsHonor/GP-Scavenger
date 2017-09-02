@@ -8,6 +8,7 @@ import {
   Text,
 } from 'react-native';
 import Camera from 'react-native-camera';
+import config from '../../config/config'
 
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux'; 
@@ -92,7 +93,7 @@ export default class MyCamera extends Component {
     obj.headers = {"Content-type": "application/json"};
     obj.body = JSON.stringify(imageObj);
 
-    fetch(`http://192.168.56.1:3000/api/chat/addChat`, obj)
+    fetch(`${config.localhost}/api/chat/addChat`, obj)
     .then((response) => {
       //return response.json();
      return;

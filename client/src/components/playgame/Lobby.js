@@ -52,7 +52,10 @@ class Lobby extends Component {
       <View style={styles.container}>
         <Text>Welcome to Lobby</Text>
         <Chat />
-        <Button onPress={() => {console.log('Lobby: button pressed, props.gamedata is: ', this.props.gamedata)}} 
+        <Button onPress={() => {
+          console.log('Lobby: button pressed, props.gamedata is: ', this.props.gamedata)
+          Actions.gameplay(this.props.gamedata)
+          }} 
           title='START GAME'  
         />
       </View>

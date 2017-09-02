@@ -3,6 +3,8 @@ import { View, Text, AsyncStorage } from 'react-native';
 import io from 'socket.io-client';
 import { GiftedChat } from 'react-native-gifted-chat';
 
+import config from '../../config/config'
+
 //const USER_ID = '@userId';
 const user = { _id: Math.round(Math.random() * 1000000) || -1 };
 
@@ -24,13 +26,13 @@ export default class Chat extends Component {
     }
 
     componentDidMount() {
-      this.socket = io('http://192.168.56.1:3000');
+      this.socket = io(config.localhost);
       this.socket.emit('createRoom', 'room1');
       this.socket.on('message', this.onReceivedMessage);
       console.log('Component did mount entered');
 
     
-      fetch(`http://192.168.56.1:3000/api/chat/findChat/?roomName=${this.roomName}`)
+      fetch(`${config.localhost}/api/chat/findChat/?roomName=${this.roomName}`)
       .then((response) => {
         return response.json();
        
@@ -83,7 +85,7 @@ export default class Chat extends Component {
       obj.headers = {"Content-type": "application/json"};
       obj.body = JSON.stringify(messages[0]);
       console.log('In On send posting');
-      fetch(`http://192.168.56.1:3000/api/chat/addChat`, obj)
+      fetch(`${config.localhost}/api/chat/addChat`, obj)
       .then((response) => {
         return response.json();     
       })
