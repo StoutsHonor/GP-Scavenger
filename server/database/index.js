@@ -39,7 +39,7 @@ const Game = sequelize.define('game', {
   private: { type: Sequelize.BOOLEAN},
   maxPlayers: { type: Sequelize.INTEGER, allowNull: false },
   rewardPoints: { type: Sequelize.INTEGER, allowNull: false},
-  startLocation: { type: Sequelize.ARRAY(Sequelize.FLOAT), allowNull: true }
+  startLocation: { type: Sequelize.ARRAY(Sequelize.FLOAT), allowNull: false }
 })
 
 const Challenge = sequelize.define('challenge', {
@@ -109,16 +109,18 @@ User.belongsTo(Rating);
 Rating.hasMany(Game);
 Game.belongsTo(Rating);
 
+Challenge.hasOne(QuestionType);
+
 Game.hasMany(Challenge);
 Challenge.belongsTo(Game);
 
 
-Challenge.hasOne(QuestionType);
+
 
 // User.belongsToMany(User, { as: 'user', through: 'friend_connection', foreignKey: 'userId' })
 // User.belongsToMany(User, { as: 'my_friends', through: 'friend_connection', foreignKey: 'friends' })
 
-sequelize.sync( {force: false});
+sequelize.sync( {force: true});
 
 // QuestionType.sync( { force: true} );
 // Riddle.sync( { force: true} );
