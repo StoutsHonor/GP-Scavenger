@@ -1,77 +1,56 @@
  [
     {
-      "name": "Self Portrait"
+      "title": "Self Portrait",
+      "instruction": "Take a majestic selfie",
+      "difficulty": "easy",
+      "default": true
     },
     {
-      "name": "Rule of Thirds"
+      "title": "Rule of Thirds",
+      "instruction": "Take a picture of 3 identical items",
+      "difficulty": "easy",
+      "default": true
     },
     {
-      "name": "Black & White"
+      "title": "Black & White",
+      "instruction": "Take a picture of something that is black & white",
+      "difficulty": "hard",
+      "default": true
     },
     {
-      "name": "Texture"
+      "title": "High Angle",
+      "instruction": "Take a picture of the landscape while looking out of a building",
+      "difficulty": "moderate",
+      "default": true
     },
     {
-      "name": "High Angle"
+      "title": "Green Thumb",
+      "instruction": "Take a picture with 5 or more trees within the frame",
+      "difficulty": "easy",
+      "default": true
     },
     {
-      "name": "Silhouette"
+      "title": "Water World",
+      "instruction": "Take a picture of the only open ocean",
+      "difficulty": "easy",
+      "default": true
     },
     {
-      "name": "Bokeh"
+      "title": "Cinema",
+      "instruction": "Take a picture a movie theater",
+      "difficulty": "easy",
+      "default": true
     },
     {
-      "name": "Lens Flare"
+      "title": "Fountain",
+      "instruction": "Take a picture of a water fountain",
+      "difficulty": "easy",
+      "default": true
     },
     {
-      "name": "Portrait"
-    },
-    {
-      "name": "Light Painting"
-    },
-    {
-      "name": "Colourful Water Drops"
-    },
-    {
-      "name": "Balanced"
-    },
-    {
-      "name": "Unbalanced"
-    },
-    {
-      "name": "Frame within a Frame"
-    },
-    {
-      "name": "Panorama"
-    },
-    {
-      "name": "Depth"
-    },
-    {
-      "name": "Water Splash"
-    },
-    {
-      "name": "Slow Sync Flash"
-    },
-    {
-      "name": "Panning"
-    },
-    {
-      "name": "Harris Shutter"
-    },
-    {
-      "name": "Shallow DoF"
-    },
-    {
-      "name": "Light Graffiti"
-    },
-    {
-      "name": "Street Photography"
-    },
-    {
-      "name": "Architecture"
-    },
-    {
-      "name": "Night"
+      "title": "Best friends",
+      "instruction": "Take a picture of a dog and a cat",
+      "difficulty": "moderate",
+      "default": true
     }
   ]

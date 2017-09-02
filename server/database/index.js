@@ -11,6 +11,30 @@ sequelize
   .catch( (err) => { console.error('Unable to connect to the database: ', err) })
 
 
+
+const Challenge = sequelize.define('challenge', {
+  name: { type: Sequelize.STRING, allowNull: false },
+  description: { type: Sequelize.STRING, allowNull: false },
+  sequence: { type: Sequelize.INTEGER, allowNull: false },
+  location: { type: Sequelize.ARRAY(Sequelize.FLOAT) },
+  timeLimit: { type: Sequelize.INTEGER },
+  questionId: { type: Sequelize.INTEGER, allowNull: true }
+});
+
+const QuestionType = sequelize.define('questionType', {
+  type: {type: Sequelize.STRING, allowNull: false},
+  description: { type: Sequelize.STRING}
+});
+
+const Game = sequelize.define('game', {
+  name: { type: Sequelize.STRING, allowNull: false },
+  duration: { type: Sequelize.INTEGER },
+  private: { type: Sequelize.BOOLEAN},
+  maxPlayers: { type: Sequelize.INTEGER, allowNull: false },
+  rewardPoints: { type: Sequelize.INTEGER, allowNull: false},
+  startLocation: { type: Sequelize.ARRAY(Sequelize.FLOAT), allowNull: false }
+});
+
 const User = sequelize.define('user', {
   firstName: { type: Sequelize.STRING },
   lastName: { type: Sequelize.STRING },
@@ -20,9 +44,8 @@ const User = sequelize.define('user', {
   profileDescription: { type: Sequelize.STRING },
   rewardPoints: {type: Sequelize.INTEGER },
   DOB: { type: Sequelize.DATEONLY },
-  friends: {type: Sequelize.ARRAY(Sequelize.INTEGER), allowedNull: false}
-  
-})
+  friends: {type: Sequelize.ARRAY(Sequelize.INTEGER), allowedNull: true}
+});
 
 const Chat = sequelize.define('chat', {
   user_id: { type: Sequelize.INTEGER, allowNull: false },
@@ -31,30 +54,32 @@ const Chat = sequelize.define('chat', {
   roomName:  { type: Sequelize.STRING, allowNull: false },
   text:  { type: Sequelize.STRING, allowNull: false },
   image:  { type: Sequelize.STRING, allowNull: false }
-})
+});
 
-const Game = sequelize.define('game', {
-  name: { type: Sequelize.STRING, allowNull: false },
-  duration: { type: Sequelize.INTEGER },
-  private: { type: Sequelize.BOOLEAN},
-  maxPlayers: { type: Sequelize.INTEGER, allowNull: false },
-  rewardPoints: { type: Sequelize.INTEGER, allowNull: false},
-  startLocation: { type: Sequelize.ARRAY(Sequelize.FLOAT), allowNull: false }
-})
+const Rating = sequelize.define('rating', {
+  stars: { type: Sequelize.INTEGER, allowNull: false },
+  comment: { type: Sequelize.STRING, allowNull: false }
+});
 
-const Challenge = sequelize.define('challenge', {
-  name: { type: Sequelize.STRING, allowNull: false },
-  description: { type: Sequelize.STRING, allowNull: false },
-  sequence: { type: Sequelize.INTEGER, allowNull: false },
-  location: { type: Sequelize.ARRAY(Sequelize.FLOAT) },
-  timeLimit: { type: Sequelize.INTEGER },
-  questionId: { type: Sequelize.INTEGER, allowNull: true }
-})
 
-const QuestionType = sequelize.define('questionType', {
-  type: {type: Sequelize.STRING, allowNull: false},
-  description: { type: Sequelize.STRING}
-})
+
+
+
+const Camera = sequelize.define('camera', {
+  prompt: { type: Sequelize.STRING, allowNull: false },
+  default: {type: Sequelize.BOOLEAN },
+  image_URL: { type: Sequelize.STRING }
+});
+
+const Compass = sequelize.define('compass', {
+  prompt: { type: Sequelize.STRING, allowNull: false },
+  default: { type: Sequelize.BOOLEAN }
+});
+
+
+
+
+
 
 const Riddle = sequelize.define('riddle', {
   title: { type: Sequelize.STRING, allowNull: false },
@@ -63,7 +88,7 @@ const Riddle = sequelize.define('riddle', {
   difficulty: { type: Sequelize.STRING },
   default: { type: Sequelize.BOOLEAN },
   imageURL: { type: Sequelize.STRING }
-})
+});
 
 const LogicPuzzle = sequelize.define('logicPuzzle', {
   title: { type: Sequelize.STRING, allowNull: false },
@@ -72,30 +97,29 @@ const LogicPuzzle = sequelize.define('logicPuzzle', {
   difficulty: { type: Sequelize.STRING },
   default: { type: Sequelize.BOOLEAN },
   imageURL: { type: Sequelize.STRING }
-})
+});
 
-const Camera = sequelize.define('camera', {
-  prompt: { type: Sequelize.STRING, allowNull: false },
-  default: {type: Sequelize.BOOLEAN },
-  image_URL: { type: Sequelize.STRING }
-})
-
-const Compass = sequelize.define('compass', {
-  prompt: { type: Sequelize.STRING, allowNull: false },
+const Photo = sequelize.define('photo', {
+  title: { type: Sequelize.STRING, allowNull: false },
+  instruction: { type: Sequelize.STRING, allowNull: false },
+  difficulty: { type: Sequelize.STRING },
   default: { type: Sequelize.BOOLEAN }
-})
+});
 
-const Rating = sequelize.define('rating', {
-  stars: { type: Sequelize.INTEGER, allowNull: false },
-  comment: { type: Sequelize.STRING, allowNull: false }
-})
+const Video = sequelize.define('video', {
+  title: { type: Sequelize.STRING, allowNull: false },
+  question: { type: Sequelize.STRING, allowNull: false },
+  link: { type: Sequelize.STRING, allowNull: false },
+  answer: { type: Sequelize.STRING, allowNull: false },
+  difficulty: { type: Sequelize.STRING },
+  default: { type: Sequelize.BOOLEAN }
+});
 
 
+Challenge.hasOne(QuestionType);
 
-
-
-// const FriendConnection = sequelize.define('friend_connection', {
-// })
+Game.hasMany(Challenge);
+Challenge.belongsTo(Game);
 
 Game.hasMany(User);
 User.belongsTo(Game);
@@ -109,28 +133,9 @@ User.belongsTo(Rating);
 Rating.hasMany(Game);
 Game.belongsTo(Rating);
 
-Challenge.hasOne(QuestionType);
 
-Game.hasMany(Challenge);
-Challenge.belongsTo(Game);
-
-
-
-
-// User.belongsToMany(User, { as: 'user', through: 'friend_connection', foreignKey: 'userId' })
-// User.belongsToMany(User, { as: 'my_friends', through: 'friend_connection', foreignKey: 'friends' })
 
 sequelize.sync( {force: false});
-
-// QuestionType.sync( { force: true} );
-// Riddle.sync( { force: true} );
-// Rating.sync( { force: true} );
-// Review.sync( { force: true} );
-// Camera.sync( {force: true} );
-// Compass.sync( { force: true} );
-// User.sync( { force: true} );
-// Game.sync( { force: true} );
-// Challenge.sync( { force: true} );
 
 module.exports = {
   User,
@@ -142,7 +147,7 @@ module.exports = {
   Camera,
   Compass,
   Rating,
-  //FriendConnection,
   sequelize,
-  Chat
+  Chat,
+  Photo
 }
