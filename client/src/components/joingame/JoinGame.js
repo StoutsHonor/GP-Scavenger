@@ -6,20 +6,21 @@ import {
   Button
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Map from './Map'
-import JoinGameList from './JoinGameList'
-import CreateList from './CreateList'
+import ModularMap from '../reusable/ModularMap'
+import ModularList from '../reusable/ModularList'
 
 class JoinGame extends Component {
   constructor(props) {
     super(props);
-    this.toggleMode = this.toggleMode.bind(this);
 
     this.state = {
       games: [],
       gameStartMarkers: [],
-      showList: true
+      showList: true,
+      view: 'list'
     }
+
+    this.modularListEntryButtonAction = this.modularListEntryButtonAction.bind(this)
   }
 
   componentWillMount() {
@@ -44,9 +45,14 @@ class JoinGame extends Component {
       }) 
   }  
   
-  toggleMode() {
-    console.log(`im in toggleMode`)
-    this.setState({ showList: !this.state.showList })
+
+
+  modularListEntryButtonAction(gamedata) {
+    console.log('JoinGame: modularListEntryButtonAction pressed')
+    console.log('gamedata: ', gamedata)
+    Actions.lobby({gamedata: gamedata})
+    // update redux store CURRENT GAME with gamedata
+
   }
 
   render() {
@@ -67,19 +73,18 @@ class JoinGame extends Component {
 
     return (
       <View>
-        { this.state.showList === true ? <JoinGameList style={{}} /> : <Map markers={this.state.gameStartMarkers}/> }
-      <View style={styles.container}>
-      
-        <Text style={styles.welcome}>
-          Join a Game!!
-        </Text>
-      </View>
-      <Button
-          onPress={this.toggleMode}
-          title="Toggle Mode"
-          color="#841584"
-          accessibilityLabel="Toggle Mode"
-        />
+        <Button title="Toggle View"
+        onPress={() => {
+          if (this.state.view === 'map') {
+          this.setState({view: 'list'})
+          } else {
+          this.setState({view: 'map'})
+          } 
+        }}/>
+        {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games}/> : null}
+
+        {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} data={this.state.games}/> : null}
+
       </View>
     );
   }

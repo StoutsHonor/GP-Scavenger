@@ -8,13 +8,13 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CreateList from './CreateList';
-import FloatingButton from './FloatingButton';
-import TitledInput from './TitledInput';
+import FloatingButton from '../reusable/FloatingButton';
+import TitledInput from '../reusable/TitledInput';
 
 // Redux Imports for binding stateToProps and dispatchToProps to the component
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {enteredField, challengesUpdated, submittedCreatedGame, challengeLocationSet} from '../actions/index.js'
+import {enteredField, challengesUpdated, submittedCreatedGame, challengeLocationSet} from '../../actions/index.js'
 
 // gives the component access to store through props
 const mapStateToProps = (state) => {

@@ -7,8 +7,8 @@ import {
   TextInput
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import CreateList from './CreateList';
-import Map from './Map'
+// import CreateList from './CreateList';
+// import Map from './Map'
 
 class GPSChallengeTask extends Component {
   constructor(props) {

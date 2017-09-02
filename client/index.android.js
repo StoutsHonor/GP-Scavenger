@@ -24,40 +24,53 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 // import firebase from 'firebase'
 // import firebaseconfig from './config/firebaseconfig.js'
-import LoginForm from './src/components/LoginForm'
-import TitledInput from './src/components/TitledInput'
+// import LoginForm from './src/components/login/LoginForm'
 
-import Button from './src/components/Button'
-import Card from './src/components/Card'
-import CardSection from './src/components/CardSection'
+
+// import Button from './src/components/Button'
+// import Card from './src/components/Card'
+// import CardSection from './src/components/CardSection'
 
 import { Router, Scene } from 'react-native-router-flux';
 
-import MyCamera from './src/components/MyCamera';
-import ChallengeList from './src/components/ChallengeList';
-import ChallengeQuestion from './src/components/ChallengeQuestion';
+// import MyCamera from './src/components/MyCamera';
+// import ChallengeList from './src/components/ChallengeList';
+// import ChallengeQuestion from './src/components/ChallengeQuestion';
 import Chat from './src/components/Chat';
-import CongratsPage from './src/components/CongratsPage';
-import CreateGame from './src/components/CreateGame';
-import GameLog from './src/components/GameLog';
-import FailedPage from './src/components/FailedPage';
-import Friends from './src/components/Friends';
-import GPSChallenge from './src/components/GPSChallenge';
-import HomePage from './src/components/HomePage';
-import JoinGame from './src/components/JoinGame';
-import Leaderboard from './src/components/Leaderboard';
-import Login from './src/components/Login';
-import MyGames from './src/components/MyGames';
-import Notifications from './src/components/Notifications';
-import OtherUsers from './src/components/OtherUsers';
-import Preferences from './src/components/Preferences';
-import Profile from './src/components/Profile';
-import StartGame from './src/components/StartGame';
-import Task from './src/components/Task';
-import CreateChallenge from './src/components/CreateChallenge';
-import CreateGPSChallenge from './src/components/CreateGPSChallenge';
-import DemoGPSGame from './src/components/DemoGPSGame';
+// import CongratsPage from './src/components/CongratsPage';
+// import GameLog from './src/components/GameLog';
+// import FailedPage from './src/components/FailedPage';
+// import GPSChallenge from './src/components/GPSChallenge';
 
+
+
+// import MyGames from './src/components/MyGames';
+// import Notifications from './src/components/Notifications';
+// import OtherUsers from './src/components/OtherUsers';
+// import Preferences from './src/components/Preferences';
+// import Profile from './src/components/Profile';
+// import StartGame from './src/components/StartGame';
+// import Task from './src/components/Task';
+// import DemoGPSGame from './src/components/DemoGPSGame';
+
+
+
+// refactoring:
+import HomePage from './src/components/HomePage';
+import Leaderboard from './src/components/leaderboard/Leaderboard';
+import StartNewGame from './src/components/startnewgame/StartNewGame'
+import Friends from './src/components/friends/Friends';
+import CreateGame from './src/components/creategame/CreateGame';
+import CreateChallenge from './src/components/creategame/CreateChallenge';
+import CreateGPSChallenge from './src/components/creategame/CreateGPSChallenge';
+import Login from './src/components/login/Login';
+
+import JoinGame from './src/components/joingame/JoinGame';
+import Lobby from './src/components/playgame/Lobby';
+
+import TitledInput from './src/components/reusable/TitledInput'
+import ModularList from './src/components/reusable/ModularList'
+import ModularMap from './src/components/reusable/ModularMap'
 
 export default class client extends Component {
   constructor() {
@@ -152,60 +165,66 @@ export default class client extends Component {
               initial
             />
 
-            <Scene key="games" tabs={true}>
-              <Scene key="startgame"
-                component={StartGame}
-                title="Start A Game"
+            {/* <Scene key="joingame" tabs={true}>
+              <Scene key="List"
+                component={ModularList}
+                title="Join Game"
               />
-              <Scene key="creategame"
-              component={CreateGame}
-              title="Create Game"
+              <Scene key="Map"
+                component={ModularMap}
+                title="Join Game"
               />
-              <Scene key="leaderboard"
-                component={Leaderboard}
-                title="Leaderboard"
-              />
-            </Scene>
-
-            <Scene key="mygames"
-              component={MyGames}
-              title="My Games"
-            />
+            </Scene> */}
 
             <Scene key="joingame"
-                component={JoinGame}
-                title="Join a Game"
-              />
+              component={JoinGame}
+              title="Join Game"
+            />
+
+            <Scene key="startnewgame"
+              component={StartNewGame}
+              title="Start New Game"
+            />
+
+            <Scene key="lobby"
+              component={Lobby}
+              title="Game Lobby"
+            />
+
+            {/* <Scene key="startnewgame" tabs={true}>
+            <Scene key="List"
+              component={ModularList}
+              title="Start Game"
+            />
+            <Scene key="Map"
+              component={ModularMap}
+              title="Start Game"
+            />
+          </Scene> */}
+
+            <Scene key="creategame"
+              component={CreateGame}
+              title="Create a Game"
+            />
 
             <Scene key="leaderboard"
               component={Leaderboard}
               title="Leaderboard"
             />
 
-          <Scene key="camera"
-            component={MyCamera}
-            title="Camera"
-          />
-
-            <Scene key="profilestats" tabs={true}>
-              <Scene
-                key="profile"
-                component={Profile}
-                title="Profile"
-              />
-              <Scene
+            <Scene
                 key="friends"
                 component={Friends}
                 title="Friends"
               />
-              <Scene
-                key="otherusers"
-                component={OtherUsers}
-                title="Other Users"
-              />
-            </Scene>
+              
 
-            <Scene key="currentgame" tabs={true}>
+              <Scene key="chat"
+                component={Chat}
+                title="Chat"
+              />
+
+            {/* <Scene key="currentgame" tabs={true}>
               <Scene key="task"
                 component={Task}
                 title="Task"
@@ -227,22 +246,22 @@ export default class client extends Component {
                 title="List"
                 renderBackButton={()=>(null)}
               />
-            </Scene>
+            </Scene> */}
 
-            <Scene key="preferences"
+            {/* <Scene key="preferences"
               component={Preferences}
               title="Home Page"
-            />
+            /> */}
 
-            <Scene key="notifications"
+            {/* <Scene key="notifications"
               component={Notifications}
               title="Notifications"
-            />
+            /> */}
 
-            <Scene key="GPSchallenge"
+            {/* <Scene key="GPSchallenge"
               component={GPSChallenge}
               title="GPS Challenge"
-            />
+            /> */}
 
             <Scene key="createChallenge"
               component={CreateChallenge}
@@ -254,27 +273,28 @@ export default class client extends Component {
             title="Create GPS challenge"
             />
 
-            <Scene key="challengequestion"
+            {/* <Scene key="challengequestion"
               component={ChallengeQuestion}
               title="Challenge Question"
               renderBackButton={()=>(null)}
-            />
+            /> */}
 
-            <Scene key="congratspage"
+            {/* <Scene key="congratspage"
             component={CongratsPage}
             title="COMPLETED!!!"
-            />
+            /> */}
 
-            <Scene key="failedpage"
+            {/* <Scene key="failedpage"
               component={FailedPage}
               title="FAILED!!!"
               renderBackButton={()=>(null)}
-            />
+            /> */}
 
           </Scene>
         </Router>
       </Provider>
     );
+  // } // end of firebase
   }
 }
 

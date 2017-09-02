@@ -35,6 +35,7 @@ class Leaderboard extends Component {
   render() {
     return (
       <ScrollView>
+        <Text>Hello Leaderboard</Text>
         {this.state.data.map( (player, index) => {
           return (
             <LeaderboardEntry player={player} key={index} index={index}/>
