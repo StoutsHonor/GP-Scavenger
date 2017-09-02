@@ -88,10 +88,7 @@ export default class client extends Component {
       user: null
     }
     
-    console.ignoredYellowBox = [
-      'Setting a timer'
-    ];
-
+    console.disableYellowBox = true;
     this.authSetUser = this.authSetUser.bind(this)
   }
 
