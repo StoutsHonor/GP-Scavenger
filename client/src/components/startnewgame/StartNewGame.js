@@ -28,27 +28,25 @@ class StartNewGame extends Component {
   componentWillMount() {
     //make a call to the database for games
     //load the markers into 
-    console.log(`im in JoinGame.js componentWillMount`)
-    fetch(`${config.localhost}/api/game/getAllGames`)
-      .then( (response) => {
-        console.log(`im in joinGame.js componentWillMount()`)
-        console.log(`response is ${JSON.stringify(response)}`)
-        return response.json()
-      })
-      .then( (games) => {
-        console.log(`and data is now ${JSON.stringify(games)}`)
-        this.setState({games})
 
-        let gameStartLocations = games.map( (game) => {return {latitude: game.startLocation[0], longitude: game.startLocation[1]} })
-        this.setState({ gameStartMarkers: gameStartLocations}, () => {
-          console.log(`this.state.gameStartMarkers is ${JSON.stringify(this.state.gameStartMarkers)}`)
-        })
+    console.log(`StartNewGame.js - componentWillMount()`)
+
+    fetch(`${config.localhost}/api/game/getAllGames`)
+      .then( (response) => response.json())
+      .then( (data) => {
+        console.log(data, 'just fetched')
+        this.setState({games: data})
+
+        // let gameStartLocations = games.map( (game) => {return {latitude: game.startLocation[0], longitude: game.startLocation[1]} })
+        // this.setState({ gameStartMarkers: gameStartLocations}, () => {
+        //   console.log(`this.state.gameStartMarkers is ${JSON.stringify(this.state.gameStartMarkers)}`)
+        // })
 
       }) 
   }  
   
   modularListEntryButtonAction(gamedata) {
-    console.log('JoinGame: modularListEntryButtonAction pressed')
+    console.log('StartNewGame: modularListEntryButtonAction pressed')
     console.log('gamedata: ', gamedata)
     Actions.lobby({gamedata: gamedata})
     // update redux store CURRENT GAME with gamedata

@@ -12,6 +12,7 @@ import MapView from 'react-native-maps';
 // import MapCurrentLocationButton from './MapCurrentLocationButton';
 import {requestPermission} from 'react-native-android-permissions';
 // import MapStoreLocationButton from './MapStoreLocationButton';
+import currLocImage from '../../media/currentLocationMarker_35x35.png'
 
 const {width, height} = Dimensions.get('window');
 
@@ -28,28 +29,53 @@ class Map extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
-      markers: []
+      markers: [],
+      currentLocation: {}
      }
   }
 
   componentWillMount() {
+    console.log(`ModularMap - in componentWillMount()`)
+
     if (this.props.markers) {
-      console.log(`componentWillMount() in Map.js`)
+      console.log(`ModularMap - componentWillMount()`)
       console.log(`this.props.markers is ${JSON.stringify(this.props.markers)}`)
       this.setState({markers: this.props.markers})
     }
+
+    if (this.props.data) {
+      const markers = this.props.data.map( (game) => {
+        return { latitude: game.startLocation[0], longitude: game.startLocation[1]}
+      })
+      this.setState({markers}, () => {
+        console.log(`ModularMap - componentWillReceiveProps - nextProps.games - this.state.markers is now ${JSON.stringify(this.state.markers)}`)
+      })
+    }
+
+    this.getCurrentLocation()
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.markers) {
+    console.log(`ModularMap - in componentWillReceiveProps()`)
+    if (nextProps.markers) {
       this.setState({markers: nextProps.markers}, () => {
-        console.log(`after setState in componentWillReceiveProps() in Map.js ${JSON.stringify(this.state.markers)}`)
+        console.log(`ModularMap - componentWillReceiveProps() - this.state.markers is ${JSON.stringify(this.state.markers)}`)
       })
     }
+
+    if (nextProps.data) {
+      const markers = nextProps.data.map( (game) => {
+        return { latitude: game.startLocation[0], longitude: game.startLocation[1]}
+      })
+      this.setState({markers}, () => {
+        console.log(`ModularMap - componentWillReceiveProps - nextProps.games - this.state.markers is now ${JSON.stringify(this.state.markers)}`)
+      })
+    }
+
   }
 
   getCurrentLocation() {
-    console.log(`Im in getCurrentLocation in the Map.js!!`)
+    console.log(`Im in getCurrentLocation in ModularMap.js!!`)
     let component = this;
       navigator.geolocation.getCurrentPosition( (position) => {
         console.log(`Current position is latitude: ${position.coords.latitude} and longitude: ${position.coords.longitude}`)
@@ -60,6 +86,10 @@ class Map extends Component {
             longitude: position.coords.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
+          },
+          currentLocation: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
           }
         })
       }, (error) => {console.log(`geolocation fail ${JSON.stringify(error)}`)}, {enableHighAccuracy: true, timeout:500})
@@ -70,7 +100,7 @@ class Map extends Component {
   }
 
   storeMarker() {
-    console.log(`im in storeMarker in Map.js now!`)
+    console.log(`im in storeMarker in ModularMap.js now!`)
     this.setState({ marker: { latitude: this.state.region.latitude, longitude: this.state.region.longitude }}, () => {
       console.log(`this.state.marker is now ${JSON.stringify(this.state.marker)}`)
       if (this.props.onMarkerSubmit) {
@@ -109,7 +139,7 @@ class Map extends Component {
         ...StyleSheet.absoluteFillObject,
       }
     });
-    console.log(`In Map.js this.state.markers is ${JSON.stringify(this.state.markers)}`)
+    console.log(`In ModularMap.js - render() - this.state.markers is ${JSON.stringify(this.state.markers)}`)
     return(
       <View>
         <View style={styles.mapContainer}>
@@ -127,12 +157,15 @@ class Map extends Component {
             region={this.state.region} 
             onRegionChange={this.onRegionChange}
         >
-        {this.state.markers.map((loc, index) => {return(
+        {this.state.markers.map((loc, index) => {
+          console.log(`ModularMap.js MapView Marker mapping - loc is ${JSON.stringify(loc)}`)
+          return( <MapView.Marker coordinate={loc} key={index} />
+         )})}
+
          <MapView.Marker
-         coordinate={loc}
-         key={index}
+          coordinate={this.state.currentLocation}
+          image={currLocImage}
          />
-       )})}
 
         </MapView>
         {/* <MapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>

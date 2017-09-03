@@ -44,6 +44,9 @@ class JoinGame extends Component {
   componentWillMount() {
     //make a call to the database for games
     //load the markers into 
+
+    console.log(`JoinGame.js - componentWillMount()`)
+
     fetch(`${config.localhost}/api/game/getAllGames`)
       .then( (response) => response.json())
       .then( (data) => {
@@ -69,7 +72,7 @@ class JoinGame extends Component {
   }
 
   render() {
-    console.log(this.state.games,'games');
+    console.log(`JoinGame - render(): this.state.games ${JSON.stringify(this.state.games)}`);
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -95,7 +98,7 @@ class JoinGame extends Component {
           this.setState({view: 'map'})
           } 
         }}/>
-        {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} games={this.state.games}/> : null}
+        {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games}/> : null}
 
         {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} data={this.state.games}/> : null}
 

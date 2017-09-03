@@ -10,6 +10,8 @@ import { Actions } from 'react-native-router-flux';
 import CreateList from './CreateList';
 import FloatingButton from '../reusable/FloatingButton';
 import TitledInput from '../reusable/TitledInput';
+import ModularMap from '../reusable/ModularMap'
+import ModularList from '../reusable/ModularList'
 
 // Redux Imports for binding stateToProps and dispatchToProps to the component
 import {connect} from 'react-redux'
@@ -90,7 +92,7 @@ class CreateGame extends Component {
         /> */}
 
         {/* <FloatingButton/> */}
-        <CreateList style={{}} data={this.props.createGameChallenges}/>
+        {/* <CreateList style={{}} data={this.props.createGameChallenges}/> */}
 
         {/* {this.props.createGameChallenges.map((challenge, index) => {
           return (
@@ -98,7 +100,20 @@ class CreateGame extends Component {
           )
         })} */}
 
+        <View>
+        <Button title="Toggle View"
+        onPress={() => {
+          if (this.state.view === 'map') {
+          this.setState({view: 'list'})
+          } else {
+          this.setState({view: 'map'})
+          } 
+        }}/>
+        {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} games={this.state.games}/> : null}
 
+        {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} games={this.state.games}/> : null}
+
+      </View>
 
         <Button onPress={() => {
           console.log('button pressed!')
