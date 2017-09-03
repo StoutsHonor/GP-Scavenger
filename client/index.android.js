@@ -23,8 +23,8 @@ const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 
 
-// import firebase from 'firebase'
-// import LoginForm from './src/components/login/LoginForm'
+import firebase from 'firebase'
+import LoginForm from './src/components/login/LoginForm'
 
 import config from './config/config.js'
 
@@ -96,14 +96,14 @@ export default class client extends Component {
   componentWillMount() {
     console.log('index.android.js has loaded')
 
-    // firebase.initializeApp({
-    //   apiKey: config.firebase.apiKey,
-    //   authDomain: config.firebase.authDomain,
-    //   databaseURL: config.firebase.databaseURL,
-    //   projectId: config.firebase.projectId,
-    //   storageBucket: config.firebase.storageBucket,
-    //   messagingSenderId: config.firebase.messagingSenderId
-    // })
+    firebase.initializeApp({
+      apiKey: config.firebase.apiKey,
+      authDomain: config.firebase.authDomain,
+      databaseURL: config.firebase.databaseURL,
+      projectId: config.firebase.projectId,
+      storageBucket: config.firebase.storageBucket,
+      messagingSenderId: config.firebase.messagingSenderId
+    })
   }
 
   dummyGet() {
@@ -151,11 +151,11 @@ export default class client extends Component {
 
   render() {
 
-    // if (!this.state.user) {
-    //   return (
-    //     <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
-    //   )
-    // } else {
+    if (!this.state.user) {
+      return (
+        <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
+      )
+    } else {
 
     return (
       <Provider store={createStoreWithMiddleware(allReducers)}>
@@ -265,7 +265,7 @@ export default class client extends Component {
         </Router>
       </Provider>
     );
-  // } // end of firebase
+  } // end of firebase
   }
 }
 
