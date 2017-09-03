@@ -12,6 +12,7 @@ import MapView from 'react-native-maps';
 // import MapCurrentLocationButton from './MapCurrentLocationButton';
 import {requestPermission} from 'react-native-android-permissions';
 // import MapStoreLocationButton from './MapStoreLocationButton';
+import currLocImage from '../../media/currentLocationMarker_35x35.png'
 
 const {width, height} = Dimensions.get('window');
 
@@ -28,7 +29,8 @@ class Map extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
-      markers: []
+      markers: [],
+      currentLocation: {}
      }
   }
 
@@ -49,6 +51,8 @@ class Map extends Component {
         console.log(`ModularMap - componentWillReceiveProps - nextProps.games - this.state.markers is now ${JSON.stringify(this.state.markers)}`)
       })
     }
+
+    this.getCurrentLocation()
   }
 
   componentWillReceiveProps(nextProps) {
@@ -82,6 +86,10 @@ class Map extends Component {
             longitude: position.coords.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
+          },
+          currentLocation: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
           }
         })
       }, (error) => {console.log(`geolocation fail ${JSON.stringify(error)}`)}, {enableHighAccuracy: true, timeout:500})
@@ -149,12 +157,15 @@ class Map extends Component {
             region={this.state.region} 
             onRegionChange={this.onRegionChange}
         >
-        {this.state.markers.map((loc, index) => {return(
+        {this.state.markers.map((loc, index) => {
+          console.log(`ModularMap.js MapView Marker mapping - loc is ${JSON.stringify(loc)}`)
+          return( <MapView.Marker coordinate={loc} key={index} />
+         )})}
+
          <MapView.Marker
-         coordinate={loc}
-         key={index}
+          coordinate={this.state.currentLocation}
+          image={currLocImage}
          />
-       )})}
 
         </MapView>
         {/* <MapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>
