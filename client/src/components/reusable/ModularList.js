@@ -62,7 +62,7 @@ export default class ModularList extends Component {
     return (
       <View>
         <Text>Hello Modular List</Text>
-        {this.props.games.map((listEntry, index) => {
+        {this.props.data.map((listEntry, index) => {
           return (
             <ModularListEntry key={index} listentry={listEntry} buttontext={this.props.viewmode} buttonaction={this.props.buttonaction}/>
           )

@@ -41,8 +41,8 @@ class Map extends Component {
       this.setState({markers: this.props.markers})
     }
 
-    if (this.props.games) {
-      const markers = this.props.games.map( (game) => {
+    if (this.props.data) {
+      const markers = this.props.data.map( (game) => {
         return { latitude: game.startLocation[0], longitude: game.startLocation[1]}
       })
       this.setState({markers}, () => {
@@ -59,8 +59,8 @@ class Map extends Component {
       })
     }
 
-    if (nextProps.games) {
-      const markers = nextProps.games.map( (game) => {
+    if (nextProps.data) {
+      const markers = nextProps.data.map( (game) => {
         return { latitude: game.startLocation[0], longitude: game.startLocation[1]}
       })
       this.setState({markers}, () => {

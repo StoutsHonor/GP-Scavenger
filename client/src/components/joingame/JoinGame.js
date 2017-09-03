@@ -98,9 +98,9 @@ class JoinGame extends Component {
           this.setState({view: 'map'})
           } 
         }}/>
-        {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} games={this.state.games}/> : null}
+        {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games}/> : null}
 
-        {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} games={this.state.games}/> : null}
+        {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} data={this.state.games}/> : null}
 
       </View>
     );
