@@ -5,27 +5,30 @@ import {
   ScrollView,
   View,
   Modal,
-  TouchableHighlight
+  TouchableHighlight,
+  Button
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllGameChallenges } from '../../actions/index';
 import { getAllUsersGames } from '../../actions/index';
+import { setCurrentChallengeIndex } from '../../actions/index';
 import GPSChallenge from './challengetypes/GPSChallenge';
 // import QuestionChallenge from './challengetypes/QuestionChallenge';
 // import CameraChallenge from './challengetypes/CameraChallenge';
 import config from '../../../config/config'
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ getAllGameChallenges }, dispatch)
+  return bindActionCreators({ getAllGameChallenges, setCurrentChallengeIndex }, dispatch)
 }
 
 const mapStateToProps = (state) => {
-  console.log('mapStateToProps: ', state)
   return {
-    //gameId: state.app.currentGame,
-    //challenges: state.play.allChallenges
+    userId: state.client.userIdentity,
+    gameId: state.play.gameId,
+    challenges: state.play.allChallenges,
+    index: state.play.currentChallengeIndex
   }
 }
 
@@ -57,6 +60,7 @@ class CurrentChallenge extends Component {
     });
   }
 
+
   challengeCompleted() {
     //render the next GPS coordinate
     this.setModalVisible(true)
@@ -74,6 +78,7 @@ class CurrentChallenge extends Component {
   }
 
   render() {
+    console.log(this.props.index, 'init index');
     let challenge = null
     //console.log(`this.state.currentChallenge in CurrentChallenge is ${JSON.stringify(this.state.currentChallenge)} `)
     if (this.state.currentChallenge !== null) {
@@ -85,6 +90,7 @@ class CurrentChallenge extends Component {
     }
     return (
         <View style={styles.container}>
+          <Button title="Render Challenges" onPress={() =>{this.props.setCurrentChallengeIndex(this.props.index + 1)}}/>
           <Text>Hello Current Challenge</Text>
           {challenge}
           <Modal

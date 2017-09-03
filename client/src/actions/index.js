@@ -83,10 +83,14 @@ export const userEndedGame = (data) => {
       payload: data
   };
 };
-export const getAllUsersGames = (games) => {
+
+export const get_gameId = 'get_gameId';
+export const set_current_challenge_index = 'set_current_challenge_index';
+
+export const getGameId = (games) => {
   console.log('Games were submitted: ', games);
   return {
-      type: get_all_users_games,
+      type: get_gameId,
       payload: games
   };
 };
@@ -96,5 +100,12 @@ export const getAllGameChallenges = (challenges) => {
   return {
       type: get_all_game_challenges,
       payload: challenges
+  };
+};
+
+export const setCurrentChallengeIndex = (index) => {
+  return {
+      type: set_current_challenge_index,
+      payload: index
   };
 };

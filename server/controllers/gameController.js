@@ -28,8 +28,6 @@ module.exports = {
 
   getAllGames: (req,res) => {
     db.Game.findAll().then( (games) => {
-      console.log(`im in server, getAllGames`)
-      console.log(`users are ${JSON.stringify(games)}`)
       res.status(201).send(games)
     })
   }

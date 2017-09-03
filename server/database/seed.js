@@ -15,22 +15,32 @@ const photoSeed =  require("./seed/questionType/photo");
 //const videoSeed =  require("./seed/questionType/video");
 
 
-db.sequelize.sync({ force: true }).then(() => {
-  db.Riddle.bulkCreate(riddleSeed).then(() => {
-    db.LogicPuzzle.bulkCreate(logicPuzzleSeed).then(() => {
-      db.Photo.bulkCreate(photoSeed).then(() => {
-        db.User.bulkCreate(userSeed).then(() => {
-          db.QuestionType.bulkCreate(questionTypeSeed).then(() => {
-            db.Challenge.bulkCreate(challengeSeed).then(() => {
-              db.Game.bulkCreate(gameSeed).then(() => {
-                db.Rating.bulkCreate(ratingSeed);
-              });
-            });
-          });
-        });
+// db.sequelize.sync({ force: true }).then(() => {
+//   db.Riddle.bulkCreate(riddleSeed).then(() => {
+//     db.LogicPuzzle.bulkCreate(logicPuzzleSeed).then(() => {
+//       db.Photo.bulkCreate(photoSeed).then(() => {
+//         db.User.bulkCreate(userSeed).then(() => {
+//           db.QuestionType.bulkCreate(questionTypeSeed).then(() => {
+//             db.Game.bulkCreate(gameSeed).then(() => {
+//               db.Challenge.bulkCreate(challengeSeed).then(() => {
+//                 db.Rating.bulkCreate(ratingSeed);
+//               });
+//             });
+//           });
+//         });
     
-      });
-    });
-  });
-}).catch(err => console.log(`Error seeding database!, ${err}`));
+//       });
+//     });
+//   });
+// }).catch(err => console.log(`Error seeding database!, ${err}`));
 
+db.sequelize.sync({ force: true })
+.then(() => db.User.bulkCreate(userSeed))
+.then(() => db.Game.bulkCreate(gameSeed))
+.then( () => db.Riddle.bulkCreate(riddleSeed))
+.then( () => db.LogicPuzzle.bulkCreate(logicPuzzleSeed))
+.then(() => db.Photo.bulkCreate(photoSeed))
+.then(() => db.QuestionType.bulkCreate(questionTypeSeed))
+.then(() => db.Rating.bulkCreate(ratingSeed))
+.then(() => db.Challenge.bulkCreate(challengeSeed))
+.catch(err => console.log(err))

@@ -6,9 +6,26 @@ import {
   Button
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {getGameId} from '../../actions/index.js'
+
 import ModularMap from '../reusable/ModularMap'
 import ModularList from '../reusable/ModularList'
 import config from '../../../config/config'
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ getGameId }, dispatch)
+}
+
+const mapStateToProps = (state) => {
+  console.log('mapStateToProps: ', state)
+  return {
+    userId: state.client.userIdentity,
+    gameId: state.play.gameId,
+    challenges: state.play.allChallenges
+  }
+}
 
 class JoinGame extends Component {
   constructor(props) {
@@ -27,21 +44,16 @@ class JoinGame extends Component {
   componentWillMount() {
     //make a call to the database for games
     //load the markers into 
-    console.log(`im in JoinGame.js componentWillMount`)
     fetch(`${config.localhost}/api/game/getAllGames`)
-      .then( (response) => {
-        console.log(`im in joinGame.js componentWillMount()`)
-        console.log(`response is ${JSON.stringify(response)}`)
-        return response.json()
-      })
-      .then( (games) => {
-        console.log(`and data is now ${JSON.stringify(games)}`)
-        this.setState({games})
+      .then( (response) => response.json())
+      .then( (data) => {
+        console.log(data, 'just fetched')
+        this.setState({games: data})
 
-        let gameStartLocations = games.map( (game) => {return {latitude: game.startLocation[0], longitude: game.startLocation[1]} })
-        this.setState({ gameStartMarkers: gameStartLocations}, () => {
-          console.log(`this.state.gameStartMarkers is ${JSON.stringify(this.state.gameStartMarkers)}`)
-        })
+        // let gameStartLocations = games.map( (game) => {return {latitude: game.startLocation[0], longitude: game.startLocation[1]} })
+        // this.setState({ gameStartMarkers: gameStartLocations}, () => {
+        //   console.log(`this.state.gameStartMarkers is ${JSON.stringify(this.state.gameStartMarkers)}`)
+        // })
 
       }) 
   }  
@@ -53,10 +65,11 @@ class JoinGame extends Component {
     console.log('gamedata: ', gamedata)
     Actions.lobby({gamedata: gamedata})
     // update redux store CURRENT GAME with gamedata
-
+    this.props.getGameId(gamedata.id);
   }
 
   render() {
+    console.log(this.state.games,'games');
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -82,7 +95,7 @@ class JoinGame extends Component {
           this.setState({view: 'map'})
           } 
         }}/>
-        {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games}/> : null}
+        {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} games={this.state.games}/> : null}
 
         {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} data={this.state.games}/> : null}
 
@@ -91,4 +104,4 @@ class JoinGame extends Component {
   }
 }
 
-export default JoinGame;
+export default connect(mapStateToProps, mapDispatchToProps)(JoinGame);

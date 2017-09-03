@@ -18,7 +18,7 @@ export default class ModularList extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: {},
+      games: [],
       list: [
         {
           image: 'https://placekitten.com/200/240',
@@ -44,19 +44,15 @@ export default class ModularList extends Component {
 
 
   componentWillReceiveProps(nextProps) {
-    console.log('ModularList willreceiveProps, nextProps is: ', nextProps);
-    let temp ={};
-    for (let i = 0; i < nextProps.data.length; i++) {
-      temp[i] = nextProps.data[i];
-    }
-    console.log('ModularList willreceiveProps, temp is: ', temp);
+    //console.log('ModularList willreceiveProps, nextProps is: ', nextProps);
+  
     this.setState({
-      data: temp
+      games: nextProps
     })
   }
 
   componentDidMount() {
-    console.log('ModularList state mounted, state is: ', this.state)
+    //console.log('ModularList state mounted, state is: ', this.state)
   }
 
 
@@ -66,7 +62,7 @@ export default class ModularList extends Component {
     return (
       <View>
         <Text>Hello Modular List</Text>
-        {this.state.list.map((listEntry, index) => {
+        {this.props.games.map((listEntry, index) => {
           return (
             <ModularListEntry key={index} listentry={listEntry} buttontext={this.props.viewmode} buttonaction={this.props.buttonaction}/>
           )

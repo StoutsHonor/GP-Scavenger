@@ -19,19 +19,14 @@ export default class ModularList extends Component {
 
 
   componentWillReceiveProps(nextProps) {
-    console.log('ModularListEntry: willreceiveProps, nextProps is: ', nextProps);
-    let temp ={};
-    for (let i = 0; i < nextProps.data.length; i++) {
-      temp[i] = nextProps.data[i];
-    }
-    console.log('ModularListEntry: willreceiveProps, temp is: ', temp);
+    console.log(nextProps, 'nextProps')
     this.setState({
-      data: temp
+      data: nextProps
     })
   }
 
   componentDidMount() {
-    console.log('ModularListEntry: state mounted, state is: ', this.state)
+    //console.log('ModularListEntry: state mounted, state is: ', this.state)
   }
 
 
