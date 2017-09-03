@@ -68,5 +68,25 @@
     "timeLimit": 30,
     "questionTypeId": 1,
     "questionId": 3
+  },
+  {
+    "name": "Fuck Sequelize",
+    "description": "This is the THIRD GPS coordinate",
+    "gameId": 3,
+    "sequence": 2,
+    "location": [32.715738, -117.161084],
+    "timeLimit": 30,
+    "questionTypeId": 1,
+    "questionId": 3
+  },
+  {
+    "name": "Test",
+    "description": "This is the THIRD GPS coordinate",
+    "gameId": 3,
+    "sequence": 2,
+    "location": [32.715738, -117.161084],
+    "timeLimit": 30,
+    "questionTypeId": 1,
+    "questionId": 3
   }
 ]

@@ -12,18 +12,26 @@ const sequelize = new Sequelize(db_url, {
 //   .catch( (err) => { console.error('Unable to connect to the database: ', err) })
 
 
-  const User = sequelize.define('user', {
-    firstName: { type: Sequelize.STRING },
-    lastName: { type: Sequelize.STRING },
-    email: { type: Sequelize.STRING },
-    username: { type: Sequelize.STRING },
-    profilePicture: { type: Sequelize.STRING },
-    profileDescription: { type: Sequelize.STRING },
-    rewardPoints: {type: Sequelize.INTEGER },
-    DOB: { type: Sequelize.DATEONLY },
-    friends: {type: Sequelize.ARRAY(Sequelize.INTEGER), allowedNull: true}
-  });
+const User = sequelize.define('user', {
+  firstName: { type: Sequelize.STRING },
+  lastName: { type: Sequelize.STRING },
+  email: { type: Sequelize.STRING },
+  username: { type: Sequelize.STRING },
+  profilePicture: { type: Sequelize.STRING },
+  profileDescription: { type: Sequelize.STRING },
+  rewardPoints: {type: Sequelize.INTEGER },
+  DOB: { type: Sequelize.DATEONLY },
+  friends: {type: Sequelize.ARRAY(Sequelize.INTEGER), allowedNull: true}
+});
 
+const Game = sequelize.define('game', {
+  name: { type: Sequelize.STRING, allowNull: false },
+  duration: { type: Sequelize.INTEGER },
+  private: { type: Sequelize.BOOLEAN},
+  maxPlayers: { type: Sequelize.INTEGER, allowNull: false },
+  rewardPoints: { type: Sequelize.INTEGER, allowNull: false},
+  startLocation: { type: Sequelize.ARRAY(Sequelize.FLOAT), allowNull: false }
+});
 
 const Challenge = sequelize.define('challenge', {
   name: { type: Sequelize.STRING, allowNull: false },
@@ -39,17 +47,6 @@ const QuestionType = sequelize.define('questionType', {
   description: { type: Sequelize.STRING}
 });
 
-const Game = sequelize.define('game', {
-  name: { type: Sequelize.STRING, allowNull: false },
-  duration: { type: Sequelize.INTEGER },
-  private: { type: Sequelize.BOOLEAN},
-  maxPlayers: { type: Sequelize.INTEGER, allowNull: false },
-  rewardPoints: { type: Sequelize.INTEGER, allowNull: false},
-  startLocation: { type: Sequelize.ARRAY(Sequelize.FLOAT), allowNull: false }
-});
-
-
-
 const Chat = sequelize.define('chat', {
   user_id: { type: Sequelize.INTEGER, allowNull: false },
   createdAt: { type: Sequelize.STRING, allowNull: false },
@@ -64,10 +61,6 @@ const Rating = sequelize.define('rating', {
   comment: { type: Sequelize.STRING, allowNull: false }
 });
 
-
-
-
-
 const Camera = sequelize.define('camera', {
   prompt: { type: Sequelize.STRING, allowNull: false },
   default: {type: Sequelize.BOOLEAN },
@@ -78,11 +71,6 @@ const Compass = sequelize.define('compass', {
   prompt: { type: Sequelize.STRING, allowNull: false },
   default: { type: Sequelize.BOOLEAN }
 });
-
-
-
-
-
 
 const Riddle = sequelize.define('riddle', {
   title: { type: Sequelize.STRING, allowNull: false },
@@ -119,23 +107,23 @@ const Video = sequelize.define('video', {
 });
 
 
-Challenge.hasOne(QuestionType);
+User.hasMany(Game);
+Game.belongsTo(User);
 
-// Game.hasMany(Challenge);
-// Challenge.belongsTo(Game);
+User.hasMany(Chat);
+Chat.belongsTo(User);
 
-Game.hasMany(User);
-User.belongsTo(Game);
+User.hasMany(Rating);
+Rating.belongsTo(User);
 
-Chat.hasMany(User);
-User.belongsTo(Chat);
+Game.hasMany(Challenge);
+Challenge.belongsTo(Game);
 
-Rating.hasMany(User);
-User.belongsTo(Rating);
+Game.hasMany(Rating);
+Rating.belongsTo(Game);
 
-Rating.hasMany(Game);
-Game.belongsTo(Rating);
-
+QuestionType.hasMany(Challenge);
+Challenge.belongsTo(QuestionType);
 
 
 sequelize.sync( {force: false});

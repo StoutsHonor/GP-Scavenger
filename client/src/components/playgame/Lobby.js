@@ -5,8 +5,25 @@ import {
   View,
   Button
 } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import Chat from '../Chat'
+import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getAllGameChallenges } from '../../actions/index.js'
+import config from '../../../config/config';
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ getAllGameChallenges }, dispatch)
+}
+
+const mapStateToProps = (state) => {
+  console.log('mapStateToProps: ', state)
+  return {
+    userId: state.client.userIdentity,
+    gameId: state.play.gameId,
+    challenges: state.play.allChallenges
+  }
+}
 
 class Lobby extends Component {
   constructor(props) {
@@ -21,18 +38,39 @@ class Lobby extends Component {
   componentWillMount() {
     //make a call to the database for games
     //load the markers into 
-    console.log(`im in Lobby.js componentWillMount`)
-
+    //console.log(`im in Lobby.js componentWillMount`)
+    fetch(`${config.localhost}/api/challenge/findChallengeByGameId/?gameId=${this.props.gameId}`)
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data, 'this is the data received');
+      this.props.getAllGameChallenges(data);
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   }  
+
+  componentDidMount() {
+    // fetch(`${config.localhost}/api/challenge/findChallengeByGameId/?gameId=${this.props.gameId}`)
+    // .then((response) => response.json())
+    // .then((data) => {
+    //   console.log(data, 'this is the data received');
+    //   this.props.getAllGameChallenges(data);
+    // })
+    // .catch((err) => {
+    //   console.error(err);
+    // });
+  }
 
 
   startGame() {
     //
-    console.log('Lobby: startGame pressed')
+    //console.log('Lobby: startGame pressed')
     // Actions.initGame({gamedata: gamedata}) // TODO: CREATE
   }
 
   render() {
+    
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -51,7 +89,7 @@ class Lobby extends Component {
     return (
       <View style={styles.container}>
         <Text>Welcome to Lobby</Text>
-        <Chat />
+        {/* <Chat /> */}
         <Button onPress={() => {
           console.log('Lobby: button pressed, props.gamedata is: ', this.props.gamedata)
           Actions.gameplay(this.props.gamedata)
@@ -63,5 +101,5 @@ class Lobby extends Component {
   }
 }
 
-export default Lobby;
+export default connect(mapStateToProps, mapDispatchToProps)(Lobby);
 
