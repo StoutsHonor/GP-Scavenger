@@ -28,15 +28,19 @@ class Map extends Component {
         latitudeDelta: 0.0922,
         longitudeDelta: 0.0421,
       },
-      markers: []
+      markers: [],
+      currentLocation: {}
      }
   }
 
   componentWillMount() {
+    this.getCurrentLocation()
+
     if (this.props.markers) {
       console.log(`componentWillMount() in Map.js`)
-      console.log(`this.props.markers is ${JSON.stringify(this.props.markers)}`)
-      this.setState({markers: this.props.markers})
+      this.setState({markers: this.props.markers}, () => {
+        console.log(`this.props.markers is ${JSON.stringify(this.props.markers)}`)
+      })
     }
   }
 
@@ -54,12 +58,16 @@ class Map extends Component {
       navigator.geolocation.getCurrentPosition( (position) => {
         console.log(`Current position is latitude: ${position.coords.latitude} and longitude: ${position.coords.longitude}`)
         console.log(`position.coords is ${JSON.stringify(position.coords)}`)
-        this.setState({
+        component.setState({
           region: {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
             latitudeDelta: 0.0922,
             longitudeDelta: 0.0421,
+          },
+          currentLocation: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
           }
         })
       }, (error) => {console.log(`geolocation fail ${JSON.stringify(error)}`)}, {enableHighAccuracy: true, timeout:500})
@@ -110,6 +118,7 @@ class Map extends Component {
       }
     });
     console.log(`In Map.js this.state.markers is ${JSON.stringify(this.state.markers)}`)
+
     return(
       <View>
         <View style={styles.mapContainer}>
@@ -129,10 +138,15 @@ class Map extends Component {
         >
         {this.state.markers.map((loc, index) => {return(
          <MapView.Marker
-         coordinate={loc}
-         key={index}
-         />
-       )})}
+          coordinate={loc}
+          key={index}
+        />)})}
+
+        {/* <MapView.Marker
+          coordinate={{latitude: this.state.currentLocation[0], longitude: this.state.currentLocation[1]}}
+          image={'../media/currentLocationMarker_35x35.png'}
+        /> */}
+      
 
         </MapView>
         <MapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>

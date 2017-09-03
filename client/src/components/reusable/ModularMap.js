@@ -33,23 +33,45 @@ class Map extends Component {
   }
 
   componentWillMount() {
+    console.log(`ModularMap - in componentWillMount()`)
+
     if (this.props.markers) {
-      console.log(`componentWillMount() in Map.js`)
+      console.log(`ModularMap - componentWillMount()`)
       console.log(`this.props.markers is ${JSON.stringify(this.props.markers)}`)
       this.setState({markers: this.props.markers})
     }
-  }
 
-  componentWillReceiveProps(nextProps) {
-    if (this.props.markers) {
-      this.setState({markers: nextProps.markers}, () => {
-        console.log(`after setState in componentWillReceiveProps() in Map.js ${JSON.stringify(this.state.markers)}`)
+    if (this.props.games) {
+      const markers = this.props.games.map( (game) => {
+        return { latitude: game.startLocation[0], longitude: game.startLocation[1]}
+      })
+      this.setState({markers}, () => {
+        console.log(`ModularMap - componentWillReceiveProps - nextProps.games - this.state.markers is now ${JSON.stringify(this.state.markers)}`)
       })
     }
   }
 
+  componentWillReceiveProps(nextProps) {
+    console.log(`ModularMap - in componentWillReceiveProps()`)
+    if (nextProps.markers) {
+      this.setState({markers: nextProps.markers}, () => {
+        console.log(`ModularMap - componentWillReceiveProps() - this.state.markers is ${JSON.stringify(this.state.markers)}`)
+      })
+    }
+
+    if (nextProps.games) {
+      const markers = nextProps.games.map( (game) => {
+        return { latitude: game.startLocation[0], longitude: game.startLocation[1]}
+      })
+      this.setState({markers}, () => {
+        console.log(`ModularMap - componentWillReceiveProps - nextProps.games - this.state.markers is now ${JSON.stringify(this.state.markers)}`)
+      })
+    }
+
+  }
+
   getCurrentLocation() {
-    console.log(`Im in getCurrentLocation in the Map.js!!`)
+    console.log(`Im in getCurrentLocation in ModularMap.js!!`)
     let component = this;
       navigator.geolocation.getCurrentPosition( (position) => {
         console.log(`Current position is latitude: ${position.coords.latitude} and longitude: ${position.coords.longitude}`)
@@ -70,7 +92,7 @@ class Map extends Component {
   }
 
   storeMarker() {
-    console.log(`im in storeMarker in Map.js now!`)
+    console.log(`im in storeMarker in ModularMap.js now!`)
     this.setState({ marker: { latitude: this.state.region.latitude, longitude: this.state.region.longitude }}, () => {
       console.log(`this.state.marker is now ${JSON.stringify(this.state.marker)}`)
       if (this.props.onMarkerSubmit) {
@@ -109,7 +131,7 @@ class Map extends Component {
         ...StyleSheet.absoluteFillObject,
       }
     });
-    console.log(`In Map.js this.state.markers is ${JSON.stringify(this.state.markers)}`)
+    console.log(`In ModularMap.js - render() - this.state.markers is ${JSON.stringify(this.state.markers)}`)
     return(
       <View>
         <View style={styles.mapContainer}>
