@@ -40,9 +40,9 @@ class ChallengeListEntry extends Component {
       <View>
         <Card title={this.props.challengeIndex + 1} backgroundColor={this.state.color}> 
           {this.state.displayInfo ? 
-            <Text>{this.props.challenge.name}</Text> :
+            <Text style={styles.description} >{this.props.challenge.name}</Text> :
             <Image
-              style={{width: 60, height: 60}}
+              style={styles.locked}
               source={{uri: 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/matte-red-and-white-square-icons-business/122828-matte-red-and-white-square-icon-business-lock6-sc48.png'}}
             />}
           <View >
@@ -74,9 +74,13 @@ class ChallengeListEntry extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#808000'
+  description: {
+    textAlign: 'center'
+  },
+  locked: {
+    width: 30,
+    height: 30,
+    alignItems: 'center'
   }
 });
 

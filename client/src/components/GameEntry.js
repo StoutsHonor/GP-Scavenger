@@ -120,7 +120,7 @@ class GameEntry extends Component {
             <View style={{marginTop: 22}}>
               <View>
                 {this.state.reviews.map( (review, index) => {
-                  <Review review={review} key={index}/>
+                 return <Review review={review} key={index}/>
                 })}
                 <TouchableHighlight onPress={() => {
                   this.setState({showReview: false});

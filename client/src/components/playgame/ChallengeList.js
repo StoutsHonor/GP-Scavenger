@@ -35,12 +35,12 @@ class ChallengeList extends Component {
   render() {
     console.log(this.props.challenges, 'challenges on list')
     return (
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.container}>
         <Text>{this.props.gameId}</Text>
         {this.props.challenges.map((challenge, i) => {
           return <ChallengeListEntry challenge={challenge} challengeIndex={i} index={this.props.index} key={i}/>
         })}
-      </View>
+      </ScrollView>
     )
   }
 }
@@ -48,7 +48,6 @@ class ChallengeList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     backgroundColor: '#00FFFF'
   }
 });
