@@ -35,7 +35,7 @@ import config from './config/config.js'
 
 import { Router, Scene } from 'react-native-router-flux';
 
-// import MyCamera from './src/components/MyCamera';
+import MyCamera from './src/components/MyCamera';
 // import ChallengeList from './src/components/ChallengeList';
 // import ChallengeQuestion from './src/components/ChallengeQuestion';
 import Chat from './src/components/Chat';
@@ -58,6 +58,8 @@ import Chat from './src/components/Chat';
 
 
 // refactoring:
+
+import CameraChallenge from './src/components/playgame/challengetypes/CameraChallenge'
 
 import CurrentChallenge from './src/components/playgame/CurrentChallenge'
 import ChallengeList from './src/components/playgame/ChallengeList'
@@ -96,14 +98,14 @@ export default class client extends Component {
   componentWillMount() {
     console.log('index.android.js has loaded')
 
-    firebase.initializeApp({
-      apiKey: config.firebase.apiKey,
-      authDomain: config.firebase.authDomain,
-      databaseURL: config.firebase.databaseURL,
-      projectId: config.firebase.projectId,
-      storageBucket: config.firebase.storageBucket,
-      messagingSenderId: config.firebase.messagingSenderId
-    })
+    // firebase.initializeApp({
+    //   apiKey: config.firebase.apiKey,
+    //   authDomain: config.firebase.authDomain,
+    //   databaseURL: config.firebase.databaseURL,
+    //   projectId: config.firebase.projectId,
+    //   storageBucket: config.firebase.storageBucket,
+    //   messagingSenderId: config.firebase.messagingSenderId
+    // })
   }
 
   dummyGet() {
@@ -151,11 +153,11 @@ export default class client extends Component {
 
   render() {
 
-    if (!this.state.user) {
-      return (
-        <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
-      )
-    } else {
+    // if (!this.state.user) {
+    //   return (
+    //     <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
+    //   )
+    // } else {
 
     return (
       <Provider store={createStoreWithMiddleware(allReducers)}>
@@ -169,6 +171,15 @@ export default class client extends Component {
             />
 
 
+            <Scene key="joinCameraChallenge"
+              component={CameraChallenge}
+              title="Join Camera Challenge"
+            />
+
+            <Scene key="camera"
+              component={MyCamera}
+              title="Camera"
+            />
 
             <Scene key="joingame"
               component={JoinGame}
@@ -265,7 +276,7 @@ export default class client extends Component {
         </Router>
       </Provider>
     );
-  } // end of firebase
+  // } // end of firebase
   }
 }
 
