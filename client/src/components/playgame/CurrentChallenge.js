@@ -11,11 +11,9 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getAllGameChallenges } from '../../actions/index';
-import { getAllUsersGames } from '../../actions/index';
-import { setCurrentChallengeIndex } from '../../actions/index';
+import { getAllGameChallenges, geatAllUserGames, setCurrentChallengeIndex } from '../../actions/index';
 import GPSChallenge from './challengetypes/GPSChallenge';
-// import QuestionChallenge from './challengetypes/QuestionChallenge';
+import QuestionChallenge from './challengetypes/QuestionChallenge';
 // import CameraChallenge from './challengetypes/CameraChallenge';
 import config from '../../../config/config'
 
@@ -78,7 +76,6 @@ class CurrentChallenge extends Component {
   }
 
   render() {
-    console.log(this.props.index, 'init index');
     let challenge = null
     //console.log(`this.state.currentChallenge in CurrentChallenge is ${JSON.stringify(this.state.currentChallenge)} `)
     if (this.state.currentChallenge !== null) {
