@@ -3,15 +3,14 @@ import {
   StyleSheet,
   Text,
   ScrollView,
-  View,
-  Modal,
-  TouchableHighlight
+  View
 } from 'react-native';
+import { Card } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getAllGameChallenges } from '../../actions/index';
-import { getAllUsersGames } from '../../actions/index';
+import { getAllGameChallenges, setCurrentChallengeIndex } from '../../actions/index';
+import ChallengeListEntry from './ChallengeListEntry';
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ getAllGameChallenges }, dispatch)
@@ -20,8 +19,9 @@ const mapDispatchToProps = (dispatch) => {
 const mapStateToProps = (state) => {
   console.log('mapStateToProps: ', state)
   return {
-    //gameId: state.app.currentGame,
-    //challenges: state.play.allChallenges
+    gameId: state.play.gameId,
+    challenges: state.play.allChallenges,
+    index: state.play.currentChallengeIndex
   }
 }
 
@@ -29,16 +29,18 @@ class ChallengeList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      gameId: 3,
-    }
+    };
   }
 
-
   render() {
+    console.log(this.props.challenges, 'challenges on list')
     return (
-        <View style={styles.container}>
-          <Text>Hello Challenge List</Text>
-        </View>
+      <ScrollView contentContainerStyle={styles.container}>
+        <Text>{this.props.gameId}</Text>
+        {this.props.challenges.map((challenge, i) => {
+          return <ChallengeListEntry challenge={challenge} challengeIndex={i} index={this.props.index} key={i}/>
+        })}
+      </ScrollView>
     )
   }
 }
@@ -46,7 +48,7 @@ class ChallengeList extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#808000'
+    backgroundColor: '#00FFFF'
   }
 });
 
