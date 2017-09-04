@@ -35,13 +35,17 @@ import config from './config/config.js'
 
 import { Router, Scene } from 'react-native-router-flux';
 
+<<<<<<< HEAD
 import MyCamera from './src/components/MyCamera';
 // import ChallengeList from './src/components/ChallengeList';
+=======
+// import MyCamera from './src/components/MyCamera';
+
+>>>>>>> Question Challenge renders properly, need to fix redux at CongratsNext, index undefined
 // import ChallengeQuestion from './src/components/ChallengeQuestion';
-import Chat from './src/components/Chat';
-// import CongratsPage from './src/components/CongratsPage';
+
+
 // import GameLog from './src/components/GameLog';
-// import FailedPage from './src/components/FailedPage';
 // import GPSChallenge from './src/components/GPSChallenge';
 
 
@@ -64,22 +68,25 @@ import VideoChallenge from './src/components/playgame/challengetypes/VideoChalle
 import GuessPhotoChallenge from './src/components/playgame/challengetypes/GuessPhotoChallenge'
 import CurrentChallenge from './src/components/playgame/CurrentChallenge'
 import ChallengeList from './src/components/playgame/ChallengeList'
-
-import HomePage from './src/components/HomePage';
-import Leaderboard from './src/components/leaderboard/Leaderboard';
-import StartNewGame from './src/components/startnewgame/StartNewGame'
-import Friends from './src/components/friends/Friends';
-import CreateGame from './src/components/creategame/CreateGame';
+import Chat from './src/components/Chat';
+import CongratsNext from './src/components/playgame/CongratsNext';
+import CongratsPage from './src/components/playgame/CongratsPage';
 import CreateChallenge from './src/components/creategame/CreateChallenge';
+import CreateGame from './src/components/creategame/CreateGame';
 import CreateGPSChallenge from './src/components/creategame/CreateGPSChallenge';
-import Login from './src/components/login/Login';
-
+import FailedChallenge from './src/components/playgame/FailedChallenge';
+import FailedPage from './src/components/playgame/FailedPage';
+import Friends from './src/components/friends/Friends';
+import HomePage from './src/components/HomePage';
 import JoinGame from './src/components/joingame/JoinGame';
+import Leaderboard from './src/components/leaderboard/Leaderboard';
 import Lobby from './src/components/playgame/Lobby';
-
-import TitledInput from './src/components/reusable/TitledInput'
+import Login from './src/components/login/Login';
 import ModularList from './src/components/reusable/ModularList'
 import ModularMap from './src/components/reusable/ModularMap'
+import StartNewGame from './src/components/startnewgame/StartNewGame'
+import TitledInput from './src/components/reusable/TitledInput'
+
 
 export default class client extends Component {
   constructor() {
@@ -168,6 +175,7 @@ export default class client extends Component {
             <Scene key="homepage"
               component={HomePage}
               title="Home Page"
+              hideNavBar={true}
               initial
             />
 
@@ -211,23 +219,22 @@ export default class client extends Component {
             <Scene key="gameplay" tabs={true}
               hideNavBar={true}
             >
-              <Scene key="Current Challenge"
+              <Scene key="currentchallenge"
                 component={CurrentChallenge}
                 title="Current"
                 hideNavBar={true}
               />
-              <Scene key="All Challenges"
+              <Scene key="challengelist"
                 component={ChallengeList}
-                title="All"
+                title="All Challenges"
                 hideNavBar={true}
               />
-              <Scene key="Chat"
+              <Scene key="chat"
                 component={Chat}
                 title="Chat"
                 hideNavBar={true}
               />
             </Scene>
-
 
             <Scene key="creategame"
               component={CreateGame}
@@ -251,7 +258,6 @@ export default class client extends Component {
                 title="Chat"
               />
 
-
             {/* <Scene key="preferences"
               component={Preferences}
               title="Home Page"
@@ -265,24 +271,38 @@ export default class client extends Component {
             <Scene key="createChallenge"
               component={CreateChallenge}
               title="Create a Challenge"
+              hideNavBar={true}
             />
 
             <Scene key="createGPSchallenge"
             component={CreateGPSChallenge}
             title="Create GPS challenge"
+            hideNavBar={true}
             />
 
+            <Scene key="congratsnext"
+            component={CongratsNext}
+            title="CHALLENGE COMPLETED!!!"
+            hideNavBar={true}
+            />
 
-            {/* <Scene key="congratspage"
+            <Scene key="congratspage"
             component={CongratsPage}
-            title="COMPLETED!!!"
-            /> */}
+            title="GAME COMPLETED!!!"
+            hideNavBar={true}
+            />
 
-            {/* <Scene key="failedpage"
+            <Scene key="failedchallenge"
+              component={FailedChallenge}
+              title="You did not complete this challenge."
+              hideNavBar={true}
+            />
+
+            <Scene key="failedpage"
               component={FailedPage}
-              title="FAILED!!!"
-              renderBackButton={()=>(null)}
-            /> */}
+              title="You did not complete the game."
+              hideNavBar={true}
+            />
 
           </Scene>
         </Router>
@@ -291,10 +311,6 @@ export default class client extends Component {
   // } // end of firebase
   }
 }
-
-
-
-
 
 const styles = StyleSheet.create({
   container: {
