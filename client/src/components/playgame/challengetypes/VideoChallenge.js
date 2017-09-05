@@ -16,68 +16,33 @@ import { Actions } from 'react-native-router-flux';
 
 class VideoChallenge extends Component {
   constructor(props) {
-    super(props);
-    this.handleClickSubmit = this.handleClickSubmit.bind(this);
-    this.handleClickSkip = this.handleClickSkip.bind(this);
-    this.handleClickProceed = this.handleClickProceed.bind(this);
-    this.state = {
-      type: 'Guess this Picture',
-      showCongrats: false,
-      showTryAgain: false,
-      counter: 0,
-      timeRemaining: 30,
-      challenges: [
-        {
-          title: "Pokemon",
-          description: "What is this grasstype pokemon's name",
-          link: "http://i974.photobucket.com/albums/ae229/dlh1231/bulbasaur.png",
-          answer: "bulbasaur",
-          difficulty: "easy",
-          default: true
-        },
-        {
-          title: "Pokemon",
-          description: "What is this firetype pokemon's name",
-          link: "https://i.ytimg.com/vi/rO1VsuWBLsg/hqdefault.jpg",
-          answer: "charmander",
-          difficulty: "easy",
-          default: true
-        },
-        {
-          title: "Pokemon",
-          description: "What is this water-type pokemon's name",
-          link: "https://i.ytimg.com/vi/GzxCAzp0hpU/hqdefault.jpg",
-          answer: "squirtle",
-          difficulty: "easy",
-          default: true
-        },
-        {
-          title: "Pokemon",
-          description: "What is this electric-type pokemon's name",
-          link: "http://90kids.com/pokemon/images/guesspokemon.jpg",
-          answer: "pikachu",
-          difficulty: "easy",
-          default: true
-        }
-        
-      ]
-
-    }
-  }
-
-  componentDidMount() {
-    setInterval(() => {
-      let count = this.state.timeRemaining - 1;
-      this.setState({timeRemaining: count});
-    },1000);
-  }
-
-  handleClickSkip() {
-    if(this.state.timeRemaining > 10) {
-    this.setState({timeRemaining: this.state.timeRemaining - 10});
-    } else {
-      this.setState({timeRemaining: 0});
-    }
+   super(props);
+   this.handleClickSubmit = this.handleClickSubmit.bind(this);
+   this.handleClickProceed = this.handleClickProceed.bind(this);
+   this.state = {
+    type: 'Guess this video',
+    showCongrats: false,
+    showTryAgain: false,
+    counter: 0,
+    challenges: [
+      {
+        title: "Movie",
+        description: "What is the name of this movie",
+        link: "https://www.youtube.com/embed/SLD9xzJ4oeU?start=33&end=46&showinfo=0&rel=0&autoplay=0&controls=0",
+        answer: "the avenger",
+        difficulty: "easy",
+        default: true
+      },
+      {
+        title: "Movie",
+        description: "What is the name of this movie",
+        link: "https://www.youtube.com/embed/S1i5coU-0_Q?start=22&end=34&showinfo=0&rel=0&autoplay=0&controls=0",
+        answer: "back to the future",
+        difficulty: "easy",
+        default: true
+      }
+    ]
+   }
   }
 
   handleClickSubmit() {
@@ -101,18 +66,43 @@ class VideoChallenge extends Component {
   render() {
     let index = this.state.counter;
 
-    // if(this.state.timeRemaining === 0) {
-    //   Actions.failedpage();
-    // }
     return (
-      
-      //add image to background, fetch image from database preferred
+
       <View style={styles.container}>
-         <WebView
-            source={{uri: 'https://github.com/facebook/react-native'}}
-            style={{marginTop: 20, backgroundColor: '#ff0000'}}
-      />
-      </View>
+      <Modal
+       animationType={"slide"}
+       transparent={false}
+       visible={this.state.showCongrats}
+       onRequestClose={() => {alert("Modal has been closed.")}}
+       >
+       <View style={{marginTop: 22}}>
+         <View>
+           <Text>Congratulations! You Solved this Challenge!</Text>
+           <Button onPress={this.handleClickProceed} title="Click Here for the Next Challenge" color="#1E90FF"/>
+         </View>
+       </View>
+     </Modal>
+     <Text style={styles.bigFont}>{this.state.type}</Text>
+     <Text style={styles.mediumFont}>{this.state.challenges[index].title}</Text>
+     <Text style={styles.margin}>{this.state.challenges[index].description}</Text>
+     <Text style={styles.margin}>{this.state.challenges[index].difficulty}</Text>
+     <WebView
+     source={{uri: this.state.challenges[index].link}}
+     style={{marginTop: 20, width: Dimensions.get('window').width}}
+/>
+     <View style={styles.form}>
+       <FormLabel >Enter Answer Here:</FormLabel>
+       <FormInput onChangeText={userInput => this.setState({userInput})}/>
+     </View>
+     <Button
+       onPress={this.handleClickSubmit}
+       title="Submit"
+       color="#32CD32"
+     />
+     <Text onPress={() => this.handleClickProceed()}>next</Text>
+   </View>
+
+      
     );
   }
 }
@@ -121,7 +111,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: '#46cc16',
+    backgroundColor: '#32CD32',
   },
   bigFont: {
     top: 10,
@@ -142,7 +132,5 @@ const styles = StyleSheet.create({
     backgroundColor:'#F0FFFF'
   },
 
-
 });
-
 export default VideoChallenge;
