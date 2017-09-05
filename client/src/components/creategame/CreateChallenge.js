@@ -27,8 +27,10 @@ const mapStateToProps = (state) => {
     createChallengeLocation: state.create.createChallengeLocation,
     createChallengeType: state.create.createChallengeType,
     createChallengeTitle: state.create.createChallengeTitle,
+    createChallengeDescription: state.create.createChallengeDescription,
     createChallengeObjective: state.create.createChallengeObjective,
     createChallengeAnswer: state.create.createChallengeAnswer,
+    createChallengeTimeLimit: state.create.createTimeLimit,
   }
 }
 
@@ -45,32 +47,39 @@ class CreateChallenge extends Component {
 
   render() {
     return (
-      <SideMenu menu={<HomePage/>}>
-        <View style={styles.container}>
+    <SideMenu menu={<HomePage/>}>
+      <View style={styles.container}>
 
-          <TitledInput
-            label='Challenge Title'
-            placeholder='Enter Here...'
-            value={this.props.createChallengeTitle}
-            onChangeText={(e) => {this.props.enteredField('createChallengeTitle', e)}}
-          />
+        <TitledInput
+          label='Challenge Title'
+          placeholder='Enter Here...'
+          value={this.props.createChallengeTitle}
+          onChangeText={(e) => {this.props.enteredField('createChallengeTitle', e)}}
+        />
 
-          {/* <TitledInput
-            label='Challenge Type'
-            placeholder='Enter Here...'
-            value={this.props.createChallengeType}
-            onChangeText={(e) => {this.props.enteredField('createChallengeType', e)}}
-          /> */}
+        <TitledInput
+          label='Challenge Description'
+          placeholder='Enter Here...'
+          value={this.props.createChallengeDescription}
+          onChangeText={(e) => {this.props.enteredField('createChallengeDescription', e)}}
+        />
 
-          <Text>Challenge Type:</Text>
-          <Picker prompt='Select a Challenge Type' selectedValue={this.props.createChallengeType} onValueChange={(itemValue, itemIndex) => {this.props.enteredField('createChallengeType', itemValue)}} style={{height: 40, width: 150}} >
-            <Picker.Item label='Riddle' value='riddleQuestion' />
-            <Picker.Item label='Logic Puzzle' value='logicPuzzle' />
-            <Picker.Item label='Photo' value='photoQuestion' />
-            <Picker.Item label='Video' value='videoQuestion' />
-            <Picker.Item label='New Type' value='newtype' />
-          </Picker>
+        <Text>Challenge Type:</Text>
+        <Picker prompt='Select a Challenge Type' selectedValue={this.props.createChallengeType} onValueChange={(itemValue, itemIndex) => {this.props.enteredField('createChallengeType', itemValue)}} style={{height: 40, width: 175}} >
+          <Picker.Item label='Select..' value={null} />
+          <Picker.Item label='GPS Challenge' value='GPSChallenge' />
+          <Picker.Item label='Riddle Question' value='riddleQuestion' />
+          <Picker.Item label='Logic Puzzle' value='logicQuestion' />
+          <Picker.Item label='Identify Photo' value='photoQuestion' />
+          <Picker.Item label='Idenfity Video' value='videoQuestion' />
+          <Picker.Item label='Take Photo/Video' value='cameraPrompt' />
+        </Picker>
 
+
+        {
+          (this.props.createChallengeType === 'GPSChallenge') ?
+
+          <View>
           <Text>{'Location: '}{this.props.createChallengeLocation ? 'Latitude: ' + JSON.stringify(this.props.createChallengeLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createChallengeLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
 
           <Button onPress={() => {Actions.createGPSchallenge()}}
@@ -80,28 +89,58 @@ class CreateChallenge extends Component {
           <Button onPress={() => {this.props.challengeLocationSet(null)}}
           title="Clear Location"
           color="#841584"/>
+          </View>
 
+          : null
+        }
+
+
+        {
+          (this.props.createChallengeType === 'GPSChallenge' || this.props.createChallengeType === null) ? null : 
           <TitledInput
-            label='Challenge Objective'
+            label='Challenge Question / Objective / Prompt'
             placeholder='Enter Here...'
             value={this.props.createChallengeObjective}
             onChangeText={(e) => {this.props.enteredField('createChallengeObjective', e)}}
           />
+        }
+
+        {
+          (this.props.createChallengeType === 'cameraPrompt' || this.props.createChallengeType === 'GPSChallenge' || this.props.createChallengeType === null) ? null : 
+
           <TitledInput
             label='Challenge Answer'
             placeholder='Enter Here...'
             value={this.props.createChallengeAnswer}
             onChangeText={(e) => {this.props.enteredField('createChallengeAnswer', e)}}
           />
-          
+        }
 
-          <Button onPress={() => {
-            console.log('props: ', this.props)
-          }}
-          title="See Props"
-          color="#841584"/>
+        <Button onPress={() => {
+          console.log('props: ', this.props)
+        }}
+        title="See Props"
+        color="#841584"/>
 
-          <Button onPress={() => {
+        <Button onPress={() => {
+
+          if (!this.props.createChallengeTitle) {
+            Alert.alert(
+              'Error',
+              'Please enter a title for the challenge!',
+              [
+                {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
+              ]
+            )
+          } else if (!this.props.createChallengeType) {
+            Alert.alert(
+              'Error',
+              'Please select a challenge type!',
+              [
+                {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
+              ]
+            )
+          } else {
             let temp = this.props.createGameChallenges
             temp.push({
               ChallengeLocation: this.props.createChallengeLocation,
@@ -120,7 +159,7 @@ class CreateChallenge extends Component {
                 {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
               ]
             )
-
+          }
           }}
           title="Submit Challenge"
           color="#841584"/>

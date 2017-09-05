@@ -12,6 +12,7 @@ import SideMenu from 'react-native-side-menu';
 import HomePage from '../HomePage';
 import FloatingButton from '../reusable/FloatingButton';
 import TitledInput from '../reusable/TitledInput';
+import config from '../../../config/config';
 
 // Redux Imports for binding stateToProps and dispatchToProps to the component
 import {connect} from 'react-redux'
@@ -45,6 +46,7 @@ class CreateGame extends Component {
       createChallenges: [],
     }
     this.setStartingLocation = this.setStartingLocation.bind(this)
+    this.submitGame = this.submitGame.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -55,8 +57,141 @@ class CreateGame extends Component {
     this.props.enteredField('createGameStartingLocation', location)
   }
 
+  submitGame() {
+    console.log('submitGame: props:', this.props)
+    console.log(`${config.localhost}/api/game/addGame`)
+    // POST game to insert to DB, then POST challenges
+    fetch(`${config.localhost}/api/game/addGame`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        // name: this.props.createGameName,
+        // userId: 1,
+        // duration: this.props.createGameDuration,
+        // maxPlayers: this.props.createGameMaxPlayers,
+        // private: false,
+        // rewardPoints: 0,
+        // startLocation: [33.8120962,-117.9211629]
+        name: 'JLTestGame',
+        userId: 1,
+        duration: 900,
+        maxPlayers: 8,
+        private: false,
+        rewardPoints: 0,
+        startLocation: [33.8120962,-117.9211629]
+      })
+    })
+    .catch(error => console.log('error in posting game: ', error))
+    .then( (response) => response.json())
+    .then( (data) => {
+      console.log(data, 'game posted')
+      return data
+    })
+
+    // after posting game, we receive game data and can post questions, then challenges
+    .then( (game) => {
+      console.log('before posting questions: ', game)
+      this.props.createGameChallenges.map(
+      (challenge, index) => {
+
+        let questionTypes = {
+          GPSChallenge: 1,
+          riddleQuestion: 2,
+          logicQuestion: 3,
+          cameraPrompt: 4,
+          videoQuestion: 5,
+          photoQuestion: 6,
+        }
+        let tempChallengeId = questionTypes[challenge.ChallengeType]
+
+        let questionTableRouting = {
+          riddleQuestion: '/riddle/addRiddle',
+          cameraPrompt: '/photo/addPhoto',
+          photoQuestion: '/guessPhoto/addPhoto',
+          videoQuestion: '/video/addVideo',
+          GPSChallenge: null
+        }
+
+        let tempQuestionTablePath = questionTableRouting[challenge.ChallengeType]
+
+        // build appropriately formatted object to POST to Questions Table
+        let tempQuestionObject = {}
+
+        tempQuestionObject.title = 'JLQTestTitle'
+        tempQuestionObject.question = 'JLQTestTitle'
+        tempQuestionObject.answer = 'JLQTestTitle'
+        tempQuestionObject.difficulty = null
+        tempQuestionObject.default = true
+        tempQuestionObject.imageURL = 'someURLplaceholder'
+
+        console.log('preparing to POST questions: ', challenge)
+        // console.log('gameId: ', game.id)
+
+        // may need to generate unique objects to POST based on question type.
+        console.log('posting question to path: ' + `${config.localhost}/api${tempQuestionTablePath}` )
+        fetch(`${config.localhost}/api${tempQuestionTablePath}`, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            // name: challenge.challengeTitle,
+            // description: challenge.challengeDescription,
+            // gameId: game.id,
+            // sequence: index + 1,
+            // location: challenge.challengeLocation,
+            // timeLimit: 9999,
+            name: 'JLQTestTitle',
+            description: 'JLQTestDesc',
+            location: null,
+            timeLimit: null,
+            question: null,
+            answer: null,
+          })
+        })
+
+        .catch(error => console.log('error in posting question: ', error))
+        .then( (response) => response.json())
+        .then( (data) => {
+          console.log(data, 'question posted')
+          return data
+        })
+
+        // post the challenge to the challenge table (if any)
+        // .then (
+        //   fetch(`${config.localhost}/api/game/addChallenge`, {
+        //     method: 'POST',
+        //     headers: {
+        //       'Accept': 'application/json',
+        //       'Content-Type': 'application/json',
+        //     },
+        //     body: {
+        //       name: challenge.challengeTitle,
+        //       description: challenge.challengeDescription,
+        //       gameId: game.id,
+        //       sequence: index + 1,
+        //       location: challenge.challengeLocation,
+        //       timeLimit: 9999,
+        //       questionTypeId: temp,
+        //       questionId: challenge.asdfsa
+        //     }
+        //   })
+        // )
+
+      }
+    )})
+
+
+
+
+  }
+
   render() {
-    console.log('rendering: this.state: ', this.state);
+    // console.log('rendering: this.state: ', this.state);
     return (
       <SideMenu menu={<HomePage/>}>
         <View style={styles.container}>
@@ -106,24 +241,11 @@ class CreateGame extends Component {
               }
             }}
           />
-          {/* <TitledInput
-            label='Game Mode'
-            placeholder='Enter Here...'
-            value={this.props.createGameMode}
-            onChangeText={(e) => {this.props.enteredField('createGameMode', e)}}
-          /> */}
-          {/* <TitledInput
-            label='Starting Location'
-            placeholder='Enter Here...'
-            value={this.props.createGameStartingLocation}
-            onChangeText={(e) => {this.props.enteredField('createGameStartingLocation', e)}}
-          /> */}
 
 
+          <Text>{'Start Location: '}{this.props.createGameStartingLocation ? 'Latitude: ' + JSON.stringify(this.props.createGameStartingLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createGameStartingLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
 
-          <Text>{'Start Location: '}{this.props.createChallengeLocation ? 'Latitude: ' + JSON.stringify(this.props.createChallengeLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createChallengeLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
-
-          <Button onPress={() => {Actions.createGPSchallenge({submitmethod: this.setStartingLocation})}}
+          <Button onPress={() => {Actions.createMap({submitmethod: this.setStartingLocation})}}
           title="Set Starting Location"
           color="#841584"/>
 
@@ -143,7 +265,6 @@ class CreateGame extends Component {
           })}
 
           <Button onPress={() => {
-            console.log('button pressed!')
             console.log('props: ', this.props)
           }}
           title="See Props"
@@ -152,17 +273,19 @@ class CreateGame extends Component {
           <Button onPress={() => {Actions.createChallenge()} }
           title="Add a Challenge"
           color="#841584"/>
-          
+         
           <Button onPress={() => {
-            console.log('submit game pressed')
             Alert.alert(
               '',
               'Game Submitted!',
               [
                 {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
               ]
-            )} 
-          }
+            )
+  
+            this.submitGame();
+            
+          }}
           title="Submit Game"
           color="#841584"/>
 

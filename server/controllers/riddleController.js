@@ -12,6 +12,7 @@ module.exports = {
   },
 
   addRiddle: (req, res) => {
+    // console.log('addRiddle: req.body: ', req.body);
     db.Riddle.create({
       question: req.body.question,
       answer: req.body.answer,
