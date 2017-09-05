@@ -60,7 +60,7 @@ export default class ModularList extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.main}>
         <Text>Hello Modular List</Text>
         {this.props.data.map((listEntry, index) => {
           return (
@@ -76,6 +76,9 @@ export default class ModularList extends Component {
 
 
 const styles = StyleSheet.create({
+  main: {
+    backgroundColor: '#ffffff'
+  },
   container: {
     flex: 1,
     justifyContent: 'center',

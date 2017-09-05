@@ -34,7 +34,7 @@ export default class ModularList extends Component {
 
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <Text>Modular List Entry</Text>
         <Text>{JSON.stringify(this.props.listentry)}</Text>
         <Button
@@ -51,3 +51,8 @@ export default class ModularList extends Component {
 
 }
 
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#ffffff',
+  }
+});

@@ -10,6 +10,8 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {getGameId} from '../../actions/index.js'
+import SideMenu from 'react-native-side-menu';
+import HomePage from '../HomePage';
 
 import ModularMap from '../reusable/ModularMap'
 import ModularList from '../reusable/ModularList'
@@ -46,12 +48,12 @@ class JoinGame extends Component {
     //make a call to the database for games
     //load the markers into 
 
-    console.log(`JoinGame.js - componentWillMount()`)
+    //console.log(`JoinGame.js - componentWillMount()`)
 
     fetch(`${config.localhost}/api/game/getAllGames`)
       .then( (response) => response.json())
       .then( (data) => {
-        console.log(data, 'just fetched')
+        //console.log(data, 'just fetched')
         this.setState({games: data})
 
         // let gameStartLocations = games.map( (game) => {return {latitude: game.startLocation[0], longitude: game.startLocation[1]} })
@@ -65,15 +67,15 @@ class JoinGame extends Component {
 
 
   modularListEntryButtonAction(gamedata) {
-    console.log('JoinGame: modularListEntryButtonAction pressed')
-    console.log('gamedata: ', gamedata)
+    //console.log('JoinGame: modularListEntryButtonAction pressed')
+    //console.log('gamedata: ', gamedata)
     Actions.lobby({gamedata: gamedata})
     // update redux store CURRENT GAME with gamedata
     this.props.getGameId(gamedata.id);
   }
 
   render() {
-    console.log(`JoinGame - render(): this.state.games ${JSON.stringify(this.state.games)}`);
+    //console.log(`JoinGame - render(): this.state.games ${JSON.stringify(this.state.games)}`);
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -90,20 +92,22 @@ class JoinGame extends Component {
     });
 
     return (
-      <ScrollView>
-        <Button title="Toggle View"
-        onPress={() => {
-          if (this.state.view === 'map') {
-          this.setState({view: 'list'})
-          } else {
-          this.setState({view: 'map'})
-          } 
-        }}/>
-        {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games}/> : null}
+      <SideMenu menu={<HomePage/>}>
+        <ScrollView>
+          <Button title="Toggle View"
+          onPress={() => {
+            if (this.state.view === 'map') {
+            this.setState({view: 'list'})
+            } else {
+            this.setState({view: 'map'})
+            } 
+          }}/>
+          {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games}/> : null}
 
-        {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} data={this.state.games}/> : null}
+          {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} data={this.state.games}/> : null}
 
-      </ScrollView>
+        </ScrollView>
+      </SideMenu>
     );
   }
 }
