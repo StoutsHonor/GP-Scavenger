@@ -12,6 +12,7 @@ import SideMenu from 'react-native-side-menu';
 import HomePage from '../HomePage';
 import FloatingButton from '../reusable/FloatingButton';
 import TitledInput from '../reusable/TitledInput';
+import config from '../../../config/config';
 
 // Redux Imports for binding stateToProps and dispatchToProps to the component
 import {connect} from 'react-redux'
@@ -45,6 +46,7 @@ class CreateGame extends Component {
       createChallenges: [],
     }
     this.setStartingLocation = this.setStartingLocation.bind(this)
+    this.submitGame = this.submitGame.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
@@ -53,6 +55,29 @@ class CreateGame extends Component {
 
   setStartingLocation(location) {
     this.props.enteredField('createGameStartingLocation', location)
+  }
+
+  submitGame() {
+    // POST game to insert to DB, then POST challenges
+    fetch(`${config.localhost}/api/game/addGame`, {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: {
+        name: this.props.createGameName,
+        userId: 1,
+        duration: this.props.createGameDuration,
+        maxPlayers: this.props.createGameMaxPlayers,
+        private: false,
+        rewardPoints: 0
+      }
+    })
+    .then( (response) => response.json())
+    .then( (data) => {
+      console.log(data, 'just fetched')
+    })
   }
 
   render() {
@@ -152,17 +177,19 @@ class CreateGame extends Component {
           <Button onPress={() => {Actions.createChallenge()} }
           title="Add a Challenge"
           color="#841584"/>
-          
+         
           <Button onPress={() => {
-            console.log('submit game pressed')
             Alert.alert(
               '',
               'Game Submitted!',
               [
                 {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
               ]
-            )} 
-          }
+            )
+  
+            this.submitGame();
+            
+          }}
           title="Submit Game"
           color="#841584"/>
 

@@ -11,8 +11,10 @@ const initialState = {
   createChallengeLocation: null,
   createChallengeType: null,
   createChallengeTitle: null,
+  createChallengeDescription: null,
   createChallengeObjective: null,
   createChallengeAnswer: null,
+  createChallengeTimeLimit: null,
 
 };
 
@@ -21,7 +23,29 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case entered_field:
       // console.log('state: ', state);
-      return Object.assign({}, state, {[action.payload.field]: action.payload.info})
+      if (action.payload.field === 'createChallengeLocation') {
+        return Object.assign({}, state, {
+          [action.payload.field]: action.payload.info,
+          createChallengeTimeLimit: null,
+          createChallengeObjective: null,
+          createChallengeAnswer: null,
+        })
+      } else if (action.payload.field === 'createChallengeObjective' ||
+      action.payload.field === 'createChallengeAnswer' ||
+      action.payload.field === 'createChallengeTimeLimit'
+      ) {
+        return Object.assign({}, state, {
+          [action.payload.field]: action.payload.info,
+          createChallengeLocation: null
+        })
+      } else {
+        return Object.assign({}, state, {
+          [action.payload.field]: action.payload.info
+        })
+      }
+
+
+
     case start_location_set:
       return Object.assign({}, state, {createGameStartingLocation: action.payload})
     case challenge_location_set:
@@ -33,6 +57,7 @@ export default function(state = initialState, action) {
         createChallengeLocation: null,
         createChallengeType: null,
         createChallengeTitle: null,
+        createChallengeDescription: null,
         createChallengeObjective: null,
         createChallengeAnswer: null
       })
@@ -48,6 +73,7 @@ export default function(state = initialState, action) {
         createChallengeLocation: null,
         createChallengeType: null,
         createChallengeTitle: null,
+        createChallengeDescription: null,
         createChallengeObjective: null,
         createChallengeAnswer: null
       })

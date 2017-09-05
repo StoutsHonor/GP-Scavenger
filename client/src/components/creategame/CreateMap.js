@@ -8,10 +8,10 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import MapView from 'react-native-maps';
-import MapCenterMarker from './MapCenterMarker';
-import MapCurrentLocationButton from './MapCurrentLocationButton';
 import {requestPermission} from 'react-native-android-permissions';
-import MapStoreLocationButton from './MapStoreLocationButton';
+import CreateMapCenterMarker from './CreateMapCenterMarker';
+import CreateMapCurrentLocationButton from './CreateMapCurrentLocationButton';
+import CreateMapStoreLocationButton from './CreateMapStoreLocationButton';
 
 const {width, height} = Dimensions.get('window');
 
@@ -78,10 +78,12 @@ class Map extends Component {
   }
 
   storeMarker() {
+    console.log('storemarker invoked');
+    console.log('props: ', this.props)
     this.setState({ marker: { latitude: this.state.region.latitude, longitude: this.state.region.longitude }}, () => {
-      console.log(`this.state.marker is now ${JSON.stringify(this.state.marker)}`)
-      if (this.props.onMarkerSubmit) {
-        this.props.onMarkerSubmit(this.state.region)
+      if (this.props.submitmethod) {
+        console.log('setting start location');
+        this.props.submitmethod(this.state.region)
       }
     })
   }
@@ -121,7 +123,7 @@ class Map extends Component {
     return(
       <View>
         <View style={styles.mapContainer}>
-        <MapCenterMarker height={styles.mapContainer.height} width={styles.mapContainer.width}/>
+        <CreateMapCenterMarker height={styles.mapContainer.height} width={styles.mapContainer.width}/>
         <MapView style={styles.map}
             initialRegion={{
               latitude: 37.78825,
@@ -142,7 +144,7 @@ class Map extends Component {
         />)})}
 
         </MapView>
-        <MapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>
+        <CreateMapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>
         <CreateMapStoreLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} storeMarker={this.storeMarker}/>
         </View>
 
