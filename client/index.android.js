@@ -60,7 +60,7 @@ import Chat from './src/components/Chat';
 // refactoring:
 
 import CameraChallenge from './src/components/playgame/challengetypes/CameraChallenge'
-
+import GuessPhotoChallenge from './src/components/playgame/challengetypes/GuessPhotoChallenge'
 import CurrentChallenge from './src/components/playgame/CurrentChallenge'
 import ChallengeList from './src/components/playgame/ChallengeList'
 
@@ -175,6 +175,13 @@ export default class client extends Component {
               component={CameraChallenge}
               title="Join Camera Challenge"
             />
+
+            <Scene key="joinGuessPhotoChallenge"
+              component={GuessPhotoChallenge}
+              title="Join Guess Photo Challenge"
+            />
+
+          
 
             <Scene key="camera"
               component={MyCamera}
