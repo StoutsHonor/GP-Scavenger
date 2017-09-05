@@ -1,0 +1,35 @@
+[
+  {
+    "title": "Pokemon",
+    "question": "What is this grasstype pokemon's name",
+    "imageURL": "http://i974.photobucket.com/albums/ae229/dlh1231/bulbasaur.png",
+    "answer": "bulbasaur",
+    "difficulty": "easy",
+    "default": true
+  },
+  {
+    "title": "Pokemon",
+    "question": "What is this firetype pokemon's name",
+    "imageURL": "https://i.ytimg.com/vi/rO1VsuWBLsg/hqdefault.jpg",
+    "answer": "charmander",
+    "difficulty": "easy",
+    "default": true
+  },
+  {
+    "title": "Pokemon",
+    "question": "What is this water-type pokemon's name",
+    "imageURL": "https://i.ytimg.com/vi/GzxCAzp0hpU/hqdefault.jpg",
+    "answer": "squirtle",
+    "difficulty": "easy",
+    "default": true
+  },
+  {
+    "title": "Pokemon",
+    "question": "What is this electric-type pokemon's name",
+    "imageURL": "http://90kids.com/pokemon/images/guesspokemon.jpg",
+    "answer": "pikachu",
+    "difficulty": "easy",
+    "default": true
+  }
+  
+]

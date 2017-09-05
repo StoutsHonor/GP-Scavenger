@@ -1,13 +1,44 @@
 [
   {
-    "name": "The world's hardest riddle",
-    "description": "You'll never be able to solve this!!!",
+    "name": "Guess this movie",
+    "description": "Do you know your superhero",
     "gameId": 1,
     "sequence": 1,
     "location": [37.783692, -122.408967],
     "timeLimit": 30,
+    "questionTypeId": 5,
+    "questionId": 1
+  },
+  
+  {
+    "name": "Guess this Photo",
+    "description": "Do you know your pokemon",
+    "gameId": 1,
+    "sequence": 2,
+    "location": [37.783692, -122.408967],
+    "timeLimit": 30,
+    "questionTypeId": 6,
+    "questionId": 4
+  },
+  {
+    "name": "The world's hardest riddle",
+    "description": "You'll never be able to solve this!!!",
+    "gameId": 1,
+    "sequence": 3,
+    "location": [37.783692, -122.408967],
+    "timeLimit": 30,
     "questionTypeId": 2,
     "questionId": 1
+  },
+  {
+    "name": "Save the forest",
+    "description": "It's tough to find trees in a desert",
+    "gameId": 1,
+    "sequence": 4,
+    "location": [37.783692, -122.408967],
+    "timeLimit": 30,
+    "questionTypeId": 4,
+    "questionId": 5
   },
   {
     "name": "Riddle #1",
@@ -100,5 +131,35 @@
     "timeLimit": 30,
     "questionTypeId": 2,
     "questionId": 3
+  }, 
+  {
+    "name": "MIXED GAME CHALLENGE #5",
+    "description": "Video - Do you know your superhero",
+    "gameId": 5,
+    "sequence": 5,
+    "location": [37.783692, -122.408967],
+    "timeLimit": 30,
+    "questionTypeId": 5,
+    "questionId": 1
+  },
+  {
+    "name": "MIXED GAME CHALLENGE #6",
+    "description": "Guess this Photo - Do you know your pokemon",
+    "gameId": 5,
+    "sequence": 6,
+    "location": [37.783692, -122.408967],
+    "timeLimit": 30,
+    "questionTypeId": 6,
+    "questionId": 4
+  },
+  {
+    "name": "MIXED GAME CHALLENGE #7",
+    "description": "Camera - It's tough to find trees in a desert",
+    "gameId": 5,
+    "sequence": 7,
+    "location": [37.783692, -122.408967],
+    "timeLimit": 30,
+    "questionTypeId": 4,
+    "questionId": 5
   }
 ]

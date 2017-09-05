@@ -106,6 +106,15 @@ const Video = sequelize.define('video', {
   default: { type: Sequelize.BOOLEAN }
 });
 
+const GuessPhoto = sequelize.define('guessPhoto', {
+  title: { type: Sequelize.STRING, allowNull: false },
+  question: { type: Sequelize.STRING, allowNull: false },
+  imageURL: { type: Sequelize.STRING, allowNull: false },
+  answer: { type: Sequelize.STRING, allowNull: false },
+  difficulty: { type: Sequelize.STRING },
+  default: { type: Sequelize.BOOLEAN }
+});
+
 
 User.hasMany(Game);
 Game.belongsTo(User);
@@ -140,5 +149,7 @@ module.exports = {
   Rating,
   sequelize,
   Chat,
-  Photo
+  Photo,
+  Video,
+  GuessPhoto
 }

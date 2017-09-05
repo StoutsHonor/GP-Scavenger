@@ -8,13 +8,16 @@ import {
   TouchableHighlight,
   Button
 } from 'react-native';
+
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllGameChallenges, getAllUserGames, setCurrentChallengeIndex } from '../../actions/index';
 import GPSChallenge from './challengetypes/GPSChallenge';
 import QuestionChallenge from './challengetypes/QuestionChallenge';
-// import CameraChallenge from './challengetypes/CameraChallenge';
+import CameraChallenge from './challengetypes/CameraChallenge';
+import GuessPhotoChallenge from './challengetypes/GuessPhotoChallenge';
+import VideoChallenge from './challengetypes/VideoChallenge';
 import config from '../../../config/config';
 import CongratsNext from './CongratsNext';
 import CongratsPage from './CongratsPage';
@@ -48,14 +51,27 @@ class CurrentChallenge extends Component {
     console.log(`CurrentChallenge.js - componentWillMount() - this.props is`, this.props)
 
     let currentChallengeType = this.props.challenges[this.props.currentChallengeIndex].questionTypeId
-
+    let val = currentChallengeType;
     if(currentChallengeType === null) {
       console.log(`CurrentChallenge.js - componentWillMount() - currentChallengeType === null`)
       this.setState({ currentChallengeType: 'GPS' })
     } else if(currentChallengeType === 2 || currentChallengeType === 3) {
       console.log(`CurrentChallenge.js - componentWillMount() - currentChallengeType === 2 or 3`)
       this.setState({ currentChallengeType: 'riddle' })
+    } else {
+      this.setState({ currentChallengeType: val })
     }
+    
+    // else if (currentChallengeType === 4) {
+    //   console.log(`CurrentChallenge.js - componentWillMount() - currentChallengeType === 4`)
+    //   this.setState({ currentChallengeType: 'riddle' })
+    // } else if (currentChallengeType === 5) {
+    //   console.log(`CurrentChallenge.js - componentWillMount() - currentChallengeType === 5`)
+    //   this.setState({ currentChallengeType: 'riddle' })
+    // } else if (currentChallengeType === 6) {
+    //   console.log(`CurrentChallenge.js - componentWillMount() - currentChallengeType === 6`)
+    //   this.setState({ currentChallengeType: 'riddle' })
+    // }
 
     // fetch(`${config.localhost}/api/challenge/findChallengeByGameId/?gameId=${this.state.gameId}`)
     // .then((response) => response.json())
@@ -78,13 +94,16 @@ class CurrentChallenge extends Component {
     console.log(`CurrentChallenge.js - componentWillReceiveProps() - nextProps is`, nextProps)
     
     if (nextProps.challenges) {
-      let currentChallengeType = nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId    
+      let currentChallengeType = nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId;
+      let val = currentChallengeType;
       if(currentChallengeType === null) {
         console.log(`CurrentChallenge.js - componentWillReceiveProps() - currentChallengeType === null`)
         this.setState({ currentChallengeType: 'GPS' })
       } else if(currentChallengeType === 2 || currentChallengeType === 3) {
         console.log(`CurrentChallenge.js - componentWillReceiveProps() - currentChallengeType === 2 or 3`)
         this.setState({ currentChallengeType: 'riddle' })
+      } else {
+        this.setState({ currentChallengeType: val })
       }
     }
   }
@@ -108,21 +127,28 @@ class CurrentChallenge extends Component {
   setModalVisible(boo) {
     this.setState({modalVisible: boo})
   }
+  
 
   render() {
     let currentChallenge = null
-
+    console.log('Current challenge index is ' + this.state.currentChallengeType);
     if (this.props.challenges) {
       if (this.state.currentChallengeType === 'GPS') {
         currentChallenge = (<GPSChallenge currentChallenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>)
       } else if (this.state.currentChallengeType === 'riddle') {
         currentChallenge = (<QuestionChallenge challenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>)
+      } else if (this.state.currentChallengeType === 4) {
+        currentChallenge = (<CameraChallenge challenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>) 
+      } else if (this.state.currentChallengeType === 5) {
+        currentChallenge = (<VideoChallenge challenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>)
+      } else if (this.state.currentChallengeType === 6) {
+        currentChallenge = (<GuessPhotoChallenge challenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>)
       }
     }
 
-
+    console.log('current Challenge is ', currentChallenge);
     return (
-      <View>
+      <View  style={styles.container}>
         {currentChallenge}
         <Modal
           animationType={"slide"}
@@ -157,6 +183,8 @@ class CurrentChallenge extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#808000'
   }
 });

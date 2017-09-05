@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import { Divider, FormLabel, FormInput } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
+import config from '../../../../config/config';
 // import timer from 'react-native-timer';
 
 class VideoChallenge extends Component {
@@ -21,33 +22,24 @@ class VideoChallenge extends Component {
    this.handleClickProceed = this.handleClickProceed.bind(this);
    this.state = {
     type: 'Guess this video',
-    showCongrats: false,
+    data: {},
     showTryAgain: false,
-    counter: 0,
-    challenges: [
-      {
-        title: "Movie",
-        description: "What is the name of this movie",
-        link: "https://www.youtube.com/embed/SLD9xzJ4oeU?start=33&end=46&showinfo=0&rel=0&autoplay=0&controls=0",
-        answer: "the avenger",
-        difficulty: "easy",
-        default: true
-      },
-      {
-        title: "Movie",
-        description: "What is the name of this movie",
-        link: "https://www.youtube.com/embed/S1i5coU-0_Q?start=22&end=34&showinfo=0&rel=0&autoplay=0&controls=0",
-        answer: "back to the future",
-        difficulty: "easy",
-        default: true
-      }
-    ]
+    userInput: ''
    }
   }
 
+  componentWillMount() { 
+    fetch(`${config.localhost}/api/video/findVideo/?id=${this.props.challenge.questionId}`)
+    .then(response => response.json())
+    .then(data => {
+      this.setState({ data }); 
+    })
+    .catch(err => console.error(err))
+  }
+
   handleClickSubmit() {
-    if(this.state.userInput.toLowerCase() === this.state.challenges[this.state.counter].answer.toLowerCase()) {
-      this.setState({showCongrats: true});
+    if(this.state.userInput.toLowerCase() === this.state.data.answer.toLowerCase()) {
+      this.props.challengeCompleted();
     } else {
       this.setState({showTryAgain: true});
       setTimeout(() => this.setState({showTryAgain: false}), 3000)
@@ -68,38 +60,26 @@ class VideoChallenge extends Component {
 
     return (
 
-      <View style={styles.container}>
-      <Modal
-       animationType={"slide"}
-       transparent={false}
-       visible={this.state.showCongrats}
-       onRequestClose={() => {alert("Modal has been closed.")}}
-       >
-       <View style={{marginTop: 22}}>
-         <View>
-           <Text>Congratulations! You Solved this Challenge!</Text>
-           <Button onPress={this.handleClickProceed} title="Click Here for the Next Challenge" color="#1E90FF"/>
-         </View>
-       </View>
-     </Modal>
+      <View >
+    
      <Text style={styles.bigFont}>{this.state.type}</Text>
-     <Text style={styles.mediumFont}>{this.state.challenges[index].title}</Text>
-     <Text style={styles.margin}>{this.state.challenges[index].description}</Text>
-     <Text style={styles.margin}>{this.state.challenges[index].difficulty}</Text>
+     <Text style={styles.mediumFont}>{this.state.data.title}</Text>
+     <Text style={styles.margin}>{this.state.data.question}</Text>
      <WebView
-     source={{uri: this.state.challenges[index].link}}
+     source={{uri: this.state.data.link}}
      style={{marginTop: 20, width: Dimensions.get('window').width}}
 />
      <View style={styles.form}>
        <FormLabel >Enter Answer Here:</FormLabel>
        <FormInput onChangeText={userInput => this.setState({userInput})}/>
      </View>
+     {this.state.showTryAgain ? <View style={styles.tryAgain}><Text style={styles.tryAgainText}>Try Again</Text></View> : null}
      <Button
        onPress={this.handleClickSubmit}
        title="Submit"
        color="#32CD32"
      />
-     <Text onPress={() => this.handleClickProceed()}>next</Text>
+     
    </View>
 
       

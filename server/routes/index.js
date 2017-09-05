@@ -8,5 +8,7 @@ router.use('/riddle', require('./riddle'))
 router.use('/rating', require('./rating'))
 router.use('/review', require('./review'))
 router.use('/chat', require('./chat'));
-
+router.use('/photo', require('./photo'));
+router.use('/guessPhoto', require('./guessPhoto'));
+router.use('/video', require('./video'));
 module.exports = router;
