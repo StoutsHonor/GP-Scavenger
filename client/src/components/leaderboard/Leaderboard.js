@@ -38,7 +38,7 @@ class Leaderboard extends Component {
   render() {
     return (
       <SideMenu menu={<HomePage/>}>
-        <ScrollView>
+        <ScrollView style={styles.container}>
           <Text>Hello Leaderboard</Text>
           {this.state.data.map( (player, index) => {
             return (
@@ -50,5 +50,11 @@ class Leaderboard extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#ffffff'
+  },
+});
 
 export default Leaderboard;
