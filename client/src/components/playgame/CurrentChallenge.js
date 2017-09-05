@@ -11,7 +11,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getAllGameChallenges, geatAllUserGames, setCurrentChallengeIndex } from '../../actions/index';
+import { getAllGameChallenges, getAllUserGames, setCurrentChallengeIndex } from '../../actions/index';
 import GPSChallenge from './challengetypes/GPSChallenge';
 import QuestionChallenge from './challengetypes/QuestionChallenge';
 // import CameraChallenge from './challengetypes/CameraChallenge';
@@ -75,14 +75,17 @@ class CurrentChallenge extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(`CurrentChallenge.js - componentWillReceiveProps() - nextProps is`, nextProps)    
-    let currentChallengeType = nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId    
-    if(currentChallengeType === null) {
-      console.log(`CurrentChallenge.js - componentWillReceiveProps() - currentChallengeType === null`)
-      this.setState({ currentChallengeType: 'GPS' })
-    } else if(currentChallengeType === 2 || currentChallengeType === 3) {
-      console.log(`CurrentChallenge.js - componentWillReceiveProps() - currentChallengeType === 2 or 3`)
-      this.setState({ currentChallengeType: 'riddle' })
+    console.log(`CurrentChallenge.js - componentWillReceiveProps() - nextProps is`, nextProps)
+    
+    if (nextProps.challenges) {
+      let currentChallengeType = nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId    
+      if(currentChallengeType === null) {
+        console.log(`CurrentChallenge.js - componentWillReceiveProps() - currentChallengeType === null`)
+        this.setState({ currentChallengeType: 'GPS' })
+      } else if(currentChallengeType === 2 || currentChallengeType === 3) {
+        console.log(`CurrentChallenge.js - componentWillReceiveProps() - currentChallengeType === 2 or 3`)
+        this.setState({ currentChallengeType: 'riddle' })
+      }
     }
   }
 
@@ -108,10 +111,13 @@ class CurrentChallenge extends Component {
 
   render() {
     let currentChallenge = null
-    if (this.state.currentChallengeType === 'GPS') {
-      currentChallenge = (<GPSChallenge currentChallenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>)
-    } else if (this.state.currentChallengeType === 'riddle') {
-      currentChallenge = (<QuestionChallenge challenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>)
+
+    if (this.props.challenges) {
+      if (this.state.currentChallengeType === 'GPS') {
+        currentChallenge = (<GPSChallenge currentChallenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>)
+      } else if (this.state.currentChallengeType === 'riddle') {
+        currentChallenge = (<QuestionChallenge challenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>)
+      }
     }
 
 
