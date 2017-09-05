@@ -58,6 +58,7 @@ class CreateGame extends Component {
   }
 
   submitGame() {
+    console.log('submitGame: props:', this.props)
     // POST game to insert to DB, then POST challenges
     fetch(`${config.localhost}/api/game/addGame`, {
       method: 'POST',
@@ -71,84 +72,81 @@ class CreateGame extends Component {
         duration: this.props.createGameDuration,
         maxPlayers: this.props.createGameMaxPlayers,
         private: false,
-        rewardPoints: 0
+        rewardPoints: 0,
+        startLocation: [33.8120962,-117.9211629]
       }
     })
     .then( (response) => response.json())
     .then( (data) => {
       console.log(data, 'game posted')
     })
-    .then( this.props.createGameChallenges.map(
-      (challenge, index) => {
 
-        let questionTypes = {
-          riddleQuestion: 1,
-          GPSChallenge: 2, 
-          riddleQuestion: 3,
-          logicQuestion: 4,
-          photoQuestion: 5,
-          videoQuestion: 6,
-          cameraPrompt: 7
-        }
-        let tempChallengeId = questionTypes[challenge.challengeType]
+    // // after posting game, we receive game data and can post questions, then challenges
+    // .then( this.props.createGameChallenges.map(
+    //   (challenge, index) => {
 
-        // post the question to the appropriate question table (if any)
+    //     let questionTypes = {
+    //       GPSChallenge: 1,
+    //       riddleQuestion: 2,
+    //       logicQuestion: 3,
+    //       cameraPrompt: 4,
+    //       videoQuestion: 5,
+    //       photoQuestion: 6,
+    //     }
+    //     let tempChallengeId = questionTypes[challenge.challengeType]
 
+    //     let questionTableRouting = {
+    //       riddleQuestion: '/riddle/addRiddle',
+    //       cameraPrompt: '/photo/addPhoto',
+    //       photoQuestion: '/guessPhoto/addPhoto',
+    //       videoQuestion: '/video/addVideo'
+    //     }
 
-        // router.use('/challenge', require('./challenge'))
-        // router.use('/questionType', require('./questionType'))
-        let questionTableRouting = {
-          riddleQuestion: '/riddle/addRiddle',
-          cameraPrompt: '/photo/addPhoto',
-          photoQuestion: '/guessPhoto/addPhoto',
-          videoQuestion: '/video/addVideo'
-        }
+    //     let tempQuestionTablePath = questionTableRouting[challenge.challengeType]
 
-        let tempQuestionTable = questionTableRouting[challenge.challengeType]
-        
-        fetch(`${config.localhost}/api/game/addChallenge`, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: {
-            name: challenge.challengeTitle,
-            description: challenge.challengeDescription,
-            gameId: 'id_received_after_post',
-            sequence: index + 1,
-            location: challenge.challengeLocation,
-            timeLimit: 9999,
-            questionTypeId: tempChallengeId,
-            questionId: challenge.asdfsa
-          }
-        })
+    //     fetch(`${config.localhost}/api${tempQuestionTablePath}`, {
+    //       method: 'POST',
+    //       headers: {
+    //         'Accept': 'application/json',
+    //         'Content-Type': 'application/json',
+    //       },
+    //       body: {
+    //         name: challenge.challengeTitle,
+    //         description: challenge.challengeDescription,
+    //         gameId: 'id_received_after_post',
+    //         sequence: index + 1,
+    //         location: challenge.challengeLocation,
+    //         timeLimit: 9999,
+    //         questionTypeId: tempChallengeId,
+    //         question
+    //       }
+    //     })
 
 
 
-        // post the challenge to the challenge table (if any)
-        .then (
-          fetch(`${config.localhost}/api/game/addChallenge`, {
-            method: 'POST',
-            headers: {
-              'Accept': 'application/json',
-              'Content-Type': 'application/json',
-            },
-            body: {
-              name: challenge.challengeTitle,
-              description: challenge.challengeDescription,
-              gameId: 'id_received_after_post',
-              sequence: index + 1,
-              location: challenge.challengeLocation,
-              timeLimit: 9999,
-              questionTypeId: temp,
-              questionId: challenge.asdfsa
-            }
-          })
-        )
+    //     // post the challenge to the challenge table (if any)
+    //     // .then (
+    //     //   fetch(`${config.localhost}/api/game/addChallenge`, {
+    //     //     method: 'POST',
+    //     //     headers: {
+    //     //       'Accept': 'application/json',
+    //     //       'Content-Type': 'application/json',
+    //     //     },
+    //     //     body: {
+    //     //       name: challenge.challengeTitle,
+    //     //       description: challenge.challengeDescription,
+    //     //       gameId: 'id_received_after_post',
+    //     //       sequence: index + 1,
+    //     //       location: challenge.challengeLocation,
+    //     //       timeLimit: 9999,
+    //     //       questionTypeId: temp,
+    //     //       questionId: challenge.asdfsa
+    //     //     }
+    //     //   })
+    //     // )
 
-      }
-    ))
+    //   }
+    // ))
 
 
 
@@ -156,7 +154,7 @@ class CreateGame extends Component {
   }
 
   render() {
-    console.log('rendering: this.state: ', this.state);
+    // console.log('rendering: this.state: ', this.state);
     return (
       <SideMenu menu={<HomePage/>}>
         <View style={styles.container}>
@@ -206,19 +204,6 @@ class CreateGame extends Component {
               }
             }}
           />
-          {/* <TitledInput
-            label='Game Mode'
-            placeholder='Enter Here...'
-            value={this.props.createGameMode}
-            onChangeText={(e) => {this.props.enteredField('createGameMode', e)}}
-          /> */}
-          {/* <TitledInput
-            label='Starting Location'
-            placeholder='Enter Here...'
-            value={this.props.createGameStartingLocation}
-            onChangeText={(e) => {this.props.enteredField('createGameStartingLocation', e)}}
-          /> */}
-
 
 
           <Text>{'Start Location: '}{this.props.createChallengeLocation ? 'Latitude: ' + JSON.stringify(this.props.createChallengeLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createChallengeLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
@@ -243,7 +228,6 @@ class CreateGame extends Component {
           })}
 
           <Button onPress={() => {
-            console.log('button pressed!')
             console.log('props: ', this.props)
           }}
           title="See Props"
