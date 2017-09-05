@@ -5,10 +5,34 @@ import {
   View
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getAllGameChallenges, setCurrentChallengeIndex, getGameId } from '../../actions/index';
 
-const CongratsPage = () => {
-  return (
-    <View style={styles.container}>
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ getAllGameChallenges, setCurrentChallengeIndex, getGameId }, dispatch)
+}
+
+const mapStateToProps = (state) => {
+  return {
+    gameId: state.play.gameId,
+    challenges: state.play.allChallenges,
+    currentChallengeIndex: state.play.currentChallengeIndex
+  }
+}
+
+class CongratsPage extends Component {
+
+  componentDidMount() {
+    this.props.getGameId(null)    
+    this.props.getAllGameChallenges(null)
+    this.props.setCurrentChallengeIndex(0)
+  }
+
+  render() {
+    return(
+      <View style={styles.container}>
       <Text style={styles.welcome}>
         Congratulations!  You Completed all Challenges!
       </Text>
@@ -16,8 +40,10 @@ const CongratsPage = () => {
       <Text onPress={() => Actions.mygames()}>Play Another</Text>
       <Text onPress={() => Actions.leaderboard()}>Leaderboard</Text>
     </View>
-  );
+    )
+  }
 }
+
 
 const styles = StyleSheet.create({
   container: {
@@ -34,4 +60,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default CongratsPage;
+export default connect(mapStateToProps, mapDispatchToProps)(CongratsPage);

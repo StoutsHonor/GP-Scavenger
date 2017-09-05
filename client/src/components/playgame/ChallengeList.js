@@ -33,13 +33,19 @@ class ChallengeList extends Component {
   }
 
   render() {
+
+    let challenges = (<Text>''</Text>)
+    if (this.props.challenges) {
+      challenges = this.props.challenges.map((challenge, i) => {
+        return <ChallengeListEntry challenge={challenge} challengeIndex={i} index={this.props.index} key={i}/>
+      })
+    }
+
     console.log(this.props.challenges, 'challenges on list')
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <Text>{this.props.gameId}</Text>
-        {this.props.challenges.map((challenge, i) => {
-          return <ChallengeListEntry challenge={challenge} challengeIndex={i} index={this.props.index} key={i}/>
-        })}
+        {challenges}
       </ScrollView>
     )
   }
