@@ -4,7 +4,7 @@ module.exports = {
   findQuestionType: (req, res) => {
     db.QuestionType.find({
       where: {
-        type: req.query.type
+        id: req.query.questionTypeId
       }
     })
     .then(type => res.status(200).send(type))

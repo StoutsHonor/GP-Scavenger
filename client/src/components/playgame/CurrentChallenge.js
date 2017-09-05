@@ -15,7 +15,7 @@ import { getAllGameChallenges, geatAllUserGames, setCurrentChallengeIndex } from
 import GPSChallenge from './challengetypes/GPSChallenge';
 import QuestionChallenge from './challengetypes/QuestionChallenge';
 // import CameraChallenge from './challengetypes/CameraChallenge';
-import config from '../../../config/config'
+import config from '../../../config/config';
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ getAllGameChallenges, setCurrentChallengeIndex }, dispatch)
@@ -40,24 +40,33 @@ class CurrentChallenge extends Component {
       challenges: [],
       currentChallengeIndex: 0,
       currentChallenge: null,
-      modalVisible: false
+      modalVisible: false,
+      displayChallenge: null
     }
   }
 
   componentWillMount() {
-    fetch(`${config.localhost}/api/challenge/findChallengeByGameId/?gameId=${this.state.gameId}`)
-    .then((response) => response.json())
-    .then((data) => {
-      this.setState({challenges: data, currentChallenge: data[0]}, () => {
-        //console.log(`this.state.challenges is ${JSON.stringify(this.state.challenges)} and
-        //this.state.currentchallenge is ${JSON.stringify(this.state.currentChallenge)}`)
-      });
-    })
-    .catch((err) => {
-      console.error(err);
-    });
+    // fetch(`${config.localhost}/api/challenge/findChallengeByGameId/?gameId=${this.state.gameId}`)
+    // .then((response) => response.json())
+    // .then((data) => {
+    //   this.setState({challenges: data, currentChallenge: data[0]}, () => {
+    //     //console.log(`this.state.challenges is ${JSON.stringify(this.state.challenges)} and
+    //     //this.state.currentchallenge is ${JSON.stringify(this.state.currentChallenge)}`)
+    //   });
+    // })
+    // .catch((err) => {
+    //   console.error(err);
+    // });
   }
 
+  componentDidMount() {
+    let typeId = this.props.challenges.questionTypeId
+    if(typeId === 1) {
+      this.setState({displayChallenge:<GPSChallenge/>})
+    } else if(typeId === 2 || typeId === 3) {
+      this.setState({displayChallenge:<QuestionChallenge challenge={this.props.challenges[this.props.index]}/>})
+    }
+  }
 
   challengeCompleted() {
     //render the next GPS coordinate
@@ -76,40 +85,34 @@ class CurrentChallenge extends Component {
   }
 
   render() {
-    let challenge = null
-    //console.log(`this.state.currentChallenge in CurrentChallenge is ${JSON.stringify(this.state.currentChallenge)} `)
-    if (this.state.currentChallenge !== null) {
-      if (this.state.currentChallenge.location !== null && this.state.currentChallenge.questionTypeId === null) {
-        challenge = (<GPSChallenge currentChallenge={this.state.currentChallenge} challengeCompleted={this.challengeCompleted}/>)
-      } else if (this.state.currentChallenge.questionTypeId === 1) {
-        challenge= (<Text>Riddles riddlessss</Text>)
-      }
-    }
     return (
-        <View style={styles.container}>
-          <Button title="Render Challenges" onPress={() =>{this.props.setCurrentChallengeIndex(this.props.index + 1)}}/>
-          <Text>Hello Current Challenge</Text>
-          {challenge}
-          <Modal
-          animationType={"slide"}
-          transparent={false}
-          visible={this.state.modalVisible}
-          onRequestClose={() => {alert("Modal has been closed.")}}
-          >
-         <View style={{marginTop: 22}}>
-          <View>
-            <Text>CONGRATS YOU GOT TO THE CHECKPOINT!!!</Text>
+      <View>
+        <QuestionChallenge challenge={this.props.challenges[this.props.index]}/>
+      </View>
+        // <View style={styles.container}>
+        //   <Button title="Render Challenges" onPress={() =>{this.props.setCurrentChallengeIndex(this.props.index + 1)}}/>
+        //   <Text>Hello Current Challenge</Text>
+        //   {challenge}
+        //   <Modal
+        //   animationType={"slide"}
+        //   transparent={false}
+        //   visible={this.state.modalVisible}
+        //   onRequestClose={() => {alert("Modal has been closed.")}}
+        //   >
+        //  <View style={{marginTop: 22}}>
+        //   <View>
+        //     <Text>CONGRATS YOU GOT TO THE CHECKPOINT!!!</Text>
 
-            <TouchableHighlight onPress={() => {
-              this.getNextChallenge(!this.state.modalVisible)
-            }}>
-              <Text>GET NEXT CHALLENGE</Text>
-            </TouchableHighlight>
+        //     <TouchableHighlight onPress={() => {
+        //       this.getNextChallenge(!this.state.modalVisible)
+        //     }}>
+        //       <Text>GET NEXT CHALLENGE</Text>
+        //     </TouchableHighlight>
 
-          </View>
-         </View>
-        </Modal>
-        </View>
+        //   </View>
+        //  </View>
+        // </Modal>
+        // </View>
     )
   }
 }

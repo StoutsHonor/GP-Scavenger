@@ -6,14 +6,15 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 
-const FailedPage = () => {
+const FailedChallenge = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>
-        You did not complete the challenges on time...Would you like to try again???
+        You Did Not Complete this Challenge.
       </Text>
-      <Text onPress={() => Actions.startgame()}>Try Again</Text>
-      <Text onPress={() => Actions.homepage()}>Back to Home</Text>
+      <Text onPress={() => Actions.currentchallenge()}>Go To Your Next Task</Text>
+      <Text onPress={() => Actions.challengelist()}>Go To Your Challenge List</Text>
+      <Text onPress={() => Actions.chat()}>Go To Chat</Text>
     </View>
   );
 }
@@ -33,4 +34,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FailedPage;
+export default FailedChallenge;

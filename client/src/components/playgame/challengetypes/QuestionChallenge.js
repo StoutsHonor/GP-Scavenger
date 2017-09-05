@@ -10,9 +10,9 @@ import {
 } from 'react-native';
 import { Divider, FormLabel, FormInput } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
-// import timer from 'react-native-timer';
+import config from '../../../../config/config';
 
-class ChallengeQuestion extends Component {
+class QuestionChallenge extends Component {
   constructor(props) {
     super(props);
     this.handleClickSubmit = this.handleClickSubmit.bind(this);
@@ -20,61 +20,38 @@ class ChallengeQuestion extends Component {
     this.handleClickProceed = this.handleClickProceed.bind(this);
     this.state = {
       userInput: '',
-      timeRemaining: 30,
-      challenges: [{
-        "name": "Riddle #1",
-        "description": "This is the first riddle",
-        "gameId": 2,
-        "sequence": 1,
-        "location": [37.783692, -122.408967],
-        "timeLimit": 30,
-        "questionTypeId": 1,
-        "questionId": 2
-      },
-      {
-        "name": "Riddle #2",
-        "description": "This is the second riddle",
-        "gameId": 2,
-        "sequence": 2,
-        "location": [37.783692, -122.408967],
-        "timeLimit": 30,
-        "questionTypeId": 1,
-        "questionId": 3
-      },
-      {
-        "name": "Riddle #3",
-        "description": "This is the third riddle",
-        "gameId": 2,
-        "sequence": 3,
-        "location":[37.783692, -122.408967],
-        "timeLimit": 30,
-        "questionTypeId": 1,
-        "questionId": 4
-      }],
-      type: "riddle",
-      challenge: {
-        "title":"The Ditch",
-        "question": "Anyone can dig a ditch, but it takes a real man to... finish the sentence",
-        "answer": "call it home",
-        "difficulty": "hard",
-        "default": true
-      },
-
-      showCongrats: false,
-      showTryAgain: false
+      timeRemaining: 50000,
+      showTryAgain: false,
+      info: {},
+      data: {}
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     setInterval(() => {
       let count = this.state.timeRemaining - 1;
       this.setState({timeRemaining: count});
     },1000);
+
+    fetch(`${config.localhost}/api/questionType/findQuestionType/?questionTypeId=${this.props.challenge.questionTypeId}`)
+    .then(response => response.json())
+    .then(data => this.setState({info: data}))
+    .then(() => {
+      let endPoint = `${config.localhost}/api/${this.state.info.type}/find${((this.state.info.type).charAt(0).toUpperCase() + this.state.info.type.slice(1))}/?id=${this.props.challenge.questionId}`;
+      fetch(endPoint)
+      .then(response => response.json())
+      .then(data => this.setState({data: data}))
+      .catch(err => console.error(err))
+    }
+    )
+    .catch(err => console.error(err));
+
+    
   }
 
   handleClickSubmit() {
-    if(this.state.userInput.toLowerCase() === this.state.challenge.answer.toLowerCase()) {
-      this.setState({showCongrats: true});
+    if(this.state.userInput.toLowerCase() === this.state.data.answer.toLowerCase()) {
+      Actions.congratsnext();
     } else {
       this.setState({showTryAgain: true});
       setTimeout(() => this.setState({showTryAgain: false}), 3000)
@@ -90,7 +67,6 @@ class ChallengeQuestion extends Component {
   }
 
   handleClickProceed() {
-    this.setState({showCongrats: false});
     Actions.congratspage();
   }
 
@@ -101,7 +77,7 @@ class ChallengeQuestion extends Component {
     }
     return (
       //add image to background, fetch image from database preferred
-      <View style={styles.container}>
+      <View>
         <Image
           style={{
             flex: 1,
@@ -112,23 +88,10 @@ class ChallengeQuestion extends Component {
           }}
           source={{ uri: "https://afterwordsbooks.files.wordpress.com/2013/02/riddle.jpg" }}
         />
-        <Modal
-          animationType={"slide"}
-          transparent={false}
-          visible={this.state.showCongrats}
-          onRequestClose={() => {alert("Modal has been closed.")}}
-          >
-          <View style={{marginTop: 22}}>
-            <View>
-              <Text>Congratulations! You Solved this Challenge!</Text>
-              <Button onPress={this.handleClickProceed} title="Click Here for the Next Challenge" color="#1E90FF"/>
-            </View>
-          </View>
-        </Modal>
         <View style={styles.timer}><Text style={styles.bigFont}>{this.state.timeRemaining} Seconds</Text></View>
-        <View style={styles.type}><Text style={styles.bigFont}>{this.state.type.toUpperCase()} :</Text></View>
-        <View style={styles.title}><Text style={styles.bigFont}>{this.state.challenge.title}</Text></View>
-        <View style={styles.question}><Text>{this.state.challenge.question}</Text></View>
+        <View style={styles.type}><Text style={styles.bigFont}>{this.state.info.type ? this.state.info.type : ''} :</Text></View>
+        <View style={styles.title}><Text style={styles.bigFont}>{this.state.data.title}</Text></View>
+        <View style={styles.question}><Text>{this.state.data.question}</Text></View>
         <View style={styles.form}>
           <FormLabel >Enter Answer Here:</FormLabel>
           <FormInput onChangeText={userInput => this.setState({userInput})}/>
@@ -188,4 +151,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ChallengeQuestion;
+export default QuestionChallenge;
