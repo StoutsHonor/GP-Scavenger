@@ -161,5 +161,19 @@
     "timeLimit": 30,
     "questionTypeId": 4,
     "questionId": 5
+  },
+  {
+    "name": "WALKING GPS TEST",
+    "description": "Walking GPS Challenge #1",
+    "gameId": 6,
+    "sequence": 1,
+    "location": [33.976941, -118.392402]
+  },
+  {
+    "name": "WALKING GPS TEST #2",
+    "description": "Walking GPS Challenge #2",
+    "gameId": 6,
+    "sequence": 2,
+    "location": [33.975856, -118.391147]
   }
 ]

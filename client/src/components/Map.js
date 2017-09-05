@@ -9,9 +9,9 @@ import {
 import { Actions } from 'react-native-router-flux';
 import MapView from 'react-native-maps';
 import MapCenterMarker from './MapCenterMarker';
-import MapCurrentLocationButton from './MapCurrentLocationButton';
+// import MapCurrentLocationButton from './MapCurrentLocationButton';
 import {requestPermission} from 'react-native-android-permissions';
-import MapStoreLocationButton from './MapStoreLocationButton';
+// import MapStoreLocationButton from './MapStoreLocationButton';
 
 const {width, height} = Dimensions.get('window');
 
