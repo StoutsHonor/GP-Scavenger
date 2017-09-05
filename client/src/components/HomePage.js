@@ -17,6 +17,7 @@ const HomePage = () => {
       {/* <Text onPress={() => Actions.joinVideoChallenge()}>Video Challenge</Text>
       <Text onPress={() => Actions.joinGuessPhotoChallenge()}>Guess photo Challenge</Text>
       <Text onPress={() => Actions.joinCameraChallenge()}>Camera Challenge</Text> */}
+      
       <Text onPress={() => Actions.joingame({listtype: 'join'})}>Join</Text>
       <Text onPress={() => Actions.startnewgame({listtype: 'start'})}>Start New Game</Text>
       <Text onPress={() => Actions.creategame()}>Create Game</Text>

@@ -13,6 +13,7 @@ import {
 import { Divider, FormLabel, FormInput } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import config from '../../../../config/config';
+import MediaPlayer from 'react-native-android-video-player';
 // import timer from 'react-native-timer';
 
 class VideoChallenge extends Component {
@@ -22,19 +23,26 @@ class VideoChallenge extends Component {
    this.handleClickProceed = this.handleClickProceed.bind(this);
    this.state = {
     type: 'Guess this video',
-    data: {},
+    data: {
+      title: "Movie",
+      question: "What is the name of this movie",
+      link: "https://www.youtube.com/embed/S1i5coU-0_Q?start=22&end=34&showinfo=0&rel=0&autoplay=0&controls=0",
+      answer: "back to the future",
+      difficulty: "easy",
+      default: true
+    },
     showTryAgain: false,
     userInput: ''
    }
   }
 
   componentWillMount() { 
-    fetch(`${config.localhost}/api/video/findVideo/?id=${this.props.challenge.questionId}`)
-    .then(response => response.json())
-    .then(data => {
-      this.setState({ data }); 
-    })
-    .catch(err => console.error(err))
+    // fetch(`${config.localhost}/api/video/findVideo/?id=${this.props.challenge.questionId}`)
+    // .then(response => response.json())
+    // .then(data => {
+    //   this.setState({ data }); 
+    // })
+    // .catch(err => console.error(err))
   }
 
   handleClickSubmit() {
@@ -56,11 +64,11 @@ class VideoChallenge extends Component {
   }
 
   render() {
-    let index = this.state.counter;
+    
 
     return (
-
-      <View >
+     
+      <View style={styles.container}>
     
      <Text style={styles.bigFont}>{this.state.type}</Text>
      <Text style={styles.mediumFont}>{this.state.data.title}</Text>
@@ -68,7 +76,7 @@ class VideoChallenge extends Component {
      <WebView
      source={{uri: this.state.data.link}}
      style={{marginTop: 20, width: Dimensions.get('window').width}}
-/>
+      />
      <View style={styles.form}>
        <FormLabel >Enter Answer Here:</FormLabel>
        <FormInput onChangeText={userInput => this.setState({userInput})}/>

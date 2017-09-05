@@ -3,7 +3,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  Dimensions
 } from 'react-native';
 import Chat from '../Chat'
 import { Actions } from 'react-native-router-flux';
@@ -71,25 +72,10 @@ class Lobby extends Component {
 
   render() {
     
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
-        backgroundColor: '#5F9EA0',
-      },
-      welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-        color: '#ffffff',
-      },
-    });
-
     return (
       <View style={styles.container}>
         <Text>Welcome to Lobby</Text>
-        {/* <Chat /> */}
+        <View style={styles.chatContainer}><Chat /></View>  
         <Button onPress={() => {
           console.log('Lobby: button pressed, props.gamedata is: ', this.props.gamedata)
           Actions.gameplay(this.props.gamedata)
@@ -100,6 +86,28 @@ class Lobby extends Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#5F9EA0',
+  },
+  chatContainer: {
+    flex: 1,
+    width: Dimensions.get('window').width,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#000',
+  },
+  welcome: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+    color: '#ffffff',
+  },
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Lobby);
 
