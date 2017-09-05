@@ -90,8 +90,22 @@ class CreateGame extends Component {
           videoQuestion: 6,
           cameraPrompt: 7
         }
-        let temp = questionTypes[challenge.challengeType]
+        let tempChallengeId = questionTypes[challenge.challengeType]
 
+        // post the question to the appropriate question table (if any)
+
+
+        // router.use('/challenge', require('./challenge'))
+        // router.use('/questionType', require('./questionType'))
+        let questionTableRouting = {
+          riddleQuestion: '/riddle/addRiddle',
+          cameraPrompt: '/photo/addPhoto',
+          photoQuestion: '/guessPhoto/addPhoto',
+          videoQuestion: '/video/addVideo'
+        }
+
+        let tempQuestionTable = questionTableRouting[challenge.challengeType]
+        
         fetch(`${config.localhost}/api/game/addChallenge`, {
           method: 'POST',
           headers: {
@@ -99,16 +113,40 @@ class CreateGame extends Component {
             'Content-Type': 'application/json',
           },
           body: {
-            name: this.props.asdfa,
-            description: this.props.asdfsa,
-            gameId: 'idreceivedafterpost',
+            name: challenge.challengeTitle,
+            description: challenge.challengeDescription,
+            gameId: 'id_received_after_post',
             sequence: index + 1,
-            location: this.props.asdfsa,
-            timeLimit: this.props.asdfsa,
-            questionTypeId: this.props.asdfsa,
-            questionId: this.props.asdfsa
+            location: challenge.challengeLocation,
+            timeLimit: 9999,
+            questionTypeId: tempChallengeId,
+            questionId: challenge.asdfsa
           }
         })
+
+
+
+        // post the challenge to the challenge table (if any)
+        .then (
+          fetch(`${config.localhost}/api/game/addChallenge`, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: {
+              name: challenge.challengeTitle,
+              description: challenge.challengeDescription,
+              gameId: 'id_received_after_post',
+              sequence: index + 1,
+              location: challenge.challengeLocation,
+              timeLimit: 9999,
+              questionTypeId: temp,
+              questionId: challenge.asdfsa
+            }
+          })
+        )
+
       }
     ))
 
