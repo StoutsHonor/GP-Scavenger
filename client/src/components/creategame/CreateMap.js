@@ -80,6 +80,7 @@ class Map extends Component {
   storeMarker() {
     console.log('storemarker invoked');
     console.log('props: ', this.props)
+    
     this.setState({ marker: { latitude: this.state.region.latitude, longitude: this.state.region.longitude }}, () => {
       if (this.props.submitmethod) {
         console.log('setting start location');
