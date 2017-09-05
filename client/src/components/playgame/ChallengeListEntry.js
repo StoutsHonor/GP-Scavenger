@@ -36,9 +36,10 @@ class ChallengeListEntry extends Component {
     }
   }
   render() {
+    let str = (this.props.challengeIndex + 1) + '';
     return (
       <View>
-        <Card title={this.props.challengeIndex + 1} backgroundColor={this.state.color}> 
+        <Card title={str} backgroundColor={this.state.color}> 
           {this.state.displayInfo ? 
             <Text style={styles.description} >{this.props.challenge.name}</Text> :
             <Image

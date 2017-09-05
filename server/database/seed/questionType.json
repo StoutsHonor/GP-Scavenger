@@ -12,11 +12,16 @@
     "description": "To proceed to the next checkpoint, you must solve this logic puzzle before the time limit runs out(if applicable)"
   },
   {
-    "type": "photo",
+    "type": "SS",
     "description": "Take pictures"
   },
   {
     "type": "video",
     "description": "Guess this video"
+  },
+  {
+    "type": "guessPhoto",
+    "description": "Guess this photo"
   }
+  
 ]

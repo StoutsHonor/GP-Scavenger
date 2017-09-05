@@ -12,7 +12,8 @@ const ratingSeed = require("./seed/rating");
 const riddleSeed = require("./seed/questionType/riddle");
 const logicPuzzleSeed = require("./seed/questionType/logicPuzzle");
 const photoSeed =  require("./seed/questionType/photo");
-//const videoSeed =  require("./seed/questionType/video");
+const videoSeed =  require("./seed/questionType/video");
+const guessPhoto =  require("./seed/questionType/guessPhoto");
 
 
 // db.sequelize.sync({ force: true }).then(() => {
@@ -40,6 +41,8 @@ db.sequelize.sync({ force: true })
 .then( () => db.Riddle.bulkCreate(riddleSeed))
 .then( () => db.LogicPuzzle.bulkCreate(logicPuzzleSeed))
 .then(() => db.Photo.bulkCreate(photoSeed))
+.then(() => db.Video.bulkCreate(videoSeed))
+.then(() => db.GuessPhoto.bulkCreate(guessPhoto))
 .then(() => db.QuestionType.bulkCreate(questionTypeSeed))
 .then(() => db.Rating.bulkCreate(ratingSeed))
 .then(() => db.Challenge.bulkCreate(challengeSeed))

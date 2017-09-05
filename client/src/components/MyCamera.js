@@ -122,6 +122,7 @@ export default class MyCamera extends Component {
      let res_parse = JSON.parse(res.target._response);
      console.log('Response is ', res_parse.secure_url);
      this.acceptPicture(res_parse.secure_url);
+     this.props.accept();
    }
 
    xhr.send(data);
