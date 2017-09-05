@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  Button
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -22,14 +23,19 @@ const mapStateToProps = (state) => {
   }
 }
 
-const CongratsNext = () => {
+const CongratsNext = (props) => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>
         Congratulations!  You Have Completed this Challenge!
       </Text>
-      <Text onPress={() => Actions.currentchallenge()}>Go to Your Next Task</Text>
-      <Text onPress={() => Actions.challengelist()}>Go to Your List</Text>
+      <Text onPress={ () => {
+        props.setCurrentChallengeIndex(props.index + 1);
+        Actions.currentchallenge();
+      }}>Go to Your Next Task</Text>
+      <Text onPress={() => {
+        props.setCurrentChallengeIndex(props.index + 1);
+        Actions.challengelist()}}>Go to Your List</Text>
       <Text onPress={() => Actions.chat()}>Brag About It!</Text>
     </View>
   );

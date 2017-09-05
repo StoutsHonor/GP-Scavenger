@@ -15,7 +15,7 @@ import { getAllGameChallenges, geatAllUserGames, setCurrentChallengeIndex } from
 import GPSChallenge from './challengetypes/GPSChallenge';
 import QuestionChallenge from './challengetypes/QuestionChallenge';
 // import CameraChallenge from './challengetypes/CameraChallenge';
-import config from '../../../config/config'
+import config from '../../../config/config';
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ getAllGameChallenges, setCurrentChallengeIndex }, dispatch)
@@ -64,7 +64,7 @@ class CurrentChallenge extends Component {
     if(typeId === 1) {
       this.setState({displayChallenge:<GPSChallenge/>})
     } else if(typeId === 2 || typeId === 3) {
-      this.setState({displayChallenge:<QuestionChallenge/>})
+      this.setState({displayChallenge:<QuestionChallenge challenge={this.props.challenges[this.props.index]}/>})
     }
   }
 
@@ -85,10 +85,9 @@ class CurrentChallenge extends Component {
   }
 
   render() {
-    console.log(this.props.index, 'index at challenge')
     return (
       <View>
-        <QuestionChallenge/>
+        <QuestionChallenge challenge={this.props.challenges[this.props.index]}/>
       </View>
         // <View style={styles.container}>
         //   <Button title="Render Challenges" onPress={() =>{this.props.setCurrentChallengeIndex(this.props.index + 1)}}/>

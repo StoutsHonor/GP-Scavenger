@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Divider, FormLabel, FormInput } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
+import config from '../../../../config/config';
 
 class QuestionChallenge extends Component {
   constructor(props) {
@@ -20,60 +21,36 @@ class QuestionChallenge extends Component {
     this.state = {
       userInput: '',
       timeRemaining: 50000,
-      challenges: [{
-        "name": "Riddle #1",
-        "description": "This is the first riddle",
-        "gameId": 2,
-        "sequence": 1,
-        "location": [37.783692, -122.408967],
-        "timeLimit": 30,
-        "questionTypeId": 1,
-        "questionId": 2
-      },
-      {
-        "name": "Riddle #2",
-        "description": "This is the second riddle",
-        "gameId": 2,
-        "sequence": 2,
-        "location": [37.783692, -122.408967],
-        "timeLimit": 30,
-        "questionTypeId": 1,
-        "questionId": 3
-      },
-      {
-        "name": "Riddle #3",
-        "description": "This is the third riddle",
-        "gameId": 2,
-        "sequence": 3,
-        "location":[37.783692, -122.408967],
-        "timeLimit": 30,
-        "questionTypeId": 1,
-        "questionId": 4
-      }],
-      type: "riddle",
-      challenge: {
-        "title":"The Ditch",
-        "question": "Anyone can dig a ditch, but it takes a real man to... finish the sentence",
-        "answer": "call it home",
-        "difficulty": "hard",
-        "default": true
-      },
-
-      showCongrats: false,
-      showTryAgain: false
+      showTryAgain: false,
+      info: {},
+      data: {}
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
     setInterval(() => {
       let count = this.state.timeRemaining - 1;
       this.setState({timeRemaining: count});
     },1000);
+
+    fetch(`${config.localhost}/api/questionType/findQuestionType/?questionTypeId=${this.props.challenge.questionTypeId}`)
+    .then(response => response.json())
+    .then(data => this.setState({info: data}))
+    .then(() => {
+      let endPoint = `${config.localhost}/api/${this.state.info.type}/find${((this.state.info.type).charAt(0).toUpperCase() + this.state.info.type.slice(1))}/?id=${this.props.challenge.questionId}`;
+      fetch(endPoint)
+      .then(response => response.json())
+      .then(data => this.setState({data: data}))
+      .catch(err => console.error(err))
+    }
+    )
+    .catch(err => console.error(err));
+
+    
   }
 
   handleClickSubmit() {
-    if(this.state.userInput.toLowerCase() === this.state.challenge.answer.toLowerCase()) {
-      this.setState({showCongrats: true});
+    if(this.state.userInput.toLowerCase() === this.state.data.answer.toLowerCase()) {
       Actions.congratsnext();
     } else {
       this.setState({showTryAgain: true});
@@ -90,7 +67,6 @@ class QuestionChallenge extends Component {
   }
 
   handleClickProceed() {
-    this.setState({showCongrats: false});
     Actions.congratspage();
   }
 
@@ -113,9 +89,9 @@ class QuestionChallenge extends Component {
           source={{ uri: "https://afterwordsbooks.files.wordpress.com/2013/02/riddle.jpg" }}
         />
         <View style={styles.timer}><Text style={styles.bigFont}>{this.state.timeRemaining} Seconds</Text></View>
-        <View style={styles.type}><Text style={styles.bigFont}>{this.state.type.toUpperCase()} :</Text></View>
-        <View style={styles.title}><Text style={styles.bigFont}>{this.state.challenge.title}</Text></View>
-        <View style={styles.question}><Text>{this.state.challenge.question}</Text></View>
+        <View style={styles.type}><Text style={styles.bigFont}>{this.state.info.type ? this.state.info.type : ''} :</Text></View>
+        <View style={styles.title}><Text style={styles.bigFont}>{this.state.data.title}</Text></View>
+        <View style={styles.question}><Text>{this.state.data.question}</Text></View>
         <View style={styles.form}>
           <FormLabel >Enter Answer Here:</FormLabel>
           <FormInput onChangeText={userInput => this.setState({userInput})}/>
