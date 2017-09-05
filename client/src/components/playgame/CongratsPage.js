@@ -37,7 +37,7 @@ class CongratsPage extends Component {
         Congratulations!  You Completed all Challenges!
       </Text>
       <Text onPress={() => Actions.homepage()}>Back to Home</Text>
-      <Text onPress={() => Actions.mygames()}>Play Another</Text>
+      <Text onPress={() => Actions.joingame()}>Play Another</Text>
       <Text onPress={() => Actions.leaderboard()}>Leaderboard</Text>
     </View>
     )
