@@ -34,16 +34,7 @@ import config from './config/config.js'
 // import CardSection from './src/components/CardSection'
 
 import { Router, Scene } from 'react-native-router-flux';
-
-<<<<<<< HEAD
 import MyCamera from './src/components/MyCamera';
-// import ChallengeList from './src/components/ChallengeList';
-=======
-// import MyCamera from './src/components/MyCamera';
-
->>>>>>> Question Challenge renders properly, need to fix redux at CongratsNext, index undefined
-// import ChallengeQuestion from './src/components/ChallengeQuestion';
-
 
 // import GameLog from './src/components/GameLog';
 // import GPSChallenge from './src/components/GPSChallenge';
