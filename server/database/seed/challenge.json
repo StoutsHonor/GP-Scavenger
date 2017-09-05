@@ -68,5 +68,37 @@
     "timeLimit": 30,
     "questionTypeId": 1,
     "questionId": 3
+  },
+  {
+    "name": "MIXED GAME CHALLENGE #1",
+    "description": "GPS - this is the first mixed game challenge - Tijuana",
+    "gameId": 5,
+    "sequence": 1,
+    "location": [32.741112, -117.3891787]
+  },
+  {
+    "name": "MIXED GAME CHALLENGE #2",
+    "description": "Riddle - this is the second mixed game challenge",
+    "gameId": 5,
+    "sequence": 2,
+    "timeLimit": 30,
+    "questionTypeId": 2,
+    "questionId": 2
+  },
+  {
+    "name": "MIXED GAME CHALLENGE #3",
+    "description": "GPS - this is the third mixed game challenge - Carlsbad",
+    "gameId": 5,
+    "sequence": 3,
+    "location": [33.178641, -117.342653]
+  },
+  {
+    "name": "MIXED GAME CHALLENGE #4",
+    "description": "Riddle - this is the fourth mixed game challenge",
+    "gameId": 5,
+    "sequence": 4,
+    "timeLimit": 30,
+    "questionTypeId": 2,
+    "questionId": 3
   }
 ]

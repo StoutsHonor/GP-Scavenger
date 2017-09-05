@@ -34,5 +34,14 @@
     "maxPlayers": 4,
     "rewardPoints": 400,
     "startLocation": [33.7860938,-117.9462329]
+  },
+  {
+    "name": "Mixed game of CHALLENGES",
+    "userId": 1,
+    "duration": 120,
+    "private": false,
+    "maxPlayers": 4,
+    "rewardPoints": 3900,
+    "startLocation": [32.4966818, -117.0878919]
   }
 ]

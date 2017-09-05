@@ -51,7 +51,8 @@ class QuestionChallenge extends Component {
 
   handleClickSubmit() {
     if(this.state.userInput.toLowerCase() === this.state.data.answer.toLowerCase()) {
-      Actions.congratsnext();
+      this.props.challengeCompleted()
+      //Actions.congratsnext();
     } else {
       this.setState({showTryAgain: true});
       setTimeout(() => this.setState({showTryAgain: false}), 3000)

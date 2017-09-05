@@ -42,7 +42,7 @@ class Lobby extends Component {
     fetch(`${config.localhost}/api/challenge/findChallengeByGameId/?gameId=${this.props.gameId}`)
     .then((response) => response.json())
     .then((data) => {
-      console.log(data, 'this is the data received');
+      console.log(`Lobby.js - componentWillMount() - this is the data received ${JSON.stringify(data)}`);
       this.props.getAllGameChallenges(data);
     })
     .catch((err) => {

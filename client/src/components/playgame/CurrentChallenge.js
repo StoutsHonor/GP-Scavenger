@@ -16,6 +16,8 @@ import GPSChallenge from './challengetypes/GPSChallenge';
 import QuestionChallenge from './challengetypes/QuestionChallenge';
 // import CameraChallenge from './challengetypes/CameraChallenge';
 import config from '../../../config/config';
+import CongratsNext from './CongratsNext';
+import CongratsPage from './CongratsPage';
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ getAllGameChallenges, setCurrentChallengeIndex }, dispatch)
@@ -26,7 +28,7 @@ const mapStateToProps = (state) => {
     userId: state.client.userIdentity,
     gameId: state.play.gameId,
     challenges: state.play.allChallenges,
-    index: state.play.currentChallengeIndex
+    currentChallengeIndex: state.play.currentChallengeIndex
   }
 }
 
@@ -36,16 +38,25 @@ class CurrentChallenge extends Component {
     this.challengeCompleted = this.challengeCompleted.bind(this);
     this.getNextChallenge = this.getNextChallenge.bind(this);
     this.state = {
-      gameId: 3,
-      challenges: [],
-      currentChallengeIndex: 0,
-      currentChallenge: null,
       modalVisible: false,
+      currentChallengeType: '',
       displayChallenge: null
     }
   }
 
   componentWillMount() {
+    console.log(`CurrentChallenge.js - componentWillMount() - this.props is`, this.props)
+
+    let currentChallengeType = this.props.challenges[this.props.currentChallengeIndex].questionTypeId
+
+    if(currentChallengeType === null) {
+      console.log(`CurrentChallenge.js - componentWillMount() - currentChallengeType === null`)
+      this.setState({ currentChallengeType: 'GPS' })
+    } else if(currentChallengeType === 2 || currentChallengeType === 3) {
+      console.log(`CurrentChallenge.js - componentWillMount() - currentChallengeType === 2 or 3`)
+      this.setState({ currentChallengeType: 'riddle' })
+    }
+
     // fetch(`${config.localhost}/api/challenge/findChallengeByGameId/?gameId=${this.state.gameId}`)
     // .then((response) => response.json())
     // .then((data) => {
@@ -60,17 +71,28 @@ class CurrentChallenge extends Component {
   }
 
   componentDidMount() {
-    let typeId = this.props.challenges.questionTypeId
-    if(typeId === 1) {
-      this.setState({displayChallenge:<GPSChallenge/>})
-    } else if(typeId === 2 || typeId === 3) {
-      this.setState({displayChallenge:<QuestionChallenge challenge={this.props.challenges[this.props.index]}/>})
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(`CurrentChallenge.js - componentWillReceiveProps() - nextProps is`, nextProps)    
+    let currentChallengeType = nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId    
+    if(currentChallengeType === null) {
+      console.log(`CurrentChallenge.js - componentWillReceiveProps() - currentChallengeType === null`)
+      this.setState({ currentChallengeType: 'GPS' })
+    } else if(currentChallengeType === 2 || currentChallengeType === 3) {
+      console.log(`CurrentChallenge.js - componentWillReceiveProps() - currentChallengeType === 2 or 3`)
+      this.setState({ currentChallengeType: 'riddle' })
     }
   }
 
   challengeCompleted() {
-    //render the next GPS coordinate
-    this.setModalVisible(true)
+    if (this.props.currentChallengeIndex+1 === this.props.challenges.length) {
+      Actions.congratspage()
+    } else {
+      Actions.congratsnext()
+    }
+    //this.setModalVisible(true)
   }
 
   getNextChallenge() {
@@ -85,33 +107,42 @@ class CurrentChallenge extends Component {
   }
 
   render() {
+    let currentChallenge = null
+    if (this.state.currentChallengeType === 'GPS') {
+      currentChallenge = (<GPSChallenge currentChallenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>)
+    } else if (this.state.currentChallengeType === 'riddle') {
+      currentChallenge = (<QuestionChallenge challenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>)
+    }
+
+
     return (
       <View>
-        <QuestionChallenge challenge={this.props.challenges[this.props.index]}/>
+        {currentChallenge}
+        <Modal
+          animationType={"slide"}
+          transparent={false}
+          visible={this.state.modalVisible}
+          onRequestClose={() => {alert("Modal has been closed.")}}
+          >
+         <View style={{marginTop: 22}}>
+          <View>
+            <Text>CONGRATS YOU GOT TO THE CHECKPOINT!!!</Text>
+
+            <TouchableHighlight onPress={() => {
+              this.getNextChallenge(!this.state.modalVisible)
+            }}>
+              <Text>GET NEXT CHALLENGE</Text>
+            </TouchableHighlight>
+
+          </View>
+         </View>
+        </Modal>
       </View>
         // <View style={styles.container}>
         //   <Button title="Render Challenges" onPress={() =>{this.props.setCurrentChallengeIndex(this.props.index + 1)}}/>
         //   <Text>Hello Current Challenge</Text>
         //   {challenge}
-        //   <Modal
-        //   animationType={"slide"}
-        //   transparent={false}
-        //   visible={this.state.modalVisible}
-        //   onRequestClose={() => {alert("Modal has been closed.")}}
-        //   >
-        //  <View style={{marginTop: 22}}>
-        //   <View>
-        //     <Text>CONGRATS YOU GOT TO THE CHECKPOINT!!!</Text>
 
-        //     <TouchableHighlight onPress={() => {
-        //       this.getNextChallenge(!this.state.modalVisible)
-        //     }}>
-        //       <Text>GET NEXT CHALLENGE</Text>
-        //     </TouchableHighlight>
-
-        //   </View>
-        //  </View>
-        // </Modal>
         // </View>
     )
   }

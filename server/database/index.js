@@ -39,7 +39,7 @@ const Challenge = sequelize.define('challenge', {
   sequence: { type: Sequelize.INTEGER, allowNull: false },
   location: { type: Sequelize.ARRAY(Sequelize.FLOAT) },
   timeLimit: { type: Sequelize.INTEGER },
-  questionId: { type: Sequelize.INTEGER, allowNull: true }
+  questionId: { type: Sequelize.INTEGER }
 });
 
 const QuestionType = sequelize.define('questionType', {
