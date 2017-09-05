@@ -8,6 +8,8 @@ import {
   Picker
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import SideMenu from 'react-native-side-menu';
+import HomePage from '../HomePage';
 import CreateList from './CreateList';
 import FloatingButton from '../reusable/FloatingButton';
 import TitledInput from '../reusable/TitledInput';
@@ -43,87 +45,89 @@ class CreateChallenge extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
+      <SideMenu menu={<HomePage/>}>
+        <View style={styles.container}>
 
-        <TitledInput
-          label='Challenge Title'
-          placeholder='Enter Here...'
-          value={this.props.createChallengeTitle}
-          onChangeText={(e) => {this.props.enteredField('createChallengeTitle', e)}}
-        />
+          <TitledInput
+            label='Challenge Title'
+            placeholder='Enter Here...'
+            value={this.props.createChallengeTitle}
+            onChangeText={(e) => {this.props.enteredField('createChallengeTitle', e)}}
+          />
 
-        {/* <TitledInput
-          label='Challenge Type'
-          placeholder='Enter Here...'
-          value={this.props.createChallengeType}
-          onChangeText={(e) => {this.props.enteredField('createChallengeType', e)}}
-        /> */}
+          {/* <TitledInput
+            label='Challenge Type'
+            placeholder='Enter Here...'
+            value={this.props.createChallengeType}
+            onChangeText={(e) => {this.props.enteredField('createChallengeType', e)}}
+          /> */}
 
-        <Text>Challenge Type:</Text>
-        <Picker prompt='Select a Challenge Type' selectedValue={this.props.createChallengeType} onValueChange={(itemValue, itemIndex) => {this.props.enteredField('createChallengeType', itemValue)}} style={{height: 40, width: 150}} >
-          <Picker.Item label='Riddle' value='riddleQuestion' />
-          <Picker.Item label='Logic Puzzle' value='logicPuzzle' />
-          <Picker.Item label='Photo' value='photoQuestion' />
-          <Picker.Item label='Video' value='videoQuestion' />
-          <Picker.Item label='New Type' value='newtype' />
-        </Picker>
+          <Text>Challenge Type:</Text>
+          <Picker prompt='Select a Challenge Type' selectedValue={this.props.createChallengeType} onValueChange={(itemValue, itemIndex) => {this.props.enteredField('createChallengeType', itemValue)}} style={{height: 40, width: 150}} >
+            <Picker.Item label='Riddle' value='riddleQuestion' />
+            <Picker.Item label='Logic Puzzle' value='logicPuzzle' />
+            <Picker.Item label='Photo' value='photoQuestion' />
+            <Picker.Item label='Video' value='videoQuestion' />
+            <Picker.Item label='New Type' value='newtype' />
+          </Picker>
 
-        <Text>{'Location: '}{this.props.createChallengeLocation ? 'Latitude: ' + JSON.stringify(this.props.createChallengeLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createChallengeLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
+          <Text>{'Location: '}{this.props.createChallengeLocation ? 'Latitude: ' + JSON.stringify(this.props.createChallengeLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createChallengeLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
 
-        <Button onPress={() => {Actions.createGPSchallenge()}}
-         title="Set Location"
-         color="#841584"/>
+          <Button onPress={() => {Actions.createGPSchallenge()}}
+          title="Set Location"
+          color="#841584"/>
 
-        <Button onPress={() => {this.props.challengeLocationSet(null)}}
-        title="Clear Location"
-        color="#841584"/>
+          <Button onPress={() => {this.props.challengeLocationSet(null)}}
+          title="Clear Location"
+          color="#841584"/>
 
-        <TitledInput
-          label='Challenge Objective'
-          placeholder='Enter Here...'
-          value={this.props.createChallengeObjective}
-          onChangeText={(e) => {this.props.enteredField('createChallengeObjective', e)}}
-        />
-        <TitledInput
-          label='Challenge Answer'
-          placeholder='Enter Here...'
-          value={this.props.createChallengeAnswer}
-          onChangeText={(e) => {this.props.enteredField('createChallengeAnswer', e)}}
-        />
-        
+          <TitledInput
+            label='Challenge Objective'
+            placeholder='Enter Here...'
+            value={this.props.createChallengeObjective}
+            onChangeText={(e) => {this.props.enteredField('createChallengeObjective', e)}}
+          />
+          <TitledInput
+            label='Challenge Answer'
+            placeholder='Enter Here...'
+            value={this.props.createChallengeAnswer}
+            onChangeText={(e) => {this.props.enteredField('createChallengeAnswer', e)}}
+          />
+          
 
-        <Button onPress={() => {
-          console.log('props: ', this.props)
-        }}
-        title="See Props"
-        color="#841584"/>
+          <Button onPress={() => {
+            console.log('props: ', this.props)
+          }}
+          title="See Props"
+          color="#841584"/>
 
-        <Button onPress={() => {
-          let temp = this.props.createGameChallenges
-          temp.push({
-            ChallengeLocation: this.props.createChallengeLocation,
-            ChallengeType: this.props.createChallengeType,
-            ChallengeTitle: this.props.createChallengeTitle,
-            ChallengeObjective: this.props.createChallengeObjective,
-            ChallengeAnswer: this.props.createChallengeAnswer
-          })
-          this.props.challengesUpdated(temp);
-
-
-          Alert.alert(
-            '',
-            'Challenge Submitted!',
-            [
-              {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
-            ]
-          )
-
-        }}
-        title="Submit Challenge"
-        color="#841584"/>
+          <Button onPress={() => {
+            let temp = this.props.createGameChallenges
+            temp.push({
+              ChallengeLocation: this.props.createChallengeLocation,
+              ChallengeType: this.props.createChallengeType,
+              ChallengeTitle: this.props.createChallengeTitle,
+              ChallengeObjective: this.props.createChallengeObjective,
+              ChallengeAnswer: this.props.createChallengeAnswer
+            })
+            this.props.challengesUpdated(temp);
 
 
-      </View>
+            Alert.alert(
+              '',
+              'Challenge Submitted!',
+              [
+                {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
+              ]
+            )
+
+          }}
+          title="Submit Challenge"
+          color="#841584"/>
+
+
+        </View>
+      </SideMenu>
     );
   }
 }

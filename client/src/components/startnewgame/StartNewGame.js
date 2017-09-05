@@ -6,9 +6,11 @@ import {
   Button
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import ModularMap from '../reusable/ModularMap'
-import ModularList from '../reusable/ModularList'
-import config from '../../../config/config'
+import ModularMap from '../reusable/ModularMap';
+import ModularList from '../reusable/ModularList';
+import config from '../../../config/config';
+import SideMenu from 'react-native-side-menu';
+import HomePage from '../HomePage';
 
 class StartNewGame extends Component {
   constructor(props) {
@@ -70,6 +72,7 @@ class StartNewGame extends Component {
     });
 
     return (
+      <SideMenu menu={<HomePage/>}>
       <View>
         <Button title="Toggle View"
         onPress={() => {
@@ -84,6 +87,7 @@ class StartNewGame extends Component {
         {this.state.view === 'map' ? <ModularMap entrytype={this.props.listtype} data={this.state.games}/> : null}
 
       </View>
+      </SideMenu>
     );
   }
 }

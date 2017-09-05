@@ -9,6 +9,8 @@ import LeaderboardEntry from './LeaderboardEntry';
 import { Actions } from 'react-native-router-flux';
 import { List, ListItem } from 'react-native-elements';
 import config from '../../../config/config';
+import SideMenu from 'react-native-side-menu';
+import HomePage from '../HomePage';
 
 class Leaderboard extends Component {
   constructor(props) {
@@ -35,14 +37,16 @@ class Leaderboard extends Component {
 
   render() {
     return (
-      <ScrollView>
-        <Text>Hello Leaderboard</Text>
-        {this.state.data.map( (player, index) => {
-          return (
-            <LeaderboardEntry player={player} key={index} index={index}/>
-          )
-        })}
-      </ScrollView>
+      <SideMenu menu={<HomePage/>}>
+        <ScrollView>
+          <Text>Hello Leaderboard</Text>
+          {this.state.data.map( (player, index) => {
+            return (
+              <LeaderboardEntry player={player} key={index} index={index}/>
+            )
+          })}
+        </ScrollView>
+      </SideMenu>
     );
   }
 }

@@ -34,15 +34,7 @@ import config from './config/config.js'
 // import CardSection from './src/components/CardSection'
 
 import { Router, Scene } from 'react-native-router-flux';
-<<<<<<< HEAD
 import MyCamera from './src/components/MyCamera';
-=======
-
-import MyCamera from './src/components/MyCamera';
-// import ChallengeList from './src/components/ChallengeList';
-// import ChallengeQuestion from './src/components/ChallengeQuestion';
-
->>>>>>> fixed unsaved change from a rebase
 
 // import GameLog from './src/components/GameLog';
 // import GPSChallenge from './src/components/GPSChallenge';

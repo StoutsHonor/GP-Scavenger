@@ -5,14 +5,18 @@ import {
   View
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import SideMenu from 'react-native-side-menu';
+import HomePage from '../HomePage';
 
 const Friends = () => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>
-        This is the Friends Page
-      </Text>
-    </View>
+    <SideMenu menu={<HomePage/>}>
+      <View style={styles.container}>
+        <Text style={styles.welcome}>
+          This is the Friends Page
+        </Text>
+      </View>
+    </SideMenu>
   );
 }
 
