@@ -76,8 +76,45 @@ class CreateGame extends Component {
     })
     .then( (response) => response.json())
     .then( (data) => {
-      console.log(data, 'just fetched')
+      console.log(data, 'game posted')
     })
+    .then( this.props.createGameChallenges.map(
+      (challenge, index) => {
+
+        let questionTypes = {
+          riddleQuestion: 1,
+          GPSChallenge: 2, 
+          riddleQuestion: 3,
+          logicQuestion: 4,
+          photoQuestion: 5,
+          videoQuestion: 6,
+          cameraPrompt: 7
+        }
+        let temp = questionTypes[challenge.challengeType]
+
+        fetch(`${config.localhost}/api/game/addChallenge`, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: {
+            name: this.props.asdfa,
+            description: this.props.asdfsa,
+            gameId: 'idreceivedafterpost',
+            sequence: index + 1,
+            location: this.props.asdfsa,
+            timeLimit: this.props.asdfsa,
+            questionTypeId: this.props.asdfsa,
+            questionId: this.props.asdfsa
+          }
+        })
+      }
+    ))
+
+
+
+
   }
 
   render() {
