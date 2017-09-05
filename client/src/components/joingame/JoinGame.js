@@ -3,7 +3,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  ScrollView
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -89,7 +90,7 @@ class JoinGame extends Component {
     });
 
     return (
-      <View>
+      <ScrollView>
         <Button title="Toggle View"
         onPress={() => {
           if (this.state.view === 'map') {
@@ -102,7 +103,7 @@ class JoinGame extends Component {
 
         {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} data={this.state.games}/> : null}
 
-      </View>
+      </ScrollView>
     );
   }
 }
