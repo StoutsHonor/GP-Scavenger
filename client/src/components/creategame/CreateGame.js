@@ -10,8 +10,6 @@ import { Actions } from 'react-native-router-flux';
 import CreateList from './CreateList';
 import FloatingButton from '../reusable/FloatingButton';
 import TitledInput from '../reusable/TitledInput';
-import ModularMap from '../reusable/ModularMap'
-import ModularList from '../reusable/ModularList'
 
 // Redux Imports for binding stateToProps and dispatchToProps to the component
 import {connect} from 'react-redux'
@@ -44,10 +42,15 @@ class CreateGame extends Component {
       dummyState: '',
       createChallenges: [],
     }
+    this.setStartingLocation = this.setStartingLocation.bind(this)
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({dummyState: ''});
+  }
+
+  setStartingLocation(location) {
+    this.props.enteredField('createGameStartingLocation', location)
   }
 
   render() {
@@ -66,54 +69,75 @@ class CreateGame extends Component {
           value={this.props.createGameDescription}
           onChangeText={(e) => {this.props.enteredField('createGameDescription', e)}}
         />
-        {/* <TitledInput
-          label='Game Duration'
+        <TitledInput
+          label='Duration (Minutes)'
           placeholder='Enter Here...'
           value={this.props.createGameDuration}
-          onChangeText={(e) => {this.props.enteredField('createGameDuration', e)}}
+          onChangeText={(e) => {
+            if (isNaN(e)) {
+              Alert.alert(
+                'Error',
+                'Game Duration must be a number',
+                [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')},]
+              )
+              this.props.enteredField('createGameDuration', '')
+            } else {
+              this.props.enteredField('createGameDuration', Math.ceil(e))
+            }
+          }}
         />
         <TitledInput
-          label='Game MaxPlayers'
+          label='Max Players'
           placeholder='Enter Here...'
           value={this.props.createGameMaxPlayers}
-          onChangeText={(e) => {this.props.enteredField('createGameMaxPlayers', e)}}
+          onChangeText={(e) => {
+            if (isNaN(e)) {
+              Alert.alert(
+                'Error',
+                'Max Players must be a number',
+                [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')},]
+              )
+              this.props.enteredField('createGameMaxPlayers', '')
+            } else {
+              this.props.enteredField('createGameMaxPlayers', Math.ceil(e))
+            }
+          }}
         />
-        <TitledInput
+        {/* <TitledInput
           label='Game Mode'
           placeholder='Enter Here...'
           value={this.props.createGameMode}
           onChangeText={(e) => {this.props.enteredField('createGameMode', e)}}
-        />
-        <TitledInput
-          label='Game StartingLocation'
+        /> */}
+        {/* <TitledInput
+          label='Starting Location'
           placeholder='Enter Here...'
           value={this.props.createGameStartingLocation}
           onChangeText={(e) => {this.props.enteredField('createGameStartingLocation', e)}}
         /> */}
 
+
+
+        <Text>{'Start Location: '}{this.props.createChallengeLocation ? 'Latitude: ' + JSON.stringify(this.props.createChallengeLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createChallengeLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
+
+        <Button onPress={() => {Actions.createGPSchallenge({submitmethod: this.setStartingLocation})}}
+        title="Set Starting Location"
+        color="#841584"/>
+
+        <Button onPress={() => {this.props.enteredField('createGameStartingLocation', null)}}
+        title="Clear Starting Location"
+        color="#841584"/>
+
+
         {/* <FloatingButton/> */}
         {/* <CreateList style={{}} data={this.props.createGameChallenges}/> */}
 
-        {/* {this.props.createGameChallenges.map((challenge, index) => {
+        <Text>Challenges:</Text>
+        {this.props.createGameChallenges.map((challenge, index) => {
           return (
             <Text key={index}>{'#' + JSON.stringify(index + 1) + ': ' + challenge.ChallengeTitle}</Text>
           )
-        })} */}
-
-        <View>
-        <Button title="Toggle View"
-        onPress={() => {
-          if (this.state.view === 'map') {
-          this.setState({view: 'list'})
-          } else {
-          this.setState({view: 'map'})
-          } 
-        }}/>
-        {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} games={this.state.games}/> : null}
-
-        {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} games={this.state.games}/> : null}
-
-      </View>
+        })}
 
         <Button onPress={() => {
           console.log('button pressed!')
