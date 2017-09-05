@@ -4,7 +4,8 @@ import {
   Text,
   View,
   Button,
-  Alert
+  Alert,
+  Picker
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CreateList from './CreateList';
@@ -51,12 +52,21 @@ class CreateChallenge extends Component {
           onChangeText={(e) => {this.props.enteredField('createChallengeTitle', e)}}
         />
 
-        <TitledInput
+        {/* <TitledInput
           label='Challenge Type'
           placeholder='Enter Here...'
           value={this.props.createChallengeType}
           onChangeText={(e) => {this.props.enteredField('createChallengeType', e)}}
-        />
+        /> */}
+
+        <Text>Challenge Type:</Text>
+        <Picker prompt='Select a Challenge Type' selectedValue={this.props.createChallengeType} onValueChange={(itemValue, itemIndex) => {this.props.enteredField('createChallengeType', itemValue)}} style={{height: 40, width: 150}} >
+          <Picker.Item label='Riddle' value='riddleQuestion' />
+          <Picker.Item label='Logic Puzzle' value='logicPuzzle' />
+          <Picker.Item label='Photo' value='photoQuestion' />
+          <Picker.Item label='Video' value='videoQuestion' />
+          <Picker.Item label='New Type' value='newtype' />
+        </Picker>
 
         <Text>{'Location: '}{this.props.createChallengeLocation ? 'Latitude: ' + JSON.stringify(this.props.createChallengeLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createChallengeLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
 

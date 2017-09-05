@@ -66,9 +66,6 @@ class CreateGPSChallenge extends Component {
 
         <Map onMarkerSubmit={this.onMapMarkerSubmit} />
 
-        <Button onPress={() => {console.log('button pressed!')}}
-          title="Finished Challenge"
-          color="#841584"/>
       </View>
     )
   }
