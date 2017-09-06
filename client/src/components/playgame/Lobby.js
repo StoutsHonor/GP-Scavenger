@@ -3,14 +3,16 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  Dimensions
 } from 'react-native';
-import Chat from '../Chat'
+
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllGameChallenges } from '../../actions/index.js'
 import config from '../../../config/config';
+import { GiftedChat } from 'react-native-gifted-chat';
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ getAllGameChallenges }, dispatch)
@@ -26,13 +28,17 @@ const mapStateToProps = (state) => {
   }
 }
 
+const user = { _id: Math.round(Math.random() * 1000000) || -1 };
+
 class Lobby extends Component {
   constructor(props) {
     super(props);
-
+    this.onSend = this.onSend.bind(this);
+    this._storeMessages = this._storeMessages.bind(this);
     this.state = {
-      //
-    }
+      messages: [],
+      userId: null
+    };
 
   }
 
@@ -70,6 +76,10 @@ class Lobby extends Component {
     // Actions.initGame({gamedata: gamedata}) // TODO: CREATE
   }
 
+  onSend(messages=[]) {
+    this._storeMessages(messages);
+  }
+
   render() {
     console.log(this.props.gameInfo, 'game info in Lobby')
     const styles = StyleSheet.create({
@@ -86,21 +96,92 @@ class Lobby extends Component {
         color: '#ffffff',
       },
     });
-
+    
     return (
       <View style={styles.container}>
-        <Text>Welcome to Lobby</Text>
-        {/* <Chat /> */}
-        <Button onPress={() => {
+        <Text style={styles.lobbyText}>Welcome to the Lobby</Text>
+          <View style={styles.chat}>
+            <GiftedChat  
+              messages={this.state.messages}
+              onSend={this.onSend}
+              user={user}
+              />
+          </View>
+          <View style={styles.divide}>
+            <View style={styles.playerL}>
+              <Text > team 1 </Text>
+            </View>
+            <View style={styles.playerR}>
+              <Text > team 2 </Text>
+            </View>
+          </View>
+
+          <Button style={styles.button} onPress={() => {
           console.log('Lobby: button pressed, props.gamedata is: ', this.props.gamedata)
           Actions.gameplay(this.props.gamedata)
           }} 
           title='START GAME'  
-        />
+        /> 
+         
       </View>
+      
     );
   }
+
+  _storeMessages(messages) {   
+    this.setState((previousState) => {
+      return {
+        messages: GiftedChat.append(previousState.messages, messages)
+      };
+    });
+  }
 }
+
+
+
+
+
+const styles = StyleSheet.create({
+  container: {
+    flex:1,
+    alignItems:'center',
+    backgroundColor: '#5F9EA0'
+     
+  },
+  lobbyText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#ffffff',
+    marginTop: 10
+  },
+  divide: {
+    flexDirection: 'row',
+    
+  },
+  chat: {
+    width: Dimensions.get('window').width - 15,
+    height: (Dimensions.get('window').height / 2),
+    margin: 10,
+    backgroundColor: '#ff372c',
+  },
+  playerL: {
+    width: (Dimensions.get('window').width / 2) - 15,
+    height: (Dimensions.get('window').height / 6),
+    margin: 10,
+    marginRight: 5,
+    backgroundColor: '#5fffd7',
+  },
+  playerR: {
+    width: (Dimensions.get('window').width / 2) - 15,
+    height: (Dimensions.get('window').height / 6),
+    margin: 10,
+    marginLeft: 5,
+    backgroundColor: '#5fffd7',
+  },
+  button: {
+    marginTop: 15
+  }
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(Lobby);
 
