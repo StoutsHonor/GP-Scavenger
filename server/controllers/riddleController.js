@@ -12,14 +12,16 @@ module.exports = {
   },
 
   addRiddle: (req, res) => {
-    // console.log('addRiddle: req.body: ', req.body);
+    console.log('addRiddle: req.body: ', req.body);
     db.Riddle.create({
+      title: req.body.title,
       question: req.body.question,
       answer: req.body.answer,
       difficulty: req.body.difficulty,
       default: req.body.default
     })
     .then( riddle => {
+      console.log('something')
       res.status(201).send(riddle)
     })
     .catch(err => res.status(500).send(`Error adding game to database! ${err}`))

@@ -12,6 +12,7 @@ module.exports = {
   },
 
   addChallenge: (req, res) => {
+    console.log('challenge controller: req.body: ', req.body)
     db.Challenge.create({
       name: req.body.name,
       description: req.body.description,
