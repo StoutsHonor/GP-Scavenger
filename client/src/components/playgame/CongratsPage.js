@@ -53,7 +53,6 @@ class CongratsPage extends Component {
   }
 
   render() {
-    console.log(this.props.gameInfo.rewardPoints + this.state.userPoints, 'points')
     return(
       <View style={styles.container}>
       <Text style={styles.welcome}>You Won! You Earned:</Text>

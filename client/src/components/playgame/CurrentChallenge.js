@@ -31,7 +31,8 @@ const mapStateToProps = (state) => {
     userId: state.client.userIdentity,
     gameId: state.play.gameId,
     challenges: state.play.allChallenges,
-    currentChallengeIndex: state.play.currentChallengeIndex
+    currentChallengeIndex: state.play.currentChallengeIndex,
+    gamePoints: state.play.gamePoints
   }
 }
 
@@ -130,6 +131,7 @@ class CurrentChallenge extends Component {
   
 
   render() {
+    console.log(this.props.gamePoints, 'game points')
     let currentChallenge = null
     console.log('Current challenge index is ' + this.state.currentChallengeType);
     if (this.props.challenges) {

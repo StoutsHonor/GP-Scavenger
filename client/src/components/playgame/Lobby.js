@@ -10,13 +10,13 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getAllGameChallenges } from '../../actions/index.js'
+import { getAllGameChallenges, setGamePoints } from '../../actions/index.js'
 import config from '../../../config/config';
 import { GiftedChat } from 'react-native-gifted-chat';
 import io from 'socket.io-client';
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ getAllGameChallenges }, dispatch)
+  return bindActionCreators({ getAllGameChallenges, setGamePoints }, dispatch)
 }
 
 const mapStateToProps = (state) => {
@@ -25,7 +25,8 @@ const mapStateToProps = (state) => {
     userId: state.client.userIdentity,
     gameId: state.play.gameId,
     gameInfo: state.play.gameInfo,
-    challenges: state.play.allChallenges
+    challenges: state.play.allChallenges,
+    gamePoints: state.play.gamePoints
   }
 }
 
@@ -136,7 +137,7 @@ class Lobby extends Component {
   }
 
   render() {
-    console.log(this.props.gameInfo, 'game info in Lobby')
+    console.log(this.props.gamePoints, 'game points in Lobby')
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -153,6 +154,7 @@ class Lobby extends Component {
     });
     
     return (
+<<<<<<< HEAD
       <View style={this.state.styles.container}>
         <Text style={this.state.styles.lobbytext}>Welcome to the Lobby</Text>
         <View style={this.state.styles.chat}>
@@ -178,12 +180,24 @@ class Lobby extends Component {
           </View>
 
           <Button style={this.state.styles.button} onPress={() => {
+=======
+      <View style={styles.container}>
+        <Text>Welcome to Lobby</Text>
+        {/* <Chat /> */}
+        <Button onPress={() => {
+          this.props.setGamePoints(2000);
+>>>>>>> setting up game points reducer
           console.log('Lobby: button pressed, props.gamedata is: ', this.props.gamedata)
-          Actions.gameplay(this.props.gamedata)
+          {/* Actions.gameplay(this.props.gamedata) */}
           }} 
           title='START GAME'  
+<<<<<<< HEAD
         /> 
          
+=======
+        />
+        {/* <Button title='test' onPress={() => this.props.setGamePoints(2000)}/> */}
+>>>>>>> setting up game points reducer
       </View>
       
     );
