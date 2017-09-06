@@ -6,12 +6,13 @@ import {
   Button,
   Dimensions
 } from 'react-native';
-import Chat from '../Chat'
+
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllGameChallenges } from '../../actions/index.js'
 import config from '../../../config/config';
+import { GiftedChat } from 'react-native-gifted-chat';
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ getAllGameChallenges }, dispatch)
@@ -26,13 +27,17 @@ const mapStateToProps = (state) => {
   }
 }
 
+const user = { _id: Math.round(Math.random() * 1000000) || -1 };
+
 class Lobby extends Component {
   constructor(props) {
     super(props);
-
+    this.onSend = this.onSend.bind(this);
+    this._storeMessages = this._storeMessages.bind(this);
     this.state = {
-      //
-    }
+      messages: [],
+      userId: null
+    };
 
   }
 
@@ -70,13 +75,21 @@ class Lobby extends Component {
     // Actions.initGame({gamedata: gamedata}) // TODO: CREATE
   }
 
+  onSend(messages=[]) {
+    this._storeMessages(messages);
+  }
+
   render() {
     
     return (
       <View style={styles.container}>
         <Text style={styles.lobbyText}>Welcome to the Lobby</Text>
           <View style={styles.chat}>
-            <Text> chat</Text>
+            <GiftedChat  
+              messages={this.state.messages}
+              onSend={this.onSend}
+              user={user}
+              />
           </View>
           <View style={styles.divide}>
             <View style={styles.playerL}>
@@ -97,6 +110,14 @@ class Lobby extends Component {
       </View>
       
     );
+  }
+
+  _storeMessages(messages) {   
+    this.setState((previousState) => {
+      return {
+        messages: GiftedChat.append(previousState.messages, messages)
+      };
+    });
   }
 }
 
