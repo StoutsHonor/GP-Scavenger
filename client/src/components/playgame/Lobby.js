@@ -21,6 +21,7 @@ const mapStateToProps = (state) => {
   return {
     userId: state.client.userIdentity,
     gameId: state.play.gameId,
+    gameInfo: state.play.gameInfo,
     challenges: state.play.allChallenges
   }
 }
@@ -70,7 +71,7 @@ class Lobby extends Component {
   }
 
   render() {
-    
+    console.log(this.props.gameInfo, 'game info in Lobby')
     const styles = StyleSheet.create({
       container: {
         flex: 1,

@@ -20,7 +20,7 @@ class QuestionChallenge extends Component {
     this.handleClickProceed = this.handleClickProceed.bind(this);
     this.state = {
       userInput: '',
-      timeRemaining: 50000,
+      timeRemaining: 120,
       showTryAgain: false,
       info: {},
       data: {}
@@ -50,8 +50,8 @@ class QuestionChallenge extends Component {
   }
 
   handleClickSubmit() {
-    if(this.state.userInput.toLowerCase() === this.state.data.answer.toLowerCase()) {
-      this.props.challengeCompleted()
+    if(this.state.userInput.toLowerCase().includes(this.state.data.answer.toLowerCase()) === true) {
+      this.props.challengeCompleted();
       //Actions.congratsnext();
     } else {
       this.setState({showTryAgain: true});
@@ -89,12 +89,12 @@ class QuestionChallenge extends Component {
           }}
           source={{ uri: "https://afterwordsbooks.files.wordpress.com/2013/02/riddle.jpg" }}
         />
-        <View style={styles.timer}><Text style={styles.bigFont}>{this.state.timeRemaining} Seconds</Text></View>
-        <View style={styles.type}><Text style={styles.bigFont}>{this.state.info.type ? this.state.info.type : ''} :</Text></View>
+        <View style={styles.timer}><Text style={styles.bigFont}>{Math.floor(this.state.timeRemaining/60)}:{this.state.timeRemaining%60}</Text></View>
+        <View style={styles.type}><Text style={styles.bigFont}>{this.state.info.type ? this.state.info.type.toUpperCase() : ''} :</Text></View>
         <View style={styles.title}><Text style={styles.bigFont}>{this.state.data.title}</Text></View>
         <View style={styles.question}><Text>{this.state.data.question}</Text></View>
         <View style={styles.form}>
-          <FormLabel >Enter Answer Here:</FormLabel>
+          <FormLabel>Enter Answer Here:</FormLabel>
           <FormInput onChangeText={userInput => this.setState({userInput})}/>
         </View>
         {this.state.showTryAgain ? <View style={styles.tryAgain}><Text style={styles.tryAgainText}>Try Again</Text></View> : null}

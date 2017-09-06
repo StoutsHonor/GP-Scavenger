@@ -14,7 +14,6 @@ class ChallengeListEntry extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      displayType: 2,
       displayInfo: false,
       color: '#A9A9A9'
     }
@@ -22,17 +21,12 @@ class ChallengeListEntry extends Component {
   
   componentDidMount() {
     if(this.props.challengeIndex < this.props.index) {
-      this.setState({displayType: 0});
       this.setState({displayInfo: true});
       this.setState({color: '#008000'})
     }
     if(this.props.challengeIndex === this.props.index) {
-      this.setState({displayType: 1});
       this.setState({displayInfo: true});
       this.setState({color: '#FFD700'})
-    }
-    if(this.props.challengeIndex > this.props.index) {
-      this.setState({displayType: 2});
     }
   }
   render() {
