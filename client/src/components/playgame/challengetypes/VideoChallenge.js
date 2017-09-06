@@ -13,7 +13,7 @@ import {
 import { Divider, FormLabel, FormInput } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import config from '../../../../config/config';
-import MediaPlayer from 'react-native-android-video-player';
+//import MediaPlayer from 'react-native-android-video-player';
 // import timer from 'react-native-timer';
 
 class VideoChallenge extends Component {

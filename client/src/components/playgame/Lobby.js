@@ -14,6 +14,7 @@ import { getAllGameChallenges } from '../../actions/index.js'
 import config from '../../../config/config';
 import { GiftedChat } from 'react-native-gifted-chat';
 import io from 'socket.io-client';
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ getAllGameChallenges }, dispatch)
 }
@@ -37,12 +38,14 @@ class Lobby extends Component {
     this.onReceivedMessage = this.onReceivedMessage.bind(this);
     this._storeMessages = this._storeMessages.bind(this);
     this.roomName = 'lobby1';
+  
     this.state = {
       messages: [],
       team1: {
         _id: 1,
         name: 'Team 1'
-      }
+      },
+      styles: {}
     };
 
   }
@@ -60,12 +63,15 @@ class Lobby extends Component {
     .catch((err) => {
       console.error(err);
     });
+
+    this.setState({ styles });
   }  
 
   componentDidMount() {
     this.socket = io(config.localhost);
     this.socket.emit('createRoom', 'lobby1');
     this.socket.on('message', this.onReceivedMessage);
+    
     // fetch(`${config.localhost}/api/challenge/findChallengeByGameId/?gameId=${this.props.gameId}`)
     // .then((response) => response.json())
     // .then((data) => {
@@ -113,25 +119,25 @@ class Lobby extends Component {
     });
     
     return (
-      <View style={styles.container}>
-        <Text style={styles.lobbyText}>Welcome to the Lobby</Text>
-          <View style={styles.chat}>
+      <View style={this.state.styles.container}>
+        <Text style={this.state.styles.lobbytext}>Welcome to the Lobby</Text>
+        <View style={this.state.styles.chat}>
             <GiftedChat  
               messages={this.state.messages}
               onSend={this.onSend}
               user={this.state.team1}
               />
           </View>
-          <View style={styles.divide}>
-            <View style={styles.playerL}>
-              <Text style={styles.team}> Team 1 </Text>
+          <View style={this.state.styles.divide}>
+            <View style={this.state.styles.playerL}>
+              <Text style={this.state.styles.team}> Team 1 </Text>
               <Text>   Jen </Text>
               <Text>   Jeff </Text>
               <Text>   Kevin </Text>
               <Text>   Mike </Text>
             </View>
-            <View style={styles.playerR}>
-              <Text style={styles.team}> Team 2 </Text>
+            <View style={this.state.styles.playerR}>
+              <Text style={this.state.styles.team}> Team 2 </Text>
               <Text>   Erin </Text>
               <Text>   James </Text>
               <Text>   Tony </Text>
@@ -139,7 +145,7 @@ class Lobby extends Component {
             </View>
           </View>
 
-          <Button style={styles.button} onPress={() => {
+          <Button style={this.state.styles.button} onPress={() => {
           console.log('Lobby: button pressed, props.gamedata is: ', this.props.gamedata)
           Actions.gameplay(this.props.gamedata)
           }} 
@@ -171,7 +177,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#5F9EA0'
      
   },
-  lobbyText: {
+  lobbytext: {
     fontSize: 20,
     fontWeight: 'bold',
     color: '#ffffff',
@@ -211,4 +217,3 @@ const styles = StyleSheet.create({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Lobby);
-
