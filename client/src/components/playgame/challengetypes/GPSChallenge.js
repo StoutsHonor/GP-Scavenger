@@ -59,7 +59,7 @@ class GPSChallengeTask extends Component {
     console.log(`this.props.currentChallenge.location is ${this.props.currentChallenge.location}`)
     return(
       <View style={{padding:10}}>
-        <ModularMap onMarkerSubmit={this.onMapMarkerSubmit} markers={this.state.markers } />
+        <ModularMap onMarkerSubmit={this.onMapMarkerSubmit} markers={this.state.markers} submitAction={'currentLocation'}/>
         <Text>Title: {this.props.currentChallenge.name}</Text>
         <Text>Description: {this.props.currentChallenge.description}</Text>
         <Text>Description: {this.props.currentChallenge.location}</Text>
