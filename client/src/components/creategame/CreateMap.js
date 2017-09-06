@@ -4,7 +4,9 @@ import {
   Text,
   View,
   Dimensions,
-  Image
+  Image,
+  Button,
+  Alert
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import MapView from 'react-native-maps';
@@ -13,9 +15,29 @@ import CreateMapCenterMarker from './CreateMapCenterMarker';
 import CreateMapCurrentLocationButton from './CreateMapCurrentLocationButton';
 import CreateMapStoreLocationButton from './CreateMapStoreLocationButton';
 
+
+// Redux Imports for binding stateToProps and dispatchToProps to the component
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {startLocationSet, challengeLocationSet, enteredField} from '../../actions/index.js'
+
+
+// gives the component access to store through props
+const mapStateToProps = (state) => {
+  return {
+    createGameStartingLocation: state.create.createGameStartingLocation,
+    createChallengeLocation: state.create.createChallengeLocation,
+  }
+}
+
+// gives the component access to actions through props
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({startLocationSet, challengeLocationSet, enteredField}, dispatch)
+}
+
 const {width, height} = Dimensions.get('window');
 
-class Map extends Component {
+class CreateMap extends Component {
   constructor(props){
     super(props)
     this.onRegionChange = this.onRegionChange.bind(this);
@@ -35,25 +57,9 @@ class Map extends Component {
 
   componentWillMount() {
     this.getCurrentLocation()
-
-    if (this.props.markers) {
-      console.log(`componentWillMount() in Map.js`)
-      this.setState({markers: this.props.markers}, () => {
-        console.log(`this.props.markers is ${JSON.stringify(this.props.markers)}`)
-      })
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (this.props.markers) {
-      this.setState({markers: nextProps.markers}, () => {
-        console.log(`after setState in componentWillReceiveProps() in Map.js ${JSON.stringify(this.state.markers)}`)
-      })
-    }
   }
 
   getCurrentLocation() {
-    console.log(`Im in getCurrentLocation in the Map.js!!`)
     let component = this;
       navigator.geolocation.getCurrentPosition( (position) => {
         console.log(`Current position is latitude: ${position.coords.latitude} and longitude: ${position.coords.longitude}`)
@@ -78,15 +84,21 @@ class Map extends Component {
   }
 
   storeMarker() {
-    console.log('storemarker invoked');
-    console.log('props: ', this.props)
+
+    if (this.props.setting === 'createStartLoc') {
+      this.props.enteredField('createGameStartingLocation', this.state.region)
+    } else if (this.props.setting === 'createChallengeLoc') {
+      this.props.challengeLocationSet(this.state.region)
+    }
+
+    Alert.alert(
+      '',
+      'Location Set!',
+      [
+        {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
+      ]
+    )
     
-    this.setState({ marker: { latitude: this.state.region.latitude, longitude: this.state.region.longitude }}, () => {
-      if (this.props.submitmethod) {
-        console.log('setting start location');
-        this.props.submitmethod(this.state.region)
-      }
-    })
   }
 
   render() {
@@ -97,16 +109,6 @@ class Map extends Component {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
-      },
-      welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-      },
-      instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
       },
       mapContainer: {
         ...StyleSheet.absoluteFillObject,
@@ -119,10 +121,10 @@ class Map extends Component {
         ...StyleSheet.absoluteFillObject,
       }
     });
-    console.log(`In Map.js this.state.markers is ${JSON.stringify(this.state.markers)}`)
 
     return(
       <View>
+
         <View style={styles.mapContainer}>
         <CreateMapCenterMarker height={styles.mapContainer.height} width={styles.mapContainer.width}/>
         <MapView style={styles.map}
@@ -138,11 +140,7 @@ class Map extends Component {
             region={this.state.region} 
             onRegionChange={this.onRegionChange}
         >
-        {this.state.markers.map((loc, index) => {return(
-         <MapView.Marker
-          coordinate={loc}
-          key={index}
-        />)})}
+
 
         </MapView>
         <CreateMapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>
@@ -150,10 +148,11 @@ class Map extends Component {
         </View>
 
         <View><Text>{JSON.stringify(this.state.region)}</Text></View>
+
       </View>
     )
   }
 }
 
-export default Map
+export default connect(mapStateToProps, mapDispatchToProps)(CreateMap)
 
