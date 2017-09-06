@@ -30,7 +30,7 @@ class ModularMap extends Component {
         longitudeDelta: 0.0421,
       },
       markers: [],
-      currentLocation: {}
+      currentLocation: { latitude: 27.854191, longitude: -81.385146 }
      }
   }
 
@@ -53,7 +53,27 @@ class ModularMap extends Component {
     }
 
     this.getCurrentLocation()
+
   }
+
+  componentDidMount() {
+
+    let component = this
+    this.watchId = navigator.geolocation.watchPosition(
+      (position) => {
+        console.log(`ModularMap - componentDidMount - position is`, position)
+        component.setState({
+          currentLocation: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          }
+        });
+      },
+      (error) => this.setState({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 10 },
+    );
+  }
+
 
   componentWillReceiveProps(nextProps) {
     console.log(`ModularMap - in componentWillReceiveProps()`)
@@ -77,7 +97,7 @@ class ModularMap extends Component {
   getCurrentLocation() {
     console.log(`Im in getCurrentLocation in ModularMap.js!!`)
     let component = this;
-      this.watchId = navigator.geolocation.watchPosition( (position) => {
+      navigator.geolocation.getCurrentPosition( (position) => {
         console.log(`Current position is latitude: ${position.coords.latitude} and longitude: ${position.coords.longitude}`)
         console.log(`position.coords is ${JSON.stringify(position.coords)}`)
         component.setState({
@@ -92,7 +112,7 @@ class ModularMap extends Component {
             longitude: position.coords.longitude
           }
         })
-      }, (error) => {console.log(`geolocation fail ${JSON.stringify(error)}`)}, { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 10 })
+      }, (error) => {console.log(`geolocation fail ${JSON.stringify(error)}`)}, { enableHighAccuracy: true })
   }
 
   componentWillUnmount() {
@@ -171,7 +191,7 @@ class ModularMap extends Component {
         <MapStoreLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} storeMarker={this.storeMarker}/>
         </View>
 
-        <View><Text>{JSON.stringify(this.state.region)}</Text></View>
+        <View><Text>Current Location: {JSON.stringify(this.state.currentLocation)}</Text></View>
       </View>
     )
   }
