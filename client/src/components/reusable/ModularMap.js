@@ -30,7 +30,7 @@ class ModularMap extends Component {
         longitudeDelta: 0.0421,
       },
       markers: [],
-      currentLocation: {}
+      currentLocation: { latitude: 27.854191, longitude: -81.385146 }
      }
   }
 
@@ -53,7 +53,27 @@ class ModularMap extends Component {
     }
 
     this.getCurrentLocation()
+
   }
+
+  componentDidMount() {
+
+    let component = this
+    this.watchId = navigator.geolocation.watchPosition(
+      (position) => {
+        console.log(`ModularMap - componentDidMount - position is`, position)
+        component.setState({
+          currentLocation: {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+          }
+        });
+      },
+      (error) => this.setState({ error: error.message }),
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 10 },
+    );
+  }
+
 
   componentWillReceiveProps(nextProps) {
     console.log(`ModularMap - in componentWillReceiveProps()`)
@@ -92,7 +112,11 @@ class ModularMap extends Component {
             longitude: position.coords.longitude
           }
         })
-      }, (error) => {console.log(`geolocation fail ${JSON.stringify(error)}`)}, {enableHighAccuracy: true, timeout:500})
+      }, (error) => {console.log(`geolocation fail ${JSON.stringify(error)}`)}, { enableHighAccuracy: true })
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchId)
   }
 
   onRegionChange(region) {
@@ -103,7 +127,10 @@ class ModularMap extends Component {
     console.log(`im in storeMarker in ModularMap.js now!`)
     this.setState({ marker: { latitude: this.state.region.latitude, longitude: this.state.region.longitude }}, () => {
       console.log(`this.state.marker is now ${JSON.stringify(this.state.marker)}`)
-      if (this.props.onMarkerSubmit) {
+      if (this.props.onMarkerSubmit && this.props.submitAction === 'currentLocation') {
+        console.log(`ModularMap - storeMarker() - in submitAction === 'currentLocation' `)
+        this.props.onMarkerSubmit(this.state.currentLocation)
+      } else if (this.props.onMarkerSubmit) {
         this.props.onMarkerSubmit(this.state.region)
       }
     })
@@ -145,15 +172,7 @@ class ModularMap extends Component {
         <View style={styles.mapContainer}>
         <MapCenterMarker height={styles.mapContainer.height} width={styles.mapContainer.width}/>
         <MapView style={styles.map}
-            initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
-              latitudeDelta: 0.0922,
-              longitudeDelta: 0.0421,
-            }}
-
             draggableCursor={'crosshair'}
-
             region={this.state.region} 
             onRegionChange={this.onRegionChange}
         >
@@ -172,7 +191,7 @@ class ModularMap extends Component {
         <MapStoreLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} storeMarker={this.storeMarker}/>
         </View>
 
-        <View><Text>{JSON.stringify(this.state.region)}</Text></View>
+        <View><Text>Current Location: {JSON.stringify(this.state.currentLocation)}</Text></View>
       </View>
     )
   }

@@ -43,8 +43,8 @@ class CongratsPage extends Component {
     .then(() => {
       fetch(`${config.localhost}/api/user/updateRewardPoints/`,
         {
-          method: 'post',
-          headers: {"Content-type": "application/json"},
+          method: 'POST',
+          headers: {"Content-type": "application/json", "Accept": "application/json" },
           body: JSON.stringify({userId: 1,
           rewardPoints: this.props.gameInfo.rewardPoints + this.state.userPoints})
         })
