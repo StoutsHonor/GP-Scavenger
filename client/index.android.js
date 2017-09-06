@@ -64,7 +64,7 @@ import CongratsNext from './src/components/playgame/CongratsNext';
 import CongratsPage from './src/components/playgame/CongratsPage';
 import CreateChallenge from './src/components/creategame/CreateChallenge';
 import CreateGame from './src/components/creategame/CreateGame';
-import CreateGPSChallenge from './src/components/creategame/CreateGPSChallenge';
+import CreateMap from './src/components/creategame/CreateMap';
 import FailedChallenge from './src/components/playgame/FailedChallenge';
 import FailedPage from './src/components/playgame/FailedPage';
 import Friends from './src/components/friends/Friends';
@@ -265,13 +265,8 @@ export default class client extends Component {
             />
 
             <Scene key="createMap"
-              component={CreateGPSChallenge}
-              title="Set a Starting Location"
-            />
-
-            <Scene key="createGPSchallenge"
-              component={CreateGPSChallenge}
-              title="Create GPS challenge"
+              component={CreateMap}
+              title="Set a Location"
             />
 
             <Scene key="congratsnext"

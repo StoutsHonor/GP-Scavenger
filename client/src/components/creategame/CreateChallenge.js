@@ -82,7 +82,7 @@ class CreateChallenge extends Component {
           <View>
           <Text>{'Location: '}{this.props.createChallengeLocation ? 'Latitude: ' + JSON.stringify(this.props.createChallengeLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createChallengeLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
 
-          <Button onPress={() => {Actions.createGPSchallenge()}}
+          <Button onPress={() => {Actions.createMap({setting: 'createChallengeLoc'})}}
           title="Set Location"
           color="#841584"/>
 
@@ -128,6 +128,14 @@ class CreateChallenge extends Component {
             Alert.alert(
               'Error',
               'Please enter a title for the challenge!',
+              [
+                {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
+              ]
+            )
+          } else if (!this.props.createChallengeDescription) {
+            Alert.alert(
+              'Error',
+              'Please enter a challenge description!',
               [
                 {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
               ]

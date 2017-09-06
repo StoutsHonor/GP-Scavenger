@@ -68,20 +68,13 @@ class CreateGame extends Component {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        // name: this.props.createGameName,
-        // userId: 1,
-        // duration: this.props.createGameDuration,
-        // maxPlayers: this.props.createGameMaxPlayers,
-        // private: false,
-        // rewardPoints: 0,
-        // startLocation: [33.8120962,-117.9211629]
-        name: 'JLTestGame',
+        name: this.props.createGameName,
         userId: 1,
-        duration: 900,
-        maxPlayers: 8,
+        duration: this.props.createGameDuration,
+        maxPlayers: this.props.createGameMaxPlayers,
         private: false,
         rewardPoints: 0,
-        startLocation: [33.8120962,-117.9211629]
+        startLocation: [this.props.createGameStartingLocation.latitude, this.props.createGameStartingLocation.longitude]
       })
     })
     .catch(error => console.log('error in posting game: ', error))
@@ -134,7 +127,7 @@ class CreateGame extends Component {
           console.log('preparing to POST questions: ', challenge)
           // console.log('gameId: ', game.id)
   
-          console.log('posting question to path: ' + `${config.localhost}/api${tempQuestionTablePath}` )
+          // console.log('posting question to path: ' + `${config.localhost}/api${tempQuestionTablePath}` )
           fetch(`${config.localhost}/api${tempQuestionTablePath}`, {
             method: 'POST',
             headers: {
@@ -247,7 +240,7 @@ class CreateGame extends Component {
               if (isNaN(e)) {
                 Alert.alert(
                   'Error',
-                  'Game Duration must be a number',
+                  'Game Duration must be a number!',
                   [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')},]
                 )
                 this.props.enteredField('createGameDuration', '')
@@ -264,7 +257,7 @@ class CreateGame extends Component {
               if (isNaN(e)) {
                 Alert.alert(
                   'Error',
-                  'Max Players must be a number',
+                  'Max Players must be a number!',
                   [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')},]
                 )
                 this.props.enteredField('createGameMaxPlayers', '')
@@ -277,7 +270,7 @@ class CreateGame extends Component {
 
           <Text>{'Start Location: '}{this.props.createGameStartingLocation ? 'Latitude: ' + JSON.stringify(this.props.createGameStartingLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createGameStartingLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
 
-          <Button onPress={() => {Actions.createMap()}}
+          <Button onPress={() => {Actions.createMap({setting: 'createStartLoc'})}}
           title="Set Starting Location"
           color="#841584"/>
 
@@ -307,15 +300,34 @@ class CreateGame extends Component {
           color="#841584"/>
          
           <Button onPress={() => {
-            Alert.alert(
-              '',
-              'Game Submitted!',
-              [
-                {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
-              ]
-            )
-  
-            this.submitGame();
+
+            if (!this.props.createGameName ||
+              !this.props.createGameDescription ||
+              !this.props.createGameDuration ||
+              !this.props.createGameMaxPlayers ||
+              !this.props.createGameStartingLocation ||
+              this.props.createGameChallenges.length < 1) {
+            
+              Alert.alert(
+                'Error',
+                'Please fill out all fields!',
+                [
+                  {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
+                ]
+              )            
+            
+            
+            } else {
+              Alert.alert(
+                '',
+                'Game Submitted!',
+                [
+                  {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
+                ]
+              )
+    
+              this.submitGame();
+            }
             
           }}
           title="Submit Game"

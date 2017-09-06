@@ -5,7 +5,8 @@ import {
   View,
   Dimensions,
   Image,
-  Button
+  Button,
+  Alert
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import MapView from 'react-native-maps';
@@ -18,20 +19,20 @@ import CreateMapStoreLocationButton from './CreateMapStoreLocationButton';
 // Redux Imports for binding stateToProps and dispatchToProps to the component
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {enteredField} from '../../actions/index.js'
+import {startLocationSet, challengeLocationSet, enteredField} from '../../actions/index.js'
 
 
 // gives the component access to store through props
 const mapStateToProps = (state) => {
-  console.log('Create Game state: ', state)
   return {
     createGameStartingLocation: state.create.createGameStartingLocation,
+    createChallengeLocation: state.create.createChallengeLocation,
   }
 }
 
 // gives the component access to actions through props
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({enteredField}, dispatch)
+  return bindActionCreators({startLocationSet, challengeLocationSet, enteredField}, dispatch)
 }
 
 const {width, height} = Dimensions.get('window');
@@ -55,17 +56,10 @@ class CreateMap extends Component {
   }
 
   componentWillMount() {
-    console.log('component willmount: props:', this.props);
     this.getCurrentLocation()
-
-  }
-
-  componentWillReceiveProps(nextProps) {
-    console.log('willreceive: nextprop:', nextProps)
   }
 
   getCurrentLocation() {
-    console.log(`Im in getCurrentLocation in the Map.js!!`)
     let component = this;
       navigator.geolocation.getCurrentPosition( (position) => {
         console.log(`Current position is latitude: ${position.coords.latitude} and longitude: ${position.coords.longitude}`)
@@ -90,8 +84,21 @@ class CreateMap extends Component {
   }
 
   storeMarker() {
-    console.log('props: ', this.props)
-    this.props.enteredField('createGameStartingLocation', this.state.region)
+
+    if (this.props.setting === 'createStartLoc') {
+      this.props.enteredField('createGameStartingLocation', this.state.region)
+    } else if (this.props.setting === 'createChallengeLoc') {
+      this.props.challengeLocationSet(this.state.region)
+    }
+
+    Alert.alert(
+      '',
+      'Location Set!',
+      [
+        {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
+      ]
+    )
+    
   }
 
   render() {
@@ -102,16 +109,6 @@ class CreateMap extends Component {
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: '#F5FCFF',
-      },
-      welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-      },
-      instructions: {
-        textAlign: 'center',
-        color: '#333333',
-        marginBottom: 5,
       },
       mapContainer: {
         ...StyleSheet.absoluteFillObject,
@@ -143,11 +140,7 @@ class CreateMap extends Component {
             region={this.state.region} 
             onRegionChange={this.onRegionChange}
         >
-        {this.state.markers.map((loc, index) => {return(
-         <MapView.Marker
-          coordinate={loc}
-          key={index}
-        />)})}
+
 
         </MapView>
         <CreateMapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>
@@ -155,10 +148,7 @@ class CreateMap extends Component {
         </View>
 
         <View><Text>{JSON.stringify(this.state.region)}</Text></View>
-        <Button
-          title='see props'
-          onPress={() => console.log('props:', this.props)}
-        />
+
       </View>
     )
   }
