@@ -122,13 +122,13 @@ class CreateGame extends Component {
           title: challenge.ChallengeTitle,
           question: challenge.ChallengeObjective,
           answer: challenge.ChallengeAnswer,
-          difficulty: null,
+          difficulty: 'easy',
           default: false,
           imageURL: 'JL test imageURL',
           instruction: challenge.ChallengeObjective,
           link: 'JL testLink'
         }
-
+        console.log('tempQuestionObject: ', tempQuestionObject)
         console.log('preparing to POST questions: ', challenge)
         // console.log('gameId: ', game.id)
 

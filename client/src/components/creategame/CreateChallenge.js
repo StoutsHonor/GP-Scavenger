@@ -147,7 +147,8 @@ class CreateChallenge extends Component {
               ChallengeType: this.props.createChallengeType,
               ChallengeTitle: this.props.createChallengeTitle,
               ChallengeObjective: this.props.createChallengeObjective,
-              ChallengeAnswer: this.props.createChallengeAnswer
+              ChallengeAnswer: this.props.createChallengeAnswer,
+              ChallengeDescription: this.props.createChallengeDescription
             })
             this.props.challengesUpdated(temp);
 
