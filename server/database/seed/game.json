@@ -43,5 +43,14 @@
     "maxPlayers": 4,
     "rewardPoints": 3900,
     "startLocation": [32.4966818, -117.0878919]
+  },
+  {
+    "name": "WALKING GPS TEST",
+    "userId": 1,
+    "duration": 120,
+    "private": false,
+    "maxPlayers": 4,
+    "rewardPoints": 3900,
+    "startLocation": [33.976025, -118.391093]
   }
 ]

@@ -62,6 +62,17 @@ class JoinGame extends Component {
         // })
 
       }) 
+
+      // this.setState({games: [{
+      //   "name": "WALKING GPS TEST",
+      //   "userId": 1,
+      //   "duration": 120,
+      //   "private": false,
+      //   "maxPlayers": 4,
+      //   "rewardPoints": 3900,
+      //   "startLocation": [33.976025, -118.391093]
+      // }]}, () => { console.log(`seeded walking GPS test in JoinGame.js`)})
+
   }  
   
 

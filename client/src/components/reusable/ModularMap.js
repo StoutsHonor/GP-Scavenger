@@ -8,15 +8,15 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import MapView from 'react-native-maps';
-// import MapCenterMarker from './MapCenterMarker';
-// import MapCurrentLocationButton from './MapCurrentLocationButton';
+import MapCenterMarker from '../MapCenterMarker';
+import MapCurrentLocationButton from './MapCurrentLocationButton';
 import {requestPermission} from 'react-native-android-permissions';
-// import MapStoreLocationButton from './MapStoreLocationButton';
+import MapStoreLocationButton from './MapStoreLocationButton';
 import currLocImage from '../../media/currentLocationMarker_35x35.png'
 
 const {width, height} = Dimensions.get('window');
 
-class Map extends Component {
+class ModularMap extends Component {
   constructor(props){
     super(props)
     this.onRegionChange = this.onRegionChange.bind(this);
@@ -80,7 +80,7 @@ class Map extends Component {
       navigator.geolocation.getCurrentPosition( (position) => {
         console.log(`Current position is latitude: ${position.coords.latitude} and longitude: ${position.coords.longitude}`)
         console.log(`position.coords is ${JSON.stringify(position.coords)}`)
-        this.setState({
+        component.setState({
           region: {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
@@ -143,7 +143,7 @@ class Map extends Component {
     return(
       <View>
         <View style={styles.mapContainer}>
-        {/* <MapCenterMarker height={styles.mapContainer.height} width={styles.mapContainer.width}/> */}
+        <MapCenterMarker height={styles.mapContainer.height} width={styles.mapContainer.width}/>
         <MapView style={styles.map}
             initialRegion={{
               latitude: 37.78825,
@@ -168,8 +168,8 @@ class Map extends Component {
          />
 
         </MapView>
-        {/* <MapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>
-        <MapStoreLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} storeMarker={this.storeMarker}/> */}
+        <MapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>
+        <MapStoreLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} storeMarker={this.storeMarker}/>
         </View>
 
         <View><Text>{JSON.stringify(this.state.region)}</Text></View>
@@ -178,5 +178,5 @@ class Map extends Component {
   }
 }
 
-export default Map
+export default ModularMap
 

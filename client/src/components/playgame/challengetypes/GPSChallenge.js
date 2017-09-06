@@ -7,7 +7,7 @@ import {
   TextInput
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import Map from '../../Map'
+import ModularMap from '../../reusable/ModularMap';
 
 class GPSChallengeTask extends Component {
   constructor(props) {
@@ -45,7 +45,7 @@ class GPSChallengeTask extends Component {
     this.setState({currentLocation: location})
     console.log(`this.state.markers is ${JSON.stringify(this.state.markers)}`)
     console.log(`this.state.markers[0].latitude is typeof ${typeof this.state.markers[0].latitude} and location.latitude typeof is ${typeof location.latitude}}`)
-    if (this.state.markers[0].latitude.toFixed(2) === location.latitude.toFixed(2) && this.state.markers[0].longitude.toFixed(2) === location.longitude.toFixed(2)) {
+    if (this.state.markers[0].latitude.toFixed(3) === location.latitude.toFixed(3) && this.state.markers[0].longitude.toFixed(3) === location.longitude.toFixed(3)) {
       console.log('YEAH RIGHT LOCATION')
       this.props.challengeCompleted()
     } else {
@@ -59,7 +59,7 @@ class GPSChallengeTask extends Component {
     console.log(`this.props.currentChallenge.location is ${this.props.currentChallenge.location}`)
     return(
       <View style={{padding:10}}>
-        <Map onMarkerSubmit={this.onMapMarkerSubmit} markers={this.state.markers } />
+        <ModularMap onMarkerSubmit={this.onMapMarkerSubmit} markers={this.state.markers } />
         <Text>Title: {this.props.currentChallenge.name}</Text>
         <Text>Description: {this.props.currentChallenge.description}</Text>
         <Text>Description: {this.props.currentChallenge.location}</Text>

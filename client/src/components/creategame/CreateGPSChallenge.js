@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CreateList from './CreateList';
+import Map from '../reusable/ModularMap'
 import CreateMap from './CreateMap'
 
 // Redux Imports for binding stateToProps and dispatchToProps to the component
@@ -63,9 +64,7 @@ class CreateGPSChallenge extends Component {
   render() {
     return(
       <View style={{padding:10}}>
-
         <CreateMap onMarkerSubmit={this.onMapMarkerSubmit} />
-
       </View>
     )
   }
