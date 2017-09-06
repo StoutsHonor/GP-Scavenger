@@ -262,25 +262,28 @@ export default class client extends Component {
             <Scene key="createChallenge"
               component={CreateChallenge}
               title="Create a Challenge"
-              hideNavBar={true}
+            />
+
+            <Scene key="createMap"
+              component={CreateGPSChallenge}
+              title="Set a Starting Location"
             />
 
             <Scene key="createGPSchallenge"
-            component={CreateGPSChallenge}
-            title="Create GPS challenge"
-            hideNavBar={true}
+              component={CreateGPSChallenge}
+              title="Create GPS challenge"
             />
 
             <Scene key="congratsnext"
-            component={CongratsNext}
-            title="CHALLENGE COMPLETED!!!"
-            hideNavBar={true}
+              component={CongratsNext}
+              title="CHALLENGE COMPLETED!!!"
+              hideNavBar={true}
             />
 
             <Scene key="congratspage"
-            component={CongratsPage}
-            title="GAME COMPLETED!!!"
-            hideNavBar={true}
+              component={CongratsPage}
+              title="GAME COMPLETED!!!"
+              hideNavBar={true}
             />
 
             <Scene key="failedchallenge"
