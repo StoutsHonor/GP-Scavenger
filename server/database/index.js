@@ -21,11 +21,12 @@ const User = sequelize.define('user', {
   profileDescription: { type: Sequelize.STRING },
   rewardPoints: {type: Sequelize.INTEGER },
   DOB: { type: Sequelize.DATEONLY },
-  friends: {type: Sequelize.ARRAY(Sequelize.INTEGER), allowedNull: true}
+  friends: {type: Sequelize.ARRAY(Sequelize.INTEGER), allowNull: true}
 });
 
 const Game = sequelize.define('game', {
   name: { type: Sequelize.STRING, allowNull: false },
+  description: { type: Sequelize.STRING },
   duration: { type: Sequelize.INTEGER },
   private: { type: Sequelize.BOOLEAN},
   maxPlayers: { type: Sequelize.INTEGER, allowNull: false },
