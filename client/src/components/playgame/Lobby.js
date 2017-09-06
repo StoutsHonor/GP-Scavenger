@@ -13,7 +13,7 @@ import { bindActionCreators } from 'redux';
 import { getAllGameChallenges } from '../../actions/index.js'
 import config from '../../../config/config';
 import { GiftedChat } from 'react-native-gifted-chat';
-
+import io from 'socket.io-client';
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ getAllGameChallenges }, dispatch)
 }
@@ -34,10 +34,15 @@ class Lobby extends Component {
   constructor(props) {
     super(props);
     this.onSend = this.onSend.bind(this);
+    this.onReceivedMessage = this.onReceivedMessage.bind(this);
     this._storeMessages = this._storeMessages.bind(this);
+    this.roomName = 'lobby1';
     this.state = {
       messages: [],
-      userId: null
+      team1: {
+        _id: 1,
+        name: 'Team 1'
+      }
     };
 
   }
@@ -58,6 +63,9 @@ class Lobby extends Component {
   }  
 
   componentDidMount() {
+    this.socket = io(config.localhost);
+    this.socket.emit('createRoom', 'lobby1');
+    this.socket.on('message', this.onReceivedMessage);
     // fetch(`${config.localhost}/api/challenge/findChallengeByGameId/?gameId=${this.props.gameId}`)
     // .then((response) => response.json())
     // .then((data) => {
@@ -69,6 +77,10 @@ class Lobby extends Component {
     // });
   }
 
+  onReceivedMessage(messages=[]) {
+    console.log('Message was recieved', messages);
+    this._storeMessages(messages);
+  }
 
   startGame() {
     //
@@ -77,6 +89,9 @@ class Lobby extends Component {
   }
 
   onSend(messages=[]) {
+    messages[0].roomName = this.roomName;
+    messages[0].image = '';
+    this.socket.emit('message', messages[0]);
     this._storeMessages(messages);
   }
 
@@ -104,15 +119,23 @@ class Lobby extends Component {
             <GiftedChat  
               messages={this.state.messages}
               onSend={this.onSend}
-              user={user}
+              user={this.state.team1}
               />
           </View>
           <View style={styles.divide}>
             <View style={styles.playerL}>
-              <Text > team 1 </Text>
+              <Text style={styles.team}> Team 1 </Text>
+              <Text>   Jen </Text>
+              <Text>   Jeff </Text>
+              <Text>   Kevin </Text>
+              <Text>   Mike </Text>
             </View>
             <View style={styles.playerR}>
-              <Text > team 2 </Text>
+              <Text style={styles.team}> Team 2 </Text>
+              <Text>   Erin </Text>
+              <Text>   James </Text>
+              <Text>   Tony </Text>
+              <Text>   Mike </Text>
             </View>
           </View>
 
@@ -177,6 +200,10 @@ const styles = StyleSheet.create({
     margin: 10,
     marginLeft: 5,
     backgroundColor: '#5fffd7',
+  },
+  team: {
+    fontSize: 14,
+    fontWeight: 'bold',
   },
   button: {
     marginTop: 15

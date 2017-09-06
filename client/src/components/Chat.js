@@ -20,6 +20,7 @@ export default class Chat extends Component {
       this.onReceivedMessage = this.onReceivedMessage.bind(this);
       this.onSend = this.onSend.bind(this);
       this._storeMessages = this._storeMessages.bind(this);
+      this.parseJSONData = this.parseJSONData.bind(this);
       this.roomName = 'room1';
       
       //this.determineUser();
