@@ -74,39 +74,76 @@ class Lobby extends Component {
     
     return (
       <View style={styles.container}>
-        <Text>Welcome to Lobby</Text>
-        <View style={styles.chatContainer}><Chat /></View>  
-        <Button onPress={() => {
+        <Text style={styles.lobbyText}>Welcome to the Lobby</Text>
+          <View style={styles.chat}>
+            <Text> chat</Text>
+          </View>
+          <View style={styles.divide}>
+            <View style={styles.playerL}>
+              <Text > team 1 </Text>
+            </View>
+            <View style={styles.playerR}>
+              <Text > team 2 </Text>
+            </View>
+          </View>
+
+          <Button style={styles.button} onPress={() => {
           console.log('Lobby: button pressed, props.gamedata is: ', this.props.gamedata)
           Actions.gameplay(this.props.gamedata)
           }} 
           title='START GAME'  
-        />
+        /> 
+         
       </View>
+      
     );
   }
 }
 
+
+
+
+
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#5F9EA0',
+    flex:1,
+    alignItems:'center',
+    backgroundColor: '#5F9EA0'
+     
   },
-  chatContainer: {
-    flex: 1,
-    width: Dimensions.get('window').width,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#000',
-  },
-  welcome: {
+  lobbyText: {
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    fontWeight: 'bold',
     color: '#ffffff',
+    marginTop: 10
   },
+  divide: {
+    flexDirection: 'row',
+    
+  },
+  chat: {
+    width: Dimensions.get('window').width - 15,
+    height: (Dimensions.get('window').height / 2),
+    margin: 10,
+    backgroundColor: '#ff372c',
+  },
+  playerL: {
+    width: (Dimensions.get('window').width / 2) - 15,
+    height: (Dimensions.get('window').height / 6),
+    margin: 10,
+    marginRight: 5,
+    backgroundColor: '#5fffd7',
+  },
+  playerR: {
+    width: (Dimensions.get('window').width / 2) - 15,
+    height: (Dimensions.get('window').height / 6),
+    margin: 10,
+    marginLeft: 5,
+    backgroundColor: '#5fffd7',
+  },
+  button: {
+    marginTop: 15
+  }
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Lobby);

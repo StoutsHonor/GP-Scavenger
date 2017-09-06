@@ -106,6 +106,7 @@ export default class Chat extends Component {
     render() {
       
       return (
+        
           <GiftedChat
               messages={this.state.messages}
               onSend={this.onSend}
