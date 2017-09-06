@@ -29,7 +29,7 @@ const mapStateToProps = (state) => {
   }
 }
 
-const user = { _id: Math.round(Math.random() * 1000000) || -1 };
+
 
 class Lobby extends Component {
   constructor(props) {
@@ -37,14 +37,16 @@ class Lobby extends Component {
     this.onSend = this.onSend.bind(this);
     this.onReceivedMessage = this.onReceivedMessage.bind(this);
     this._storeMessages = this._storeMessages.bind(this);
-    this.roomName = 'lobby1';
+    this.onReceivedJoinedLobby =  this.onReceivedJoinedLobby.bind(this);
+
+    this.roomName = 'lobby' + this.props.gameId;
   
     this.state = {
       messages: [],
-      team1: {
-        _id: 1,
-        name: 'Team 1'
-      },
+      totalPlayer: 0,
+      user: {},
+      team1: [],
+      team2: [],
       styles: {}
     };
 
@@ -69,18 +71,50 @@ class Lobby extends Component {
 
   componentDidMount() {
     this.socket = io(config.localhost);
-    this.socket.emit('createRoom', 'lobby1');
-    this.socket.on('message', this.onReceivedMessage);
+    let obj = {};
+    obj.userId = this.state.totalPlayer + 1;
+    obj.roomName = this.roomName;
     
-    // fetch(`${config.localhost}/api/challenge/findChallengeByGameId/?gameId=${this.props.gameId}`)
-    // .then((response) => response.json())
-    // .then((data) => {
-    //   console.log(data, 'this is the data received');
-    //   this.props.getAllGameChallenges(data);
-    // })
-    // .catch((err) => {
-    //   console.error(err);
-    // });
+    this.socket.emit('createRoom',  obj);
+    this.socket.on('joinLobby', (this.onReceivedJoinedLobby));
+    this.socket.on('message', this.onReceivedMessage);
+
+  }
+
+  onReceivedJoinedLobby(input_user) {
+   
+    if(this.state.totalPlayer > 8) return;
+    this.state.totalPlayer++;
+    let team; 
+    let teamName;
+    let user;
+    if (this.state.totalPlayer % 2) {
+      team = this.state.team1;
+      team.push(this.state.totalPlayer + '');
+      teamName = 'team1';
+      user = {  
+        _id: 1,
+        name: '1'
+      }
+    } else {
+      team = this.state.team2;
+      team.push(this.state.totalPlayer + '');
+      teamName = 'team2';
+      user = {  
+        _id: 2,
+        name: '2'
+      }
+     
+    }
+    console.log('Team is ddddddddddddddddddddddddddd ', team);
+    this.setState({ 
+      [teamName]: team,
+      totalPlayer: this.state.totalPlayer
+    }, () => {
+      this.setState({ user });
+    });
+
+
   }
 
   onReceivedMessage(messages=[]) {
@@ -125,23 +159,21 @@ class Lobby extends Component {
             <GiftedChat  
               messages={this.state.messages}
               onSend={this.onSend}
-              user={this.state.team1}
+              user={this.state.user}
               />
           </View>
           <View style={this.state.styles.divide}>
             <View style={this.state.styles.playerL}>
               <Text style={this.state.styles.team}> Team 1 </Text>
-              <Text>   Jen </Text>
-              <Text>   Jeff </Text>
-              <Text>   Kevin </Text>
-              <Text>   Mike </Text>
+              {this.state.team1.map((val, key) => {
+                return (<Text key={key}>   {val}</Text>)
+              })}
             </View>
             <View style={this.state.styles.playerR}>
               <Text style={this.state.styles.team}> Team 2 </Text>
-              <Text>   Erin </Text>
-              <Text>   James </Text>
-              <Text>   Tony </Text>
-              <Text>   Mike </Text>
+              {this.state.team2.map((val, key) => {
+                return (<Text key={key}>   {val}</Text>)
+              })}
             </View>
           </View>
 
