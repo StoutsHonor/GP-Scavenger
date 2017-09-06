@@ -8,8 +8,6 @@ import {
   Alert
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import CreateList from './CreateList';
-import Map from '../reusable/ModularMap'
 import CreateMap from './CreateMap'
 
 // Redux Imports for binding stateToProps and dispatchToProps to the component
@@ -52,6 +50,8 @@ class CreateGPSChallenge extends Component {
       console.log(`this.state.mapMarker is ${JSON.stringify(this.state.mapMarker)}`)
     })
     this.props.challengeLocationSet(location);
+    console.log('onmarkersubmit: location: ', location)
+    console.log('props: ', this.props)
     Alert.alert(
       '',
       'Location Set!',

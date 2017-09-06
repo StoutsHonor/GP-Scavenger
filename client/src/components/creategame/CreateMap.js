@@ -4,7 +4,8 @@ import {
   Text,
   View,
   Dimensions,
-  Image
+  Image,
+  Button
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import MapView from 'react-native-maps';
@@ -13,9 +14,29 @@ import CreateMapCenterMarker from './CreateMapCenterMarker';
 import CreateMapCurrentLocationButton from './CreateMapCurrentLocationButton';
 import CreateMapStoreLocationButton from './CreateMapStoreLocationButton';
 
+
+// Redux Imports for binding stateToProps and dispatchToProps to the component
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {enteredField} from '../../actions/index.js'
+
+
+// gives the component access to store through props
+const mapStateToProps = (state) => {
+  console.log('Create Game state: ', state)
+  return {
+    createGameStartingLocation: state.create.createGameStartingLocation,
+  }
+}
+
+// gives the component access to actions through props
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({enteredField}, dispatch)
+}
+
 const {width, height} = Dimensions.get('window');
 
-class Map extends Component {
+class CreateMap extends Component {
   constructor(props){
     super(props)
     this.onRegionChange = this.onRegionChange.bind(this);
@@ -34,22 +55,13 @@ class Map extends Component {
   }
 
   componentWillMount() {
+    console.log('component willmount: props:', this.props);
     this.getCurrentLocation()
 
-    if (this.props.markers) {
-      console.log(`componentWillMount() in Map.js`)
-      this.setState({markers: this.props.markers}, () => {
-        console.log(`this.props.markers is ${JSON.stringify(this.props.markers)}`)
-      })
-    }
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.props.markers) {
-      this.setState({markers: nextProps.markers}, () => {
-        console.log(`after setState in componentWillReceiveProps() in Map.js ${JSON.stringify(this.state.markers)}`)
-      })
-    }
+    console.log('willreceive: nextprop:', nextProps)
   }
 
   getCurrentLocation() {
@@ -78,15 +90,8 @@ class Map extends Component {
   }
 
   storeMarker() {
-    console.log('storemarker invoked');
     console.log('props: ', this.props)
-    
-    this.setState({ marker: { latitude: this.state.region.latitude, longitude: this.state.region.longitude }}, () => {
-      if (this.props.submitmethod) {
-        console.log('setting start location');
-        this.props.submitmethod(this.state.region)
-      }
-    })
+    this.props.enteredField('createGameStartingLocation', this.state.region)
   }
 
   render() {
@@ -119,10 +124,10 @@ class Map extends Component {
         ...StyleSheet.absoluteFillObject,
       }
     });
-    console.log(`In Map.js this.state.markers is ${JSON.stringify(this.state.markers)}`)
 
     return(
       <View>
+
         <View style={styles.mapContainer}>
         <CreateMapCenterMarker height={styles.mapContainer.height} width={styles.mapContainer.width}/>
         <MapView style={styles.map}
@@ -150,10 +155,14 @@ class Map extends Component {
         </View>
 
         <View><Text>{JSON.stringify(this.state.region)}</Text></View>
+        <Button
+          title='see props'
+          onPress={() => console.log('props:', this.props)}
+        />
       </View>
     )
   }
 }
 
-export default Map
+export default connect(mapStateToProps, mapDispatchToProps)(CreateMap)
 

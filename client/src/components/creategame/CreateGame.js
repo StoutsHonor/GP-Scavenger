@@ -118,39 +118,74 @@ class CreateGame extends Component {
         let tempQuestionTablePath = questionTableRouting[challenge.ChallengeType]
 
         // build appropriately formatted object to POST to Questions Table
-        let tempQuestionObject = {
-          title: challenge.ChallengeTitle,
-          question: challenge.ChallengeObjective,
-          answer: challenge.ChallengeAnswer,
-          difficulty: 'easy',
-          default: false,
-          imageURL: 'JL test imageURL',
-          instruction: challenge.ChallengeObjective,
-          link: 'JL testLink'
-        }
-        console.log('tempQuestionObject: ', tempQuestionObject)
-        console.log('preparing to POST questions: ', challenge)
-        // console.log('gameId: ', game.id)
+        if (tempQuestionTablePath) {
+          let tempQuestionObject = {
+            title: challenge.ChallengeTitle,
+            question: challenge.ChallengeObjective,
+            answer: challenge.ChallengeAnswer,
+            difficulty: 'easy',
+            default: false,
+            imageURL: 'JL test imageURL',
+            instruction: challenge.ChallengeObjective,
+            link: 'JL testLink'
+          }
 
-        console.log('posting question to path: ' + `${config.localhost}/api${tempQuestionTablePath}` )
-        fetch(`${config.localhost}/api${tempQuestionTablePath}`, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(tempQuestionObject)
-        })
+          console.log('tempQuestionObject: ', tempQuestionObject)
+          console.log('preparing to POST questions: ', challenge)
+          // console.log('gameId: ', game.id)
+  
+          console.log('posting question to path: ' + `${config.localhost}/api${tempQuestionTablePath}` )
+          fetch(`${config.localhost}/api${tempQuestionTablePath}`, {
+            method: 'POST',
+            headers: {
+              'Accept': 'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(tempQuestionObject)
+          })
+  
+          .catch(error => console.log('error in posting question: ', error))
+          .then( (response) => response.json())
+          .then( (data) => {
+            console.log(data, 'question posted')
+            return data
+          })
+  
+          // post the challenge to the challenge table (if any)
+          .then( (questionData) => {
+  
+            let tempChallengeObject = {
+              name: challenge.ChallengeTitle,
+              description: challenge.ChallengeDescription,
+              gameId: game.id,
+              sequence: index + 1,
+              location: challenge.ChallengeLocation,
+              timeLimit: 9999,
+              questionTypeId: tempChallengeTypeId,
+              questionId: questionData.id
+            }
+            console.log('preparing to POST challenge: ', tempChallengeObject)
+    
+            fetch(`${config.localhost}/api/challenge/addChallenge`, {
+              method: 'POST',
+              headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(tempChallengeObject)
+            })
+            .catch(error => console.log('error in posting challenge: ', error))
+            .then( (response) => response.json())
+            .then( (data) => {
+              console.log(data, 'challenge posted')
+              return data
+            })
 
-        .catch(error => console.log('error in posting question: ', error))
-        .then( (response) => response.json())
-        .then( (data) => {
-          console.log(data, 'question posted')
-          return data
-        })
+          }) // end .then block for POST challenge
 
-        // post the challenge to the challenge table (if any)
-        .then( (questionData) => {
+
+        } else {
+          // no question type, GPS only
 
           let tempChallengeObject = {
             name: challenge.ChallengeTitle,
@@ -159,11 +194,11 @@ class CreateGame extends Component {
             sequence: index + 1,
             location: challenge.ChallengeLocation,
             timeLimit: 9999,
-            questionTypeId: tempChallengeTypeId,
-            questionId: questionData.id
+            questionTypeId: null,
+            questionId: null
           }
           console.log('preparing to POST challenge: ', tempChallengeObject)
-  
+
           fetch(`${config.localhost}/api/challenge/addChallenge`, {
             method: 'POST',
             headers: {
@@ -179,7 +214,8 @@ class CreateGame extends Component {
             return data
           })
 
-        }) // end .then block for POST challenge
+        }
+
       } // end callback function of .map 
     )}) // end .then block for POST question
 
@@ -241,7 +277,7 @@ class CreateGame extends Component {
 
           <Text>{'Start Location: '}{this.props.createGameStartingLocation ? 'Latitude: ' + JSON.stringify(this.props.createGameStartingLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createGameStartingLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
 
-          <Button onPress={() => {Actions.createMap({submitmethod: this.setStartingLocation})}}
+          <Button onPress={() => {Actions.createMap()}}
           title="Set Starting Location"
           color="#841584"/>
 
