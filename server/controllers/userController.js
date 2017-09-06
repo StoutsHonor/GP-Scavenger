@@ -1,4 +1,5 @@
 const db = require('../database/index');
+const Sequelize = require('sequelize');
 
 module.exports = {
   findUser: (req, res) => {
@@ -13,6 +14,16 @@ module.exports = {
 
   findAllUserPoints: (req, res) => {
     db.User.findAll()
+    .then(data => res.status(200).send(data))
+    .catch(err => res.status(500).send(`Error finding data! ${err}`))
+  },
+
+  findUserPoints: (req, res) => {
+      db.User.find(
+        {attributes: ['rewardPoints']},
+      {
+      where: {id: req.query.userId}
+    })
     .then(data => res.status(200).send(data))
     .catch(err => res.status(500).send(`Error finding data! ${err}`))
   },
@@ -36,5 +47,18 @@ module.exports = {
       res.status(201).send(user)
     })
     .catch(err => res.status(500).send(`Error adding user to database! ${err}`))
+  },
+
+  updateRewardPoints: (req, res) => {
+    console.log(req.body, 'this is req.body')
+    db.User.update(
+      {rewardPoints: req.body.rewardPoints},
+      {where: {id: req.body.userId}}
+    )
+    .then( user => {
+      console.log('this is hitting')
+      res.status(201).send(user)
+    })
+    .catch(err => res.status(500).send(`Error updating reward points to database! ${err}`))
   }
 } 
