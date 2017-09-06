@@ -85,12 +85,21 @@ export const userEndedGame = (data) => {
 };
 
 export const get_gameId = 'get_gameId';
+export const get_game = 'get_game';
 export const set_current_challenge_index = 'set_current_challenge_index';
 
 export const getGameId = (games) => {
   console.log('Games were submitted: ', games);
   return {
       type: get_gameId,
+      payload: games
+  };
+};
+
+export const getGameInfo = (games) => {
+  console.log('Game info was submitted: ', games);
+  return {
+      type: get_game,
       payload: games
   };
 };

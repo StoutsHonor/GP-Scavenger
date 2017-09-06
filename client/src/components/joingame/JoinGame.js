@@ -9,7 +9,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {getGameId} from '../../actions/index.js'
+import {getGameId, getGameInfo} from '../../actions/index.js'
 import SideMenu from 'react-native-side-menu';
 import HomePage from '../HomePage';
 
@@ -18,7 +18,7 @@ import ModularList from '../reusable/ModularList'
 import config from '../../../config/config'
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ getGameId }, dispatch)
+  return bindActionCreators({ getGameId, getGameInfo }, dispatch)
 }
 
 const mapStateToProps = (state) => {
@@ -26,6 +26,7 @@ const mapStateToProps = (state) => {
   return {
     userId: state.client.userIdentity,
     gameId: state.play.gameId,
+    gameInfo: state.play.gameInfo,
     challenges: state.play.allChallenges
   }
 }
@@ -83,6 +84,7 @@ class JoinGame extends Component {
     Actions.lobby({gamedata: gamedata})
     // update redux store CURRENT GAME with gamedata
     this.props.getGameId(gamedata.id);
+    this.props.getGameInfo(gamedata);
   }
 
   render() {
