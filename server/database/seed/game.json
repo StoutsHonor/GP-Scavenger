@@ -1,12 +1,13 @@
 [
   {
-    "name": "Very Simple Scavenger Hunt",
+    "name": "Bery Simple Scavenger Hunt",
     "userId": 1, 
     "duration": 30,
     "private": true,
     "maxPlayers": 4,
     "rewardPoints": 100,
-    "startLocation": [33.9759479,-118.3929176]
+    "startLocation": [33.9759479,-118.3929176],
+    "description": "this is description #1"
   },
   {
     "name": "5 times the fun!!!",
@@ -15,7 +16,8 @@
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 500,
-    "startLocation": [33.8120962,-117.9211629]
+    "startLocation": [33.8120962,-117.9211629],
+    "description": "this is description #2"
   },
   {
     "name": "Get over here!!!",
@@ -24,7 +26,8 @@
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 600,
-    "startLocation": [33.7860938,-117.9462329]
+    "startLocation": [33.7860938,-117.9462329],
+    "description": "this is description #3"
   },
   {
     "name": "Game #3",
@@ -33,7 +36,8 @@
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 400,
-    "startLocation": [33.7860938,-117.9462329]
+    "startLocation": [33.7860938,-117.9462329],
+    "description": "this is description #4"
   },
   {
     "name": "Mixed game of CHALLENGES",
@@ -42,7 +46,8 @@
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 3900,
-    "startLocation": [32.4966818, -117.0878919]
+    "startLocation": [32.4966818, -117.0878919],
+    "description": "this is description #5"
   },
   {
     "name": "WALKING GPS TEST",
@@ -51,6 +56,7 @@
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 3900,
-    "startLocation": [33.976025, -118.391093]
+    "startLocation": [33.976025, -118.391093],
+    "description": "this is description #6"
   }
 ]
