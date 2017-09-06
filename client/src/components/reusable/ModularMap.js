@@ -77,7 +77,7 @@ class ModularMap extends Component {
   getCurrentLocation() {
     console.log(`Im in getCurrentLocation in ModularMap.js!!`)
     let component = this;
-      navigator.geolocation.getCurrentPosition( (position) => {
+      this.watchId = navigator.geolocation.watchPosition( (position) => {
         console.log(`Current position is latitude: ${position.coords.latitude} and longitude: ${position.coords.longitude}`)
         console.log(`position.coords is ${JSON.stringify(position.coords)}`)
         component.setState({
@@ -92,7 +92,11 @@ class ModularMap extends Component {
             longitude: position.coords.longitude
           }
         })
-      }, (error) => {console.log(`geolocation fail ${JSON.stringify(error)}`)})
+      }, (error) => {console.log(`geolocation fail ${JSON.stringify(error)}`)}, { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 10 })
+  }
+
+  componentWillUnmount() {
+    navigator.geolocation.clearWatch(this.watchId)
   }
 
   onRegionChange(region) {
