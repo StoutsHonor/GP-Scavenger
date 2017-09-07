@@ -84,10 +84,13 @@ export const userEndedGame = (data) => {
   };
 };
 
+
+// actions for play game
 export const get_gameId = 'get_gameId';
 export const get_game = 'get_game';
 export const set_current_challenge_index = 'set_current_challenge_index';
 export const set_game_points = 'set_game_points';
+export const updated_teams = 'updated_teams';
 
 export const getGameId = (games) => {
   console.log('Games were submitted: ', games);
@@ -124,5 +127,12 @@ export const setGamePoints = (points) => {
   return {
       type: set_game_points,
       payload: points
+  };
+};
+
+export const updatedTeams = (obj) => {
+  return {
+      type: updated_teams,
+      payload: obj
   };
 };
