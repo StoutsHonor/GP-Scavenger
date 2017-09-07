@@ -40,7 +40,7 @@ class Lobby extends Component {
     this._storeMessages = this._storeMessages.bind(this);
     this.onReceivedJoinedLobby =  this.onReceivedJoinedLobby.bind(this);
     this.updateOtherPlayer = this.updateOtherPlayer.bind(this);
-
+    this.getOtherUserName = this.getOtherUserName.bind(this);
     this.roomName = 'lobby' + this.props.gameId;
   
     this.state = {
@@ -84,7 +84,7 @@ class Lobby extends Component {
     this.socket.on('joinLobby', (this.onReceivedJoinedLobby));
     this.socket.on('message', this.onReceivedMessage);
     this.socket.on('updateOtherPlayer', this.updateOtherPlayer);
-
+    this.socket.on('getOtherUserName', this.getOtherUserName);
   }
 
   onReceivedJoinedLobby(input_user) {
@@ -94,33 +94,64 @@ class Lobby extends Component {
     let team; 
     let teamName;
 
-    if (this.state.totalPlayer % 2 !== 0) {
-      team = this.state.team1;
-      team.push(this.state.totalPlayer + '');
-      teamName = 'team1';
-
-      
-    } else {
-      team = this.state.team2;
-      team.push(this.state.totalPlayer + '');
-      teamName = 'team2';
-
-      
+    if(this.state.totalPlayer === 1) {
+      if (this.state.totalPlayer % 2 !== 0) {
+        team = this.state.team1;
+        team.push(this.props.userId);
+        teamName = 'team1';
+      } else {
+        team = this.state.team2;
+        team.push(this.props.userId);
+        teamName = 'team2';
+      }
     
-  }
-    this.setState({ 
-      [teamName]: team,
+      this.setState({ 
+        [teamName]: team,
+      });
+    } 
+    this.setState({
       totalPlayer: this.state.totalPlayer
     });
-
 
     let obj = {};
     obj.roomName = this.roomName;
     obj.totalPlayer = this.state.totalPlayer;
     obj.team1 = this.state.team1;
     obj.team2 = this.state.team2;
+    obj.userId = this.props.userId;
 
-    this.socket.emit('updateOtherPlayer', obj);
+    this.socket.emit('getOtherUserName', obj);
+  }
+
+  getOtherUserName(obj) {
+    if(this.state.totalPlayer > obj.totalPlayer) {
+
+      let team;
+      let teamName;
+      if (this.state.totalPlayer % 2 !== 0) {
+        team = this.state.team1;
+        team.push(obj.userId);
+        teamName = 'team1';
+  
+        
+      } else {
+        team = this.state.team2;
+        team.push(obj.userId);
+        teamName = 'team2';
+      }
+
+      this.setState({ 
+        [teamName]: team,
+      });
+
+      let message = {};
+      message.roomName = this.roomName;
+      message.team1 = this.state.team1;
+      message.team2 = this.state.team2;
+      message.totalPlayer = this.state.totalPlayer;
+      this.socket.emit('updateOtherPlayer', message);
+    }
+
   }
 
   updateOtherPlayer(message) {
@@ -143,7 +174,7 @@ class Lobby extends Component {
         team2: message.team2,
         totalPlayer: message.totalPlayer,
       });
-  }
+  } 
 }
   
 
