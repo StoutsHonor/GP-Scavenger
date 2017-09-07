@@ -22,10 +22,6 @@ import allReducers from './src/reducers/index.js';
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
 
-
-import firebase from 'firebase'
-import LoginForm from './src/components/login/LoginForm'
-
 import config from './config/config.js'
 
 
@@ -92,21 +88,10 @@ export default class client extends Component {
     }
     
     console.disableYellowBox = true;
-    this.authSetUser = this.authSetUser.bind(this)
   }
 
 
   componentWillMount() {
-    console.log('index.android.js has loaded')
-
-    // firebase.initializeApp({
-    //   apiKey: config.firebase.apiKey,
-    //   authDomain: config.firebase.authDomain,
-    //   databaseURL: config.firebase.databaseURL,
-    //   projectId: config.firebase.projectId,
-    //   storageBucket: config.firebase.storageBucket,
-    //   messagingSenderId: config.firebase.messagingSenderId
-    // })
   }
 
   dummyGet() {
@@ -146,19 +131,8 @@ export default class client extends Component {
       })
   }
 
-  authSetUser(){
-    this.setState({user: firebase.auth().currentUser})
-    .then(console.log('Current user: ', this.state.user))
-    
-  }
 
   render() {
-
-    // if (!this.state.user) {
-    //   return (
-    //     <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
-    //   )
-    // } else {
 
     return (
       <Provider store={createStoreWithMiddleware(allReducers)}>
@@ -309,7 +283,6 @@ export default class client extends Component {
         </Router>
       </Provider>
     );
-  // } // end of firebase
   }
 }
 
