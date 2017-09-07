@@ -50,11 +50,14 @@ class CurrentChallenge extends Component {
   }
 
   componentWillMount() {
+    console.log(`CurrentChallenge - componentWillMount()`)
+    console.log(`this.props.challenges is ${JSON.stringify(this.props.challenges)}`)
     if(this.props.challenges) {
       if(this.props.challenges[this.props.currentChallengeIndex].questionTypeId) {
         let currentChallengeType = this.props.challenges[this.props.currentChallengeIndex].questionTypeId;
         let val = currentChallengeType;
-        if(currentChallengeType === null) {
+        console.log(`currentChallengeType is ${currentChallengeType}`)
+        if(currentChallengeType === null || currentChallengeType === 1) {
           this.setState({ currentChallengeType: 'GPS' })
         } else if(currentChallengeType === 2 || currentChallengeType === 3) {
           this.setState({ currentChallengeType: 'riddle' })

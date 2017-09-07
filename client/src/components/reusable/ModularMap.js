@@ -12,6 +12,7 @@ import MapCenterMarker from '../MapCenterMarker';
 import MapCurrentLocationButton from './MapCurrentLocationButton';
 import MapStoreLocationButton from './MapStoreLocationButton';
 import currLocImage from '../../media/currentLocationMarker_85x85.png'
+import GameDetailCallout from '../reusable/GameDetailCallout';
 
 const {width, height} = Dimensions.get('window');
 
@@ -36,13 +37,13 @@ class ModularMap extends Component {
   componentWillMount() {
     console.log(`ModularMap - in componentWillMount()`)
 
-    if (this.props.markers) {
+    if (this.props.markers) { //markers indicate GPSChallenge
       console.log(`ModularMap - componentWillMount()`)
       console.log(`this.props.markers is ${JSON.stringify(this.props.markers)}`)
       this.setState({markers: this.props.markers})
     }
 
-    if (this.props.data) {
+    if (this.props.data) { //data indicate JoinGame and StartANewGame
       const markers = this.props.data.map( (game) => {
         return { latitude: game.startLocation[0], longitude: game.startLocation[1]}
       })
@@ -152,23 +153,22 @@ class ModularMap extends Component {
     return(
       <View>
         <View style={styles.mapContainer}>
-        <MapCenterMarker height={styles.mapContainer.height} width={styles.mapContainer.width}/>
+        
         <MapView style={styles.map}
-            draggableCursor={'crosshair'}
             region={this.state.region} 
             onRegionChange={this.onRegionChange}
         >
         {this.state.markers.map((loc, index) => {
           console.log(`ModularMap.js MapView Marker mapping - loc is ${JSON.stringify(loc)}`)
-          return( <MapView.Marker coordinate={loc} key={index} />
+          return( 
+            <MapView.Marker coordinate={loc} key={index}>
+              <MapView.Callout>
+                <Text>This is a plain view</Text>
+              </MapView.Callout>
+            </MapView.Marker>
          )})}
-
-         <MapView.Marker
-          coordinate={this.state.currentLocation}
-          image={currLocImage}
-         >
-         </MapView.Marker>
-
+         {!!this.props.crosshair ? <MapCenterMarker height={styles.mapContainer.height} width={styles.mapContainer.width}/> : null }
+         <MapView.Marker coordinate={this.state.currentLocation} image={currLocImage} />
         </MapView>
         <MapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>
         <MapStoreLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} storeMarker={this.storeMarker}/>
