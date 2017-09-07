@@ -9,6 +9,7 @@ const initialState = {
   userCurrentLocation: null,  
   userIsInGame: false,
   userCurrentGame: null,
+  settingDistanceTolerance: null,
 };
 
 // for each case, the return is similar to a setState() in React
@@ -16,9 +17,9 @@ export default function(state = initialState, action) {
   switch (action.type) {
     case user_logged_in:
       return Object.assign({}, state, {
-        userIdentity: action.payload.user,
-        userGames: action.payload.games,
-        userInGames: action.payload.games,
+        userIdentity: action.payload.uid,
+        userGames: null,
+        userInGames: null,
         userCurrentGame: null,
         userFriendList: null,
       })
