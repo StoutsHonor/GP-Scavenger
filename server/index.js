@@ -29,11 +29,15 @@ websocket.on('connection', (socket) => {
 
   socket.on('createRoom', (message) => {
     socket.join(message.roomName);
-    socket.in(message.roomName).emit('joinLobby', message.userId);
+    websocket.sockets.in(message.roomName).emit('joinLobby', message.userId);
   });
  
   socket.on('message', (message) => { 
-    socket.in(message.roomName).emit('message', message);
+    websocket.sockets.in(message.roomName).emit('message', message);
+  });
+
+  socket.on('updateOtherPlayer', (message) => { 
+    websocket.sockets.in(message.roomName).emit('updateOtherPlayer', message);
   });
 });
 
