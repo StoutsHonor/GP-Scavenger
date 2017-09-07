@@ -5,6 +5,8 @@ import {
   Image
 } from 'react-native';
 import { ListItem, Left, Thumbnail, Text, Right, Button, Body, Separator, Container } from 'native-base';
+import { Actions } from 'react-native-router-flux';
+
 
 class LeaderboardEntry extends Component {
   constructor(props) {
@@ -13,9 +15,15 @@ class LeaderboardEntry extends Component {
     }
   }
 
+
+  onUserEntryClick(user) {
+    console.log(`LeaderBoardEntry - onUserEntryClick()`)
+    Actions.userprofile({user})
+  }
+
   render() {
     return (
-      <ListItem avatar>
+      <ListItem avatar onPress={() => {this.onUserEntryClick(this.props.player)}}>
         <Left>
         <Text style={styles.rank}>{this.props.index + 1}</Text>
         </Left>

@@ -55,7 +55,11 @@ class StartNewGame extends Component {
     console.log('gamedata: ', gamedata)
     Actions.lobby({gamedata: gamedata})
     // update redux store CURRENT GAME with gamedata
+  }
 
+  onStartNewGameListEntryClick(game) {
+    console.log(`StartNewGame - onJoinGameListEntryClick()`)
+    Actions.gameprofile({game})
   }
 
   render() {
@@ -78,7 +82,6 @@ class StartNewGame extends Component {
       <SideMenu menu={<HomePage/>}>
 
       {this.state.loading ? <LoadingPage/> : 
-
         <ScrollView>
           <Button title="Toggle View"
           onPress={() => {
@@ -88,14 +91,12 @@ class StartNewGame extends Component {
             this.setState({view: 'map'})
             } 
           }}/>
-          {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games}/> : null}
+          {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games} listentryclick={this.onStartNewGameListEntryClick}/> : null}
 
           {this.state.view === 'map' ? <ModularMap entrytype={this.props.listtype} data={this.state.games}/> : null}
 
         </ScrollView>
-
       }
-
       </SideMenu>
     );
   }

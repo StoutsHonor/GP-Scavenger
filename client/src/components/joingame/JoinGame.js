@@ -47,6 +47,7 @@ class JoinGame extends Component {
     }
 
     this.modularListEntryButtonAction = this.modularListEntryButtonAction.bind(this)
+    this.onJoinGameListEntryClick = this.onJoinGameListEntryClick.bind(this)
   }
 
   componentWillMount() {
@@ -91,6 +92,11 @@ class JoinGame extends Component {
     this.props.getGameInfo(gamedata);
   }
 
+  onJoinGameListEntryClick(game) {
+    console.log(`JoinGame - onJoinGameListEntryClick()`)
+    Actions.gameprofile({game})
+  }
+
   render() {
     //console.log(`JoinGame - render(): this.state.games ${JSON.stringify(this.state.games)}`);
     const styles = StyleSheet.create({
@@ -104,25 +110,22 @@ class JoinGame extends Component {
 
     return (
       <SideMenu menu={<HomePage/>}>
-
-        {this.state.loading ? <LoadingPage/> : 
-
-          <Container style={styles.container}>
-            <Content style={styles.content}>
-            <Button title="Toggle View"
-            onPress={() => {
-              if (this.state.view === 'map') {
-              this.setState({view: 'list'})
-              } else {
-              this.setState({view: 'map'})
-              } 
-            }}/>
-            {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} data={this.state.games}/> : null}
-            {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games}/> : null}
-            </Content>
-          </Container>
-          
-        }
+      {this.state.loading ? <LoadingPage/> :
+        <Container style={styles.container}>
+          <Content style={styles.content}>
+          <Button title="Toggle View"
+          onPress={() => {
+            if (this.state.view === 'map') {
+            this.setState({view: 'list'})
+            } else {
+            this.setState({view: 'map'})
+            } 
+          }}/>
+          {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} data={this.state.games}/> : null}
+          {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games} listentryclick={this.onJoinGameListEntryClick}/> : null}
+          </Content>
+        </Container>
+      }
       </SideMenu>
     );
   }
