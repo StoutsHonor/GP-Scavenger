@@ -218,12 +218,22 @@ class Lobby extends Component {
     );
   }
 
-  _storeMessages(messages) {   
-    this.setState((previousState) => {
-      return {
-        messages: GiftedChat.append(previousState.messages, messages)
-      };
-    });
+  _storeMessages(messages) {
+    if(messages.text !== undefined && messages.text.length >= 6 && messages.text.substring(0,5) === '@team' && messages.user._id === this.state.user._id) {
+      messages.text = messages.text.substring(6);
+      this.setState((previousState) => {
+        return {
+          messages: GiftedChat.append(previousState.messages, messages)
+        };
+      });
+    } else if(messages.text !== undefined && messages.text.substring(0,5) !== '@team') {
+      this.setState((previousState) => {
+        return {
+          messages: GiftedChat.append(previousState.messages, messages)
+        };
+      });
+    }
+   
   }
 }
 
