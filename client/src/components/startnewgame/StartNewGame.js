@@ -12,6 +12,7 @@ import ModularList from '../reusable/ModularList';
 import config from '../../../config/config';
 import SideMenu from 'react-native-side-menu';
 import HomePage from '../HomePage';
+import LoadingPage from '../reusable/LoadingPage'
 
 class StartNewGame extends Component {
   constructor(props) {
@@ -22,7 +23,8 @@ class StartNewGame extends Component {
       games: [],
       gameStartMarkers: [],
       showList: true,
-      view: 'list'
+      view: 'list',
+      loading: true
     }
 
     this.modularListEntryButtonAction = this.modularListEntryButtonAction.bind(this);
@@ -38,7 +40,7 @@ class StartNewGame extends Component {
       .then( (response) => response.json())
       .then( (data) => {
         console.log(data, 'just fetched')
-        this.setState({games: data})
+        this.setState({games: data, loading: false})
 
         // let gameStartLocations = games.map( (game) => {return {latitude: game.startLocation[0], longitude: game.startLocation[1]} })
         // this.setState({ gameStartMarkers: gameStartLocations}, () => {
@@ -74,20 +76,26 @@ class StartNewGame extends Component {
 
     return (
       <SideMenu menu={<HomePage/>}>
-      <ScrollView>
-        <Button title="Toggle View"
-        onPress={() => {
-          if (this.state.view === 'map') {
-          this.setState({view: 'list'})
-          } else {
-          this.setState({view: 'map'})
-          } 
-        }}/>
-        {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games}/> : null}
 
-        {this.state.view === 'map' ? <ModularMap entrytype={this.props.listtype} data={this.state.games}/> : null}
+      {this.state.loading ? <LoadingPage/> : 
 
-      </ScrollView>
+        <ScrollView>
+          <Button title="Toggle View"
+          onPress={() => {
+            if (this.state.view === 'map') {
+            this.setState({view: 'list'})
+            } else {
+            this.setState({view: 'map'})
+            } 
+          }}/>
+          {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games}/> : null}
+
+          {this.state.view === 'map' ? <ModularMap entrytype={this.props.listtype} data={this.state.games}/> : null}
+
+        </ScrollView>
+
+      }
+
       </SideMenu>
     );
   }

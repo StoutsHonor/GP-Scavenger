@@ -32,22 +32,19 @@ class LoadingPage extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loading: true
     };
   }
 
   componentDidMount() {
-    setTimeout(() => {this.setState({loading: false})}, 2000)
+    // setTimeout(() => {this.setState({loading: false})}, 2000)
   }
 
   render() {
     return(
       <View style={styles.container}>
-        {this.state.loading ? <View>
         <Image style={{width: 280, height: 285, flex: 0, flexDirection: 'column', justifyContent: 'center'}}
-          source={{uri: '../../media/scavengerLogo.png'}} />
+          source={{uri: 'http://i.imgur.com/qIaUrfj.png'}} />
         <Text style={{fontSize: 40, color: '#f2f2f2', flex: 0, flexDirection: 'column', justifyContent: 'center'}}>Now Loading...</Text>
-        </View> : null}
       </View>
     )
   }
@@ -58,7 +55,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#006400',
+    backgroundColor: '#d8be8a',
   },
 });
 
