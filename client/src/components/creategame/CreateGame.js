@@ -46,6 +46,7 @@ class CreateGame extends Component {
       createChallenges: [],
     }
     this.setStartingLocation = this.setStartingLocation.bind(this)
+    this.checkValidGame = this.checkValidGame.bind(this)
     this.submitGame = this.submitGame.bind(this)
   }
 
@@ -55,6 +56,44 @@ class CreateGame extends Component {
 
   setStartingLocation(location) {
     this.props.enteredField('createGameStartingLocation', location)
+  }
+
+
+
+  checkValidGame() {
+    if (!this.props.createGameName ||
+      !this.props.createGameDescription ||
+      !this.props.createGameDuration ||
+      !this.props.createGameMaxPlayers) {
+      Alert.alert(
+        'Error',
+        'Please fill out all fields!',
+        [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')}]
+      )
+      return false
+    } else if (!this.props.createGameStartingLocation) {
+      Alert.alert(
+        'Error',
+        'Please set a starting location for this game!',
+        [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')}]
+      )
+      return false
+    }  else if (this.props.createGameChallenges.length < 1) {
+      Alert.alert(
+        'Error',
+        'You must have at least one challenge!',
+        [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')}]
+      )
+      return false
+    } else {
+      Alert.alert(
+        '',
+        'Game Submitted!',
+        [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')}]
+      )
+
+      return true
+    }
   }
 
   submitGame() {
@@ -300,35 +339,10 @@ class CreateGame extends Component {
           color="#841584"/>
          
           <Button onPress={() => {
-
-            if (!this.props.createGameName ||
-              !this.props.createGameDescription ||
-              !this.props.createGameDuration ||
-              !this.props.createGameMaxPlayers ||
-              !this.props.createGameStartingLocation ||
-              this.props.createGameChallenges.length < 1) {
-            
-              Alert.alert(
-                'Error',
-                'Please fill out all fields!',
-                [
-                  {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
-                ]
-              )            
-            
-            
-            } else {
-              Alert.alert(
-                '',
-                'Game Submitted!',
-                [
-                  {text: 'Dismiss', onPress: () => console.log('OK Pressed!')},
-                ]
-              )
-    
+            let canSubmit = this.checkValidGame();
+            if (canSubmit) {
               this.submitGame();
-            }
-            
+            }  
           }}
           title="Submit Game"
           color="#841584"/>

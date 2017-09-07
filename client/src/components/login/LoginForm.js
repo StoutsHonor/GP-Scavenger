@@ -42,15 +42,15 @@ class LoginForm extends Component {
   }
   renderButtonOrSpinner() {
     if (this.state.loading) {
-        return <Text>Loading...</Text>;    
+      return (<Text style={styles.loadingTextStyle}>Loading...</Text>);    
     }
     return <Button onPress={this.onLoginPress.bind(this)} title="Log in" />;
   }
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         <TitledInput 
-            label='Email Address'
+            label='Email Address                      '
             placeholder='you@domain.com'
             value={this.state.email}
             onChangeText={email => this.setState({ email })}
@@ -71,10 +71,27 @@ class LoginForm extends Component {
 }
 const styles = {
     errorTextStyle: {
-        color: '#E64A19',
-        alignSelf: 'center',
-        paddingTop: 10,
-        paddingBottom: 10
+      color: '#E64A19',
+      alignSelf: 'center',
+      paddingTop: 10,
+      paddingBottom: 10,
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+    loadingTextStyle: {
+      color: '#E64A19',
+      alignSelf: '#000000',
+      paddingTop: 10,
+      paddingBottom: 10,
+      fontSize: 18,
+      fontWeight: 'bold',
+    },
+    container: {
+      padding: 10,
+      paddingHorizontal: 10,
+      backgroundColor: '#FFFFFF',
+      opacity: .7,
+      borderRadius: 5
     }
 };
 
