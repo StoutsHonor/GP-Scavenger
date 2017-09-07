@@ -44,13 +44,15 @@ class LoadingPage extends Component {
   }
   
   spin() {
+    console.log('spinValue: ', this.spinValue)
     this.spinValue.setValue(0)
     Animated.timing(
       this.spinValue,
       {
         toValue: 1,
-        duration: 4000,
-        easing: Easing.linear
+        duration: 6000,
+        easing: Easing.linear,
+        useNativeDriver: true
       }
     ).start(() => this.spin())
   }
@@ -67,7 +69,7 @@ class LoadingPage extends Component {
         <Animated.Image 
         style={{width: 280, height: 285, flex: 0, flexDirection: 'column', justifyContent: 'center', transform: [{rotate: spin}] }}
           source={{uri: 'http://i.imgur.com/qIaUrfj.png'}} />
-        <Text style={{fontSize: 40, color: '#f2f2f2', flex: 0, flexDirection: 'column', justifyContent: 'center'}}>Now Loading...</Text>
+        <Text style={{fontFamily: 'Roboto', fontSize: 40, color: '#f2f2f2', flex: 0, flexDirection: 'column', justifyContent: 'center'}}>Now Loading...</Text>
       </View>
     )
   }
