@@ -17,6 +17,8 @@ import ModularMap from '../reusable/ModularMap'
 import ModularList from '../reusable/ModularList'
 import config from '../../../config/config'
 import { Container, Content } from 'native-base';
+import LoadingPage from '../reusable/LoadingPage'
+
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ getGameId, getGameInfo }, dispatch)
@@ -40,7 +42,8 @@ class JoinGame extends Component {
       games: [],
       gameStartMarkers: [],
       showList: true,
-      view: 'list'
+      view: 'list',
+      loading: true
     }
 
     this.modularListEntryButtonAction = this.modularListEntryButtonAction.bind(this)
@@ -56,7 +59,7 @@ class JoinGame extends Component {
       .then( (response) => response.json())
       .then( (data) => {
         //console.log(data, 'just fetched')
-        this.setState({games: data})
+        this.setState({games: data, loading: false})
 
         // let gameStartLocations = games.map( (game) => {return {latitude: game.startLocation[0], longitude: game.startLocation[1]} })
         // this.setState({ gameStartMarkers: gameStartLocations}, () => {
@@ -101,20 +104,25 @@ class JoinGame extends Component {
 
     return (
       <SideMenu menu={<HomePage/>}>
-        <Container style={styles.container}>
-          <Content style={styles.content}>
-          <Button title="Toggle View"
-          onPress={() => {
-            if (this.state.view === 'map') {
-            this.setState({view: 'list'})
-            } else {
-            this.setState({view: 'map'})
-            } 
-          }}/>
-          {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} data={this.state.games}/> : null}
-          {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games}/> : null}
-          </Content>
-        </Container>
+
+        {this.state.loading ? <LoadingPage/> : 
+
+          <Container style={styles.container}>
+            <Content style={styles.content}>
+            <Button title="Toggle View"
+            onPress={() => {
+              if (this.state.view === 'map') {
+              this.setState({view: 'list'})
+              } else {
+              this.setState({view: 'map'})
+              } 
+            }}/>
+            {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} data={this.state.games}/> : null}
+            {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games}/> : null}
+            </Content>
+          </Container>
+          
+        }
       </SideMenu>
     );
   }
