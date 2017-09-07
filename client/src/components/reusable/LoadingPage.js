@@ -4,7 +4,8 @@ import {
   Text,
   View,
   Animated,
-  Image
+  Image,
+  Easing
 } from 'react-native';
 
 
@@ -31,18 +32,40 @@ import {
 class LoadingPage extends Component {
   constructor(props) {
     super(props);
+    this.spinValue = new Animated.Value(0)
+    this.spin = this.spin.bind(this)
     this.state = {
     };
   }
 
   componentDidMount() {
     // setTimeout(() => {this.setState({loading: false})}, 2000)
+    this.spin()
+  }
+  
+  spin() {
+    this.spinValue.setValue(0)
+    Animated.timing(
+      this.spinValue,
+      {
+        toValue: 1,
+        duration: 4000,
+        easing: Easing.linear
+      }
+    ).start(() => this.spin())
   }
 
   render() {
+
+    const spin = this.spinValue.interpolate({
+      inputRange: [0, 1],
+      outputRange: ['0deg', '360deg']
+    })
+
     return(
       <View style={styles.container}>
-        <Image style={{width: 280, height: 285, flex: 0, flexDirection: 'column', justifyContent: 'center'}}
+        <Animated.Image 
+        style={{width: 280, height: 285, flex: 0, flexDirection: 'column', justifyContent: 'center', transform: [{rotate: spin}] }}
           source={{uri: 'http://i.imgur.com/qIaUrfj.png'}} />
         <Text style={{fontSize: 40, color: '#f2f2f2', flex: 0, flexDirection: 'column', justifyContent: 'center'}}>Now Loading...</Text>
       </View>
