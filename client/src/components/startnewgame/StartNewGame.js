@@ -7,12 +7,29 @@ import {
   ScrollView
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import {getGameId, getGameInfo} from '../../actions/index.js'
 import ModularMap from '../reusable/ModularMap';
 import ModularList from '../reusable/ModularList';
 import config from '../../../config/config';
 import SideMenu from 'react-native-side-menu';
 import HomePage from '../HomePage';
 import LoadingPage from '../reusable/LoadingPage'
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ getGameId, getGameInfo }, dispatch)
+}
+
+const mapStateToProps = (state) => {
+  console.log('mapStateToProps: ', state)
+  return {
+    userId: state.client.userIdentity,
+    gameId: state.play.gameId,
+    gameInfo: state.play.gameInfo,
+    challenges: state.play.allChallenges
+  }
+}
 
 class StartNewGame extends Component {
   constructor(props) {
@@ -28,6 +45,7 @@ class StartNewGame extends Component {
     }
 
     this.modularListEntryButtonAction = this.modularListEntryButtonAction.bind(this);
+    this.onStartNewGameListEntryClick = this.onStartNewGameListEntryClick.bind(this);
   }
 
   componentWillMount() {
@@ -51,15 +69,17 @@ class StartNewGame extends Component {
   }  
   
   modularListEntryButtonAction(gamedata) {
-    console.log('StartNewGame: modularListEntryButtonAction pressed')
-    console.log('gamedata: ', gamedata)
+    // console.log('StartNewGame: modularListEntryButtonAction pressed')
+    // console.log('gamedata: ', gamedata)
     Actions.lobby({gamedata: gamedata})
     // update redux store CURRENT GAME with gamedata
+    this.props.getGameId(gamedata.id);
+    this.props.getGameInfo(gamedata);
   }
 
   onStartNewGameListEntryClick(game) {
     console.log(`StartNewGame - onJoinGameListEntryClick()`)
-    Actions.gameprofile({game})
+    Actions.gameprofile({game, typeOfAction: 'start game', buttonaction: this.modularListEntryButtonAction})
   }
 
   render() {
@@ -110,4 +130,4 @@ const style = StyleSheet.create({
 })
 
 
-export default StartNewGame;
+export default connect(mapStateToProps, mapDispatchToProps)(StartNewGame);

@@ -9,7 +9,7 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {getGameId, getGameInfo} from '../../actions/index.js'
+import {getGameId, getGameInfo} from '../../actions/index.js';
 import SideMenu from 'react-native-side-menu';
 import HomePage from '../HomePage';
 
@@ -94,7 +94,7 @@ class JoinGame extends Component {
 
   onJoinGameListEntryClick(game) {
     console.log(`JoinGame - onJoinGameListEntryClick()`)
-    Actions.gameprofile({game})
+    Actions.gameprofile({game, typeOfAction: 'join game', buttonaction: this.modularListEntryButtonAction})
   }
 
   render() {
