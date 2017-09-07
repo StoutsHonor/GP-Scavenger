@@ -42,7 +42,7 @@ class LoginForm extends Component {
   }
   renderButtonOrSpinner() {
     if (this.state.loading) {
-      return (<Text style={styles.loadingTextStyle}>Loading...</Text>);    
+      return (<Text>Loading...</Text>);    
     }
     return <Button onPress={this.onLoginPress.bind(this)} title="Log in" />;
   }
