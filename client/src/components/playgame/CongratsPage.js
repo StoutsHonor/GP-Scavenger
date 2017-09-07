@@ -20,7 +20,8 @@ const mapStateToProps = (state) => {
     gameId: state.play.gameId,
     gameInfo: state.play.gameInfo,
     challenges: state.play.allChallenges,
-    currentChallengeIndex: state.play.currentChallengeIndex
+    currentChallengeIndex: state.play.currentChallengeIndex,
+    gamePoints: state.play.gamePoints
   }
 }
 
@@ -46,7 +47,7 @@ class CongratsPage extends Component {
           method: 'POST',
           headers: {"Content-type": "application/json", "Accept": "application/json" },
           body: JSON.stringify({userId: 1,
-          rewardPoints: this.props.gameInfo.rewardPoints + this.state.userPoints})
+          rewardPoints: this.props.gamePoints + this.state.userPoints})
         })
     })
     .catch(err => console.error(err))
@@ -56,7 +57,7 @@ class CongratsPage extends Component {
     return(
       <View style={styles.container}>
       <Text style={styles.welcome}>You Won! You Earned:</Text>
-      <Text style={styles.points}>{this.props.gameInfo.rewardPoints}</Text>
+      <Text style={styles.points}>{this.props.gamePoints}</Text>
       <Text style={styles.welcome}>Points From This Game!!!</Text>
       <Text onPress={() => Actions.homepage()}>Back to Home</Text>
       <Text onPress={() => Actions.joingame({listtype: 'join'})}>Play Another</Text>

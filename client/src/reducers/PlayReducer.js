@@ -18,6 +18,8 @@ export default function(state = initialState, action) {
       return Object.assign({}, state, {gameId: action.payload})
     case get_game:
       return Object.assign({}, state, {gameInfo: action.payload})
+    case set_current_challenge_index:
+      return Object.assign({}, state, {currentChallengeIndex: action.payload})
     case get_all_game_challenges:
       return Object.assign({}, state, {allChallenges: action.payload})
     case set_game_points:

@@ -137,7 +137,6 @@ class Lobby extends Component {
   }
 
   render() {
-    console.log(this.props.gamePoints, 'game points in Lobby')
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -154,7 +153,6 @@ class Lobby extends Component {
     });
     
     return (
-<<<<<<< HEAD
       <View style={this.state.styles.container}>
         <Text style={this.state.styles.lobbytext}>Welcome to the Lobby</Text>
         <View style={this.state.styles.chat}>
@@ -178,26 +176,14 @@ class Lobby extends Component {
               })}
             </View>
           </View>
-
           <Button style={this.state.styles.button} onPress={() => {
-=======
-      <View style={styles.container}>
-        <Text>Welcome to Lobby</Text>
-        {/* <Chat /> */}
-        <Button onPress={() => {
-          this.props.setGamePoints(2000);
->>>>>>> setting up game points reducer
+            this.props.setGamePoints(this.props.gameInfo.rewardPoints);
           console.log('Lobby: button pressed, props.gamedata is: ', this.props.gamedata)
-          {/* Actions.gameplay(this.props.gamedata) */}
+          Actions.gameplay(this.props.gamedata)
           }} 
           title='START GAME'  
-<<<<<<< HEAD
         /> 
          
-=======
-        />
-        {/* <Button title='test' onPress={() => this.props.setGamePoints(2000)}/> */}
->>>>>>> setting up game points reducer
       </View>
       
     );

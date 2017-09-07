@@ -36,7 +36,7 @@ class GuessPhotoChallenge extends Component {
   }
 
   handleClickSubmit() {
-    if(this.state.userInput.toLowerCase() === this.state.data.answer.toLowerCase()) {
+    if(this.state.userInput.toLowerCase().includes(this.state.data.answer.toLowerCase()) === true) {
       this.props.challengeCompleted();
     } else {
       this.setState({showTryAgain: true});
@@ -61,12 +61,8 @@ class GuessPhotoChallenge extends Component {
         <Text style={styles.margin}>{this.state.data.question}</Text>
         <Image
           style={{
-            flex: 2,
-            justifyContent: 'flex-end',
-            alignItems: 'center',
             width: Dimensions.get('window').width,
             height: 250
-            
           }}
           source={{uri: this.state.data.imageURL}}
         />

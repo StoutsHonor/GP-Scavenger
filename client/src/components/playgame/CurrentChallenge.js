@@ -40,6 +40,7 @@ class CurrentChallenge extends Component {
   constructor(props) {
     super(props);
     this.challengeCompleted = this.challengeCompleted.bind(this);
+    this.challengeSkipped = this.challengeSkipped.bind(this);
     this.getNextChallenge = this.getNextChallenge.bind(this);
     this.state = {
       modalVisible: false,
@@ -95,6 +96,7 @@ class CurrentChallenge extends Component {
     console.log(`CurrentChallenge.js - componentWillReceiveProps() - nextProps is`, nextProps)
     
     if (nextProps.challenges) {
+      if (nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId) {
       let currentChallengeType = nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId;
       let val = currentChallengeType;
       if(currentChallengeType === null) {
@@ -107,15 +109,20 @@ class CurrentChallenge extends Component {
         this.setState({ currentChallengeType: val })
       }
     }
+    }
   }
 
   challengeCompleted() {
     if (this.props.currentChallengeIndex+1 === this.props.challenges.length) {
-      Actions.congratspage()
+      Actions.congratspage();
     } else {
-      Actions.congratsnext()
+      Actions.congratsnext();
     }
     //this.setModalVisible(true)
+  }
+
+  challengeSkipped() {
+    Actions.failedchallenge();
   }
 
   getNextChallenge() {
@@ -131,20 +138,18 @@ class CurrentChallenge extends Component {
   
 
   render() {
-    console.log(this.props.gamePoints, 'game points')
     let currentChallenge = null
-    console.log('Current challenge index is ' + this.state.currentChallengeType);
     if (this.props.challenges) {
       if (this.state.currentChallengeType === 'GPS') {
-        currentChallenge = (<GPSChallenge currentChallenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>)
+        currentChallenge = (<GPSChallenge currentChallenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted} challengeSkipped={this.challengeSkipped}/>)
       } else if (this.state.currentChallengeType === 'riddle') {
-        currentChallenge = (<QuestionChallenge challenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>)
+        currentChallenge = (<QuestionChallenge challenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted} challengeSkipped={this.challengeSkipped}/>)
       } else if (this.state.currentChallengeType === 4) {
-        currentChallenge = (<CameraChallenge challenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>) 
+        currentChallenge = (<CameraChallenge challenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted} challengeSkipped={this.challengeSkipped}/>) 
       } else if (this.state.currentChallengeType === 5) {
-        currentChallenge = (<VideoChallenge challenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>)
+        currentChallenge = (<VideoChallenge challenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted} challengeSkipped={this.challengeSkipped}/>)
       } else if (this.state.currentChallengeType === 6) {
-        currentChallenge = (<GuessPhotoChallenge challenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted}/>)
+        currentChallenge = (<GuessPhotoChallenge challenge={this.props.challenges[this.props.currentChallengeIndex]} challengeCompleted={this.challengeCompleted} challengeSkipped={this.challengeSkipped}/>)
       }
     }
 
