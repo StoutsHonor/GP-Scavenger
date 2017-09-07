@@ -9,26 +9,6 @@ import {
 } from 'react-native';
 
 
-// // Redux Imports for binding stateToProps and dispatchToProps to the component
-// import {connect} from 'react-redux'
-// import {bindActionCreators} from 'redux'
-// import {clientLoadingUpdated} from '../../actions/index.js'
-
-// // gives the component access to store through props
-// const mapStateToProps = (state) => {
-//   console.log('Create Game state: ', state)
-//   return {
-//     clientLoading: state.client.clientLoading,
-//   }
-// }
-
-// // gives the component access to actions through props
-// const mapDispatchToProps = (dispatch) => {
-//   return bindActionCreators({clientLoadingUpdated}, dispatch)
-// }
-
-
-
 class LoadingPage extends Component {
   constructor(props) {
     super(props);
@@ -39,12 +19,10 @@ class LoadingPage extends Component {
   }
 
   componentDidMount() {
-    // setTimeout(() => {this.setState({loading: false})}, 2000)
     this.spin()
   }
   
   spin() {
-    console.log('spinValue: ', this.spinValue)
     this.spinValue.setValue(0)
     Animated.timing(
       this.spinValue,
@@ -85,4 +63,3 @@ const styles = StyleSheet.create({
 });
 
 export default LoadingPage
-// export default connect(mapStateToProps, mapDispatchToProps)(LoadingPage)
