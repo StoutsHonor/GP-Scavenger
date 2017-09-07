@@ -36,7 +36,6 @@ export default class GameProfile extends Component {
       //   </Content>
       // </Container>
       <Container>
-        <Header />
         <Content>
           <Card>
             <CardItem>
