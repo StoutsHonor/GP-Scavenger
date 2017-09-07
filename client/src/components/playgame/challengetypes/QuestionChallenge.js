@@ -28,10 +28,10 @@ class QuestionChallenge extends Component {
   }
 
   componentWillMount() {
-    setInterval(() => {
-      let count = this.state.timeRemaining - 1;
-      this.setState({timeRemaining: count});
-    },1000);
+    // setInterval(() => {
+    //   let count = this.state.timeRemaining - 1;
+    //   this.setState({timeRemaining: count});
+    // },1000);
 
     fetch(`${config.localhost}/api/questionType/findQuestionType/?questionTypeId=${this.props.challenge.questionTypeId}`)
     .then(response => response.json())

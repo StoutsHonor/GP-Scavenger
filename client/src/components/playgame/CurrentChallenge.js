@@ -51,7 +51,6 @@ class CurrentChallenge extends Component {
 
   componentWillMount() {
     console.log(`CurrentChallenge.js - componentWillMount() - this.props is`, this.props)
-
     let currentChallengeType = this.props.challenges[this.props.currentChallengeIndex].questionTypeId
     let val = currentChallengeType;
     if(currentChallengeType === null) {
@@ -94,8 +93,8 @@ class CurrentChallenge extends Component {
 
   componentWillReceiveProps(nextProps) {
     console.log(`CurrentChallenge.js - componentWillReceiveProps() - nextProps is`, nextProps)
-    
-    if (nextProps.challenges) {
+    console.log(nextProps.challenges, nextProps.currentChallengeIndex, "challenges and index at current")
+    if (nextProps.challenges && this.props.currentChallengeIndex === this.props.challenges.length) {
       if (nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId) {
       let currentChallengeType = nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId;
       let val = currentChallengeType;

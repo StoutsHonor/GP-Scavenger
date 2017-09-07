@@ -34,10 +34,10 @@ class FailedChallenge extends Component {
       console.log('if is hitting')
       if( this.props.index === this.props.challenges.length - 1) {
         this.setState({displayFinal: true});
-        let newPoints = this.props.gamePoints - Math.floor(this.props.gameInfo.rewardPoints / this.props.index);
+        let newPoints = this.props.gamePoints - Math.floor(this.props.gameInfo.rewardPoints / this.props.challenges.length);
         console.log(newPoints, 'points to subtract from')
         this.props.setGamePoints(newPoints);
-        this.props.setCurrentChallengeIndex(this.props.index + 1);
+        //this.props.setCurrentChallengeIndex(this.props.index + 1);
       } else {
         let newPoints = this.props.gamePoints - Math.floor(this.props.gameInfo.rewardPoints / this.props.challenges.length);
         console.log(newPoints, 'points to subtract from')
