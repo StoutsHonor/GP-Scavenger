@@ -13,6 +13,8 @@ import SideMenu from 'react-native-side-menu';
 import HomePage from '../HomePage';
 import { Header, Container, List, ListItem, Content, Separator } from 'native-base'
 
+
+
 class Leaderboard extends Component {
   constructor(props) {
     super(props);

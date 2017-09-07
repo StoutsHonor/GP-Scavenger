@@ -11,7 +11,7 @@ import MapView from 'react-native-maps';
 import MapCenterMarker from '../MapCenterMarker';
 import MapCurrentLocationButton from './MapCurrentLocationButton';
 import MapStoreLocationButton from './MapStoreLocationButton';
-import currLocImage from '../../media/currentLocationMarker_35x35.png'
+import currLocImage from '../../media/currentLocationMarker_85x85.png'
 
 const {width, height} = Dimensions.get('window');
 
@@ -166,7 +166,8 @@ class ModularMap extends Component {
          <MapView.Marker
           coordinate={this.state.currentLocation}
           image={currLocImage}
-         />
+         >
+         </MapView.Marker>
 
         </MapView>
         <MapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>

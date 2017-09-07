@@ -5,6 +5,7 @@ import {
   View
 } from 'react-native';
 import { ListItem, Left, Thumbnail, Text, Right, Button, Body, Separator, Container } from 'native-base';
+import { Actions } from 'react-native-router-flux';
 
 export default class ModularList extends Component {
   constructor(props) {
@@ -24,16 +25,17 @@ export default class ModularList extends Component {
     })
   }
 
-  componentDidMount() {
-    //console.log('ModularListEntry: state mounted, state is: ', this.state)
+  onListEntryClick() {
+    console.log(`ModularListEntryClick - onListEntryClick()`)
+    if (this.props.listentryclick) {
+      this.props.listentryclick(this.props.listentry)
+    }
   }
-
-
 
 
   render() {
     return (
-        <ListItem avatar>
+        <ListItem avatar onPress={() => {this.onListEntryClick()}} >
           <Left><Thumbnail source={{uri: 'https://incendia.net/wiki/images/2/23/Example_Texture1.png'}} /></Left>
           <Body>
             <Text>{this.props.listentry.name}</Text>

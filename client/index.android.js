@@ -77,6 +77,8 @@ import ModularList from './src/components/reusable/ModularList'
 import ModularMap from './src/components/reusable/ModularMap'
 import StartNewGame from './src/components/startnewgame/StartNewGame'
 import TitledInput from './src/components/reusable/TitledInput'
+import UserProfile from './src/components/reusable/UserProfile'
+import GameProfile from './src/components/reusable/GameProfile'
 
 
 export default class client extends Component {
@@ -291,6 +293,16 @@ export default class client extends Component {
               component={FailedPage}
               title="You did not complete the game."
               hideNavBar={true}
+            />
+
+            <Scene key="userprofile"
+              component={UserProfile}
+              title="User Profile"
+            />
+
+            <Scene key="gameprofile"
+              component={GameProfile}
+              title="Game Details"
             />
 
           </Scene>
