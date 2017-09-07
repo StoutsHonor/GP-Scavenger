@@ -21,7 +21,7 @@ import promise from 'redux-promise';
 import allReducers from './src/reducers/index.js';
 const createStoreWithMiddleware = applyMiddleware(promise)(createStore);
 
-
+import firebase from 'firebase'
 import config from './config/config.js'
 
 
@@ -92,6 +92,15 @@ export default class client extends Component {
 
 
   componentWillMount() {
+
+    firebase.initializeApp({
+      apiKey: config.firebase.apiKey,
+      authDomain: config.firebase.authDomain,
+      databaseURL: config.firebase.databaseURL,
+      projectId: config.firebase.projectId,
+      storageBucket: config.firebase.storageBucket,
+      messagingSenderId: config.firebase.messagingSenderId
+    })
   }
 
   dummyGet() {

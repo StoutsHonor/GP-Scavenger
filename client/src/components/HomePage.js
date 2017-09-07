@@ -38,8 +38,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-
-
 class HomePage extends Component {
   constructor(props) {
     super(props)
@@ -51,15 +49,7 @@ class HomePage extends Component {
   }
 
   componentWillMount() {
-  
-    firebase.initializeApp({
-      apiKey: config.firebase.apiKey,
-      authDomain: config.firebase.authDomain,
-      databaseURL: config.firebase.databaseURL,
-      projectId: config.firebase.projectId,
-      storageBucket: config.firebase.storageBucket,
-      messagingSenderId: config.firebase.messagingSenderId
-    })
+    console.log('HomePage willMount')
   }
 
   authSetUser(){
