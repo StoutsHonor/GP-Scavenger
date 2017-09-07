@@ -39,13 +39,17 @@ class Lobby extends Component {
     this.onReceivedMessage = this.onReceivedMessage.bind(this);
     this._storeMessages = this._storeMessages.bind(this);
     this.onReceivedJoinedLobby =  this.onReceivedJoinedLobby.bind(this);
+    this.updateOtherPlayer = this.updateOtherPlayer.bind(this);
 
     this.roomName = 'lobby' + this.props.gameId;
   
     this.state = {
       messages: [],
       totalPlayer: 0,
-      user: {},
+      user: {  
+        _id: 1,
+        name: '1'
+      },
       team1: [],
       team2: [],
       styles: {}
@@ -79,6 +83,7 @@ class Lobby extends Component {
     this.socket.emit('createRoom',  obj);
     this.socket.on('joinLobby', (this.onReceivedJoinedLobby));
     this.socket.on('message', this.onReceivedMessage);
+    this.socket.on('updateOtherPlayer', this.updateOtherPlayer);
 
   }
 
@@ -88,35 +93,59 @@ class Lobby extends Component {
     this.state.totalPlayer++;
     let team; 
     let teamName;
-    let user;
-    if (this.state.totalPlayer % 2) {
+
+    if (this.state.totalPlayer % 2 !== 0) {
       team = this.state.team1;
       team.push(this.state.totalPlayer + '');
       teamName = 'team1';
-      user = {  
-        _id: 1,
-        name: '1'
-      }
+
+      
     } else {
       team = this.state.team2;
       team.push(this.state.totalPlayer + '');
       teamName = 'team2';
-      user = {  
-        _id: 2,
-        name: '2'
-      }
-     
-    }
-    console.log('Team is ddddddddddddddddddddddddddd ', team);
+
+      
+    
+  }
     this.setState({ 
       [teamName]: team,
       totalPlayer: this.state.totalPlayer
-    }, () => {
-      this.setState({ user });
     });
 
 
+    let obj = {};
+    obj.roomName = this.roomName;
+    obj.totalPlayer = this.state.totalPlayer;
+    obj.team1 = this.state.team1;
+    obj.team2 = this.state.team2;
+
+    this.socket.emit('updateOtherPlayer', obj);
   }
+
+  updateOtherPlayer(message) {
+    
+    if(message.totalPlayer > this.state.totalPlayer) {
+      
+      if(this.state.totalPlayer === 1) {
+        let id = (message.totalPlayer % 2 === 0) ? 2 : 1;
+        let user = {
+          _id: id,
+          name: id + ''
+        };
+        this.setState({
+          user
+        });
+      }
+
+      this.setState({ 
+        team1: message.team1,
+        team2: message.team2,
+        totalPlayer: message.totalPlayer,
+      });
+  }
+}
+  
 
   onReceivedMessage(messages=[]) {
     console.log('Message was recieved', messages);
