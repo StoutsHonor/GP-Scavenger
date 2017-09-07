@@ -39,6 +39,10 @@ websocket.on('connection', (socket) => {
   socket.on('updateOtherPlayer', (message) => { 
     websocket.sockets.in(message.roomName).emit('updateOtherPlayer', message);
   });
+
+  socket.on('getOtherUserName', (message) => { 
+    websocket.sockets.in(message.roomName).emit('getOtherUserName', message);
+  });
 });
 
 
