@@ -8,7 +8,7 @@ const TitledInput = ({ label, value, onChangeText, placeholder, secureTextEntry 
 
     return (
         <View style={containerStyle}>
-            <Text style={labelStyle}>{label.toUpperCase()}</Text>
+            <Text style={labelStyle}>{label}</Text>
             <TextInput
                 autoCorrect={false}
                 placeholder={placeholder}
@@ -26,19 +26,16 @@ const styles = {
         paddingRight: 5,
         paddingLeft: 5,
         color: '#262626',
-        fontSize: 18,
-        fontWeight: '200',
-        height: 40
+        fontSize: 20,
     },
     labelStyle: {
-        fontSize: 12,
-        color: '#7F7D7D',
-        fontWeight: '200',
+        fontSize: 25,
+        color: '#000000',
+        fontWeight: 'bold',
     },
     containerStyle: {
-        height: 45,
-        width: '100%',
-        borderColor: '#D4D4D4',
+        height: 80,
+        margin: 10
     }
 };
 

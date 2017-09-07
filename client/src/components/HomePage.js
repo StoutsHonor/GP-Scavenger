@@ -63,8 +63,12 @@ class HomePage extends Component {
         {!this.props.userIdentity ? 
         
         <View style={styles.container}>
+          <View>
           <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../media/12-09-17-imavex-scavenger-hunt.jpg') } />
-          <LoginForm user={this.state.user} setusermethod={this.authSetUser}/> 
+          </View>
+          <View style={styles.containerMenu}>
+          <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
+          </View>
         </View>
         
         :
@@ -74,22 +78,22 @@ class HomePage extends Component {
           <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../media/12-09-17-imavex-scavenger-hunt.jpg') } />
           </View>
           <View style={styles.containerMenu}>
-          <Text style={styles.welcome}>
-            GPScavenger
-          </Text>
-            <Text style={styles.text} onPress={() => Actions.joingame({listtype: 'join'})}>Join</Text>
-            <Text style={styles.text} onPress={() => Actions.startnewgame({listtype: 'start'})}>Start New Game</Text>
-            <Text style={styles.text} onPress={() => Actions.creategame()}>Create Game</Text>
-            <Text style={styles.text} onPress={() => Actions.leaderboard()}>Leaderboard</Text>
-            <Text style={styles.text} onPress={() => Actions.friends()}>Friends</Text>
-            {/* <Text style={styles.text} onPress={() => Actions.preferences()}>Preferences</Text> */}
-            <Text style={styles.text} onPress={() => {
-              this.props.userLoggedIn({payload: {uid: null}})
-              firebase.auth().signOut()
-              console.log('userloggedOut')
-              }}>Log Out</Text>
+            <Text style={styles.welcome}>
+              GPScavenger
+            </Text>
+              <Text style={styles.text} onPress={() => Actions.joingame({listtype: 'join'})}>Join</Text>
+              <Text style={styles.text} onPress={() => Actions.startnewgame({listtype: 'start'})}>Start New Game</Text>
+              <Text style={styles.text} onPress={() => Actions.creategame()}>Create Game</Text>
+              <Text style={styles.text} onPress={() => Actions.leaderboard()}>Leaderboard</Text>
+              <Text style={styles.text} onPress={() => Actions.friends()}>Friends</Text>
+              {/* <Text style={styles.text} onPress={() => Actions.preferences()}>Preferences</Text> */}
+              <Text style={styles.text} onPress={() => {
+                this.props.userLoggedIn({payload: {uid: null}})
+                firebase.auth().signOut()
+                console.log('userloggedOut')
+                }}>Log Out</Text>
+            </View>
           </View>
-        </View>
 
         }
 
