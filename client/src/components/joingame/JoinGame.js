@@ -16,6 +16,7 @@ import HomePage from '../HomePage';
 import ModularMap from '../reusable/ModularMap'
 import ModularList from '../reusable/ModularList'
 import config from '../../../config/config'
+import { Container, Content } from 'native-base';
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ getGameId, getGameInfo }, dispatch)
@@ -91,22 +92,17 @@ class JoinGame extends Component {
     //console.log(`JoinGame - render(): this.state.games ${JSON.stringify(this.state.games)}`);
     const styles = StyleSheet.create({
       container: {
-        flex: 1,
-        justifyContent: 'center',
-        alignItems: 'center',
         backgroundColor: '#5F9EA0',
       },
-      welcome: {
-        fontSize: 20,
-        textAlign: 'center',
-        margin: 10,
-        color: '#ffffff',
-      },
+      content: {
+        
+      }
     });
 
     return (
       <SideMenu menu={<HomePage/>}>
-        <ScrollView>
+        <Container style={styles.container}>
+          <Content style={styles.content}>
           <Button title="Toggle View"
           onPress={() => {
             if (this.state.view === 'map') {
@@ -115,11 +111,10 @@ class JoinGame extends Component {
             this.setState({view: 'map'})
             } 
           }}/>
-          {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games}/> : null}
-
           {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} data={this.state.games}/> : null}
-
-        </ScrollView>
+          {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games}/> : null}
+          </Content>
+        </Container>
       </SideMenu>
     );
   }
