@@ -87,6 +87,7 @@ export const userEndedGame = (data) => {
 export const get_gameId = 'get_gameId';
 export const get_game = 'get_game';
 export const set_current_challenge_index = 'set_current_challenge_index';
+export const set_game_points = 'set_game_points';
 
 export const getGameId = (games) => {
   console.log('Games were submitted: ', games);
@@ -96,11 +97,11 @@ export const getGameId = (games) => {
   };
 };
 
-export const getGameInfo = (games) => {
-  console.log('Game info was submitted: ', games);
+export const getGameInfo = (game) => {
+  console.log('Game info was submitted: ', game);
   return {
       type: get_game,
-      payload: games
+      payload: game
   };
 };
 
@@ -116,5 +117,12 @@ export const setCurrentChallengeIndex = (index) => {
   return {
       type: set_current_challenge_index,
       payload: index
+  };
+};
+
+export const setGamePoints = (points) => {
+  return {
+      type: set_game_points,
+      payload: points
   };
 };

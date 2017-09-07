@@ -10,7 +10,6 @@ import {
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import MapView from 'react-native-maps';
-import {requestPermission} from 'react-native-android-permissions';
 import CreateMapCenterMarker from './CreateMapCenterMarker';
 import CreateMapCurrentLocationButton from './CreateMapCurrentLocationButton';
 import CreateMapStoreLocationButton from './CreateMapStoreLocationButton';

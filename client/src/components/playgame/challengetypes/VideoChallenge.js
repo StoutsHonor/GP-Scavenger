@@ -46,7 +46,7 @@ class VideoChallenge extends Component {
   }
 
   handleClickSubmit() {
-    if(this.state.userInput.toLowerCase() === this.state.data.answer.toLowerCase()) {
+    if(this.state.userInput.toLowerCase().includes(this.state.data.answer.toLowerCase()) === true) {
       this.props.challengeCompleted();
     } else {
       this.setState({showTryAgain: true});

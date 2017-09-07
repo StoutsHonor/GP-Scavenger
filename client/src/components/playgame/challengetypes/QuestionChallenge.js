@@ -20,7 +20,7 @@ class QuestionChallenge extends Component {
     this.handleClickProceed = this.handleClickProceed.bind(this);
     this.state = {
       userInput: '',
-      timeRemaining: 120,
+      timeRemaining: 500,
       showTryAgain: false,
       info: {},
       data: {}
@@ -28,10 +28,10 @@ class QuestionChallenge extends Component {
   }
 
   componentWillMount() {
-    setInterval(() => {
-      let count = this.state.timeRemaining - 1;
-      this.setState({timeRemaining: count});
-    },1000);
+    // setInterval(() => {
+    //   let count = this.state.timeRemaining - 1;
+    //   this.setState({timeRemaining: count});
+    // },1000);
 
     fetch(`${config.localhost}/api/questionType/findQuestionType/?questionTypeId=${this.props.challenge.questionTypeId}`)
     .then(response => response.json())
@@ -52,7 +52,6 @@ class QuestionChallenge extends Component {
   handleClickSubmit() {
     if(this.state.userInput.toLowerCase().includes(this.state.data.answer.toLowerCase()) === true) {
       this.props.challengeCompleted();
-      //Actions.congratsnext();
     } else {
       this.setState({showTryAgain: true});
       setTimeout(() => this.setState({showTryAgain: false}), 3000)
@@ -60,11 +59,12 @@ class QuestionChallenge extends Component {
   }
 
   handleClickSkip() {
-    if(this.state.timeRemaining > 10) {
-    this.setState({timeRemaining: this.state.timeRemaining - 10});
-    } else {
-      this.setState({timeRemaining: 0});
-    }
+    // if(this.state.timeRemaining > 10) {
+    // this.setState({timeRemaining: this.state.timeRemaining - 10});
+    // } else {
+    //   this.setState({timeRemaining: 0});
+    // }
+    this.props.challengeSkipped();
   }
 
   handleClickProceed() {

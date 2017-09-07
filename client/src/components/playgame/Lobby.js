@@ -10,13 +10,13 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getAllGameChallenges } from '../../actions/index.js'
+import { getAllGameChallenges, setGamePoints } from '../../actions/index.js'
 import config from '../../../config/config';
 import { GiftedChat } from 'react-native-gifted-chat';
 import io from 'socket.io-client';
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ getAllGameChallenges }, dispatch)
+  return bindActionCreators({ getAllGameChallenges, setGamePoints }, dispatch)
 }
 
 const mapStateToProps = (state) => {
@@ -25,7 +25,8 @@ const mapStateToProps = (state) => {
     userId: state.client.userIdentity,
     gameId: state.play.gameId,
     gameInfo: state.play.gameInfo,
-    challenges: state.play.allChallenges
+    challenges: state.play.allChallenges,
+    gamePoints: state.play.gamePoints
   }
 }
 
@@ -136,7 +137,6 @@ class Lobby extends Component {
   }
 
   render() {
-    console.log(this.props.gameInfo, 'game info in Lobby')
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -176,8 +176,8 @@ class Lobby extends Component {
               })}
             </View>
           </View>
-
           <Button style={this.state.styles.button} onPress={() => {
+            this.props.setGamePoints(this.props.gameInfo.rewardPoints);
           console.log('Lobby: button pressed, props.gamedata is: ', this.props.gamedata)
           Actions.gameplay(this.props.gamedata)
           }} 
