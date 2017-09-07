@@ -50,17 +50,18 @@ class CurrentChallenge extends Component {
   }
 
   componentWillMount() {
-    console.log(`CurrentChallenge.js - componentWillMount() - this.props is`, this.props)
-    let currentChallengeType = this.props.challenges[this.props.currentChallengeIndex].questionTypeId
-    let val = currentChallengeType;
-    if(currentChallengeType === null) {
-      console.log(`CurrentChallenge.js - componentWillMount() - currentChallengeType === null`)
-      this.setState({ currentChallengeType: 'GPS' })
-    } else if(currentChallengeType === 2 || currentChallengeType === 3) {
-      console.log(`CurrentChallenge.js - componentWillMount() - currentChallengeType === 2 or 3`)
-      this.setState({ currentChallengeType: 'riddle' })
-    } else {
-      this.setState({ currentChallengeType: val })
+    if(this.props.challenges) {
+      if(this.props.challenges[this.props.currentChallengeIndex].questionTypeId) {
+        let currentChallengeType = this.props.challenges[this.props.currentChallengeIndex].questionTypeId;
+        let val = currentChallengeType;
+        if(currentChallengeType === null) {
+          this.setState({ currentChallengeType: 'GPS' })
+        } else if(currentChallengeType === 2 || currentChallengeType === 3) {
+          this.setState({ currentChallengeType: 'riddle' })
+        } else {
+          this.setState({ currentChallengeType: val })
+        }
+      }
     }
     
     // else if (currentChallengeType === 4) {
@@ -92,22 +93,18 @@ class CurrentChallenge extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(`CurrentChallenge.js - componentWillReceiveProps() - nextProps is`, nextProps)
-    console.log(nextProps.challenges, nextProps.currentChallengeIndex, "challenges and index at current")
-    if (nextProps.challenges && this.props.currentChallengeIndex === this.props.challenges.length) {
+    if (nextProps.challenges) {
       if (nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId) {
-      let currentChallengeType = nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId;
-      let val = currentChallengeType;
-      if(currentChallengeType === null) {
-        console.log(`CurrentChallenge.js - componentWillReceiveProps() - currentChallengeType === null`)
-        this.setState({ currentChallengeType: 'GPS' })
-      } else if(currentChallengeType === 2 || currentChallengeType === 3) {
-        console.log(`CurrentChallenge.js - componentWillReceiveProps() - currentChallengeType === 2 or 3`)
-        this.setState({ currentChallengeType: 'riddle' })
-      } else {
-        this.setState({ currentChallengeType: val })
+        let currentChallengeType = nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId;
+        let val = currentChallengeType;
+        if(currentChallengeType === null) {
+          this.setState({ currentChallengeType: 'GPS' })
+        } else if(currentChallengeType === 2 || currentChallengeType === 3) {
+          this.setState({ currentChallengeType: 'riddle' })
+        } else {
+          this.setState({ currentChallengeType: val })
+        }
       }
-    }
     }
   }
 
@@ -152,7 +149,6 @@ class CurrentChallenge extends Component {
       }
     }
 
-    console.log('current Challenge is ', currentChallenge);
     return (
       <View  style={styles.container}>
         {currentChallenge}
