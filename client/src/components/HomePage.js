@@ -21,7 +21,7 @@ import {userLoggedIn} from '../actions/index.js'
 
 // gives the component access to store through props
 const mapStateToProps = (state) => {
-  console.log('HomePage: Redux Store: ', state)
+  console.log('HomePage mapStateToProps: Redux Store: ', state)
   return {
     userIdentity: state.client.userIdentity,
     userOwnedGames: state.client.userOwnedGames,
@@ -55,15 +55,13 @@ class HomePage extends Component {
   authSetUser(){
     console.log('HomePage: setting user:', firebase.auth().currentUser)
     this.props.userLoggedIn(firebase.auth().currentUser.providerData[0])
-    this.setState({user: firebase.auth().currentUser})
     
   }
 
   render () {
-    console.log('HomePage: this.state.user:', this.state.user)
     return (
       <View style={styles.container}>
-        {!this.state.user ? 
+        {!this.props.userIdentity ? 
         
         <View style={styles.container}>
           <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../media/12-09-17-imavex-scavenger-hunt.jpg') } />
@@ -85,6 +83,12 @@ class HomePage extends Component {
             <Text style={styles.text} onPress={() => Actions.creategame()}>Create Game</Text>
             <Text style={styles.text} onPress={() => Actions.leaderboard()}>Leaderboard</Text>
             <Text style={styles.text} onPress={() => Actions.friends()}>Friends</Text>
+            {/* <Text style={styles.text} onPress={() => Actions.preferences()}>Preferences</Text> */}
+            <Text style={styles.text} onPress={() => {
+              this.props.userLoggedIn({payload: {uid: null}})
+              firebase.auth().signOut()
+              console.log('userloggedOut')
+              }}>Log Out</Text>
           </View>
         </View>
 
@@ -104,6 +108,9 @@ const styles = StyleSheet.create({
   },
   welcome: {
     fontSize: 30,
+    fontWeight: 'bold',
+    textShadowColor: 'black',
+    textShadowRadius: 5,
     textAlign: 'center',
     margin: 10,
     color: '#ffffff',
