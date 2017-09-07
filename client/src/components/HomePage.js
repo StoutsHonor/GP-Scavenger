@@ -43,7 +43,6 @@ class HomePage extends Component {
     super(props)
     this.state = {
       dummyData: '',
-      user: null
     }
     this.authSetUser = this.authSetUser.bind(this)
   }
@@ -109,8 +108,6 @@ const styles = StyleSheet.create({
   welcome: {
     fontSize: 30,
     fontWeight: 'bold',
-    textShadowColor: 'black',
-    textShadowRadius: 5,
     textAlign: 'center',
     margin: 10,
     color: '#ffffff',
