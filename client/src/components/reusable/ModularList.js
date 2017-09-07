@@ -8,8 +8,10 @@ import {
   View,
   Dimensions,
   Platform,
+  ScrollView
 } from 'react-native';
 import ModularListEntry from './ModularListEntry'
+import { Container, List, ListItem, Content, Separator } from 'native-base'
 
 const window = Dimensions.get('window');
 
@@ -60,15 +62,13 @@ export default class ModularList extends Component {
 
   render() {
     return (
-      <View style={styles.main}>
-        <Text>Hello Modular List</Text>
-        {this.props.data.map((listEntry, index) => {
-          return (
-            <ModularListEntry key={index} listentry={listEntry} buttontext={this.props.viewmode} buttonaction={this.props.buttonaction}/>
-          )
-        })}
-
-      </View>
+      <Container style={styles.container}>
+        <Content>
+          <List>
+          {this.props.data.map((listEntry, index) => { return ( <ModularListEntry key={index} listentry={listEntry} buttontext={this.props.viewmode} buttonaction={this.props.buttonaction}/> ) })}
+          </List>
+        </Content>
+      </Container>
     );
   }
 
@@ -81,15 +81,7 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#eee',
-
-    ...Platform.select({
-      ios: {
-        paddingTop: 20,
-      },
-    }),
   },
 
   title: {

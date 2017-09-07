@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
   Image,
-  View,
-  Button,
+  View
 } from 'react-native';
+import { ListItem, Left, Thumbnail, Text, Right, Button, Body, Separator, Container } from 'native-base';
 
 export default class ModularList extends Component {
   constructor(props) {
@@ -34,18 +33,19 @@ export default class ModularList extends Component {
 
   render() {
     return (
-      <View style={styles.container}>
-        <Text>Modular List Entry</Text>
-        <Text>{JSON.stringify(this.props.listentry)}</Text>
-        <Button
-          onPress={() => {
-            console.log('list entry!')
-            this.props.buttonaction(this.props.listentry)
-          }}
-          title={this.props.buttontext}
-        />
-
-      </View>
+        <ListItem avatar>
+          <Left><Thumbnail source={{uri: 'https://incendia.net/wiki/images/2/23/Example_Texture1.png'}} /></Left>
+          <Body>
+            <Text>{this.props.listentry.name}</Text>
+            <Text note>Start: {this.props.listentry.startLocation}</Text>
+            <Text note>Max Players: {this.props.listentry.maxPlayers}</Text>
+          </Body>
+          <Right>
+            <Button rounded primary onPress={() => {
+                console.log('list entry!')
+                this.props.buttonaction(this.props.listentry)}}><Text>{this.props.buttontext}</Text></Button>
+          </Right>
+        </ListItem>
     );
   }
 
@@ -56,3 +56,5 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff',
   }
 });
+
+//          <Text>{JSON.stringify(this.props.listentry)}</Text>

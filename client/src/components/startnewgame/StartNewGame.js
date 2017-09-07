@@ -3,7 +3,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  ScrollView
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import ModularMap from '../reusable/ModularMap';
@@ -73,7 +74,7 @@ class StartNewGame extends Component {
 
     return (
       <SideMenu menu={<HomePage/>}>
-      <View>
+      <ScrollView>
         <Button title="Toggle View"
         onPress={() => {
           if (this.state.view === 'map') {
@@ -86,10 +87,18 @@ class StartNewGame extends Component {
 
         {this.state.view === 'map' ? <ModularMap entrytype={this.props.listtype} data={this.state.games}/> : null}
 
-      </View>
+      </ScrollView>
       </SideMenu>
     );
   }
 }
+
+const style = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#5F9EA0',
+  }
+})
+
 
 export default StartNewGame;

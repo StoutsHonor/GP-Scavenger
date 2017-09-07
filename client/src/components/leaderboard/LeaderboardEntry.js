@@ -1,11 +1,10 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
   View,
-  Button,
   Image
 } from 'react-native';
+import { ListItem, Left, Thumbnail, Text, Right, Button, Body, Separator, Container } from 'native-base';
 
 class LeaderboardEntry extends Component {
   constructor(props) {
@@ -16,18 +15,28 @@ class LeaderboardEntry extends Component {
 
   render() {
     return (
-      <View>
-        <Text>{this.props.index + 1}</Text>
-        <Image
-          style={{width: 50, height: 50}}
-          source={{uri: this.props.player.profilePicture}}
-        />
-        <Text>{this.props.player.username}</Text>
-        <Text>{this.props.player.firstName + " " + this.props.player.lastName}</Text>
-        <Text>{this.props.player.rewardPoints + " points"}</Text>
-      </View>
+      <ListItem avatar>
+        <Left>
+        <Text style={styles.rank}>{this.props.index + 1}</Text>
+        </Left>
+        <Body>
+        <Thumbnail source={{uri: this.props.player.profilePicture}} />
+        <Text style={styles.text}>{this.props.player.username}</Text>
+        </Body>
+        <Right>
+        <Text style={styles.text}>{this.props.player.rewardPoints + " points"}</Text>
+        </Right>
+      </ListItem>
     );
   }
 }
+
+
+const styles = StyleSheet.create({
+  rank: {
+    fontSize: 25
+  },
+
+})
 
 export default LeaderboardEntry;

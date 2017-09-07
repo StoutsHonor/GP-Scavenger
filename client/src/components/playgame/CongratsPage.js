@@ -60,7 +60,7 @@ class CongratsPage extends Component {
       <Text style={styles.points}>{this.props.gameInfo.rewardPoints}</Text>
       <Text style={styles.welcome}>Points From This Game!!!</Text>
       <Text onPress={() => Actions.homepage()}>Back to Home</Text>
-      <Text onPress={() => Actions.joingame()}>Play Another</Text>
+      <Text onPress={() => Actions.joingame({listtype: 'join'})}>Play Another</Text>
       <Text onPress={() => Actions.leaderboard()}>Leaderboard</Text>
     </View>
     )
