@@ -16,7 +16,7 @@ import FloatingButton from '../reusable/FloatingButton';
 import TitledInput from '../reusable/TitledInput';
 import config from '../../../config/config';
 
-import { Container, Header, List, ListItem, Content, Separator, Form, Item, Input, Tab, Tabs } from 'native-base'
+import { Container, Header, List, ListItem, Content, Separator, Form, Item, Input, Tab, Tabs, Icon } from 'native-base'
 
 
 // Redux Imports for binding stateToProps and dispatchToProps to the component
@@ -267,7 +267,7 @@ class CreateGame extends Component {
       <Container style={styles.container}>
         <Content>
 
-        <Tabs initialPage={1}>
+        <Tabs initialPage={0}>
           <Tab heading="Info">
 
             <View>
@@ -333,6 +333,9 @@ class CreateGame extends Component {
                 <Button onPress={() => {Actions.createMap({setting: 'createStartLoc'})}}
                 title="Set Starting Location"
                 color="#423527"/>
+
+                <Icon name='home'/>
+
 
                 <Button onPress={() => {this.props.enteredField('createGameStartingLocation', null)}}
                 title="Clear Starting Location"
