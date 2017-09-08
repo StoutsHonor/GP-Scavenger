@@ -56,6 +56,8 @@ class CurrentChallenge extends Component {
       currentChallengeType: '',
       displayChallenge: null
     }
+
+    
   }
 
   componentWillMount() {
@@ -105,7 +107,6 @@ class CurrentChallenge extends Component {
     this.socket.emit('createRoom',  this.gameName);
     this.socket.on('congratsPage', this.congratsPage);
     this.socket.on('congratsNext', this.congratsNext);
-
     this.determinedTeam();
   }
 
@@ -126,7 +127,6 @@ class CurrentChallenge extends Component {
   }
   
   determinedTeam() {
-    console.log('Current team is dddddddddd ', this.props.currentGameTeam1);
     for(let val of this.props.currentGameTeam1) {
       if(val === this.props.userId) {
         this.team = 'team1';
@@ -138,8 +138,8 @@ class CurrentChallenge extends Component {
   }
   challengeCompleted() {
     let message = {};
-    message.gameName = this.state.gameName;
-    message.team = this.state.team;
+    message.gameName = this.gameName;
+    message.team = this.team;
     if (this.props.currentChallengeIndex+1 === this.props.challenges.length) {
       this.socket.emit('congratsPage', message);
     } else {
@@ -149,13 +149,13 @@ class CurrentChallenge extends Component {
   }
 
   congratsPage(team) {
-    if(team === this.state.team) {
+    if(team === this.team) {
       Actions.congratspage();
     }
   }
 
   congratsNext(team) {
-    if(team === this.state.team) {
+    if(team === this.team) {
       Actions.congratsnext();
     }
   }

@@ -152,7 +152,14 @@ class Lobby extends Component {
       message.team1 = this.state.team1;
       message.team2 = this.state.team2;
       message.totalPlayer = this.state.totalPlayer;
+
+      this.props.updatedTeams({
+        team1: message.team1,
+        team2: message.team2
+      });
+
       this.socket.emit('updateOtherPlayer', message);
+
     }
 
     
@@ -173,22 +180,23 @@ class Lobby extends Component {
           user
         });
       }
-
-      this.props.updatedTeams({
-        currentGameTeam1: message.team1,
-        currentGameTeam2: message.team2
-      });
-
-
      
       this.setState({ 
         team1: message.team1,
         team2: message.team2,
         totalPlayer: message.totalPlayer,
-      });
+      });  
 
-     
+      this.props.updatedTeams({
+        team1: message.team1,
+        team2: message.team2
+      });
   } 
+
+  
+  
+
+
  
 
   if(this.state.totalPlayer >= 2) {
