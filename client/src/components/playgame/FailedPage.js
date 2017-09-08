@@ -10,7 +10,8 @@ const FailedPage = () => {
   return (
     <View style={styles.container}>
       <Text style={styles.welcome}>
-        You did not complete the challenges on time...Would you like to try again???
+        The other team won! 
+        Aw well, try again.
       </Text>
       <Text onPress={() => Actions.startgame()}>Try Again</Text>
       <Text onPress={() => Actions.homepage()}>Back to Home</Text>
