@@ -4,7 +4,9 @@ import {
   Text,
   View,
   Button,
-  ScrollView
+  Image,
+  ScrollView,
+  TouchableOpacity
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -48,8 +50,9 @@ class JoinGame extends Component {
       isOpen: false
     }
     this.toggleSideMenu = this.toggleSideMenu.bind(this);
-    this.modularListEntryButtonAction = this.modularListEntryButtonAction.bind(this)
-    this.onJoinGameListEntryClick = this.onJoinGameListEntryClick.bind(this)
+    this.modularListEntryButtonAction = this.modularListEntryButtonAction.bind(this);
+    this.onJoinGameListEntryClick = this.onJoinGameListEntryClick.bind(this);
+    this.openDrawer = this.openDrawer.bind(this);
   }
 
   componentWillMount() {
@@ -83,7 +86,9 @@ class JoinGame extends Component {
 
   }  
   
-
+  ComponentDidMount() {
+    Actions.refresh({ renderRightButton: this.renderRightButton})
+  }
 
   modularListEntryButtonAction(gamedata) {
     //console.log('JoinGame: modularListEntryButtonAction pressed')
@@ -116,8 +121,19 @@ class JoinGame extends Component {
   openDrawer = () => {
     this.drawer._root.open()
   };
+
+  static renderRightButton = (props) => {
+    return (
+      <TouchableOpacity onPress={() => { console.log('pressed')}}>
+          <Image 
+            source={{uri: 'https://lh3.ggpht.com/Hx7-WlRNMo20ifN60izH06mo0fwzo8nzKWxC4RstuKCULEwwQWh4UY4ELoappRVRcz4=w300'}}
+            style={{width: 30, height: 30}}
+          />
+      </TouchableOpacity>
+    ); 
+  }
+
   render() {
-    //console.log(`JoinGame - render(): this.state.games ${JSON.stringify(this.state.games)}`);
     const styles = StyleSheet.create({
       container: {
         backgroundColor: '#5F9EA0',

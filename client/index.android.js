@@ -29,7 +29,7 @@ import config from './config/config.js'
 // import Card from './src/components/Card'
 // import CardSection from './src/components/CardSection'
 
-import { Router, Scene } from 'react-native-router-flux';
+import { Router, Scene, Drawer } from 'react-native-router-flux';
 import MyCamera from './src/components/MyCamera';
 
 // import GameLog from './src/components/GameLog';
@@ -180,7 +180,6 @@ export default class client extends Component {
             <Scene key="joingame"
               component={JoinGame}
               title="Join Game"
-              onRight={console.log('pressed')}
             />
 
             <Scene key="startnewgame"

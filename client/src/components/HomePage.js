@@ -4,9 +4,9 @@ import {
   Text,
   View,
   Image,
-  Button,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { Button } from 'react-native-elements';
 import homepageBackground from '../media/12-09-17-imavex-scavenger-hunt.jpg'
 
 import LoginForm from './login/LoginForm'
@@ -70,9 +70,7 @@ class HomePage extends Component {
           <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
           </View>
         </View>
-        
         :
-
         <View style={styles.container}>
           <View>
           <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../media/12-09-17-imavex-scavenger-hunt.jpg') } />
@@ -81,20 +79,25 @@ class HomePage extends Component {
             <Text style={styles.welcome}>
               GPScavenger
             </Text>
-              <Text style={styles.text} onPress={() => Actions.joingame({listtype: 'join'})}>Join</Text>
-              <Text style={styles.text} onPress={() => Actions.startnewgame({listtype: 'start'})}>Start New Game</Text>
-              <Text style={styles.text} onPress={() => Actions.creategame()}>Create Game</Text>
-              <Text style={styles.text} onPress={() => Actions.leaderboard()}>Leaderboard</Text>
-              <Text style={styles.text} onPress={() => Actions.friends()}>Friends</Text>
-              {/* <Text style={styles.text} onPress={() => Actions.preferences()}>Preferences</Text> */}
-              <Text style={styles.text} onPress={() => {
-                this.props.userLoggedIn({payload: {uid: null}})
-                firebase.auth().signOut()
-                console.log('userloggedOut')
-                }}>Log Out</Text>
-            </View>
-          </View>
 
+            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bolder" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'public', color: "#211b07"}} title='Join Game' 
+              onPress={() => Actions.joingame({listtype: 'join'})}/>
+            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bolder" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'casino', color: "#211b07"}} title='Start New Game' 
+              onPress={() => Actions.startnewgame({listtype: 'start'})}/>
+            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bolder" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'build', color: "#211b07"}} title='Create Game' 
+              onPress={() => Actions.creategame()}/>
+            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bolder" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'poll', color: "#211b07"}} title=' Leaderboard' 
+              onPress={() => Actions.leaderboard()}/>
+            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bolder" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'group', color: "#211b07"}} title='Friends' 
+              onPress={() => Actions.friends()}/>
+            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bolder" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'settings power', color: "#211b07"}} title=' Log Out' 
+              onPress={() => {
+              this.props.userLoggedIn({payload: {uid: null}})
+              firebase.auth().signOut()
+              console.log('userloggedOut')
+              }} />
+          </View>
+        </View>
         }
 
       </View>
@@ -110,11 +113,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#6495ED',
   },
   welcome: {
-    fontSize: 30,
+    fontSize: 40,
+    fontFamily: 'cursive',
     fontWeight: 'bold',
     textAlign: 'center',
     margin: 10,
-    color: '#ffffff',
+    color: '#6d5809',
   },
   text: {
     fontSize: 30,
@@ -126,6 +130,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     position: 'absolute',
   },
+  buttons: {
+    backgroundColor: 'transparent',
+
+  }
 });
 
 // export default HomePage;
