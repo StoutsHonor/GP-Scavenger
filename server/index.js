@@ -52,6 +52,10 @@ websocket.on('connection', (socket) => {
     websocket.sockets.in(message.gameName).emit('congratsPage', message.team);
   });
 
+  socket.on('loserPage', (message) => {
+    websocket.sockets.in(message.gameName).emit('loserPage', message);
+  });
+
   socket.on('congratsNext', (message) => { 
     websocket.sockets.in(message.gameName).emit('congratsNext', message.team);
   });

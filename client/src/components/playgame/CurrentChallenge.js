@@ -48,6 +48,7 @@ class CurrentChallenge extends Component {
     this.congratsPage = this.congratsPage.bind(this);
     this.congratsNext = this.congratsNext.bind(this);
     this.determinedTeam = this.determinedTeam.bind(this);
+    this.loserPage = this.loserPage.bind(this);
     this.gameName = 'game' + this.props.gameId;
     this.team = null;
 
@@ -80,6 +81,7 @@ class CurrentChallenge extends Component {
     this.socket.emit('createRoom',  this.gameName);
     this.socket.on('congratsPage', this.congratsPage);
     this.socket.on('congratsNext', this.congratsNext);
+    this.socket.on('loserPage', this.loserPage);
     this.determinedTeam();
   }
 
@@ -103,19 +105,23 @@ class CurrentChallenge extends Component {
     for(let val of this.props.currentGameTeam1) {
       if(val === this.props.userId) {
         this.team = 'team1';
+        this.otherTeam = 'team2';
         return;
       }
     }
     this.team = 'team2';
+    this.otherTeam = 'team1';
   }
 
   challengeCompleted() {
     let message = {};
     message.gameName = this.gameName;
     message.team = this.team;
+    message.otherTeam = this.otherTeam;
 
     if (this.props.currentChallengeIndex+1 === this.props.challenges.length) {
       this.socket.emit('congratsPage', message);
+      this.socket.emit('loserPage', message);
     } else {
       this.socket.emit('congratsNext', message);
     }
@@ -125,6 +131,12 @@ class CurrentChallenge extends Component {
   congratsPage(team) {
     if(team === this.team) {
       Actions.congratspage();
+    }
+  }
+
+  loserPage(team) {
+    if (team.otherTeam === this.team) {
+      Actions.failedpage();
     }
   }
 
