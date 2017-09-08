@@ -5,7 +5,8 @@ import {
   View,
   Button,
   Alert,
-  ScrollView
+  ScrollView,
+  Image,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CreateList from './CreateList';
@@ -15,7 +16,7 @@ import FloatingButton from '../reusable/FloatingButton';
 import TitledInput from '../reusable/TitledInput';
 import config from '../../../config/config';
 
-import { Container, List, ListItem, Content, Separator } from 'native-base'
+import { Container, Header, List, ListItem, Content, Separator, Form, Item, Input, Tab, Tabs, Icon } from 'native-base'
 
 
 // Redux Imports for binding stateToProps and dispatchToProps to the component
@@ -265,93 +266,124 @@ class CreateGame extends Component {
       <SideMenu menu={<HomePage/>}>
       <Container style={styles.container}>
         <Content>
-          <TitledInput
-            label='Game Name'
-            placeholder='Enter Here...'
-            value={this.props.createGameName}
-            onChangeText={(e) => {this.props.enteredField('createGameName', e)}}
-          />
-          <TitledInput
-            label='Game Description'
-            placeholder='Enter Here...'
-            value={this.props.createGameDescription}
-            onChangeText={(e) => {this.props.enteredField('createGameDescription', e)}}
-          />
-          <TitledInput
-            label='Duration (Minutes)'
-            placeholder='Enter Here...'
-            value={this.props.createGameDuration}
-            onChangeText={(e) => {
-              if (isNaN(e)) {
-                Alert.alert(
-                  'Error',
-                  'Game Duration must be a number!',
-                  [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')},]
-                )
-                this.props.enteredField('createGameDuration', '')
-              } else {
-                this.props.enteredField('createGameDuration', Math.ceil(e))
-              }
-            }}
-          />
-          <TitledInput
-            label='Max Players'
-            placeholder='Enter Here...'
-            value={this.props.createGameMaxPlayers}
-            onChangeText={(e) => {
-              if (isNaN(e)) {
-                Alert.alert(
-                  'Error',
-                  'Max Players must be a number!',
-                  [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')},]
-                )
-                this.props.enteredField('createGameMaxPlayers', '')
-              } else {
-                this.props.enteredField('createGameMaxPlayers', Math.ceil(e))
-              }
-            }}
-          />
+
+        <Tabs initialPage={0}>
+          <Tab heading="Info">
+
+            <View>
+              <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../../media/createGameBackground2.png') } />
+            </View>
+
+            <Form style={styles.containerMenu}>
+              <Item>
+                <Text style={styles.labelText}>Name: </Text>
+                <Input placeholder="Enter Here.." value={this.props.createGameName} onChangeText={(e) => {this.props.enteredField('createGameName', e)}} style={styles.inputText}/>
+              </Item>
+
+              <Item>
+                <Text style={styles.labelText}>Description: </Text>
+                <Input placeholder="Enter Here.." value={this.props.createGameDescription} onChangeText={(e) => {this.props.enteredField('createGameDescription', e)}}
+                style={styles.inputText}/>
+              </Item>
+
+              <Item>
+                <Text style={styles.labelText}>Duration (Minutes): </Text>
+                <Input placeholder="Enter Here.." value={this.props.createGameDuration}
+                onChangeText={(e) => {
+                  if (isNaN(e)) {
+                    Alert.alert(
+                      'Error',
+                      'Game Duration must be a number!',
+                      [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')},]
+                    )
+                    this.props.enteredField('createGameDuration', '')
+                  } else {
+                    this.props.enteredField('createGameDuration', Math.ceil(e))
+                  }
+                }}
+                style={styles.inputText}/>
+              </Item>
+
+              <Item>
+                <Text style={styles.labelText}>Max Players: </Text>
+                <Input placeholder="Enter Here.." value={this.props.createGameMaxPlayers}
+                onChangeText={(e) => {
+                  if (isNaN(e)) {
+                    Alert.alert(
+                      'Error',
+                      'Max Players must be a number!',
+                      [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')},]
+                    )
+                    this.props.enteredField('createGameMaxPlayers', '')
+                  } else {
+                    this.props.enteredField('createGameMaxPlayers', Math.ceil(e))
+                  }
+                }}
+                style={styles.inputText}/>
+              </Item>
+
+              <Item>
+                <Text style={styles.labelText}>Start Location: </Text>
+                <Text style={styles.inputText}>
+                  {this.props.createGameStartingLocation ? 'Latitude: ' + JSON.stringify(this.props.createGameStartingLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createGameStartingLocation.longitude.toFixed(2)) : '(No Location Set)'}
+                </Text>
+              </Item>
+
+              <Item>
+                <Button onPress={() => {Actions.createMap({setting: 'createStartLoc'})}}
+                title="Set Starting Location"
+                color="#423527"/>
+
+                <Icon name='home'/>
 
 
-          <Text>{'Start Location: '}{this.props.createGameStartingLocation ? 'Latitude: ' + JSON.stringify(this.props.createGameStartingLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createGameStartingLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
-
-          <Button onPress={() => {Actions.createMap({setting: 'createStartLoc'})}}
-          title="Set Starting Location"
-          color="#841584"/>
-
-          <Button onPress={() => {this.props.enteredField('createGameStartingLocation', null)}}
-          title="Clear Starting Location"
-          color="#841584"/>
+                <Button onPress={() => {this.props.enteredField('createGameStartingLocation', null)}}
+                title="Clear Starting Location"
+                color="#423527"/>
+              </Item>
 
 
-          {/* <FloatingButton/> */}
-          {/* <CreateList style={{}} data={this.props.createGameChallenges}/> */}
 
-          <Text>Challenges:</Text>
-          {this.props.createGameChallenges.map((challenge, index) => {
-            return (
-              <Text key={index}>{'#' + JSON.stringify(index + 1) + ': ' + challenge.ChallengeTitle}</Text>
-            )
-          })}
+              <Item>
+                <Button onPress={() => {console.log('props: ', this.props)}}
+                title="See Props"
+                color="#423527"/>
 
-          <Button onPress={() => {
-            console.log('props: ', this.props)
-          }}
-          title="See Props"
-          color="#841584"/>
+                <Button onPress={() => {Actions.createChallenge()} }
+                title="Add a Challenge"
+                color="#423527"/>
+              
+                <Button onPress={() => {
+                  let canSubmit = this.checkValidGame();
+                  if (canSubmit) {
+                    this.submitGame();
+                  }
+                }}
+                title="Submit Game"
+                color="#423527"/>
+              </Item>
 
-          <Button onPress={() => {Actions.createChallenge()} }
-          title="Add a Challenge"
-          color="#841584"/>
-         
-          <Button onPress={() => {
-            let canSubmit = this.checkValidGame();
-            if (canSubmit) {
-              this.submitGame();
-            }
-          }}
-          title="Submit Game"
-          color="#841584"/>
+            </Form>
+
+          </Tab>
+          <Tab heading="Challenges">
+            <View>
+              <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../../media/createGameBackground2.png') } />
+            </View>
+
+            <Form style={styles.containerMenu}>
+            {this.props.createGameChallenges.map((challenge, index) => {
+              return (
+                <Item key={index}>
+                  <Text style={styles.listItemText}>{'#' + JSON.stringify(index + 1) + ': ' + challenge.ChallengeTitle}</Text>
+
+                </Item>
+              )
+            })}
+            </Form>
+          </Tab>
+        </Tabs>
+
 
 
         </Content>
@@ -368,11 +400,23 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#97b8ef',
   },
-  welcome: {
+  labelText: {
     fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-    color: '#ffffff',
+    color: '#fff5ea',
+    fontWeight: 'bold',
+  },
+  inputText: {
+    marginTop: 3,
+    fontSize: 18,
+    color: '#fff5ea',
+  },
+  listItemText: {
+    fontSize: 18,
+    color: '#fff5ea',
+  },
+  containerMenu: {
+    flex: 1,
+    position: 'absolute',
   },
 });
 
