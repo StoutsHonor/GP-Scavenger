@@ -54,7 +54,8 @@ class Lobby extends Component {
       },
       team1: [],
       team2: [],
-      styles: {}
+      styles: {},
+      showStart: false
     };
 
   }
@@ -154,6 +155,8 @@ class Lobby extends Component {
       this.socket.emit('updateOtherPlayer', message);
     }
 
+    
+
   }
 
   updateOtherPlayer(message) {
@@ -177,6 +180,9 @@ class Lobby extends Component {
         totalPlayer: message.totalPlayer,
       });
   } 
+  if(this.state.totalPlayer >= 2) {
+    this.setState({ showStart: true });
+  }
 }
   
 
@@ -238,14 +244,15 @@ class Lobby extends Component {
               })}
             </View>
           </View>
+          {this.state.showStart ? 
           <Button style={this.state.styles.button} onPress={() => {
             this.props.setGamePoints(this.props.gameInfo.rewardPoints);
           console.log('Lobby: button pressed, props.gamedata is: ', this.props.gamedata)
           Actions.gameplay(this.props.gamedata)
           }} 
           title='START GAME'  
-        /> 
-         
+        /> : null
+          }
       </View>
       
     );
