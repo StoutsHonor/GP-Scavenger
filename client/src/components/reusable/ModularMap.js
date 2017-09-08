@@ -13,6 +13,7 @@ import MapCurrentLocationButton from './MapCurrentLocationButton';
 import MapStoreLocationButton from './MapStoreLocationButton';
 import currLocImage from '../../media/currentLocationMarker_85x85.png'
 import GameDetailCallout from '../reusable/GameDetailCallout';
+import SpeechBubble from 'react-native-speech-bubble';
 
 const {width, height} = Dimensions.get('window');
 
@@ -147,6 +148,18 @@ class ModularMap extends Component {
       },
       map: {
         ...StyleSheet.absoluteFillObject,
+      },
+      tooltip: {
+        backgroundColor: '#fff',
+        borderRadius: 10,
+        borderStyle: 'solid',
+        borderWidth: 4,
+        borderColor: '#000',
+        width: 150
+      },
+      tooltipText: {
+        fontWeight: 'bold',
+        fontSize: 15
       }
     });
     console.log(`In ModularMap.js - render() - this.state.markers is ${JSON.stringify(this.state.markers)}`)
@@ -163,23 +176,23 @@ class ModularMap extends Component {
           if (this.props.data) {
             return (
               <MapView.Marker coordinate={loc} key={index}>
-                <MapView.Callout onPress={() => {Actions.gameprofile({game: this.props.data[index]})}}>
-                  <Text>{this.props.data[index].name}</Text>
-                  <Text>{this.props.data[index].description}</Text>
+                <MapView.Callout onPress={() => {Actions.gameprofile({game: this.props.data[index], typeOfAction: this.props.viewmode})}} tooltip={true} style={styles.tooltip}>
+                  <Text style={styles.tooltipText}>{this.props.data[index].name}</Text>
+                  <Text style={styles.tooltipText}>{this.props.data[index].description}</Text>
                 </MapView.Callout>
               </MapView.Marker>)
           } else {
             return(
-              <MapView.Marker coordinate={loc} key={index}>
+              <MapView.Marker coordinate={loc} key={index} tooltip={true} style={styles.tooltip}>
                 <MapView.Callout>
-                  <Text>{this.props.currentChallenge.name}</Text>
-                  <Text>{this.props.currentChallenge.description}</Text>
+                  <Text style={styles.tooltipText}>{this.props.currentChallenge.name}</Text>
+                  <Text style={styles.tooltipText}>{this.props.currentChallenge.description}</Text>
                 </MapView.Callout>
               </MapView.Marker>)
           }
          })}
          {!!this.props.crosshair ? <MapCenterMarker height={styles.mapContainer.height} width={styles.mapContainer.width}/> : null }
-         <MapView.Marker coordinate={this.state.currentLocation} image={currLocImage} />
+         <MapView.Marker coordinate={this.state.currentLocation} image={'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1504828467/currentLocationMarker_85x85_pw5bpq.png'} />
         </MapView>
         <MapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>
         <MapStoreLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} storeMarker={this.storeMarker}/>
@@ -190,6 +203,7 @@ class ModularMap extends Component {
     )
   }
 }
+
 
 export default ModularMap
 
