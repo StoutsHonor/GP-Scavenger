@@ -5,10 +5,32 @@ import { GiftedChat } from 'react-native-gifted-chat';
 
 import config from '../../config/config'
 
+
+// Redux Imports for binding stateToProps and dispatchToProps to the component
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {updatedTeams} from '../actions/index.js'
+
+// gives the component access to store through props
+const mapStateToProps = (state) => {
+  console.log('Create Game state: ', state)
+  return {
+    currentGameTeam1: state.play.currentGameTeam1,
+    currentGameTeam2: state.play.currentGameTeam2
+  }
+}
+
+// gives the component access to actions through props
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({updatedTeams}, dispatch)
+}
+
+
+
 //const USER_ID = '@userId';
 const user = { _id: Math.round(Math.random() * 1000000) || -1 };
 
-export default class Chat extends Component {
+class Chat extends Component {
     constructor(props) {
       super(props);
 
@@ -124,3 +146,6 @@ export default class Chat extends Component {
       });
     }
 }
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Chat)

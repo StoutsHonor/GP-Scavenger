@@ -27,6 +27,8 @@ const mapStateToProps = (state) => {
     gameInfo: state.play.gameInfo,
     challenges: state.play.allChallenges,
     gamePoints: state.play.gamePoints,
+    currentGameTeam1: state.play.currentGameTeam1,
+    currentGameTeam2: state.play.currentGameTeam2
   }
 }
 
