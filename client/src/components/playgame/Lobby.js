@@ -43,6 +43,7 @@ class Lobby extends Component {
     this.onReceivedJoinedLobby =  this.onReceivedJoinedLobby.bind(this);
     this.updateOtherPlayer = this.updateOtherPlayer.bind(this);
     this.getOtherUserName = this.getOtherUserName.bind(this);
+    this.startGame = this.startGame.bind(this);
     this.roomName = 'lobby' + this.props.gameId;
   
     this.state = {
@@ -54,7 +55,8 @@ class Lobby extends Component {
       },
       team1: [],
       team2: [],
-      styles: {}
+      styles: {},
+      showStart: false
     };
 
   }
@@ -78,18 +80,17 @@ class Lobby extends Component {
 
   componentDidMount() {
     this.socket = io(config.localhost);
-    let obj = {};
-    obj.userId = this.state.totalPlayer + 1;
-    obj.roomName = this.roomName;
+ 
     
-    this.socket.emit('createRoom',  obj);
+    this.socket.emit('createRoom',  this.roomName);
     this.socket.on('joinLobby', (this.onReceivedJoinedLobby));
     this.socket.on('message', this.onReceivedMessage);
     this.socket.on('updateOtherPlayer', this.updateOtherPlayer);
     this.socket.on('getOtherUserName', this.getOtherUserName);
+    this.socket.on('startGame', this.startGame);
   }
 
-  onReceivedJoinedLobby(input_user) {
+  onReceivedJoinedLobby() {
    
     if(this.state.totalPlayer > 8) return;
     this.state.totalPlayer++;
@@ -154,12 +155,14 @@ class Lobby extends Component {
       this.socket.emit('updateOtherPlayer', message);
     }
 
+    
+
   }
 
   updateOtherPlayer(message) {
     
     if(message.totalPlayer > this.state.totalPlayer) {
-      
+      console.log('update other players tttttttttttttttttttt' + this.state.totalPlayer );
       if(this.state.totalPlayer === 1) {
         let id = (message.totalPlayer % 2 === 0) ? 2 : 1;
         let user = {
@@ -171,12 +174,27 @@ class Lobby extends Component {
         });
       }
 
+      this.props.updatedTeams({
+        currentGameTeam1: message.team1,
+        currentGameTeam2: message.team2
+      });
+
+
+     
       this.setState({ 
         team1: message.team1,
         team2: message.team2,
         totalPlayer: message.totalPlayer,
       });
+
+     
   } 
+ 
+
+  if(this.state.totalPlayer >= 2) {
+
+    this.setState({ showStart: true });
+  }
 }
   
 
@@ -186,9 +204,10 @@ class Lobby extends Component {
   }
 
   startGame() {
-    //
-    //console.log('Lobby: startGame pressed')
-    // Actions.initGame({gamedata: gamedata}) // TODO: CREATE
+    this.props.setGamePoints(this.props.gameInfo.rewardPoints);
+    console.log('Lobby: button pressed, props.gamedata is: ', this.props.gamedata)
+    
+    Actions.gameplay(this.props.gamedata);
   }
 
   onSend(messages=[]) {
@@ -238,14 +257,11 @@ class Lobby extends Component {
               })}
             </View>
           </View>
-          <Button style={this.state.styles.button} onPress={() => {
-            this.props.setGamePoints(this.props.gameInfo.rewardPoints);
-          console.log('Lobby: button pressed, props.gamedata is: ', this.props.gamedata)
-          Actions.gameplay(this.props.gamedata)
-          }} 
+          {this.state.showStart ? 
+          <Button style={this.state.styles.button} onPress={() => {this.socket.emit('startGame', this.roomName);}} 
           title='START GAME'  
-        /> 
-         
+        /> : null
+          }
       </View>
       
     );

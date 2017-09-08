@@ -74,27 +74,7 @@ class Chat extends Component {
         val.user = {_id: val.user_id};
       }
     }
-
-
-    // determineUser() {
-    //   AsyncStorage.getItem(USER_ID)
-    //     .then((userId) => {
-    //       // If there isn't a stored userId, then fetch one from the server.
-    //       if (!userId) {
-    //         this.socket.emit('userJoined', null);
-    //         this.socket.on('userJoined', (userId) => {
-    //           AsyncStorage.setItem(USER_ID, userId);
-    //           this.setState({ userId });
-    //         });
-    //       } else {
-    //         this.socket.emit('userJoined', userId);
-    //         this.setState({ userId });
-    //       }
-    //     })
-    //     .catch((e) => alert(e));
-    // }
-  
-
+    
     onReceivedMessage(messages=[]) {
       console.log('Message was recieved', messages);
       this._storeMessages(messages);

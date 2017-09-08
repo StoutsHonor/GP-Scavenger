@@ -21,6 +21,7 @@ import VideoChallenge from './challengetypes/VideoChallenge';
 import config from '../../../config/config';
 import CongratsNext from './CongratsNext';
 import CongratsPage from './CongratsPage';
+import io from 'socket.io-client';
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ getAllGameChallenges, setCurrentChallengeIndex }, dispatch)
@@ -32,7 +33,9 @@ const mapStateToProps = (state) => {
     gameId: state.play.gameId,
     challenges: state.play.allChallenges,
     currentChallengeIndex: state.play.currentChallengeIndex,
-    gamePoints: state.play.gamePoints
+    gamePoints: state.play.gamePoints,
+    currentGameTeam1: state.play.currentGameTeam1,
+    currentGameTeam2: state.play.currentGameTeam2
   }
 }
 
@@ -42,7 +45,13 @@ class CurrentChallenge extends Component {
     this.challengeCompleted = this.challengeCompleted.bind(this);
     this.challengeSkipped = this.challengeSkipped.bind(this);
     this.getNextChallenge = this.getNextChallenge.bind(this);
+    this.congratsPage = this.congratsPage.bind(this);
+    this.congratsNext = this.congratsNext.bind(this);
+    this.determinedTeam = this.determinedTeam.bind(this);
+    this.gameName = 'game' + this.props.gameId;
+    this.team = null;
     this.state = {
+     
       modalVisible: false,
       currentChallengeType: '',
       displayChallenge: null
@@ -92,7 +101,12 @@ class CurrentChallenge extends Component {
   }
 
   componentDidMount() {
+    this.socket = io(config.localhost);
+    this.socket.emit('createRoom',  this.gameName);
+    this.socket.on('congratsPage', this.congratsPage);
+    this.socket.on('congratsNext', this.congratsNext);
 
+    this.determinedTeam();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -110,14 +124,40 @@ class CurrentChallenge extends Component {
       }
     }
   }
+  
+  determinedTeam() {
+    console.log('Current team is dddddddddd ', this.props.currentGameTeam1);
+    for(let val of this.props.currentGameTeam1) {
+      if(val === this.props.userId) {
+        this.team = 'team1';
+        return;
+      }
+    }
 
+    this.team = 'team2';
+  }
   challengeCompleted() {
+    let message = {};
+    message.gameName = this.state.gameName;
+    message.team = this.state.team;
     if (this.props.currentChallengeIndex+1 === this.props.challenges.length) {
-      Actions.congratspage();
+      this.socket.emit('congratsPage', message);
     } else {
-      Actions.congratsnext();
+      this.socket.emit('congratsNext', message);
     }
     //this.setModalVisible(true)
+  }
+
+  congratsPage(team) {
+    if(team === this.state.team) {
+      Actions.congratspage();
+    }
+  }
+
+  congratsNext(team) {
+    if(team === this.state.team) {
+      Actions.congratsnext();
+    }
   }
 
   challengeSkipped() {

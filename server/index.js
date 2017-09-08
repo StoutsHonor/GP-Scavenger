@@ -28,8 +28,8 @@ server.listen(port, function () {
 websocket.on('connection', (socket) => {
 
   socket.on('createRoom', (message) => {
-    socket.join(message.roomName);
-    websocket.sockets.in(message.roomName).emit('joinLobby', message.userId);
+    socket.join(message);
+    websocket.sockets.in(message).emit('joinLobby');
   });
  
   socket.on('message', (message) => { 
@@ -43,6 +43,20 @@ websocket.on('connection', (socket) => {
   socket.on('getOtherUserName', (message) => { 
     websocket.sockets.in(message.roomName).emit('getOtherUserName', message);
   });
+
+  socket.on('startGame', (message) => { 
+    websocket.sockets.in(message).emit('startGame');
+  });
+
+  socket.on('congratsPage', (message) => { 
+    websocket.sockets.in(message.gameName).emit('congratsPage', message.team);
+  });
+
+  socket.on('congratsNext', (message) => { 
+    websocket.sockets.in(message.gameName).emit('congratsNext', message.team);
+  });
+
+  
 });
 
 
