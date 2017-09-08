@@ -20,7 +20,6 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  console.log('mapStateToProps: ', state)
   return {
     userId: state.client.userIdentity,
     gameId: state.play.gameId,
@@ -33,7 +32,6 @@ const mapStateToProps = (state) => {
 }
 
 
-
 class Lobby extends Component {
   constructor(props) {
     super(props);
@@ -44,6 +42,7 @@ class Lobby extends Component {
     this.updateOtherPlayer = this.updateOtherPlayer.bind(this);
     this.getOtherUserName = this.getOtherUserName.bind(this);
     this.startGame = this.startGame.bind(this);
+
     this.roomName = 'lobby' + this.props.gameId;
   
     this.state = {
@@ -58,7 +57,6 @@ class Lobby extends Component {
       styles: {},
       showStart: false
     };
-
   }
 
   componentWillMount() {
@@ -80,10 +78,8 @@ class Lobby extends Component {
 
   componentDidMount() {
     this.socket = io(config.localhost);
- 
-    
     this.socket.emit('createRoom',  this.roomName);
-    this.socket.on('joinLobby', (this.onReceivedJoinedLobby));
+    this.socket.on('joinLobby', this.onReceivedJoinedLobby);
     this.socket.on('message', this.onReceivedMessage);
     this.socket.on('updateOtherPlayer', this.updateOtherPlayer);
     this.socket.on('getOtherUserName', this.getOtherUserName);
@@ -112,6 +108,7 @@ class Lobby extends Component {
         [teamName]: team,
       });
     } 
+    
     this.setState({
       totalPlayer: this.state.totalPlayer
     });
@@ -128,21 +125,17 @@ class Lobby extends Component {
 
   getOtherUserName(obj) {
     if(this.state.totalPlayer > obj.totalPlayer) {
-
       let team;
       let teamName;
       if (this.state.totalPlayer % 2 !== 0) {
         team = this.state.team1;
         team.push(obj.userId);
-        teamName = 'team1';
-  
-        
+        teamName = 'team1';       
       } else {
         team = this.state.team2;
         team.push(obj.userId);
         teamName = 'team2';
       }
-
       this.setState({ 
         [teamName]: team,
       });
@@ -159,15 +152,10 @@ class Lobby extends Component {
       });
 
       this.socket.emit('updateOtherPlayer', message);
-
     }
-
-    
-
   }
 
-  updateOtherPlayer(message) {
-    
+  updateOtherPlayer(message) {   
     if(message.totalPlayer > this.state.totalPlayer) {
       console.log('update other players tttttttttttttttttttt' + this.state.totalPlayer );
       if(this.state.totalPlayer === 1) {
@@ -193,18 +181,10 @@ class Lobby extends Component {
       });
   } 
 
-  
-  
-
-
- 
-
   if(this.state.totalPlayer >= 2) {
-
     this.setState({ showStart: true });
   }
 }
-  
 
   onReceivedMessage(messages=[]) {
     console.log('Message was recieved', messages);
@@ -214,7 +194,6 @@ class Lobby extends Component {
   startGame() {
     this.props.setGamePoints(this.props.gameInfo.rewardPoints);
     console.log('Lobby: button pressed, props.gamedata is: ', this.props.gamedata)
-    
     Actions.gameplay(this.props.gamedata);
   }
 
@@ -294,16 +273,11 @@ class Lobby extends Component {
   }
 }
 
-
-
-
-
 const styles = StyleSheet.create({
   container: {
     flex:1,
     alignItems:'center',
-    backgroundColor: '#5F9EA0'
-     
+    backgroundColor: '#5F9EA0' 
   },
   lobbytext: {
     fontSize: 20,
@@ -312,8 +286,7 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   divide: {
-    flexDirection: 'row',
-    
+    flexDirection: 'row',   
   },
   chat: {
     width: Dimensions.get('window').width - 15,

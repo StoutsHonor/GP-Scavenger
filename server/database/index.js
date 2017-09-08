@@ -54,7 +54,8 @@ const Chat = sequelize.define('chat', {
   _id: { type: Sequelize.STRING, allowNull: false },
   roomName:  { type: Sequelize.STRING, allowNull: false },
   text:  { type: Sequelize.STRING, allowNull: false },
-  image:  { type: Sequelize.STRING, allowNull: false }
+  image:  { type: Sequelize.STRING, allowNull: false },
+  team: { type: Sequelize.STRING, allowNull: false }
 });
 
 const Rating = sequelize.define('rating', {

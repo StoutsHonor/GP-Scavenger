@@ -28,6 +28,7 @@ server.listen(port, function () {
 websocket.on('connection', (socket) => {
 
   socket.on('createRoom', (message) => {
+    socket.join(message);
     websocket.sockets.in(message).emit('joinLobby');
   });
  
