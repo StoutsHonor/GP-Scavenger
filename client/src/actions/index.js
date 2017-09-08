@@ -131,6 +131,7 @@ export const setGamePoints = (points) => {
 };
 
 export const updatedTeams = (obj) => {
+  console.log('update team was entered hhhhhhhhhhhhh');
   return {
       type: updated_teams,
       payload: obj
