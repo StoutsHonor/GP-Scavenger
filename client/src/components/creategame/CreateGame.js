@@ -151,6 +151,7 @@ class CreateGame extends Component {
 
         // build appropriately formatted object to POST to Questions Table
         if (tempQuestionTablePath) {
+          console.log('question exists, posting question')
           let tempQuestionObject = {
             title: challenge.ChallengeTitle,
             question: challenge.ChallengeObjective,
@@ -165,7 +166,7 @@ class CreateGame extends Component {
           console.log('tempQuestionObject: ', tempQuestionObject)
           console.log('preparing to POST questions: ', challenge)
           // console.log('gameId: ', game.id)
-  
+
           // console.log('posting question to path: ' + `${config.localhost}/api${tempQuestionTablePath}` )
           fetch(`${config.localhost}/api${tempQuestionTablePath}`, {
             method: 'POST',
@@ -218,7 +219,7 @@ class CreateGame extends Component {
 
         } else {
           // no question type, GPS only
-
+          
           let tempChallengeObject = {
             name: challenge.ChallengeTitle,
             description: challenge.ChallengeDescription,
@@ -229,7 +230,7 @@ class CreateGame extends Component {
             questionTypeId: null,
             questionId: null
           }
-          console.log('preparing to POST challenge: ', tempChallengeObject)
+          console.log('preparing to POST GPS specific challenge: ', tempChallengeObject)
 
           fetch(`${config.localhost}/api/challenge/addChallenge`, {
             method: 'POST',
@@ -342,7 +343,7 @@ class CreateGame extends Component {
             let canSubmit = this.checkValidGame();
             if (canSubmit) {
               this.submitGame();
-            }  
+            }
           }}
           title="Submit Game"
           color="#841584"/>

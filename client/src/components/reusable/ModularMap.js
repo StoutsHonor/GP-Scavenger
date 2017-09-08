@@ -13,7 +13,6 @@ import MapCurrentLocationButton from './MapCurrentLocationButton';
 import MapStoreLocationButton from './MapStoreLocationButton';
 import currLocImage from '../../media/currentLocationMarker_85x85.png'
 import GameDetailCallout from '../reusable/GameDetailCallout';
-//import SpeechBubble from 'react-native-speech-bubble';
 
 const {width, height} = Dimensions.get('window');
 
