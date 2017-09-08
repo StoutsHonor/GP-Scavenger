@@ -4,7 +4,8 @@ import {
   Text,
   View,
   Button,
-  Alert
+  Alert,
+  ScrollView
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CreateList from './CreateList';
@@ -13,6 +14,9 @@ import HomePage from '../HomePage';
 import FloatingButton from '../reusable/FloatingButton';
 import TitledInput from '../reusable/TitledInput';
 import config from '../../../config/config';
+
+import { Container, List, ListItem, Content, Separator } from 'native-base'
+
 
 // Redux Imports for binding stateToProps and dispatchToProps to the component
 import {connect} from 'react-redux'
@@ -151,6 +155,7 @@ class CreateGame extends Component {
 
         // build appropriately formatted object to POST to Questions Table
         if (tempQuestionTablePath) {
+          console.log('question exists, posting question')
           let tempQuestionObject = {
             title: challenge.ChallengeTitle,
             question: challenge.ChallengeObjective,
@@ -165,7 +170,7 @@ class CreateGame extends Component {
           console.log('tempQuestionObject: ', tempQuestionObject)
           console.log('preparing to POST questions: ', challenge)
           // console.log('gameId: ', game.id)
-  
+
           // console.log('posting question to path: ' + `${config.localhost}/api${tempQuestionTablePath}` )
           fetch(`${config.localhost}/api${tempQuestionTablePath}`, {
             method: 'POST',
@@ -182,7 +187,7 @@ class CreateGame extends Component {
             console.log(data, 'question posted')
             return data
           })
-  
+          .catch(error => console.log('error in posting question: ', error))
           // post the challenge to the challenge table (if any)
           .then( (questionData) => {
   
@@ -191,7 +196,7 @@ class CreateGame extends Component {
               description: challenge.ChallengeDescription,
               gameId: game.id,
               sequence: index + 1,
-              location: challenge.ChallengeLocation,
+              location: null,
               timeLimit: 9999,
               questionTypeId: tempChallengeTypeId,
               questionId: questionData.id
@@ -218,18 +223,18 @@ class CreateGame extends Component {
 
         } else {
           // no question type, GPS only
-
+          
           let tempChallengeObject = {
             name: challenge.ChallengeTitle,
             description: challenge.ChallengeDescription,
             gameId: game.id,
             sequence: index + 1,
-            location: challenge.ChallengeLocation,
+            location: [challenge.ChallengeLocation.latitude, challenge.ChallengeLocation.longitude],
             timeLimit: 9999,
-            questionTypeId: null,
+            questionTypeId: 1,
             questionId: null
           }
-          console.log('preparing to POST challenge: ', tempChallengeObject)
+          console.log('preparing to POST GPS specific challenge: ', tempChallengeObject)
 
           fetch(`${config.localhost}/api/challenge/addChallenge`, {
             method: 'POST',
@@ -258,7 +263,8 @@ class CreateGame extends Component {
     // console.log('rendering: this.state: ', this.state);
     return (
       <SideMenu menu={<HomePage/>}>
-        <View style={styles.container}>
+      <Container style={styles.container}>
+        <Content>
           <TitledInput
             label='Game Name'
             placeholder='Enter Here...'
@@ -342,13 +348,14 @@ class CreateGame extends Component {
             let canSubmit = this.checkValidGame();
             if (canSubmit) {
               this.submitGame();
-            }  
+            }
           }}
           title="Submit Game"
           color="#841584"/>
 
 
-        </View>
+        </Content>
+        </Container>
       </SideMenu>
     );
   }

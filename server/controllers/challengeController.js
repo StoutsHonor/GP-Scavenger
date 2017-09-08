@@ -12,7 +12,6 @@ module.exports = {
   },
 
   addChallenge: (req, res) => {
-    console.log('challenge controller: req.body: ', req.body)
     db.Challenge.create({
       name: req.body.name,
       description: req.body.description,
@@ -23,6 +22,7 @@ module.exports = {
       gameId: req.body.gameId,
       questionTypeId: req.body.questionTypeId
     })
+    .catch((error) => {console.log('unable to add to challenges: ', error)})
     .then( challenge => {
       res.status(201).send(challenge)
     })
