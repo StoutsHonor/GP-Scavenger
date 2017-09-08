@@ -17,7 +17,7 @@ import HomePage from '../HomePage';
 import ModularMap from '../reusable/ModularMap'
 import ModularList from '../reusable/ModularList'
 import config from '../../../config/config'
-import { Container, Content } from 'native-base';
+import { Container, Content, Drawer } from 'native-base';
 import LoadingPage from '../reusable/LoadingPage'
 
 
@@ -110,7 +110,12 @@ class JoinGame extends Component {
       isOpen: !this.state.isOpen
     })
   }
-
+  closeDrawer = () => {
+    this.drawer._root.close()
+  };
+  openDrawer = () => {
+    this.drawer._root.open()
+  };
   render() {
     //console.log(`JoinGame - render(): this.state.games ${JSON.stringify(this.state.games)}`);
     const styles = StyleSheet.create({
@@ -121,18 +126,17 @@ class JoinGame extends Component {
         
       }
     });
-
+    
     return (
-      <SideMenu 
-        menu={<HomePage/>}
-        onChange={this.onSideMenuChange.bind(this)}
-        isOpen={this.state.isOpen}
-        menuPosition="left"
-        hiddenMenuOffset={50}
+      <Drawer 
+        ref={(ref) => {this.drawer = ref;}}
+        content={<HomePage/>}
+        onClose={() => this.closeDrawer()}
       >
       {this.state.loading ? <LoadingPage/> :
         <Container style={styles.container}>
           <Content style={styles.content}>
+            <Button title="Menu" onPress={() => this.openDrawer()}/>
           <Button title="Toggle View"
           onPress={() => {
             if (this.state.view === 'map') {
@@ -146,7 +150,7 @@ class JoinGame extends Component {
           </Content>
         </Container>
       }
-      </SideMenu>
+      </Drawer>
     );
   }
 }

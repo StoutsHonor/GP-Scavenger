@@ -180,6 +180,7 @@ export default class client extends Component {
             <Scene key="joingame"
               component={JoinGame}
               title="Join Game"
+              onRight={console.log('pressed')}
             />
 
             <Scene key="startnewgame"

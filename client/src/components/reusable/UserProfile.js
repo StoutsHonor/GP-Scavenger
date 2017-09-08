@@ -33,19 +33,18 @@ export default class UserProfile extends Component {
   render() {
     return (
       <Container>
-        <Header />
         <Content>
-          <Card style={{flex: 0, alignItems: 'center'}}>
-            <CardItem>
+          <Card style={{flex: 0}}>
+            <CardItem style={{alignSelf: 'center'}}>
                 <Body>
-                  <Text bold>{this.props.user.username}</Text>
-                  <Text >{this.props.user.firstName} {this.props.user.lastName}</Text>
+                  <Text style={styles.center} bold>{this.props.user.username}</Text>
+                  <Text style={styles.center}>{this.props.user.firstName} {this.props.user.lastName}</Text>
                 </Body>
             </CardItem>
             <CardItem>
               <Body>
-                <Image source={{uri: this.props.user.profilePicture}} style={{height: 200, width: 200, flex: 1}}/>
-                <Text>
+                <Image style={styles.center} source={{uri: this.props.user.profilePicture}} style={{height: 200, width: 200, flex: 1}}/>
+                <Text style={styles.center}>
                   {this.props.user.profileDescription}
                 </Text>
               </Body>
@@ -54,7 +53,7 @@ export default class UserProfile extends Component {
               <Left>
                 <Button transparent textStyle={{color: '#87838B'}}>
                   <Icon name="flame" green/>
-                  <Text>{' ' + this.props.user.rewardPoints + " Points"}</Text>
+                  <Text style={styles.center}>{' ' + this.props.user.rewardPoints + " Points"}</Text>
                 </Button>
               </Left>
             </CardItem>
@@ -78,11 +77,8 @@ export default class UserProfile extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#ffffff',
+  center: {
     alignItems: 'center',
-    justifyContent: 'center'
   },
   body: {
     marginTop: 30
