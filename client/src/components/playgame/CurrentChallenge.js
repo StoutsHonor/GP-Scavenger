@@ -50,8 +50,8 @@ class CurrentChallenge extends Component {
     this.determinedTeam = this.determinedTeam.bind(this);
     this.gameName = 'game' + this.props.gameId;
     this.team = null;
+
     this.state = {
-     
       modalVisible: false,
       currentChallengeType: '',
       displayChallenge: null
@@ -59,8 +59,6 @@ class CurrentChallenge extends Component {
   }
 
   componentWillMount() {
-    console.log(`CurrentChallenge - componentWillMount()`)
-    console.log(`this.props.challenges is ${JSON.stringify(this.props.challenges)}`)
     if(this.props.challenges) {
       if(this.props.challenges[this.props.currentChallengeIndex].questionTypeId) {
         let currentChallengeType = this.props.challenges[this.props.currentChallengeIndex].questionTypeId;
@@ -75,29 +73,6 @@ class CurrentChallenge extends Component {
         }
       }
     }
-    
-    // else if (currentChallengeType === 4) {
-    //   console.log(`CurrentChallenge.js - componentWillMount() - currentChallengeType === 4`)
-    //   this.setState({ currentChallengeType: 'riddle' })
-    // } else if (currentChallengeType === 5) {
-    //   console.log(`CurrentChallenge.js - componentWillMount() - currentChallengeType === 5`)
-    //   this.setState({ currentChallengeType: 'riddle' })
-    // } else if (currentChallengeType === 6) {
-    //   console.log(`CurrentChallenge.js - componentWillMount() - currentChallengeType === 6`)
-    //   this.setState({ currentChallengeType: 'riddle' })
-    // }
-
-    // fetch(`${config.localhost}/api/challenge/findChallengeByGameId/?gameId=${this.state.gameId}`)
-    // .then((response) => response.json())
-    // .then((data) => {
-    //   this.setState({challenges: data, currentChallenge: data[0]}, () => {
-    //     //console.log(`this.state.challenges is ${JSON.stringify(this.state.challenges)} and
-    //     //this.state.currentchallenge is ${JSON.stringify(this.state.currentChallenge)}`)
-    //   });
-    // })
-    // .catch((err) => {
-    //   console.error(err);
-    // });
   }
 
   componentDidMount() {
@@ -105,7 +80,6 @@ class CurrentChallenge extends Component {
     this.socket.emit('createRoom',  this.gameName);
     this.socket.on('congratsPage', this.congratsPage);
     this.socket.on('congratsNext', this.congratsNext);
-
     this.determinedTeam();
   }
 
@@ -126,20 +100,20 @@ class CurrentChallenge extends Component {
   }
   
   determinedTeam() {
-    console.log('Current team is dddddddddd ', this.props.currentGameTeam1);
     for(let val of this.props.currentGameTeam1) {
       if(val === this.props.userId) {
         this.team = 'team1';
         return;
       }
     }
-
     this.team = 'team2';
   }
+
   challengeCompleted() {
     let message = {};
-    message.gameName = this.state.gameName;
-    message.team = this.state.team;
+    message.gameName = this.gameName;
+    message.team = this.team;
+
     if (this.props.currentChallengeIndex+1 === this.props.challenges.length) {
       this.socket.emit('congratsPage', message);
     } else {
@@ -149,13 +123,13 @@ class CurrentChallenge extends Component {
   }
 
   congratsPage(team) {
-    if(team === this.state.team) {
+    if(team === this.team) {
       Actions.congratspage();
     }
   }
 
   congratsNext(team) {
-    if(team === this.state.team) {
+    if(team === this.team) {
       Actions.congratsnext();
     }
   }
@@ -204,13 +178,11 @@ class CurrentChallenge extends Component {
          <View style={{marginTop: 22}}>
           <View>
             <Text>CONGRATS YOU GOT TO THE CHECKPOINT!!!</Text>
-
             <TouchableHighlight onPress={() => {
               this.getNextChallenge(!this.state.modalVisible)
             }}>
               <Text>GET NEXT CHALLENGE</Text>
             </TouchableHighlight>
-
           </View>
          </View>
         </Modal>

@@ -18,7 +18,8 @@ module.exports = {
       _id: req.body._id,
       roomName: req.body.roomName,
       text: req.body.text,
-      image: req.body.image
+      image: req.body.image,
+      team: req.body.text
     })
     .then( chat => {
       res.status(201).send(chat)
