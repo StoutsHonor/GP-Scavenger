@@ -43,6 +43,10 @@ websocket.on('connection', (socket) => {
   socket.on('getOtherUserName', (message) => { 
     websocket.sockets.in(message.roomName).emit('getOtherUserName', message);
   });
+
+  socket.on('startGame', (message) => { 
+    websocket.sockets.in(message).emit('startGame');
+  });
 });
 
 
