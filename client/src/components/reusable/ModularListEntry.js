@@ -7,7 +7,9 @@ import {
 import { ListItem, Left, Thumbnail, Text, Right, Button, Body, Separator, Container } from 'native-base';
 import { Actions } from 'react-native-router-flux';
 
-export default class ModularList extends Component {
+
+
+class ModularListEntry extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -60,3 +62,5 @@ const styles = StyleSheet.create({
 });
 
 //          <Text>{JSON.stringify(this.props.listentry)}</Text>
+
+export default ModularListEntry

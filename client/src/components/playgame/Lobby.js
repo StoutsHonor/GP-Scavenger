@@ -10,13 +10,13 @@ import {
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { getAllGameChallenges, setGamePoints } from '../../actions/index.js'
+import { getAllGameChallenges, setGamePoints, updatedTeams } from '../../actions/index.js'
 import config from '../../../config/config';
 import { GiftedChat } from 'react-native-gifted-chat';
 import io from 'socket.io-client';
 
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({ getAllGameChallenges, setGamePoints }, dispatch)
+  return bindActionCreators({ getAllGameChallenges, setGamePoints, updatedTeams }, dispatch)
 }
 
 const mapStateToProps = (state) => {
@@ -26,7 +26,9 @@ const mapStateToProps = (state) => {
     gameId: state.play.gameId,
     gameInfo: state.play.gameInfo,
     challenges: state.play.allChallenges,
-    gamePoints: state.play.gamePoints
+    gamePoints: state.play.gamePoints,
+    currentGameTeam1: state.play.currentGameTeam1,
+    currentGameTeam2: state.play.currentGameTeam2
   }
 }
 
