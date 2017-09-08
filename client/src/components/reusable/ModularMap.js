@@ -176,7 +176,7 @@ class ModularMap extends Component {
           if (this.props.data) {
             return (
               <MapView.Marker coordinate={loc} key={index}>
-                <MapView.Callout onPress={() => {Actions.gameprofile({game: this.props.data[index], typeOfAction: this.props.viewmode})}} tooltip={true} style={styles.tooltip}>
+                <MapView.Callout onPress={() => {Actions.gameprofile({game: this.props.data[index], typeOfAction: this.props.viewmode, buttonaction: this.props.buttonaction})}} tooltip={true} style={styles.tooltip}>
                   <Text style={styles.tooltipText}>{this.props.data[index].name}</Text>
                   <Text style={styles.tooltipText}>{this.props.data[index].description}</Text>
                 </MapView.Callout>
