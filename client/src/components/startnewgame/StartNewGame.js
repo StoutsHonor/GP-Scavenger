@@ -113,7 +113,7 @@ class StartNewGame extends Component {
           }}/>
           {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games} listentryclick={this.onStartNewGameListEntryClick} /> : null}
 
-          {this.state.view === 'map' ? <ModularMap entrytype={this.props.listtype} data={this.state.games} /> : null}
+          {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} entrytype={this.props.listtype} data={this.state.games} /> : null}
 
         </ScrollView>
       }

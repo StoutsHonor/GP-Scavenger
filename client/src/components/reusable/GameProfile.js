@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 import { Header, ListItem, Left, Center, Thumbnail, Text, Right, Button, Body, Separator, Container, Content, Card, CardItem, Icon } from 'native-base';
 
-const thumbnail = require('../../media/gamedetailimage.png')
+//const thumbnail = require('../../media/gamedetailimage.png')
 
 export default class GameProfile extends Component {
   constructor(props) {
@@ -40,7 +40,7 @@ export default class GameProfile extends Component {
           <Card>
             <CardItem>
               <Left>
-                <Thumbnail source={thumbnail} />
+                <Thumbnail source={{uri: 'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1504828528/gamedetailimage_vvfmsq.png'}} />
                 <Body>
                   <Text>{this.props.game.name}</Text>
                   <Text note>{this.props.game.description}</Text>
@@ -48,7 +48,7 @@ export default class GameProfile extends Component {
               </Left>
             </CardItem>
             <CardItem cardBody>
-              <Image source={thumbnail} style={{height: 200, width: null, flex: 1}}/>
+              <Image source={{uri: 'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1504828528/gamedetailimage_vvfmsq.png'}} style={{height: 200, width: null, flex: 1}}/>
             </CardItem>
             <CardItem>
               <Left>

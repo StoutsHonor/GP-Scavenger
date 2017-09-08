@@ -176,7 +176,7 @@ class ModularMap extends Component {
           if (this.props.data) {
             return (
               <MapView.Marker coordinate={loc} key={index}>
-                <MapView.Callout onPress={() => {Actions.gameprofile({game: this.props.data[index]})}} tooltip={true} style={styles.tooltip}>
+                <MapView.Callout onPress={() => {Actions.gameprofile({game: this.props.data[index], typeOfAction: this.props.viewmode})}} tooltip={true} style={styles.tooltip}>
                   <Text style={styles.tooltipText}>{this.props.data[index].name}</Text>
                   <Text style={styles.tooltipText}>{this.props.data[index].description}</Text>
                 </MapView.Callout>
@@ -192,7 +192,7 @@ class ModularMap extends Component {
           }
          })}
          {!!this.props.crosshair ? <MapCenterMarker height={styles.mapContainer.height} width={styles.mapContainer.width}/> : null }
-         <MapView.Marker coordinate={this.state.currentLocation} image={currLocImage} />
+         <MapView.Marker coordinate={this.state.currentLocation} image={'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1504828467/currentLocationMarker_85x85_pw5bpq.png'} />
         </MapView>
         <MapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>
         <MapStoreLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} storeMarker={this.storeMarker}/>
