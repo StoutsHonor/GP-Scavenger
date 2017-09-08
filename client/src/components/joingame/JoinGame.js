@@ -4,19 +4,22 @@ import {
   Text,
   View,
   Button,
-  ScrollView
+  Image,
+  ScrollView,
+  TouchableOpacity
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {getGameId, getGameInfo} from '../../actions/index.js';
-import SideMenu from 'react-native-side-menu';
+// import SideMenu from 'react-native-side-menu';
+import {SideMenu, List, ListItem } from 'react-native-elements';
 import HomePage from '../HomePage';
 
 import ModularMap from '../reusable/ModularMap'
 import ModularList from '../reusable/ModularList'
 import config from '../../../config/config'
-import { Container, Content } from 'native-base';
+import { Container, Content, Drawer } from 'native-base';
 import LoadingPage from '../reusable/LoadingPage'
 
 
@@ -43,11 +46,13 @@ class JoinGame extends Component {
       gameStartMarkers: [],
       showList: true,
       view: 'list',
-      loading: true
+      loading: true,
+      isOpen: false
     }
-
-    this.modularListEntryButtonAction = this.modularListEntryButtonAction.bind(this)
-    this.onJoinGameListEntryClick = this.onJoinGameListEntryClick.bind(this)
+    this.toggleSideMenu = this.toggleSideMenu.bind(this);
+    this.modularListEntryButtonAction = this.modularListEntryButtonAction.bind(this);
+    this.onJoinGameListEntryClick = this.onJoinGameListEntryClick.bind(this);
+    this.openDrawer = this.openDrawer.bind(this);
   }
 
   componentWillMount() {
@@ -81,7 +86,9 @@ class JoinGame extends Component {
 
   }  
   
-
+  ComponentDidMount() {
+    Actions.refresh({ renderRightButton: this.renderRightButton})
+  }
 
   modularListEntryButtonAction(gamedata) {
     //console.log('JoinGame: modularListEntryButtonAction pressed')
@@ -97,8 +104,36 @@ class JoinGame extends Component {
     Actions.gameprofile({game, typeOfAction: 'join game', buttonaction: this.modularListEntryButtonAction})
   }
 
+  onSideMenuChange(isOpen) {
+    this.setState({
+      isOpen: isOpen
+    })
+  }
+
+  toggleSideMenu() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    })
+  }
+  closeDrawer = () => {
+    this.drawer._root.close()
+  };
+  openDrawer = () => {
+    this.drawer._root.open()
+  };
+
+  static renderRightButton = (props) => {
+    return (
+      <TouchableOpacity onPress={() => { console.log('pressed')}}>
+          <Image 
+            source={{uri: 'https://lh3.ggpht.com/Hx7-WlRNMo20ifN60izH06mo0fwzo8nzKWxC4RstuKCULEwwQWh4UY4ELoappRVRcz4=w300'}}
+            style={{width: 30, height: 30}}
+          />
+      </TouchableOpacity>
+    ); 
+  }
+
   render() {
-    //console.log(`JoinGame - render(): this.state.games ${JSON.stringify(this.state.games)}`);
     const styles = StyleSheet.create({
       container: {
         backgroundColor: '#5F9EA0',
@@ -107,12 +142,17 @@ class JoinGame extends Component {
         
       }
     });
-
+    
     return (
-      <SideMenu menu={<HomePage/>}>
+      <Drawer 
+        ref={(ref) => {this.drawer = ref;}}
+        content={<HomePage/>}
+        onClose={() => this.closeDrawer()}
+      >
       {this.state.loading ? <LoadingPage/> :
         <Container style={styles.container}>
           <Content style={styles.content}>
+            <Button title="Menu" onPress={() => this.openDrawer()}/>
           <Button title="Toggle View"
           onPress={() => {
             if (this.state.view === 'map') {
@@ -126,7 +166,7 @@ class JoinGame extends Component {
           </Content>
         </Container>
       }
-      </SideMenu>
+      </Drawer>
     );
   }
 }

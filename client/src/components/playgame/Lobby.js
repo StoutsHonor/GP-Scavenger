@@ -55,7 +55,7 @@ class Lobby extends Component {
       team1: [],
       team2: [],
       styles: {},
-      showStart: false
+      showStart: true
     };
   }
 
