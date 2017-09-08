@@ -277,17 +277,18 @@ class CreateGame extends Component {
             <Form style={styles.containerMenu}>
               <Item>
                 <Text style={styles.labelText}>Name: </Text>
-                <Input placeholder="name" value={this.props.createGameName} onChangeText={(e) => {this.props.enteredField('createGameName', e)}}/>
+                <Input placeholder="Enter Here.." value={this.props.createGameName} onChangeText={(e) => {this.props.enteredField('createGameName', e)}} style={styles.inputText}/>
               </Item>
 
               <Item>
                 <Text style={styles.labelText}>Description: </Text>
-                <Input placeholder="description" value={this.props.createGameDescription} onChangeText={(e) => {this.props.enteredField('createGameDescription', e)}}/>
+                <Input placeholder="Enter Here.." value={this.props.createGameDescription} onChangeText={(e) => {this.props.enteredField('createGameDescription', e)}}
+                style={styles.inputText}/>
               </Item>
 
               <Item>
                 <Text style={styles.labelText}>Duration (Minutes): </Text>
-                <Input placeholder="duration" value={this.props.createGameDuration}
+                <Input placeholder="Enter Here.." value={this.props.createGameDuration}
                 onChangeText={(e) => {
                   if (isNaN(e)) {
                     Alert.alert(
@@ -299,12 +300,13 @@ class CreateGame extends Component {
                   } else {
                     this.props.enteredField('createGameDuration', Math.ceil(e))
                   }
-                }}/>
+                }}
+                style={styles.inputText}/>
               </Item>
 
               <Item>
                 <Text style={styles.labelText}>Max Players: </Text>
-                <Input placeholder="maxplaoyer" value={this.props.createGameMaxPlayers}
+                <Input placeholder="Enter Here.." value={this.props.createGameMaxPlayers}
                 onChangeText={(e) => {
                   if (isNaN(e)) {
                     Alert.alert(
@@ -316,34 +318,37 @@ class CreateGame extends Component {
                   } else {
                     this.props.enteredField('createGameMaxPlayers', Math.ceil(e))
                   }
-                }}/>
+                }}
+                style={styles.inputText}/>
               </Item>
 
               <Item>
-                <Text style={styles.labelText}>Starting Location: </Text>
-                <Text>{this.props.createGameStartingLocation ? 'Latitude: ' + JSON.stringify(this.props.createGameStartingLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createGameStartingLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
+                <Text style={styles.labelText}>Start Location: </Text>
+                <Text style={styles.inputText}>
+                  {this.props.createGameStartingLocation ? 'Latitude: ' + JSON.stringify(this.props.createGameStartingLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createGameStartingLocation.longitude.toFixed(2)) : '(No Location Set)'}
+                </Text>
               </Item>
 
               <Item>
                 <Button onPress={() => {Actions.createMap({setting: 'createStartLoc'})}}
                 title="Set Starting Location"
-                color="#841584"/>
+                color="#423527"/>
 
                 <Button onPress={() => {this.props.enteredField('createGameStartingLocation', null)}}
                 title="Clear Starting Location"
-                color="#841584"/>
+                color="#423527"/>
               </Item>
 
 
 
-              <Item last>
+              <Item>
                 <Button onPress={() => {console.log('props: ', this.props)}}
                 title="See Props"
-                color="#841584"/>
+                color="#423527"/>
 
                 <Button onPress={() => {Actions.createChallenge()} }
                 title="Add a Challenge"
-                color="#841584"/>
+                color="#423527"/>
               
                 <Button onPress={() => {
                   let canSubmit = this.checkValidGame();
@@ -352,19 +357,27 @@ class CreateGame extends Component {
                   }
                 }}
                 title="Submit Game"
-                color="#841584"/>
+                color="#423527"/>
               </Item>
 
             </Form>
 
           </Tab>
           <Tab heading="Challenges">
-            <Text>Challenges:</Text>
+            <View>
+              <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../../media/createGameBackground2.png') } />
+            </View>
+
+            <Form style={styles.containerMenu}>
             {this.props.createGameChallenges.map((challenge, index) => {
               return (
-                <Text key={index}>{'#' + JSON.stringify(index + 1) + ': ' + challenge.ChallengeTitle}</Text>
+                <Item key={index}>
+                  <Text style={styles.listItemText}>{'#' + JSON.stringify(index + 1) + ': ' + challenge.ChallengeTitle}</Text>
+
+                </Item>
               )
             })}
+            </Form>
           </Tab>
         </Tabs>
 
@@ -386,9 +399,17 @@ const styles = StyleSheet.create({
   },
   labelText: {
     fontSize: 20,
-    margin: 5,
-    color: '#efefef',
+    color: '#fff5ea',
     fontWeight: 'bold',
+  },
+  inputText: {
+    marginTop: 3,
+    fontSize: 18,
+    color: '#fff5ea',
+  },
+  listItemText: {
+    fontSize: 18,
+    color: '#fff5ea',
   },
   containerMenu: {
     flex: 1,
