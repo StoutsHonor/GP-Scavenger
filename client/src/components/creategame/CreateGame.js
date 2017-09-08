@@ -5,7 +5,8 @@ import {
   View,
   Button,
   Alert,
-  ScrollView
+  ScrollView,
+  Image,
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import CreateList from './CreateList';
@@ -15,8 +16,9 @@ import FloatingButton from '../reusable/FloatingButton';
 import TitledInput from '../reusable/TitledInput';
 import config from '../../../config/config';
 
-import { Container, List, ListItem, Content, Separator } from 'native-base'
+import { Container, Header, List, ListItem, Content, Separator, Form, Item, Input, Tab, Tabs } from 'native-base'
 
+// import createGameBackground from '../../media/createGameBackground.png'
 
 // Redux Imports for binding stateToProps and dispatchToProps to the component
 import {connect} from 'react-redux'
@@ -265,6 +267,67 @@ class CreateGame extends Component {
       <SideMenu menu={<HomePage/>}>
       <Container style={styles.container}>
         <Content>
+
+        <View>
+          <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../../media/createGameBackground.png') } />
+        </View>
+
+        <Header hasTabs />
+        <Tabs initialPage={1}>
+          <Tab heading="Info">
+
+        <Form>
+          <Item>
+            <Text>Game Name: </Text>
+            <Input placeholder="name placeholder"/>
+          </Item>
+
+          <Item>
+            <Text>Game Description: </Text>
+            <Input placeholder="description placeholder"/>
+          </Item>
+
+          <Item>
+            <Text>Duration (Minutes): </Text>
+            <Input placeholder="duration placeholder"/>
+          </Item>
+
+          <Item>
+            <Text>Max Players: </Text>
+            <Input placeholder="maxplaoyer placeholder"/>
+          </Item>
+
+          <Item>
+            <Text>Starting Location: </Text>
+            <Text>{this.props.createGameStartingLocation ? 'Latitude: ' + JSON.stringify(this.props.createGameStartingLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createGameStartingLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
+          </Item>
+
+          <Item>
+            <Button onPress={() => {Actions.createMap({setting: 'createStartLoc'})}}
+            title="Set Starting Location"
+            color="#841584"/>
+
+            <Button onPress={() => {this.props.enteredField('createGameStartingLocation', null)}}
+            title="Clear Starting Location"
+            color="#841584"/>
+          </Item>
+
+        </Form>
+
+          </Tab>
+          <Tab heading="Challenges">
+            <Text>Challenges:</Text>
+            {this.props.createGameChallenges.map((challenge, index) => {
+              return (
+                <Text key={index}>{'#' + JSON.stringify(index + 1) + ': ' + challenge.ChallengeTitle}</Text>
+              )
+            })}
+          </Tab>
+        </Tabs>
+
+
+
+        <View style={styles.containerMenu}>
           <TitledInput
             label='Game Name'
             placeholder='Enter Here...'
@@ -353,7 +416,7 @@ class CreateGame extends Component {
           title="Submit Game"
           color="#841584"/>
 
-
+          </View>
         </Content>
         </Container>
       </SideMenu>
@@ -373,6 +436,10 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     margin: 10,
     color: '#ffffff',
+  },
+  containerMenu: {
+    flex: 1,
+    position: 'absolute',
   },
 });
 
