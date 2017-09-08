@@ -10,7 +10,8 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {getGameId, getGameInfo} from '../../actions/index.js';
-import SideMenu from 'react-native-side-menu';
+// import SideMenu from 'react-native-side-menu';
+import {SideMenu, List, ListItem } from 'react-native-elements';
 import HomePage from '../HomePage';
 
 import ModularMap from '../reusable/ModularMap'
@@ -43,9 +44,10 @@ class JoinGame extends Component {
       gameStartMarkers: [],
       showList: true,
       view: 'list',
-      loading: true
+      loading: true,
+      isOpen: false
     }
-
+    this.toggleSideMenu = this.toggleSideMenu.bind(this);
     this.modularListEntryButtonAction = this.modularListEntryButtonAction.bind(this)
     this.onJoinGameListEntryClick = this.onJoinGameListEntryClick.bind(this)
   }
@@ -97,6 +99,18 @@ class JoinGame extends Component {
     Actions.gameprofile({game, typeOfAction: 'join game', buttonaction: this.modularListEntryButtonAction})
   }
 
+  onSideMenuChange(isOpen) {
+    this.setState({
+      isOpen: isOpen
+    })
+  }
+
+  toggleSideMenu() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    })
+  }
+
   render() {
     //console.log(`JoinGame - render(): this.state.games ${JSON.stringify(this.state.games)}`);
     const styles = StyleSheet.create({
@@ -109,7 +123,13 @@ class JoinGame extends Component {
     });
 
     return (
-      <SideMenu menu={<HomePage/>}>
+      <SideMenu 
+        menu={<HomePage/>}
+        onChange={this.onSideMenuChange.bind(this)}
+        isOpen={this.state.isOpen}
+        menuPosition="left"
+        hiddenMenuOffset={50}
+      >
       {this.state.loading ? <LoadingPage/> :
         <Container style={styles.container}>
           <Content style={styles.content}>
