@@ -375,7 +375,12 @@ class CreateGame extends Component {
             {this.props.createGameChallenges.map((challenge, index) => {
               return (
                 <Item key={index}>
-                  <Text style={styles.listItemText}>{'#' + JSON.stringify(index + 1) + ': ' + challenge.ChallengeTitle}</Text>
+                  <View>
+                  <Text style={styles.labelText}>{'#' + JSON.stringify(index + 1) + ': ' + challenge.ChallengeTitle + ' - ' + challenge.ChallengeType}</Text>
+                  <Text style={styles.labelText}>{ challenge.ChallengeType === 'GPSChallenge' ? 'Latitude: ' + JSON.stringify(challenge.ChallengeLocation.latitude) + ', Longitude: ' + JSON.stringify(challenge.ChallengeLocation.longitude) : null}</Text>
+                  <Text style={styles.labelText}>{ challenge.ChallengeType === 'riddleQuestion' ? 'Question: ' + challenge.ChallengeObjective : null}</Text>
+                  <Text style={styles.labelText}>{ challenge.ChallengeType === 'riddleQuestion' ? 'Answer: ' + challenge.ChallengeAnswer : null}</Text>
+                  </View>
 
                 </Item>
               )
