@@ -97,88 +97,6 @@ class CreateChallenge extends Component {
       <Container style={styles.container}>
         <Content>
 
-        <TitledInput
-          label='Challenge Title'
-          placeholder='Enter Here...'
-          value={this.props.createChallengeTitle}
-          onChangeText={(e) => {this.props.enteredField('createChallengeTitle', e)}}
-        />
-
-        <TitledInput
-          label='Challenge Description'
-          placeholder='Enter Here...'
-          value={this.props.createChallengeDescription}
-          onChangeText={(e) => {this.props.enteredField('createChallengeDescription', e)}}
-        />
-
-        <Text>Challenge Type:</Text>
-        <Picker prompt='Select a Challenge Type' selectedValue={this.props.createChallengeType} onValueChange={(itemValue, itemIndex) => {this.props.enteredField('createChallengeType', itemValue)}} style={{height: 40, width: 175}} >
-          <Picker.Item label='Select..' value={null} />
-          <Picker.Item label='GPS Challenge' value='GPSChallenge' />
-          <Picker.Item label='Riddle Question' value='riddleQuestion' />
-          <Picker.Item label='Logic Puzzle' value='logicQuestion' />
-          <Picker.Item label='Identify Photo' value='photoQuestion' />
-          <Picker.Item label='Idenfity Video' value='videoQuestion' />
-          <Picker.Item label='Take Photo/Video' value='cameraPrompt' />
-        </Picker>
-
-
-        {
-          (this.props.createChallengeType === 'GPSChallenge') ?
-
-          <View>
-          <Text>{'Location: '}{this.props.createChallengeLocation ? 'Latitude: ' + JSON.stringify(this.props.createChallengeLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createChallengeLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
-
-          <Button onPress={() => {Actions.createMap({setting: 'createChallengeLoc'})}}
-          title="Set Location"
-          color="#841584"/>
-
-          <Button onPress={() => {this.props.challengeLocationSet(null)}}
-          title="Clear Location"
-          color="#841584"/>
-          </View>
-
-          : null
-        }
-
-
-        {
-          (this.props.createChallengeType === 'GPSChallenge' || this.props.createChallengeType === null) ? null : 
-          <TitledInput
-            label='Challenge Question / Objective / Prompt'
-            placeholder='Enter Here...'
-            value={this.props.createChallengeObjective}
-            onChangeText={(e) => {this.props.enteredField('createChallengeObjective', e)}}
-          />
-        }
-
-        {
-          (this.props.createChallengeType === 'cameraPrompt' || this.props.createChallengeType === 'GPSChallenge' || this.props.createChallengeType === null) ? null : 
-
-          <TitledInput
-            label='Challenge Answer'
-            placeholder='Enter Here...'
-            value={this.props.createChallengeAnswer}
-            onChangeText={(e) => {this.props.enteredField('createChallengeAnswer', e)}}
-          />
-        }
-
-        <Button onPress={() => {
-          console.log('props: ', this.props)
-        }}
-        title="See Props"
-        color="#841584"/>
-
-        <Button onPress={() => {this.onSubmitChallenge()}}
-          title="Submit Challenge"
-          color="#841584"/>
-
-
-
-
-
-
-
           <View>
             <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../../media/createGameBackground2.png') } />
           </View>
@@ -295,24 +213,24 @@ const styles = StyleSheet.create({
     margin: 10,
     color: '#ffffff',
   },
-  // labelText: {
-  //   fontSize: 20,
-  //   color: '#fff5ea',
-  //   fontWeight: 'bold',
-  // },
-  // inputText: {
-  //   marginTop: 3,
-  //   fontSize: 18,
-  //   color: '#fff5ea',
-  // },
-  // listItemText: {
-  //   fontSize: 18,
-  //   color: '#fff5ea',
-  // },
-  // containerMenu: {
-  //   flex: 1,
-  //   position: 'absolute',
-  // },
+  labelText: {
+    fontSize: 20,
+    color: '#fff5ea',
+    fontWeight: 'bold',
+  },
+  inputText: {
+    marginTop: 3,
+    fontSize: 18,
+    color: '#fff5ea',
+  },
+  listItemText: {
+    fontSize: 18,
+    color: '#fff5ea',
+  },
+  containerMenu: {
+    flex: 1,
+    position: 'absolute',
+  },
 });
 
 // export default CreateGame;
