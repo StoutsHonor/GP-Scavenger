@@ -1,7 +1,6 @@
 # GPScavenger (development name)
 
 > A location based social scavenger hunt app for Android, built in React Native
-> Users can join, start, or create (design) games
 
 ## Team
 
