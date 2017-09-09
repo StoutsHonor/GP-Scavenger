@@ -113,7 +113,7 @@ class CreateChallenge extends Component {
             </Item>
 
             <Item>
-              <Text>Challenge Type:</Text>
+              <Text style={styles.labelText}>Challenge Type:</Text>
               <Picker prompt='Select a Challenge Type' selectedValue={this.props.createChallengeType} onValueChange={(itemValue, itemIndex) => {this.props.enteredField('createChallengeType', itemValue)}} style={{height: 40, width: 175}} >
                 <Picker.Item label='Select..' value={null} />
                 <Picker.Item label='GPS Challenge' value='GPSChallenge' />
@@ -131,7 +131,7 @@ class CreateChallenge extends Component {
               (this.props.createChallengeType === 'GPSChallenge') ?
 
               <View>
-              <Text>{'Location: '}{this.props.createChallengeLocation ? 'Latitude: ' + JSON.stringify(this.props.createChallengeLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createChallengeLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
+              <Text style={styles.inputText}>{'Location: '}{this.props.createChallengeLocation ? 'Latitude: ' + JSON.stringify(this.props.createChallengeLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createChallengeLocation.longitude.toFixed(2)) : '(No Location Set)'}</Text>
 
               <Button onPress={() => {Actions.createMap({setting: 'createChallengeLoc'})}}
               title="Set Location"
@@ -149,12 +149,13 @@ class CreateChallenge extends Component {
             <Item>
             {
               (this.props.createChallengeType === 'GPSChallenge' || this.props.createChallengeType === null) ? null : 
-              <TitledInput
-                label='Challenge Question / Objective / Prompt'
-                placeholder='Enter Here...'
-                value={this.props.createChallengeObjective}
-                onChangeText={(e) => {this.props.enteredField('createChallengeObjective', e)}}
-              />
+              
+              <View>
+              <Text style={styles.labelText}>Challenge Question / Objective / Prompt</Text>
+              <Input placeholder="Enter Here.." value={this.props.createChallengeObjective} onChangeText={(e) => {this.props.enteredField('createChallengeObjective', e)}} style={styles.inputText}/>
+              </View>
+
+
             }
             </Item>
 
@@ -162,12 +163,12 @@ class CreateChallenge extends Component {
             {
               (this.props.createChallengeType === 'cameraPrompt' || this.props.createChallengeType === 'GPSChallenge' || this.props.createChallengeType === null) ? null : 
 
-              <TitledInput
-                label='Challenge Answer'
-                placeholder='Enter Here...'
-                value={this.props.createChallengeAnswer}
-                onChangeText={(e) => {this.props.enteredField('createChallengeAnswer', e)}}
-              />
+              <View>
+              <Text style={styles.labelText}>Challenge Answer</Text>
+              <Input placeholder="Enter Here.." value={this.props.createChallengeAnswer} onChangeText={(e) => {this.props.enteredField('createChallengeAnswer', e)}} style={styles.inputText}/>
+              </View>
+
+
             }
             </Item>
 
