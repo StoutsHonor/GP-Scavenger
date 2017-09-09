@@ -1,13 +1,13 @@
-# AR.T
+# GPScavenger (development name)
 
-> A Geo-Social Augmented Reality (AR) Drawing Mobile App for Android
-
+> A location based social scavenger hunt app for Android, built in React Native
+> Users can join, start, or create (design) games
 
 ## Team
 
-  - __Product Owner__: Michael Nguyen
+  - __Product Owner__: Jennifer Tran
   - __Scrum Master__: Jeffrey Lee
-  - __Development Team Members__: Jennifer Tran, Kevin Tamarus
+  - __Development Team Members__: Michael Nguyen, Kevin Tamarus
 
 
 ## Table of Contents
@@ -29,12 +29,21 @@
 npm install
 ```
 - There are also multiple .gitignore files.
+- API keys used:
+Client: Firebase (for authentication)
+Client: Google Maps
+Database: PostgreSQL (on ElephantSQL)
 
-### Firebase Configuration (used for Authentication):
-- TBD
+### Client config.js (in client/config/):
+- firebase used for authentication, relevant details are stored in this file.
+- If testing with a local server, the emulator should NOT be sending requests to 'localhost'. It will be another IP address depending on the service that is running the emulator. Localhost (or server) address is set in this file, since various emulators use certain IP addresses to refer to localhost. Set this address to the server address with port when the server is deployed
 
-### PostgreSQL Configuration (database):
-- TBD
+### Database config.js (in server/database/):
+- PostgreSQL using elephantSQL is the database used for this project
+
+### Google Maps API Configuration:
+- Google Play Services is required on the device. (Adding Google Player Services to Genymotion emulator: http://opengapps.org/, x86 platform, Android 6.0, nano variant. Drop the zip file into the running emulator)
+- AndroidManifeset.xml file needs to be updated with <meta data> and the API key (refer to Google API docs)
 
 
 ## Requirements
@@ -60,7 +69,6 @@ export PATH="$HOME/Android/platform-tools:$PATH"
 - VirtualBox 5.1.26 platform packages (Genymotion requires this for macOS)
 - Genymotion 2.10.0 Revision 20170719-0eb896a (Android Emulator)
 - Genymotion Configuration: Create an Android Emulator running Android 6.0 (API 23).
-- Recommended (but unused): Gradle
 
 #### for Windows (10?) developers, working on an Android App:
 
@@ -79,5 +87,5 @@ View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
 
 See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
 
-
+### Known Bugs
 
