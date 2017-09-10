@@ -1,5 +1,15 @@
 [
   {
+    "name": "Da best game EVA",
+    "userId": 1,
+    "duration": 15,
+    "private": false,
+    "maxPlayers": 4,
+    "rewardPoints": 4242,
+    "startLocation": [33.9759435,-118.3929176],
+    "description": "PLAYPLAYPLAYNOW!!!!"
+  },
+  {
     "name": "Bery Simple Scavenger Hunt",
     "userId": 1, 
     "duration": 30,

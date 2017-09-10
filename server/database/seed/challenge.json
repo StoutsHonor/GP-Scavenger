@@ -2,18 +2,17 @@
   {
     "name": "Guess this movie",
     "description": "Do you know your superhero",
-    "gameId": 1,
+    "gameId": 2,
     "sequence": 1,
     "location": [37.783692, -122.408967],
     "timeLimit": 30,
     "questionTypeId": 5,
     "questionId": 1
   },
-  
   {
     "name": "Guess this Photo",
     "description": "Do you know your pokemon",
-    "gameId": 1,
+    "gameId": 2,
     "sequence": 2,
     "location": [37.783692, -122.408967],
     "timeLimit": 30,
@@ -23,7 +22,7 @@
   {
     "name": "The world's hardest riddle",
     "description": "You'll never be able to solve this!!!",
-    "gameId": 1,
+    "gameId": 2,
     "sequence": 3,
     "location": [37.783692, -122.408967],
     "timeLimit": 30,
@@ -33,7 +32,7 @@
   {
     "name": "Save the forest",
     "description": "It's tough to find trees in a desert",
-    "gameId": 1,
+    "gameId": 2,
     "sequence": 4,
     "location": [37.783692, -122.408967],
     "timeLimit": 30,
@@ -43,7 +42,7 @@
   {
     "name": "Riddle #1",
     "description": "This is the first riddle",
-    "gameId": 2,
+    "gameId": 3,
     "sequence": 1,
     "location": [37.783692, -122.408967],
     "timeLimit": 30,
@@ -53,7 +52,7 @@
   {
     "name": "Riddle #2",
     "description": "This is the second riddle",
-    "gameId": 2,
+    "gameId": 3,
     "sequence": 2,
     "location": [37.783692, -122.408967],
     "timeLimit": 30,
@@ -63,7 +62,7 @@
   {
     "name": "Riddle #3",
     "description": "This is the third riddle",
-    "gameId": 2,
+    "gameId": 3,
     "sequence": 3,
     "location":[37.783692, -122.408967],
     "timeLimit": 30,
@@ -73,7 +72,7 @@
   {
     "name": "GPS #1",
     "description": "This is the FIRST GPS coordinate",
-    "gameId": 3,
+    "gameId": 4,
     "sequence": 1,
     "location": [37.783692, -122.408967],
     "timeLimit": 30,
@@ -83,7 +82,7 @@
   {
     "name": "GPS #2",
     "description": "This is the SECOND GPS coordinate",
-    "gameId": 3,
+    "gameId": 4,
     "sequence": 2,
     "location": [33.812092, -117.918974],
     "timeLimit": 30,
@@ -93,7 +92,7 @@
   {
     "name": "GPS #3",
     "description": "This is the THIRD GPS coordinate",
-    "gameId": 3,
+    "gameId": 4,
     "sequence": 2,
     "location": [32.715738, -117.161084],
     "timeLimit": 30,
@@ -103,7 +102,7 @@
   {
     "name": "MIXED GAME CHALLENGE #1",
     "description": "GPS - this is the first mixed game challenge - Tijuana",
-    "gameId": 5,
+    "gameId": 6,
     "sequence": 1,
     "questionTypeId": 1,
     "location": [32.741112, -117.3891787]
@@ -111,7 +110,7 @@
   {
     "name": "MIXED GAME CHALLENGE #2",
     "description": "Riddle - this is the second mixed game challenge",
-    "gameId": 5,
+    "gameId": 6,
     "sequence": 2,
     "timeLimit": 30,
     "questionTypeId": 1,
@@ -120,7 +119,7 @@
   {
     "name": "MIXED GAME CHALLENGE #3",
     "description": "GPS - this is the third mixed game challenge - Carlsbad",
-    "gameId": 5,
+    "gameId": 6,
     "sequence": 3,
     "location": [33.178641, -117.342653],
     "questionTypeId": 1
@@ -128,7 +127,7 @@
   {
     "name": "MIXED GAME CHALLENGE #4",
     "description": "Riddle - this is the fourth mixed game challenge",
-    "gameId": 5,
+    "gameId": 6,
     "sequence": 4,
     "timeLimit": 30,
     "questionTypeId": 2,
@@ -137,7 +136,7 @@
   {
     "name": "MIXED GAME CHALLENGE #5",
     "description": "Video - Do you know your superhero",
-    "gameId": 5,
+    "gameId": 6,
     "sequence": 5,
     "location": [37.783692, -122.408967],
     "timeLimit": 30,
@@ -147,7 +146,7 @@
   {
     "name": "MIXED GAME CHALLENGE #6",
     "description": "Guess this Photo - Do you know your pokemon",
-    "gameId": 5,
+    "gameId": 6,
     "sequence": 6,
     "location": [37.783692, -122.408967],
     "timeLimit": 30,
@@ -157,7 +156,7 @@
   {
     "name": "MIXED GAME CHALLENGE #7",
     "description": "Camera - It's tough to find trees in a desert",
-    "gameId": 5,
+    "gameId": 6,
     "sequence": 7,
     "location": [37.783692, -122.408967],
     "timeLimit": 30,
@@ -167,7 +166,7 @@
   {
     "name": "WALKING GPS TEST",
     "description": "Walking GPS Challenge #1",
-    "gameId": 6,
+    "gameId": 7,
     "sequence": 1,
     "location": [33.976941, -118.392402],
     "questionTypeId": 1
@@ -175,9 +174,52 @@
   {
     "name": "WALKING GPS TEST #2",
     "description": "Walking GPS Challenge #2",
-    "gameId": 6,
+    "gameId": 7,
     "sequence": 2,
     "location": [33.975856, -118.391147],
     "questionTypeId": 1
+  },
+  {
+    "name": "I WANT ICE CREAM",
+    "description": "Long day of coding. You want ice cream. Where do you go???",
+    "gameId": 1,
+    "sequence": 1,
+    "location": [33.977087, -118.392290],
+    "questionTypeId": 1
+  },
+  {
+    "name": "?!?!",
+    "description": "Greater or less than",
+    "gameId": 1,
+    "sequence": 2,
+    "timeLimit": 3,
+    "questionTypeId": 2,
+    "questionId": 5
+  },
+  {
+    "name": "Dance the night away",
+    "description": "Your mobile app code is compiling. You wanna play DDR - where go now?",
+    "gameId": 1,
+    "sequence": 3,
+    "location": [33.977563, -118.391625],
+    "questionTypeId": 1
+  },
+  {
+    "name": "selfie time...",
+    "description": "need friendz",
+    "gameId": 1,
+    "sequence": 4,
+    "timeLimit": 1,
+    "questionTypeId": 4,
+    "questionId": 10
+  },
+  {
+    "name": "A star studded cast...",
+    "description": "Who b dis?",
+    "gameId": 1,
+    "sequence": 5,
+    "timeLimit": 1,
+    "questionTypeId": 5,
+    "questionId": 3
   }
 ]

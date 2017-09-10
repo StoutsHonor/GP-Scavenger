@@ -37,13 +37,28 @@ class VideoChallenge extends Component {
   }
 
   componentWillMount() { 
-    // fetch(`${config.localhost}/api/video/findVideo/?id=${this.props.challenge.questionId}`)
-    // .then(response => response.json())
-    // .then(data => {
-    //   this.setState({ data }); 
-    // })
-    // .catch(err => console.error(err))
+    fetch(`${config.localhost}/api/video/findVideo/?id=${this.props.challenge.questionId}`)
+      .then(response => response.json())
+      .then(data => {
+        this.setState({ data }); 
+      })
+    .catch(err => console.error(err))
+    console.log(`VideoChallenge - componentWillMount()`)
   }
+
+  // componentWillReceiveProps(nextProps) {
+  //   console.log(`VideoChallenge - componentWillReceiveProps()`)
+  //   this.setState({
+  //     data: {
+  //       title: nextProps.challenge.title,
+  //       question: nextProps.challenge.question,
+  //       link: nextProps.challenge.link,
+  //       answer: nextProps.challenge.answer,
+  //       difficulty: nextProps.challenge.difficulty,
+  //       default: nextProps.challenge.default
+  //     }
+  //   })
+  // }
 
   handleClickSubmit() {
     if(this.state.userInput.toLowerCase().includes(this.state.data.answer.toLowerCase()) === true) {
