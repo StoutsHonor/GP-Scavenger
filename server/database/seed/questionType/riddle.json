@@ -30,5 +30,13 @@
     "difficulty": "moderate",
     "default": true,
     "imageURL": "https://afterwordsbooks.files.wordpress.com/2013/02/riddle.jpg"
+  },
+  {
+    "title": "QUICK - how old is Kan??",
+    "question": "",
+    "answer": "25",
+    "difficulty": "moderate",
+    "default": true,
+    "imageURL": "https://afterwordsbooks.files.wordpress.com/2013/02/riddle.jpg"
   }
 ]

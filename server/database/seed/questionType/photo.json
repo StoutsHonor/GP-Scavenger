@@ -52,5 +52,11 @@
       "instruction": "Take a picture of a dog and a cat",
       "difficulty": "moderate",
       "default": true
+    },
+    {
+      "title": "be mah frienddd",
+      "instruction": "Take a selfie with 30 friends!",
+      "difficulty": "easy",
+      "default": true
     }
   ]
