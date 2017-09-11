@@ -17,7 +17,7 @@ import config from '../../config/config.js'
 // Redux Imports for binding stateToProps and dispatchToProps to the component
 import {connect} from 'react-redux'
 import {bindActionCreators} from 'redux'
-import {userLoggedIn} from '../actions/index.js'
+import {userLoggedIn, getAllGameChallenges, setCurrentChallengeIndex, getGameId, setGamePoints, getGameInfo} from '../actions/index.js'
 
 // gives the component access to store through props
 const mapStateToProps = (state) => {
@@ -29,12 +29,18 @@ const mapStateToProps = (state) => {
     userCurrentLocation: state.client.userCurrentLocation,
     userIsInGame: state.client.userIsInGame,
     userCurrentGame: state.client.userCurrentGame,
+
+    gameId: state.play.gameId,
+    gameInfo: state.play.gameInfo,
+    challenges: state.play.allChallenges,
+    index: state.play.currentChallengeIndex,
+    gamePoints: state.play.gamePoints
   }
 }
 
 // gives the component access to actions through props
 const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({userLoggedIn}, dispatch)
+  return bindActionCreators({userLoggedIn, getAllGameChallenges, setCurrentChallengeIndex, getGameId,setGamePoints, getGameInfo}, dispatch)
 }
 
 
@@ -54,10 +60,19 @@ class HomePage extends Component {
   authSetUser(){
     console.log('HomePage: setting user:', firebase.auth().currentUser)
     this.props.userLoggedIn(firebase.auth().currentUser.providerData[0])
-    
+  }
+
+  componentDidMount() {
+    setTimeout(() => {this.props.getGameId(null);
+    this.props.getAllGameChallenges([]);
+    this.props.setCurrentChallengeIndex(0);
+    this.props.setGamePoints(0);
+    this.props.getGameInfo({});
+    }, 1000);
   }
 
   render () {
+    console.log(this.props.gameId, this.props.gameInfo, this.props.challenges, this.props.index, this.props.gamePoints, 'check')
     return (
       <View style={styles.container}>
         {!this.props.userIdentity ? 

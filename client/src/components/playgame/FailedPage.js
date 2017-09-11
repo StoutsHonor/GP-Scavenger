@@ -13,8 +13,8 @@ const FailedPage = () => {
         The other team won! 
         Aw well, try again.
       </Text>
-      <Text onPress={() => Actions.startgame()}>Try Again</Text>
-      <Text onPress={() => Actions.homepage()}>Back to Home</Text>
+      <Text onPress={() => Actions.homepage({type:'reset'})}>Back to Home</Text>
+      <Text onPress={() => Actions.leaderboard({type:'reset'})}>Leaderboard</Text>
     </View>
   );
 }

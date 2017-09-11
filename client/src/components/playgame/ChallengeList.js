@@ -21,7 +21,8 @@ const mapStateToProps = (state) => {
   return {
     gameId: state.play.gameId,
     challenges: state.play.allChallenges,
-    index: state.play.currentChallengeIndex
+    index: state.play.currentChallengeIndex,
+    gamePoints: state.play.gamePoints
   }
 }
 
@@ -35,10 +36,10 @@ class ChallengeList extends Component {
   render() {
     return (
       <ScrollView contentContainerStyle={styles.container}>
-        <Text>{this.props.gameId}</Text>
-        {this.props.challenges.map((challenge, i) => {
+        <Text>{this.props.gamePoints} Points Earned So Far</Text>
+        {this.props.challenges ? this.props.challenges.map((challenge, i) => {
         return <ChallengeListEntry challenge={challenge} challengeIndex={i} index={this.props.index} key={i}/>
-      })}
+      }) : null}
       </ScrollView>
     )
   }

@@ -200,7 +200,7 @@ class Lobby extends Component {
   }
 
   startGame() {
-    this.props.setGamePoints(this.props.gameInfo.rewardPoints);
+    //this.props.setGamePoints(this.props.gameInfo.rewardPoints);
     console.log(
       "Lobby: button pressed, props.gamedata is: ",
       this.props.gamedata

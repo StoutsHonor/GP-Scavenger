@@ -29,19 +29,12 @@ class FailedChallenge extends Component {
       displayFinal: false
     }
   }
+
   componentDidMount() {
     if(this.props.challenges) {
-      console.log('if is hitting')
       if( this.props.index === this.props.challenges.length - 1) {
         this.setState({displayFinal: true});
-        let newPoints = this.props.gamePoints - Math.floor(this.props.gameInfo.rewardPoints / this.props.challenges.length);
-        console.log(newPoints, 'points to subtract from')
-        this.props.setGamePoints(newPoints);
-        //this.props.setCurrentChallengeIndex(this.props.index + 1);
       } else {
-        let newPoints = this.props.gamePoints - Math.floor(this.props.gameInfo.rewardPoints / this.props.challenges.length);
-        console.log(newPoints, 'points to subtract from')
-        this.props.setGamePoints(newPoints);
         this.props.setCurrentChallengeIndex(this.props.index + 1);
       }
     }
@@ -52,14 +45,11 @@ class FailedChallenge extends Component {
     if(this.props.challenges) {
       lostPoints = Math.floor(this.props.gameInfo.rewardPoints/this.props.challenges.length);
     }
-    console.log(this.props.gamePoints, 'game points at failed')
     return (
       <View style={styles.container}>
         <Text style={styles.welcome}>
-          You Did Not Complete this Challenge.  You Lost:
+          You Did Not Complete this Challenge.
         </Text>
-        <Text style={styles.points}>{lostPoints || null}</Text>
-        <Text style={styles.welcome}>Points for Skipping.</Text>
         {this.state.displayFinal ? 
           <Text onPress={() => Actions.congratspage()}>Go to Finish</Text> : 
           <Text onPress={() => Actions.currentchallenge()}>Go To Your Next Task</Text>

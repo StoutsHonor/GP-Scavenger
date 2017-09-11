@@ -35,7 +35,8 @@ class CongratsPage extends Component {
   }
 
   componentDidMount() {
-    
+    let earnedPoints = this.props.gamePoints + Math.ceil(this.props.gameInfo.rewardPoints/this.props.challenges.length) + 500;
+    this.props.setGamePoints(earnedPoints);
     
     fetch(`${config.localhost}/api/user/findUserPoints/?userId=${1}`)
     .then(response => response.json())
@@ -53,20 +54,21 @@ class CongratsPage extends Component {
   }
 
   handleClick(route) {
-    this.props.getGameId(null);
-    this.props.getAllGameChallenges(null);
-    this.props.setCurrentChallengeIndex(0);
-    this.props.setGamePoints(0);
-    this.props.getGameInfo(null);
-    if(route === 'homepage') {Actions.homepage()}
-    else if(route === 'joingame') {Actions.joingame({listtype: 'join'})}
-    else if(route === 'leaderboard') {Actions.leaderboard()};
+    if(route === 'homepage') {
+      Actions.homepage({type: 'reset'})
+      // this.props.getGameId(null);
+      // this.props.getAllGameChallenges([]);
+      // this.props.setCurrentChallengeIndex(0);
+      // this.props.setGamePoints(0);
+      // this.props.getGameInfo({});
+    }
+    else if(route === 'leaderboard') {Actions.leaderboard({type: 'reset'})};
   }
 
   render() {
     return(
       <View style={styles.container}>
-      <Text style={styles.welcome}>You Won! You Earned:</Text>
+      <Text style={styles.welcome}>You Won! You Earned A Total Of:</Text>
       <Text style={styles.points}>{this.props.gamePoints}</Text>
       <Text style={styles.welcome}>Points From This Game!!!</Text>
       <Text onPress={() => this.handleClick('homepage')}>Back to Home</Text>
