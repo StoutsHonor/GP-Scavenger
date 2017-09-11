@@ -8,8 +8,16 @@ class LoginForm extends Component {
   // state to send to auth
   constructor(props){
     super(props)
-    this.state = { email: '', password: '', error: '', loading: false };
-    
+    this.state = {
+      email: '',
+      password: '',
+      error: '',
+      loading: false,
+      signingUp: false,
+      firstName: null,
+      lastName: null,
+      DOB: null,
+    };
   }
 
 
@@ -26,45 +34,126 @@ class LoginForm extends Component {
         this.setState({ error: '', loading: false }); 
         this.props.setusermethod();
       })
-      .catch(() => {
-        console.log('Login was not successful, let\'s create a new account');
-        firebase.auth().createUserWithEmailAndPassword(email, password)
-          .then(() => {
-            this.setState({ error: '', loading: false });
-            console.log('setting state to created user:', email, password);
-            this.props.setusermethod();
-          })
-          .catch((e) => {
-            console.log('error: ', e);
-            this.setState({ error: 'Authentication failed.', loading: false });
-          });
+      .catch((e) => {
+        console.log('error: ', e);
+        this.setState({ error: 'Authentication failed.', loading: false });
       });
   }
+
+  onSignUpPress() {
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+    .then(() => {
+      this.setState({ error: '', loading: false });
+      console.log('setting state to created user:', email, password);
+      this.props.setusermethod();
+    })
+    .catch((e) => {
+      console.log('error: ', e);
+      this.setState({ error: 'Account creation failed.', loading: false });
+    });
+  }
+
   renderButtonOrSpinner() {
     if (this.state.loading) {
       return (<Text>Loading...</Text>);    
+    } else if (this.state.signingUp) {
+      return (<Button onPress={this.onSignUpPress.bind(this)} title="Submit Sign Up"/>);
     }
-    return <Button onPress={this.onLoginPress.bind(this)} title="Log in" />;
+    return (<Button onPress={this.onLoginPress.bind(this)} title="Submit Log In"/>);
   }
+
+  toggleFormType() {
+    this.setState({ signingUp: !this.state.signingUp});
+  }
+
+
+  renderLoginOrSignupForm() {
+    if (!this.state.signingUp) {
+      return (
+        <View>
+          <TitledInput 
+              label='Email Address                      '
+              placeholder='you@domain.com'
+              value={this.state.email}
+              onChangeText={email => this.setState({ email })}
+          />
+          <TitledInput 
+              label='Password'
+              autoCorrect={false}
+              placeholder='*******'
+              secureTextEntry
+              value={this.state.password}
+              onChangeText={password => this.setState({ password })}
+          />
+        </View>
+      );    
+    } else {
+      return (
+        <View>
+          <TitledInput 
+              label='First Name                         '
+              placeholder=''
+              value={this.state.firstName}
+              onChangeText={firstName => this.setState({ firstName })}
+          />
+          <TitledInput 
+              label='Last Name'
+              placeholder=''
+              value={this.state.lastName}
+              onChangeText={lastName => this.setState({ lastName })}
+          />
+          <TitledInput 
+              label='Email Address                      '
+              placeholder='you@domain.com'
+              value={this.state.email}
+              onChangeText={email => this.setState({ email })}
+          />
+          <TitledInput 
+              label='Date of Birth'
+              placeholder='yyyy-mm-dd'
+              value={this.state.DOB}
+              onChangeText={DOB => this.setState({ DOB })}
+          />
+          <TitledInput 
+              label='Create a Password'
+              autoCorrect={false}
+              placeholder='*******'
+              secureTextEntry
+              value={this.state.password}
+              onChangeText={password => this.setState({ password })}
+          />
+        </View>
+      );
+    }
+  }
+
+  renderLoginOrSignupButton() {
+    if (!this.state.signingUp) {
+      return (
+        <View>
+          <Text>New around here?</Text>
+          <Button onPress={this.toggleFormType.bind(this)} title="Sign Up"/>
+        </View>
+      );    
+    } else {
+      return (
+        <View>
+          <Text>Have an account?</Text>
+          <Button onPress={this.toggleFormType.bind(this)} title="Log In"/>
+        </View>
+      );
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
-        <TitledInput 
-            label='Email Address                      '
-            placeholder='you@domain.com'
-            value={this.state.email}
-            onChangeText={email => this.setState({ email })}
-        />
-        <TitledInput 
-            label='Password'
-            autoCorrect={false}
-            placeholder='*******'
-            secureTextEntry
-            value={this.state.password}
-            onChangeText={password => this.setState({ password })}
-        />
+        {this.renderLoginOrSignupForm()}
         <Text style={styles.errorTextStyle}>{this.state.error}</Text>
         {this.renderButtonOrSpinner()}
+        <Text> </Text>
+        <Text> </Text>
+        {this.renderLoginOrSignupButton()}
       </View>
     );
   }
