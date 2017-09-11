@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text, Button } from 'react-native';
+import { View, Text, Button, Alert } from 'react-native';
 import firebase from 'firebase';
 import TitledInput from '../reusable/TitledInput';
 // import Spinner from './Spinner';
@@ -14,10 +14,12 @@ class LoginForm extends Component {
       error: '',
       loading: false,
       signingUp: false,
-      firstName: null,
-      lastName: null,
-      DOB: null,
+      firstName: '',
+      lastName: '',
+      DOB: '',
+      username: '',
     };
+    this.setState = this.setState.bind(this)
   }
 
 
@@ -32,7 +34,8 @@ class LoginForm extends Component {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(() => {
         this.setState({ error: '', loading: false }); 
-        this.props.setusermethod();
+        // TODO: fetch user from DB
+        this.props.setusermethod(); // TODO: call this on data retreived from DB.
       })
       .catch((e) => {
         console.log('error: ', e);
@@ -41,16 +44,47 @@ class LoginForm extends Component {
   }
 
   onSignUpPress() {
-    firebase.auth().createUserWithEmailAndPassword(email, password)
-    .then(() => {
-      this.setState({ error: '', loading: false });
-      console.log('setting state to created user:', email, password);
-      this.props.setusermethod();
-    })
-    .catch((e) => {
-      console.log('error: ', e);
-      this.setState({ error: 'Account creation failed.', loading: false });
-    });
+    if (!this.state.email) {
+      Alert.alert(
+        'Error',
+        'Please enter a valid email address!',
+        [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')},]
+      )
+    } else if (this.state.password.length < 6) {
+      Alert.alert(
+        'Error',
+        'Password must be at least 6 characters long!',
+        [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')},]
+      )
+    } else if (!this.state.firstName || !this.state.lastName) {
+      Alert.alert(
+      'Error',
+      'Please fill out both first and last name!',
+      [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')},]
+      )
+    } else if (!this.state.username) {
+      Alert.alert(
+      'Error',
+      'Please create a username!',
+      [{text: 'Dismiss', onPress: () => console.log('OK Pressed!')},]
+      )
+    }
+
+    // (this.state.DOB)
+
+    else {
+      firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+      .then(() => {
+        this.setState({ error: '', loading: false });
+        console.log('setting state to created user:', this.state.email, this.state.password);
+        // TODO: attempt insert to DB. handle duplicate usernames.
+        this.props.setusermethod(); // TODO: call this on data retreived from DB.
+      })
+      .catch((e) => {
+        console.log('error: ', e);
+        this.setState({ error: 'Account creation failed.', loading: false });
+      });
+    }
   }
 
   renderButtonOrSpinner() {
@@ -63,7 +97,7 @@ class LoginForm extends Component {
   }
 
   toggleFormType() {
-    this.setState({ signingUp: !this.state.signingUp});
+    this.setState({ signingUp: !this.state.signingUp, error: ''});
   }
 
 
@@ -72,7 +106,7 @@ class LoginForm extends Component {
       return (
         <View>
           <TitledInput 
-              label='Email Address                      '
+              label='Email Address                            '
               placeholder='you@domain.com'
               value={this.state.email}
               onChangeText={email => this.setState({ email })}
@@ -91,7 +125,7 @@ class LoginForm extends Component {
       return (
         <View>
           <TitledInput 
-              label='First Name                         '
+              label='First Name                               '
               placeholder=''
               value={this.state.firstName}
               onChangeText={firstName => this.setState({ firstName })}
@@ -103,16 +137,22 @@ class LoginForm extends Component {
               onChangeText={lastName => this.setState({ lastName })}
           />
           <TitledInput 
-              label='Email Address                      '
+              label='Email Address                            '
               placeholder='you@domain.com'
               value={this.state.email}
               onChangeText={email => this.setState({ email })}
           />
-          <TitledInput 
+          {/* <TitledInput 
               label='Date of Birth'
               placeholder='yyyy-mm-dd'
               value={this.state.DOB}
               onChangeText={DOB => this.setState({ DOB })}
+          /> */}
+          <TitledInput 
+              label='Create a Username'
+              placeholder=''
+              value={this.state.username}
+              onChangeText={username => this.setState({ username })}
           />
           <TitledInput 
               label='Create a Password'
@@ -151,8 +191,8 @@ class LoginForm extends Component {
         {this.renderLoginOrSignupForm()}
         <Text style={styles.errorTextStyle}>{this.state.error}</Text>
         {this.renderButtonOrSpinner()}
-        <Text> </Text>
-        <Text> </Text>
+        <Text></Text>
+        <Text></Text>
         {this.renderLoginOrSignupButton()}
       </View>
     );

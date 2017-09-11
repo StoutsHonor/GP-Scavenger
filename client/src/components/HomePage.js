@@ -82,6 +82,9 @@ class HomePage extends Component {
           <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../media/12-09-17-imavex-scavenger-hunt.jpg') } />
           </View>
           <View style={styles.containerMenu}>
+          <Text style={styles.welcome}>
+              GPScavenger
+          </Text>
           <LoginForm user={this.state.user} setusermethod={this.authSetUser}/>
           </View>
         </View>
@@ -128,7 +131,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#6495ED',
   },
   welcome: {
-    fontSize: 40,
+    fontSize: 55,
     fontFamily: 'cursive',
     fontWeight: 'bold',
     textAlign: 'center',
