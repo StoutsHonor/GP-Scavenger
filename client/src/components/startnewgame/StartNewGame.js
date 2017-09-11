@@ -4,7 +4,10 @@ import {
   Text,
   View,
   Button,
-  ScrollView
+  ScrollView,
+  TextInput,
+  Modal,
+  Dimensions
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -16,6 +19,8 @@ import config from '../../../config/config';
 import SideMenu from 'react-native-side-menu';
 import HomePage from '../HomePage';
 import LoadingPage from '../reusable/LoadingPage'
+
+const window = Dimensions.get('window');
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ getGameId, getGameInfo }, dispatch)
@@ -41,11 +46,15 @@ class StartNewGame extends Component {
       gameStartMarkers: [],
       showList: true,
       view: 'list',
-      loading: true
+      loading: true,
+      inputLobbyNameModal: false,
+      lobbyName: '',
+      selectedGame: null
     }
 
     this.modularListEntryButtonAction = this.modularListEntryButtonAction.bind(this);
     this.onStartNewGameListEntryClick = this.onStartNewGameListEntryClick.bind(this);
+    this.onInputLobbyName = this.onInputLobbyName.bind(this);
   }
 
   componentWillMount() {
@@ -69,17 +78,27 @@ class StartNewGame extends Component {
   }  
   
   modularListEntryButtonAction(gamedata) {
+    this.setState({ inputLobbyNameModal: true, selectedGame: gamedata })
     // console.log('StartNewGame: modularListEntryButtonAction pressed')
     // console.log('gamedata: ', gamedata)
-    Actions.lobby({gamedata: gamedata})
-    // update redux store CURRENT GAME with gamedata
-    this.props.getGameId(gamedata.id);
-    this.props.getGameInfo(gamedata);
+    // Actions.lobby({gamedata: gamedata})
+    // // update redux store CURRENT GAME with gamedata
+    // this.props.getGameId(gamedata.id);
+    // this.props.getGameInfo(gamedata);
+  }
+
+  onInputLobbyName() {
+    const gamedata = Object.assign({room: this.state.lobbyName, createdBy: this.props.userId, roomId: "lobby-" + this.state.lobbyName + "-" + this.props.userId }, this.state.selectedGame)
+    Actions.lobby({ gamedata })
+    this.props.getGameId(this.state.selectedGame.id);
+    this.props.getGameInfo(this.state.selectedGame);
+    this.setState({inputLobbyNameModal: false});
   }
 
   onStartNewGameListEntryClick(game) {
     console.log(`StartNewGame - onJoinGameListEntryClick()`)
     Actions.gameprofile({game, typeOfAction: 'start game', buttonaction: this.modularListEntryButtonAction})
+
   }
 
   render() {
@@ -117,6 +136,30 @@ class StartNewGame extends Component {
 
         </ScrollView>
       }
+      <View>
+        <Modal
+          animationType={"slide"}
+          transparent={true}
+          visible={this.state.inputLobbyNameModal}
+          onRequestClose={() => {alert("Modal has been closed.")}}
+          >
+          <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
+          <View style={{padding: 10, top: window.height*.40, width: window.width*.8, backgroundColor: '#FFF'}}>
+          <TextInput
+            style={{height: 40}}
+            placeholder="Enter Lobby Name..."
+            onChangeText={(lobbyName) => this.setState({lobbyName})}
+          />
+          <Button
+            onPress={this.onInputLobbyName}
+            title="OK"
+            color="#841584"
+          />
+          </View>
+          </View>
+        </Modal>
+      </View>
+
       </SideMenu>
     );
   }

@@ -43,7 +43,7 @@ class Lobby extends Component {
     this.getOtherUserName = this.getOtherUserName.bind(this);
     this.startGame = this.startGame.bind(this);
 
-    this.roomName = "lobby" + this.props.gameId;
+    this.roomName = this.props.gamedata.roomId;
 
     this.state = {
       messages: [],
@@ -85,7 +85,7 @@ class Lobby extends Component {
 
   componentDidMount() {
     this.socket = io(config.localhost);
-    this.socket.emit("createRoom", this.roomName);
+    this.socket.emit("createRoom", this.props.gamedata);
     this.socket.on("joinLobby", this.onReceivedJoinedLobby);
     this.socket.on("message", this.onReceivedMessage);
     this.socket.on("updateOtherPlayer", this.updateOtherPlayer);
@@ -233,7 +233,8 @@ class Lobby extends Component {
 
     return (
       <View style={this.state.styles.container}>
-        <Text style={this.state.styles.lobbytext}>Welcome to the Lobby</Text>
+        <Text style={this.state.styles.lobbytext}>Lobby: {this.props.gamedata.room}</Text>
+        <Text style={this.state.styles.lobbytext}>Created by: {this.props.gamedata.createdBy}</Text>
         <View style={this.state.styles.chat}>
           <GiftedChat
             messages={this.state.messages}

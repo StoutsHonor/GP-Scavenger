@@ -68,5 +68,15 @@
     "rewardPoints": 3900,
     "startLocation": [33.976025, -118.391093],
     "description": "this is description #6"
+  },
+  {
+    "name": "Hollywood Stars",
+    "userId": 1,
+    "duration": 120,
+    "private": false,
+    "maxPlayers": 4,
+    "rewardPoints": 200,
+    "startLocation": [33.976025, -118.391093],
+    "description": "Get to know LA!"
   }
 ]
