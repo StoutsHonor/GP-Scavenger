@@ -56,11 +56,6 @@ class CongratsPage extends Component {
   handleClick(route) {
     if(route === 'homepage') {
       Actions.homepage({type: 'reset'})
-      // this.props.getGameId(null);
-      // this.props.getAllGameChallenges([]);
-      // this.props.setCurrentChallengeIndex(0);
-      // this.props.setGamePoints(0);
-      // this.props.getGameInfo({});
     }
     else if(route === 'leaderboard') {Actions.leaderboard({type: 'reset'})};
   }
@@ -72,7 +67,6 @@ class CongratsPage extends Component {
       <Text style={styles.points}>{this.props.gamePoints}</Text>
       <Text style={styles.welcome}>Points From This Game!!!</Text>
       <Text onPress={() => this.handleClick('homepage')}>Back to Home</Text>
-      <Text onPress={() => this.handleClick('joingame')}>Play Another</Text>
       <Text onPress={() => this.handleClick('leaderboard')}>Leaderboard</Text>
     </View>
     )
