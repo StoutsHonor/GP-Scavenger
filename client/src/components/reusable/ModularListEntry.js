@@ -40,6 +40,7 @@ class ModularListEntry extends Component {
         <ListItem avatar onPress={() => {this.onListEntryClick()}} >
           <Left><Thumbnail source={{uri: 'https://incendia.net/wiki/images/2/23/Example_Texture1.png'}} /></Left>
           <Body>
+            <Text>{this.props.listentry.room}</Text>
             <Text>{this.props.listentry.name}</Text>
             <Text note>Start: {this.props.listentry.startLocation}</Text>
             <Text note>Max Players: {this.props.listentry.maxPlayers}</Text>

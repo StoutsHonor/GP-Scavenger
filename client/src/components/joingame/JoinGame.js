@@ -15,7 +15,7 @@ import {getGameId, getGameInfo} from '../../actions/index.js';
 // import SideMenu from 'react-native-side-menu';
 import {SideMenu, List, ListItem } from 'react-native-elements';
 import HomePage from '../HomePage';
-
+import io from "socket.io-client";
 import ModularMap from '../reusable/ModularMap'
 import ModularList from '../reusable/ModularList'
 import config from '../../../config/config'
@@ -61,18 +61,26 @@ class JoinGame extends Component {
 
     //console.log(`JoinGame.js - componentWillMount()`)
 
-    fetch(`${config.localhost}/api/game/getAllGames`)
-      .then( (response) => response.json())
-      .then( (data) => {
-        //console.log(data, 'just fetched')
-        this.setState({games: data, loading: false})
+    // fetch(`${config.localhost}/api/game/getAllGames`)
+    //   .then( (response) => response.json())
+    //   .then( (data) => {
+    //     //console.log(data, 'just fetched')
+    //     this.setState({games: data, loading: false})
 
-        // let gameStartLocations = games.map( (game) => {return {latitude: game.startLocation[0], longitude: game.startLocation[1]} })
-        // this.setState({ gameStartMarkers: gameStartLocations}, () => {
-        //   console.log(`this.state.gameStartMarkers is ${JSON.stringify(this.state.gameStartMarkers)}`)
-        // })
+    //     // let gameStartLocations = games.map( (game) => {return {latitude: game.startLocation[0], longitude: game.startLocation[1]} })
+    //     // this.setState({ gameStartMarkers: gameStartLocations}, () => {
+    //     //   console.log(`this.state.gameStartMarkers is ${JSON.stringify(this.state.gameStartMarkers)}`)
+    //     // })
 
-      }) 
+    //   }) 
+
+    this.socket = io(config.localhost);
+    this.socket.emit('listJoinGames')
+    this.socket.on('listJoinGames', (activeLobbies) => {
+      console.log(`JoinGame - componentWillMount()`)
+      console.log(`activeLobbies is ${JSON.stringify(activeLobbies)}`)
+      this.setState({ games: activeLobbies, loading: false })
+    })
 
       // this.setState({games: [{
       //   "name": "WALKING GPS TEST",

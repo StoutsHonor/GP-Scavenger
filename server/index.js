@@ -24,12 +24,15 @@ server.listen(port, function () {
   console.log(`Server: listening on ${port}`);
 });
 
+const activeLobbies = []
 
 websocket.on('connection', (socket) => {
 
-  socket.on('createRoom', (message) => {
-    socket.join(message);
-    websocket.sockets.in(message).emit('joinLobby');
+  socket.on('createRoom', (game) => {
+    socket.join(game.roomId);
+    activeLobbies.unshift(game);
+    console.log(`activeLobbies is now ${JSON.stringify(activeLobbies)}`)
+    websocket.sockets.in(game.roomId).emit('joinLobby');
   });
  
   socket.on('message', (message) => { 
@@ -60,6 +63,9 @@ websocket.on('connection', (socket) => {
     websocket.sockets.in(message.gameName).emit('congratsNext', message.team);
   });
 
+  socket.on('listJoinGames', () => {
+    websocket.sockets.emit('listJoinGames', activeLobbies)
+  });
   
 });
 

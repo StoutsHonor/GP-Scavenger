@@ -70,7 +70,7 @@ class ModularMap extends Component {
         });
       },
       (error) => this.setState({ error: error.message }),
-      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 10 },
+      { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 3 },
     );
   }
 
@@ -176,6 +176,7 @@ class ModularMap extends Component {
             return (
               <MapView.Marker coordinate={loc} key={index}>
                 <MapView.Callout onPress={() => {Actions.gameprofile({game: this.props.data[index], typeOfAction: this.props.viewmode, buttonaction: this.props.buttonaction})}} tooltip={true} style={styles.tooltip}>
+                  <Text style={styles.tooltipText}>{this.props.data[index].room}</Text>
                   <Text style={styles.tooltipText}>{this.props.data[index].name}</Text>
                   <Text style={styles.tooltipText}>{this.props.data[index].description}</Text>
                 </MapView.Callout>
