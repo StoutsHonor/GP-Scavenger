@@ -37,7 +37,7 @@ class LoginForm extends Component {
       .then(() => {
         this.setState({ error: '', loading: false }); 
         // TODO: fetch user from DB
-        this.props.setusermethod(); // TODO: call this on data retreived from DB.
+        this.props.setusermethod(firebase.auth().currentUser.providerData[0]);
       })
       .catch((e) => {
         console.log('error: ', e);
@@ -98,8 +98,8 @@ class LoginForm extends Component {
           })
         })
         .catch(error => console.log('error in posting user: ', error))
-        .then( (response) => {return response.json()})
-        .catch(error => console.log('error in response parse after posting user: ', error))
+        // .then( (response) => {return response.json()})
+        // .catch(error => console.log('error in response parse after posting user: ', error))
         .then( (data) => {console.log('data receieved after posting user: ', data)})
 
         this.props.setusermethod(); // TODO: call this on data retreived from DB.
