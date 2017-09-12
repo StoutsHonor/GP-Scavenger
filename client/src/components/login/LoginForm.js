@@ -36,32 +36,22 @@ class LoginForm extends Component {
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(() => {
 
-        console.log('sending fetch to get existing user')
-        fetch(`${config.localhost}/api/user/findUser`, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            username: this.state.username,
-            email: this.state.email,
-            profileDescription: null,
-            DOB: null, // TODO: use real date when formatted correctly
-            rewardPoints: 0
-          })
+        console.log('authentication ok, sending fetch to get existing user info')
+
+        fetch(`${config.localhost}/api/user/findUser?email=${this.state.email}`, {
+          method: 'GET',
         })
         .catch(error => console.log('error in finding user: ', error))
-        // .then( (response) => {return response.json()})
-        // .catch(error => console.log('error in response parse after finding user: ', error))
-        .then( (data) => {
-          console.log('data receieved after finding user: ', data)
+        .then(response => response.json())
+        .catch(error => console.log('error in response parse after finding user: ', error))
+        .then( (user) => {
+
+          console.log('response receieved after finding user: ', user)
           console.log('setting user in redux...')
-          // this.props.setusermethod(); // TODO: call this on data retreived from DB.
           this.setState({ error: '', loading: false });
           this.props.setusermethod(firebase.auth().currentUser.providerData[0]);
+          // TODO: set user to be the object received from fetch. (currently it's the firebase auth identity.)
+
         })
 
 
@@ -107,7 +97,7 @@ class LoginForm extends Component {
       .then(() => {
         this.setState({ error: '', loading: false });
         console.log('setting state to created user:', this.state.email, this.state.password);
-        // TODO: attempt insert to DB. handle duplicate usernames.
+        // TODO: attempt insert to DB. handle duplicate conflicts.
         console.log('sending post to save new user to database')
         fetch(`${config.localhost}/api/user/addUser`, {
           method: 'POST',
@@ -126,12 +116,13 @@ class LoginForm extends Component {
           })
         })
         .catch(error => console.log('error in posting user: ', error))
-        // .then( (response) => {return response.json()})
+        .then(response => response.json())
         // .catch(error => console.log('error in response parse after posting user: ', error))
         .then( (data) => {
           console.log('data receieved after posting user: ', data)
           console.log('setting user in redux...')
-          // this.props.setusermethod(); // TODO: call this on data retreived from DB.
+          this.props.setusermethod(firebase.auth().currentUser.providerData[0]);
+          // TODO: call this on data retreived from DB.
         })
 
       })
@@ -218,7 +209,7 @@ class LoginForm extends Component {
         <Form style={styles.signupForm}>
 
           <Item>
-          <Text style={styles.formTitleText}>  Create an Account  </Text>
+          <Text style={styles.formTitleText}>       Create an Account       </Text>
           </Item>
 
           <Item>
@@ -368,7 +359,7 @@ const styles = {
       flex: 1
     },
     formTitleText: {
-      fontSize: 30,
+      fontSize: 25,
       color: 'black',
       fontWeight: 'bold',
     },
