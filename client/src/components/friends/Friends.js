@@ -186,8 +186,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: Dimensions.get("window").width - 15,
     height: Dimensions.get("window").height / 2,
-    justifyContent: 'center',
-    alignItems: 'center',
     backgroundColor: '#92BBD9'
   },
   text: {
