@@ -79,5 +79,9 @@ websocket.on('connection', (socket) => {
   socket.on('listJoinGames', () => {
     websocket.sockets.emit('listJoinGames', activeLobbies)
   });
+
+  socket.on('leaveGame', (message) => {
+    websocket.sockets.in(message.roomName).emit('removePlayer', message.userId)
+  });
   
 });
