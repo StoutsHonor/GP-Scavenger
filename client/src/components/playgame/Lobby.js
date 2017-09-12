@@ -42,6 +42,8 @@ class Lobby extends Component {
     this.updateOtherPlayer = this.updateOtherPlayer.bind(this);
     this.getOtherUserName = this.getOtherUserName.bind(this);
     this.startGame = this.startGame.bind(this);
+    this.leaveGame = this.leaveGame.bind(this);
+    this.removePlayer = this.removePlayer.bind(this);
 
     this.roomName = this.props.gamedata.roomId;
 
@@ -91,6 +93,7 @@ class Lobby extends Component {
     this.socket.on("updateOtherPlayer", this.updateOtherPlayer);
     this.socket.on("getOtherUserName", this.getOtherUserName);
     this.socket.on("startGame", this.startGame);
+    this.socket.on("removePlayer", this.removePlayer);
   }
 
   onReceivedJoinedLobby() {
@@ -208,6 +211,80 @@ class Lobby extends Component {
     Actions.gameplay(this.props.gamedata);
   }
 
+  leaveGame() {
+    let message = {
+      roomName: this.roomName,
+      userId: this.props.userId
+    };
+
+    this.socket.emit("leaveGame", message);
+  }
+
+  removePlayer(message) {
+    let length1 = this.state.team1.length,
+        length2 = this.state.team2.length;
+    let elem = '';
+    let bool = true;
+
+    for(let i = 0; i < length1; ++i) {
+      if(message === this.state.team1[i]) {
+        this.state.team1.splice(i, 1)
+        this.setState({
+          team1: this.state.team1
+        });
+        bool = false;
+        break;
+      }
+    }
+
+    if(bool) {
+      for(let i = 0; i < length2; ++i) {
+        if(message === this.state.team2[i]) {
+          this.state.team2.splice(i, 1)
+          this.setState({
+            team2: this.state.team2
+          });
+          break;
+        }
+      }
+    }
+
+    length1 = this.state.team1.length,
+    length2 = this.state.team2.length;
+
+    this.state.totalPlayer--;
+
+    if(length1 < length2) {
+      elem = this.state.team2.pop();
+      this.setState({
+        team1:  [...this.state.team1, elem],
+        team2:  this.state.team2,
+        totalPlayer: this.state.totalPlayer
+      });
+    } else if (length2 < length1) {
+      elem = this.state.team1.pop();
+      this.setState({
+        team1:  this.state.team1,
+        team2: [...this.state.team2, elem],
+        totalPlayer: this.state.totalPlayer
+      });
+    }
+
+    this.props.updatedTeams({
+      team1: this.state.team1,
+      team2: this.state.team2
+    });
+   
+    if (this.state.totalPlayer < 2) {
+      this.setState({ showStart: false });
+    }
+    if(this.props.userId === message) {
+      Actions.pop();
+    }
+
+
+  }
+
   onSend(messages = []) {
     messages[0].roomName = this.roomName;
     messages[0].image = "";
@@ -247,10 +324,7 @@ class Lobby extends Component {
             <Text style={this.state.styles.team}> Team 1 </Text>
             {this.state.team1.map((val, key) => {
               return (
-                <Text style={this.state.styles.player} key={key}>
-                  {" "}
-                  {val}
-                </Text>
+                <Text style={this.state.styles.player} key={key}>    {val}</Text>
               );
             })}
           </View>
@@ -258,28 +332,32 @@ class Lobby extends Component {
             <Text style={this.state.styles.team}> Team 2 </Text>
             {this.state.team2.map((val, key) => {
               return (
-                <Text style={this.state.styles.player} key={key}>
-                  {" "}
-                  {val}
-                </Text>
+                <Text style={this.state.styles.player} key={key}>    {val}</Text>
               );
             })}
           </View>
         </View>
-        {this.state.showStart ? (
+        <View style={this.state.styles.divide}>
+          {this.state.showStart ? (
+            <Button
+              style={this.state.styles.button}
+              onPress={() => {
+                this.socket.emit("startGame", this.roomName);
+              }}
+              title="START GAME"
+            />
+          ) : (
+            <Button
+              style={this.state.styles.button}
+              title={"Need " + (2 - this.state.totalPlayer) + " More Players"}
+            />
+          )}
           <Button
-            style={this.state.styles.button}
-            onPress={() => {
-              this.socket.emit("startGame", this.roomName);
-            }}
-            title="START GAME"
-          />
-        ) : (
-          <Button
-            style={this.state.styles.button}
-            title={"Need " + (2 - this.state.totalPlayer) + " More Players"}
-          />
-        )}
+              style={this.state.styles.button}
+              onPress={() => {this.leaveGame()}}
+              title="Leave Game"
+            />
+        </View>
       </View>
     );
   }
@@ -350,11 +428,15 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   button: {
-    marginTop: 15
+    marginTop: 15,
+    marginLeft: 15
   },
   player: {
     fontWeight: "bold",
     fontSize: 14
+  },
+  divide: {
+    flexDirection: "row",
   }
 });
 
