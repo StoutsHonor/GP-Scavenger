@@ -123,6 +123,7 @@ class LoginForm extends Component {
           console.log('setting user in redux...')
           this.props.setusermethod(firebase.auth().currentUser.providerData[0]);
           // TODO: call this on data retreived from DB.
+          // TODO: server currently returns response code 500. error in database insertion.
         })
 
       })
