@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import {
   StyleSheet,
   Text,
@@ -17,9 +17,20 @@ import currLocImage from '../../media/currentLocationMarker_85x85.png'
 import GameDetailCallout from '../reusable/GameDetailCallout';
 import io from "socket.io-client";
 import config from "../../../config/config";
-
+import CustomCallout from './CustomCallout';
 
 const {width, height} = Dimensions.get('window');
+
+const ASPECT_RATIO = width / height;
+const LATITUDE = 37.78825;
+const ZOOM_LEVEL = 6000
+const LATITUDE_DELTA = 60 / ZOOM_LEVEL;
+const LONGITUDE_DELTA = LATITUDE_DELTA * ASPECT_RATIO;
+
+const propTypes = {
+  children: PropTypes.node.isRequire,
+  style: PropTypes.object
+};
 
 const mapStateToProps = (state) => {
   console.log('mapStateToProps: ', state)
@@ -41,10 +52,10 @@ class ModularMap extends Component {
     
     this.state = {
       region: {
-        latitude: 37.78825,
-        longitude: -122.4324,
-        latitudeDelta: 0.0922,
-        longitudeDelta: 0.0421,
+        latitude: 33.9760019,
+        longitude: -118.3930801,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA,
       },
       markers: [],
       currentLocation: { latitude: 27.854191, longitude: -81.385146 },
@@ -157,8 +168,8 @@ class ModularMap extends Component {
           region: {
             latitude: position.coords.latitude,
             longitude: position.coords.longitude,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+            latitudeDelta: LATITUDE_DELTA,
+            longitudeDelta: LONGITUDE_DELTA,
           },
           currentLocation: {
             latitude: position.coords.latitude,
@@ -206,20 +217,55 @@ class ModularMap extends Component {
         ...StyleSheet.absoluteFillObject,
       },
       tooltip: {
-        backgroundColor: '#fff',
-        borderRadius: 10,
-        borderStyle: 'solid',
-        borderWidth: 4,
-        borderColor: '#000',
-        width: 150
+        backgroundColor: '#FFE4AA',
       },
       tooltipText: {
         fontWeight: 'bold',
         fontSize: 15
-      }
+      },
+      container: {
+        flexDirection: 'column',
+        alignSelf: 'flex-start',
+      },
+      bubble: {
+        width: 140,
+        flexDirection: 'column',
+        alignSelf: 'flex-start',
+        backgroundColor: '#4da2ab',
+        paddingHorizontal: 2,
+        paddingVertical: 2,
+        borderRadius: 6,
+        borderColor: '#007a87',
+        borderWidth: 0.5,
+      },
+      amount: {
+        flex: 1,
+      },
+      arrow: {
+        backgroundColor: 'transparent',
+        borderWidth: 16,
+        borderColor: 'transparent',
+        borderTopColor: '#4da2ab',
+        alignSelf: 'center',
+        marginTop: -32,
+      },
+      arrowBorder: {
+        backgroundColor: 'transparent',
+        borderWidth: 16,
+        borderColor: 'transparent',
+        borderTopColor: '#007a87',
+        alignSelf: 'center',
+        marginTop: -0.5,
+      },
+      customView: {
+        width: 140,
+        height: 100,
+      },
+      
     });
     console.log(`In ModularMap.js - render() - this.state.markers is ${JSON.stringify(this.state.markers)}`)
     console.log(`teamMemberMarkers is ${JSON.stringify(this.state.teamMemberMarkers)}`)
+    console.log(`latitude and longitude delta are...${LATITUDE_DELTA} and ${LONGITUDE_DELTA}`)
     return(
       <View>
         <View style={styles.mapContainer}>
@@ -232,11 +278,11 @@ class ModularMap extends Component {
           console.log(`ModularMap.js MapView Marker mapping - loc is ${JSON.stringify(loc)}`)
           if (this.props.data) {
             return (
-              <MapView.Marker coordinate={loc} key={index}>
-                <MapView.Callout onPress={() => {Actions.gameprofile({game: this.props.data[index], typeOfAction: this.props.viewmode, buttonaction: this.props.buttonaction})}} tooltip={true} style={styles.tooltip}>
-                  <Text style={styles.tooltipText}>{this.props.data[index].room}</Text>
-                  <Text style={styles.tooltipText}>{this.props.data[index].name}</Text>
-                  <Text style={styles.tooltipText}>{this.props.data[index].description}</Text>
+              <MapView.Marker coordinate={loc} key={index} calloutOffset={{ x: -8, y: 28 }} calloutAnchor={{ x: 0.5, y: -0.4 }}>
+                <MapView.Callout onPress={() => {Actions.gameprofile({game: this.props.data[index], typeOfAction: this.props.viewmode, buttonaction: this.props.buttonaction})}} tooltip style={styles.customView}>
+                  <CustomCallout>
+                        <Text style={{fontFamily: 'serif', fontWeight: 'bold', fontStyle: 'italic', fontSize: 17, textAlign: 'center', color: '#FFF'}}>{this.props.data[index].name}....</Text>
+                  </CustomCallout>
                 </MapView.Callout>
               </MapView.Marker>)
           } else {
@@ -250,7 +296,14 @@ class ModularMap extends Component {
           }
          })}
          {!!this.props.crosshair ? <MapCenterMarker height={styles.mapContainer.height} width={styles.mapContainer.width}/> : null }
-         <MapView.Marker coordinate={this.state.currentLocation} image={'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1504828467/currentLocationMarker_85x85_pw5bpq.png'} />
+         
+        <MapView.Marker coordinate={this.state.currentLocation} image={'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1504828467/currentLocationMarker_85x85_pw5bpq.png'}>
+         <MapView.Callout tooltip style={styles.customView}>
+          <CustomCallout>
+           <Text style={{fontFamily: 'serif', fontWeight: 'bold', fontStyle: 'italic', fontSize: 17, textAlign: 'center', color: '#FFF'}}>You are here :)</Text>
+          </CustomCallout>
+         </MapView.Callout>
+        </MapView.Marker>
 
          {this.state.teamMemberMarkers.length > 0 ? 
             (this.state.teamMemberMarkers.map( (playerLoc, index) => {

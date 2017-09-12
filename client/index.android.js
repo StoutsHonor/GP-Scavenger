@@ -178,12 +178,12 @@ export default class client extends Component {
 
             <Scene key="joingame"
               component={JoinGame}
-              title="Join Game"
+              title="Join a game!"
             />
 
             <Scene key="startnewgame"
               component={StartNewGame}
-              title="Start New Game"
+              title="Start a New Game!"
             />
 
             <Scene key="lobby"
