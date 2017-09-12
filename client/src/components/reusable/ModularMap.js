@@ -30,7 +30,8 @@ class ModularMap extends Component {
         longitudeDelta: 0.0421,
       },
       markers: [],
-      currentLocation: { latitude: 27.854191, longitude: -81.385146 }
+      currentLocation: { latitude: 27.854191, longitude: -81.385146 },
+      playerMarkers: []
      }
   }
 
@@ -68,6 +69,8 @@ class ModularMap extends Component {
             longitude: position.coords.longitude
           }
         });
+        //emit event here
+        //test that the player was removed from game
       },
       (error) => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 3 },
@@ -193,6 +196,7 @@ class ModularMap extends Component {
          })}
          {!!this.props.crosshair ? <MapCenterMarker height={styles.mapContainer.height} width={styles.mapContainer.width}/> : null }
          <MapView.Marker coordinate={this.state.currentLocation} image={'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1504828467/currentLocationMarker_85x85_pw5bpq.png'} />
+
         </MapView>
         <MapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>
         <MapStoreLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} storeMarker={this.storeMarker}/>

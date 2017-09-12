@@ -25,16 +25,21 @@ server.listen(port, function () {
 });
 
 const activeLobbies = []
+const activeGames = {}
 
 websocket.on('connection', (socket) => {
 
-  socket.on('createRoom', (game) => {
-    socket.join(game.roomId);
-    activeLobbies.unshift(game);
-    console.log(`activeLobbies is now ${JSON.stringify(activeLobbies)}`)
-    websocket.sockets.in(game.roomId).emit('joinLobby');
+  socket.on('createRoom', (room) => {
+    socket.join(room);
+    websocket.sockets.in(room).emit('joinLobby');
   });
- 
+
+  socket.on('startedANewRoom', (game) => {
+    activeLobbies.unshift(game);
+    console.log(`activeLobbies is now ${JSON.stringify(activeLobbies)}`);
+
+  })
+
   socket.on('message', (message) => { 
     websocket.sockets.in(message.roomName).emit('message', message);
   });
@@ -49,6 +54,14 @@ websocket.on('connection', (socket) => {
 
   socket.on('startGame', (message) => { 
     websocket.sockets.in(message).emit('startGame');
+    const index = activeLobbies.findIndex( (e,i) => e.roomId === message );
+    if (index > -1) {
+      const startedGame = activeLobbies.splice(index,1)[0];
+      startedGame.players = {};
+      activeGames[startedGame.roomId] = startedGame;
+      console.log(`activeGames is ${JSON.stringify(activeGames)}`)
+      console.log(`activeLobbies is now ${JSON.stringify(activeLobbies)}`)
+    }
   });
 
   socket.on('congratsPage', (message) => { 
@@ -68,8 +81,3 @@ websocket.on('connection', (socket) => {
   });
   
 });
-
-
-
-
-
