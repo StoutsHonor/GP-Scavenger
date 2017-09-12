@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { View, Text, Button, Alert } from 'react-native';
+import { View, Text, Button, Alert, TextInput } from 'react-native';
 import firebase from 'firebase';
 import TitledInput from '../reusable/TitledInput';
 // import Spinner from './Spinner';
+import { Container, Header, Content, Separator, Form, Item, Input, Icon } from 'native-base'
 
 class LoginForm extends Component {
   // state to send to auth
@@ -106,63 +107,93 @@ class LoginForm extends Component {
       return (
         <View>
           <TitledInput 
-              label='Email Address                            '
-              placeholder='you@domain.com'
-              value={this.state.email}
-              onChangeText={email => this.setState({ email })}
+            label='Email Address                      '
+            placeholder='you@domain.com'
+            value={this.state.email}
+            onChangeText={email => this.setState({ email })}
           />
           <TitledInput 
-              label='Password'
-              autoCorrect={false}
-              placeholder='*******'
-              secureTextEntry
-              value={this.state.password}
-              onChangeText={password => this.setState({ password })}
+            label='Password'
+            autoCorrect={false}
+            placeholder='*******'
+            secureTextEntry
+            value={this.state.password}
+            onChangeText={password => this.setState({ password })}
           />
         </View>
       );    
     } else {
       return (
-        <View>
-          <TitledInput 
-              label='First Name                               '
-              placeholder=''
-              value={this.state.firstName}
-              onChangeText={firstName => this.setState({ firstName })}
+        <Form>
+
+          <Item>
+          <Text style={styles.labelText}>First Name: </Text>
+          <TextInput
+            autoCorrect={false}
+            placeholder=''
+            value={this.state.firstName}
+            onChangeText={firstName => this.setState({ firstName })}
+            style={styles.inputText}
           />
-          <TitledInput 
-              label='Last Name'
-              placeholder=''
-              value={this.state.lastName}
-              onChangeText={lastName => this.setState({ lastName })}
+          </Item>
+
+          <Item>
+          <Text style={styles.labelText}>Last Name: </Text>
+          <TextInput
+            autoCorrect={false}
+            placeholder=''
+            value={this.state.lastName}
+            onChangeText={lastName => this.setState({ lastName })}
+            style={styles.inputText}
           />
-          <TitledInput 
-              label='Email Address                            '
-              placeholder='you@domain.com'
-              value={this.state.email}
-              onChangeText={email => this.setState({ email })}
+          </Item>
+
+          <Item>
+          <Text style={styles.labelText}>Email Address: </Text>
+          <TextInput
+            autoCorrect={false}
+            placeholder='you@domain.com'
+            value={this.state.email}
+            onChangeText={email => this.setState({ email })}
+            style={styles.inputText}
           />
-          {/* <TitledInput 
-              label='Date of Birth'
-              placeholder='yyyy-mm-dd'
-              value={this.state.DOB}
-              onChangeText={DOB => this.setState({ DOB })}
-          /> */}
-          <TitledInput 
-              label='Create a Username'
-              placeholder=''
-              value={this.state.username}
-              onChangeText={username => this.setState({ username })}
+          </Item>
+
+          {/* <Item>
+          <Text style={styles.labelText}>Date of Birth: </Text>
+          <TextInput
+            autoCorrect={false}
+            placeholder='YYYY-MM-DD'
+            value={this.state.DOB}
+            onChangeText={DOB => this.setState({ DOB })}
+            style={styles.inputText}
           />
-          <TitledInput 
-              label='Create a Password'
-              autoCorrect={false}
-              placeholder='*******'
-              secureTextEntry
-              value={this.state.password}
-              onChangeText={password => this.setState({ password })}
+          </Item> */}
+
+          <Item>
+          <Text style={styles.labelText}>Create a Username: </Text>
+          <TextInput
+            autoCorrect={false}
+            placeholder=''
+            value={this.state.username}
+            onChangeText={username => this.setState({ username })}
+            style={styles.inputText}
           />
-        </View>
+          </Item>
+
+          <Item>
+          <Text style={styles.labelText}>Create a Password: </Text>
+          <TextInput
+            autoCorrect={false}
+            placeholder='*******'
+            secureTextEntry
+            value={this.state.password}
+            onChangeText={password => this.setState({ password })}
+            style={styles.inputText}
+          />
+          </Item>
+
+        </Form>
       );
     }
   }
@@ -221,7 +252,17 @@ const styles = {
       backgroundColor: '#FFFFFF',
       opacity: .7,
       borderRadius: 5
-    }
+    },
+    labelText: {
+      fontSize: 20,
+      color: 'black',
+      fontWeight: 'bold',
+    },
+    inputText: {
+      marginTop: 3,
+      fontSize: 18,
+      color: 'black',
+    },
 };
 
 export default LoginForm;
