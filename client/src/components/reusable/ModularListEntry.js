@@ -46,9 +46,13 @@ class ModularListEntry extends Component {
             <Text note>Max Players: {this.props.listentry.maxPlayers}</Text>
           </Body>
           <Right>
+            <View style={{flex: 1, justifyContent: 'center'}}>
+              <View>
             <Button rounded primary onPress={() => {
                 console.log('list entry!')
                 this.props.buttonaction(this.props.listentry)}}><Text>{this.props.buttontext}</Text></Button>
+              </View>
+            </View>
           </Right>
         </ListItem>
     );
