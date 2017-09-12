@@ -4,6 +4,8 @@ import firebase from 'firebase';
 import TitledInput from '../reusable/TitledInput';
 // import Spinner from './Spinner';
 import { Container, Header, Content, Separator, Form, Item, Input, Icon } from 'native-base'
+import config from '../../../config/config'
+
 
 class LoginForm extends Component {
   // state to send to auth
@@ -20,7 +22,6 @@ class LoginForm extends Component {
       DOB: '',
       username: '',
     };
-    this.setState = this.setState.bind(this)
   }
 
 
@@ -79,12 +80,62 @@ class LoginForm extends Component {
         this.setState({ error: '', loading: false });
         console.log('setting state to created user:', this.state.email, this.state.password);
         // TODO: attempt insert to DB. handle duplicate usernames.
+        console.log('sending post to save new user to database')
+        fetch(`${config.localhost}/api/user/addUser`, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            username: this.state.username,
+            email: this.state.email,
+            profileDescription: null,
+            DOB: null, // TODO: use real date when formatted correctly
+            rewardPoints: 0
+          })
+        })
+        .catch(error => console.log('error in posting user: ', error))
+        .then( (response) => {return response.json()})
+        .catch(error => console.log('error in response parse after posting user: ', error))
+        .then( (data) => {console.log('data receieved after posting user: ', data)})
+
         this.props.setusermethod(); // TODO: call this on data retreived from DB.
       })
       .catch((e) => {
         console.log('error: ', e);
-        this.setState({ error: 'Account creation failed.', loading: false });
-      });
+        console.log('Email in use: ', e.message === "The email address is already in use by another account.");
+        if (e.message === "The email address is already in use by another account.") {
+          this.setState({ error: "This email is already in use!", loading: false });
+        } else {
+          this.setState({ error: 'Account creation failed.', loading: false });
+        }
+      })
+      // .then(() => {
+      //   console.log('sending post to save new user to database')
+      //   fetch(`${config.localhost}/api/user/addUser`, {
+      //     method: 'POST',
+      //     headers: {
+      //       'Accept': 'application/json',
+      //       'Content-Type': 'application/json',
+      //     },
+      //     body: JSON.stringify({
+      //       firstName: this.state.firstName,
+      //       lastName: this.state.lastName,
+      //       username: this.state.username,
+      //       email: this.state.email,
+      //       profileDescription: null,
+      //       DOB: this.state.DOB,
+      //       rewardPoints: 0
+      //     })
+      //   })
+      //   .catch(error => console.log('error in posting user: ', error))
+      //   .then( (response) => {return response.json()})
+      //   .catch(error => console.log('error in response parse after posting user: ', error))
+      //   .then( (data) => {console.log('data receieved after posting user: ', data)})
+      // });
     }
   }
 
@@ -92,13 +143,22 @@ class LoginForm extends Component {
     if (this.state.loading) {
       return (<Text>Loading...</Text>);    
     } else if (this.state.signingUp) {
-      return (<Button onPress={this.onSignUpPress.bind(this)} title="Submit Sign Up"/>);
+      return (<Button onPress={this.onSignUpPress.bind(this)} title="Submit"/>);
     }
-    return (<Button onPress={this.onLoginPress.bind(this)} title="Submit Log In"/>);
+    return (<Button onPress={this.onLoginPress.bind(this)} title="Submit"/>);
   }
 
   toggleFormType() {
-    this.setState({ signingUp: !this.state.signingUp, error: ''});
+    this.setState({
+      signingUp: !this.state.signingUp,
+      error: '',
+      email: '',
+      password: '',
+      firstName: '',
+      lastName: '',
+      DOB: '',
+      username: '',
+    });
   }
 
 
@@ -124,7 +184,11 @@ class LoginForm extends Component {
       );    
     } else {
       return (
-        <Form>
+        <Form style={styles.signupForm}>
+
+          <Item>
+          <Text style={styles.formTitleText}>  Create an Account  </Text>
+          </Item>
 
           <Item>
           <Text style={styles.labelText}>First Name: </Text>
@@ -149,7 +213,7 @@ class LoginForm extends Component {
           </Item>
 
           <Item>
-          <Text style={styles.labelText}>Email Address: </Text>
+          <Text style={styles.labelText}>Email: </Text>
           <TextInput
             autoCorrect={false}
             placeholder='you@domain.com'
@@ -170,8 +234,13 @@ class LoginForm extends Component {
           />
           </Item> */}
 
+
+          {/* <Item>
+          <Text style={styles.labelText}>Create Username & Password </Text>
+          </Item> */}
+
           <Item>
-          <Text style={styles.labelText}>Create a Username: </Text>
+          <Text style={styles.labelText}>Set Username: </Text>
           <TextInput
             autoCorrect={false}
             placeholder=''
@@ -182,7 +251,7 @@ class LoginForm extends Component {
           </Item>
 
           <Item>
-          <Text style={styles.labelText}>Create a Password: </Text>
+          <Text style={styles.labelText}>Set Password: </Text>
           <TextInput
             autoCorrect={false}
             placeholder='*******'
@@ -203,7 +272,7 @@ class LoginForm extends Component {
       return (
         <View>
           <Text>New around here?</Text>
-          <Button onPress={this.toggleFormType.bind(this)} title="Sign Up"/>
+          <Button onPress={this.toggleFormType.bind(this)} title="Create an Account"/>
         </View>
       );    
     } else {
@@ -262,7 +331,17 @@ const styles = {
       marginTop: 3,
       fontSize: 18,
       color: 'black',
+      flex: 1
     },
+    signupForm: {
+      flex: 1
+    },
+    formTitleText: {
+      fontSize: 30,
+      color: 'black',
+      fontWeight: 'bold',
+    },
+
 };
 
 export default LoginForm;
