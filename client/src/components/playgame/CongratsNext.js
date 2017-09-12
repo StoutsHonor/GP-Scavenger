@@ -9,8 +9,6 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setGamePoints, getAllGameChallenges, geatAllUserGames, setCurrentChallengeIndex } from '../../actions/index';
-import io from "socket.io-client";
-import config from "../../../config/config";
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ setGamePoints, getAllGameChallenges, setCurrentChallengeIndex }, dispatch)
@@ -36,7 +34,6 @@ class CongratsNext extends Component {
   }
 
   componentDidMount() {
-    this.socket = io(config.localhost);
     let earnedPoints = this.props.gamePoints + Math.ceil(this.props.gameInfo.rewardPoints/this.props.challenges.length);
     this.props.setGamePoints(earnedPoints);
 
@@ -44,7 +41,6 @@ class CongratsNext extends Component {
       this.setState({displayFinal: true});
     } else {
       this.props.setCurrentChallengeIndex(this.props.index + 1);
-      this.socket.emit("teamNextChallenge", this.props.index);
     }
   }
 

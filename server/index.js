@@ -100,9 +100,5 @@ websocket.on('connection', (socket) => {
     const playersLocations = activeGames[playerInfo.gameName].players;
     websocket.sockets.emit('updatePlayersLocation', playersLocations);
   })
-  //need to expand on this, or piggyback on an existing socket listener
-  // socket.on('teamNextChallenge', (index) => {
-  //   websocket.sockets.emit('opponentIndex', index);
-  // });
 
 });
