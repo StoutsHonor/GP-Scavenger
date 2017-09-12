@@ -342,7 +342,7 @@ class Lobby extends Component {
             <Button
               style={this.state.styles.button}
               onPress={() => {
-                this.socket.emit("startGame", this.roomName);
+                this.socket.emit("startGame", this.roomName, this.state.team1, this.state.team2);
               }}
               title="START GAME"
             />

@@ -7,14 +7,29 @@ import {
   Image
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 import MapView from 'react-native-maps';
 import MapCenterMarker from '../MapCenterMarker';
 import MapCurrentLocationButton from './MapCurrentLocationButton';
 import MapStoreLocationButton from './MapStoreLocationButton';
 import currLocImage from '../../media/currentLocationMarker_85x85.png'
 import GameDetailCallout from '../reusable/GameDetailCallout';
+import io from "socket.io-client";
+import config from "../../../config/config";
+
 
 const {width, height} = Dimensions.get('window');
+
+const mapStateToProps = (state) => {
+  console.log('mapStateToProps: ', state)
+  return {
+    userId: state.client.userIdentity,
+    gameName: state.play.gameInfo.roomId,
+    team1: state.play.currentGameTeam1,
+    team2: state.play.currentGameTeam2
+  }
+}
 
 class ModularMap extends Component {
   constructor(props){
@@ -22,6 +37,8 @@ class ModularMap extends Component {
     this.onRegionChange = this.onRegionChange.bind(this);
     this.getCurrentLocation = this.getCurrentLocation.bind(this);
     this.storeMarker = this.storeMarker.bind(this);
+    this.socket = io(config.localhost);
+    
     this.state = {
       region: {
         latitude: 37.78825,
@@ -31,7 +48,7 @@ class ModularMap extends Component {
       },
       markers: [],
       currentLocation: { latitude: 27.854191, longitude: -81.385146 },
-      playerMarkers: []
+      teamMemberMarkers: []
      }
   }
 
@@ -70,11 +87,44 @@ class ModularMap extends Component {
           }
         });
         //emit event here
-        //test that the player was removed from game
+        //test that the player was removed from ga
+        if (component.props.currentChallenge) {
+          console.log(`ModularMap - watchPosition() - if currentChallenge statement`)
+          this.socket.emit("updatePlayerLocation", { gameName: this.props.gameName, userId: this.props.userId, latitude: position.coords.latitude, longitude: position.coords.longitude })
+        }
       },
       (error) => this.setState({ error: error.message }),
       { enableHighAccuracy: true, timeout: 20000, maximumAge: 1000, distanceFilter: 3 },
     );
+
+    this.socket.on("updatePlayersLocation", (playersLocations) => {
+      const index = component.props.team1.indexOf(component.props.userId)
+      const playerMarkers = []
+      console.log(`this.props.userId is ${this.props.userId} and index is ${index} and ${JSON.stringify(playersLocations)}`)
+      console.log(`updatePlayersLocation - #1 ${JSON.stringify(component.props.team1)} - #2 ${JSON.stringify(component.props.team2)}`)
+      if (index > -1) {
+        component.props.team1.forEach( (member, i) => {
+          if(member !== component.props.userId) {
+            playerMarkers.push(playersLocations[member])
+          }
+        })
+      } else {
+        component.props.team2.forEach( (member, i) => {
+          if(member !== component.props.userId) {
+            playerMarkers.push(playersLocations[member])
+          }
+        })
+      }
+
+      component.setState({ teamMemberMarkers: playerMarkers }, () => {
+        console.log(`ModularMap - componentDidMount() - updatePlayersLocation event`)
+        console.log(`teamMemberMarkers is ${JSON.stringify(this.state.teamMembersMarkers)}`)
+      })
+      //if you're in team1, then set markers to only team 1
+      //else set to team 2
+      //get the markers for the team only
+      //display the usernames in a callout bubble
+    })
   }
 
 
@@ -115,6 +165,10 @@ class ModularMap extends Component {
             longitude: position.coords.longitude
           }
         })
+        if (component.props.currentChallenge) {
+          console.log(`ModularMap - getCurrentLocation() - if currentChallenge statement`)
+          this.socket.emit("updatePlayerLocation", { gameName: this.props.gameName, userId: this.props.userId, latitude: position.coords.latitude, longitude: position.coords.longitude })
+        }
       }, (error) => {console.log(`geolocation fail ${JSON.stringify(error)}`)}, { enableHighAccuracy: true })
   }
 
@@ -165,6 +219,7 @@ class ModularMap extends Component {
       }
     });
     console.log(`In ModularMap.js - render() - this.state.markers is ${JSON.stringify(this.state.markers)}`)
+    console.log(`teamMemberMarkers is ${JSON.stringify(this.state.teamMemberMarkers)}`)
     return(
       <View>
         <View style={styles.mapContainer}>
@@ -197,6 +252,20 @@ class ModularMap extends Component {
          {!!this.props.crosshair ? <MapCenterMarker height={styles.mapContainer.height} width={styles.mapContainer.width}/> : null }
          <MapView.Marker coordinate={this.state.currentLocation} image={'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1504828467/currentLocationMarker_85x85_pw5bpq.png'} />
 
+         {this.state.teamMemberMarkers.length > 0 ? 
+            (this.state.teamMemberMarkers.map( (playerLoc, index) => {
+              console.log(`playerLoc is ${JSON.stringify(playerLoc)}`)
+              return (
+                <MapView.Marker coordinate={playerLoc} key={index} pinColor={'black'}>
+                  <MapView.Callout>
+                    <Text style={styles.tooltipText}>{playerLoc.userId}</Text>
+                  </MapView.Callout>
+                </MapView.Marker>
+            )}))
+            :
+            null
+         }
+
         </MapView>
         <MapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>
         <MapStoreLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} storeMarker={this.storeMarker}/>
@@ -209,5 +278,4 @@ class ModularMap extends Component {
 }
 
 
-export default ModularMap
-
+export default connect(mapStateToProps)(ModularMap);
