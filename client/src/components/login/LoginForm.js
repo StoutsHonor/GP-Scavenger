@@ -35,9 +35,37 @@ class LoginForm extends Component {
     // method to sign in
     firebase.auth().signInWithEmailAndPassword(email, password)
       .then(() => {
-        this.setState({ error: '', loading: false }); 
-        // TODO: fetch user from DB
-        this.props.setusermethod(firebase.auth().currentUser.providerData[0]);
+
+        console.log('sending fetch to get existing user')
+        fetch(`${config.localhost}/api/user/findUser`, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            username: this.state.username,
+            email: this.state.email,
+            profileDescription: null,
+            DOB: null, // TODO: use real date when formatted correctly
+            rewardPoints: 0
+          })
+        })
+        .catch(error => console.log('error in finding user: ', error))
+        // .then( (response) => {return response.json()})
+        // .catch(error => console.log('error in response parse after finding user: ', error))
+        .then( (data) => {
+          console.log('data receieved after finding user: ', data)
+          console.log('setting user in redux...')
+          // this.props.setusermethod(); // TODO: call this on data retreived from DB.
+          this.setState({ error: '', loading: false });
+          this.props.setusermethod(firebase.auth().currentUser.providerData[0]);
+        })
+
+
+
       })
       .catch((e) => {
         console.log('error: ', e);
@@ -100,9 +128,12 @@ class LoginForm extends Component {
         .catch(error => console.log('error in posting user: ', error))
         // .then( (response) => {return response.json()})
         // .catch(error => console.log('error in response parse after posting user: ', error))
-        .then( (data) => {console.log('data receieved after posting user: ', data)})
+        .then( (data) => {
+          console.log('data receieved after posting user: ', data)
+          console.log('setting user in redux...')
+          // this.props.setusermethod(); // TODO: call this on data retreived from DB.
+        })
 
-        this.props.setusermethod(); // TODO: call this on data retreived from DB.
       })
       .catch((e) => {
         console.log('error: ', e);
