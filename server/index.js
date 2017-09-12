@@ -89,6 +89,10 @@ websocket.on('connection', (socket) => {
   socket.on('leaveGame', (message) => {
     websocket.sockets.in(message.roomName).emit('removePlayer', message.userId)
   });
+
+  socket.on('changeOpponentShow', (message) => {
+    websocket.sockets.in(message.gameName).emit('changeOpponentShow', message)
+  });
   
   socket.on('updatePlayerLocation', (playerInfo) => {
     activeGames[playerInfo.gameName].players[playerInfo.userId] = { latitude: playerInfo.latitude, longitude: playerInfo.longitude, userId: playerInfo.userId};

@@ -10,10 +10,24 @@ import {
 } from 'react-native';
 import { Card } from 'react-native-elements';
 import config from '../../../config/config';
+import io from 'socket.io-client';
+import { connect } from 'react-redux';
+
+const mapStateToProps = (state) => {
+  return {
+    gameId: state.play.gameId,
+    userId: state.client.userIdentity,
+  }
+}
+
 
 class ChallengeListEntry extends Component {
   constructor(props) {
     super(props);
+
+    this.gameName = 'game' + this.props.gameId;
+    this.changeOpponentShow = this.changeOpponentShow.bind(this);
+
     this.state = {
       displayInfo: false,
       color: '#A9A9A9',
@@ -23,6 +37,10 @@ class ChallengeListEntry extends Component {
   }
   
   componentDidMount() {
+    this.socket = io(config.localhost);
+    this.socket.emit('createRoom',  this.gameName);
+    this.socket.on('changeOpponentShow', this.changeOpponentShow);
+
     if(this.props.challengeIndex < this.props.index) {
       this.setState({displayInfo: true});
       this.setState({color: '#008000'})
@@ -32,6 +50,18 @@ class ChallengeListEntry extends Component {
       this.setState({color: '#FFD700'})
     }
     setTimeout(() => this.setState({flash: !this.state.flash}), 1000)
+  }
+
+  changeOpponentShow(message) {
+    for(let i = 0; i < message.team.length; ++i) {
+      if(this.props.userId === message.team[i]) return;
+    }
+
+    if(this.props.challengeIndex === message.index) {
+      this.setState({ opponentShow: true });
+    } else {
+      this.setState({ opponentShow: false });
+    }
   }
   
   render() {
@@ -100,4 +130,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ChallengeListEntry;
+export default connect(mapStateToProps)(ChallengeListEntry);
