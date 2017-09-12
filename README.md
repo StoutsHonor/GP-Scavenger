@@ -1,6 +1,20 @@
 # GPScavenger (development name)
 
-> A location based social scavenger hunt app for Android, built in React Native
+> A location based multiplayer scavenger hunt app for Android, built in React Native
+
+
+
+## Table of Contents
+
+1. [Team](#team)
+1. [Usage](#Usage)
+1. [Requirements](#requirements)
+1. [Development](#development)
+    1. [Installing Dependencies](#installing-dependencies)
+1. [Contributing](#contributing)
+1. [Roadmap](#contributing)
+1. [Known Bugs](#known-bugs)
+
 
 ## Team
 
@@ -9,17 +23,51 @@
   - __Development Team Members__: Michael Nguyen, Kevin Tamarus
 
 
-## Table of Contents
-
-1. [Usage](#Usage)
-1. [Requirements](#requirements)
-1. [Development](#development)
-    1. [Installing Dependencies](#installing-dependencies)
-    1. [Tasks](#tasks)
-1. [Team](#team)
-1. [Contributing](#contributing)
-
 ## Usage
+
+### Create an account
+- create an account using the form provided, or login with an existing account
+
+### Start a game (creating a lobby)
+- fetches available games from the database and displays as a (map view also available)
+- touch on a game (or map marker) to view further details
+
+### Join a game
+- checks active lobbies on the server and displays a list (map view also available)
+- touch on a game (or map marker) to view further details
+
+### Starting a game (from within a lobby)
+- once the minimum number of players has been reached, the lobby will allow the game to be started
+
+### Playing a game
+- three tabs displaying the current challenge, the list of challenges, and a chat
+- chat is between all players in the game by default. starting a message with "@team" will send the message to players on your own team
+- progress through the challenges until reaching the end, where you are redirected back to the homepage
+
+
+## Requirements
+
+### install and set up dependencies
+- set up server (that can be acessed from the web, if on a physical device), and run server
+- set up database, and initalize it (can also seed here if needed)
+- set up authentication via firebase, and allow for email/password login
+- clone this repo
+- refer to the dependencies section for further details
+
+### build the app to a physical device running Android:
+- To Be Written
+
+### build the app to an emulator:
+- in terminal: navigate within the client folder and install app dependencies with npm install.
+- have at least 1 instance of an emulator running the correct android version
+- after dependencies are installed, run:
+```sh
+react-native run-android
+```
+- this will start a local service which builds the android app and runs it on the emulator
+
+
+## Development
 
 ### General Notes:
 - Homebrew and NPM are used for services and package managers
@@ -32,22 +80,21 @@ npm install
 Client: Firebase (for authentication)
 Client: Google Maps
 Database: PostgreSQL (on ElephantSQL)
+- Knowledge of the native language (in this case, Java for Android apps) is helpful, since updates to native project files may be required to modify features.
 
 ### Client config.js (in client/config/):
 - firebase used for authentication, relevant details are stored in this file.
 - If testing with a local server, the emulator should NOT be sending requests to 'localhost'. It will be another IP address depending on the service that is running the emulator. Localhost (or server) address is set in this file, since various emulators use certain IP addresses to refer to localhost. Set this address to the server address with port when the server is deployed
 
 ### Database config.js (in server/database/):
-- PostgreSQL using elephantSQL is the database used for this project
+- PostgreSQL using elephantSQL is the database used for this project. Seeding database can be done via npm:
+```sh
+npm run seed
+```
 
 ### Google Maps API Configuration:
 - Google Play Services is required on the device. (Adding Google Player Services to Genymotion emulator: http://opengapps.org/, x86 platform, Android 6.0, nano variant. Drop the zip file into the running emulator)
-- AndroidManifeset.xml file needs to be updated with <meta data> and the API key (refer to Google API docs)
-
-
-## Requirements
-
-## Development
+- AndroidManifeset.xml is already updated with appropriate information (refer to Google API docs if needed)
 
 ### Installing Dependencies
 
@@ -71,20 +118,47 @@ export PATH="$HOME/Android/platform-tools:$PATH"
 
 #### for Windows (10?) developers, working on an Android App:
 
-- [dependency here]
-- [dependency here]
-- [dependency here]
+- To Be Written
 
 
 
-### Roadmap
+## Roadmap
 
 View the project roadmap [here](LINK_TO_PROJECT_ISSUES)
 
 
 ## Contributing
+- (feature ideas for further development):
 
-See [CONTRIBUTING.md](CONTRIBUTING.md) for contribution guidelines.
+### Client Side Features
+- social login (facebook, google, etc)
+- persistence of login (react-native-keychain)
+- profile page and addition of friends features, 1:1 chat
+- display and saving of more features
+- pseudo-replay function (recording of past games / completed challenges)
+- player selection on which team to join in lobby
 
-### Known Bugs
+### Additional Game Modes / Features (using existing tech)
+- drawing of player path as they progress through a game
+- multiple challenge markers shown from the beginning, users decide the order of completion (collect as many as you can in a time limit, race to finish, etc.)
+- king of the hill (territory control based game mode)
+- visible / invisible markers
+- GPS race / timed challenge
+- GPS based interactions (examples: when in vicinity of another player, tag, go invisible, increase their timer, temporary disable, etc)
+- tag game mode (would need to define fixed area of gameplay to ensure players stay in an area)
+- mini-games between nearby players
+- group cooperative mode
+- GPS ping pong
+- GPS monopoly (or other suitable board game)
 
+### Additional Technologies to Incorporate
+- QR Codes
+- Compass / Gyroscope / other sensor available on the phone
+- Agumented Reality
+- Date / Time-based events
+- Image recognition (machine learning)
+
+
+## Known Bugs
+- no check for player in vicinity before the game can be started
+- To be further written
