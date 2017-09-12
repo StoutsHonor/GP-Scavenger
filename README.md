@@ -12,7 +12,7 @@
 1. [Development](#development)
     1. [Installing Dependencies](#installing-dependencies)
 1. [Contributing](#contributing)
-1. [Roadmap](#contributing)
+1. [Roadmap](#roadmap)
 1. [Known Bugs](#known-bugs)
 
 
