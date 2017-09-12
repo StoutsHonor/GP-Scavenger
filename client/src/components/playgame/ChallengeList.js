@@ -11,6 +11,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { getAllGameChallenges, setCurrentChallengeIndex } from '../../actions/index';
 import ChallengeListEntry from './ChallengeListEntry';
+import io from "socket.io-client";
+import config from "../../../config/config";
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ getAllGameChallenges }, dispatch)
@@ -31,6 +33,12 @@ class ChallengeList extends Component {
     super(props);
     this.state = {
     };
+  }
+
+  componentDidMount() {
+    this.socket = io(config.localhost);
+    //need to grab the index value from the socket listener
+    this.socket.on("opponentIndex", this.setState({opponentIndex: data}))
   }
 
   render() {
