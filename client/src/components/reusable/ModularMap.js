@@ -321,7 +321,13 @@ class ModularMap extends Component {
 
         </MapView>
         <MapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>
-        <MapStoreLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} storeMarker={this.storeMarker}/>
+        
+        { this.props.hideMapSubmit ?
+          null
+          : 
+          <MapStoreLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} storeMarker={this.storeMarker}/>
+        }
+        
         </View>
 
         <View><Text>Current Location: {JSON.stringify(this.state.currentLocation)}</Text></View>
