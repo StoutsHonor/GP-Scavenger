@@ -259,27 +259,31 @@ class Lobby extends Component {
       this.setState({
         team1:  [...this.state.team1, elem],
         team2:  this.state.team2,
-        totalPlayer: this.state.totalPlayer
       });
     } else if (length2 < length1) {
       elem = this.state.team1.pop();
       this.setState({
         team1:  this.state.team1,
         team2: [...this.state.team2, elem],
-        totalPlayer: this.state.totalPlayer
       });
-    }
+    } 
+
+    this.setState({
+      totalPlayer: this.state.totalPlayer
+    });
 
     this.props.updatedTeams({
       team1: this.state.team1,
       team2: this.state.team2
     });
+
+   
    
     if (this.state.totalPlayer < 2) {
       this.setState({ showStart: false });
     }
     if(this.props.userId === message) {
-      Actions.pop();
+      Actions.joingame({listtype: 'join'})
     }
 
 

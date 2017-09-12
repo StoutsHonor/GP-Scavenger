@@ -226,6 +226,8 @@ export default class client extends Component {
                 component={Friends}
                 title="Friends"
               />
+
+            
               
 
               <Scene key="chat"
