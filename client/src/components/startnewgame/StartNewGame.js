@@ -19,6 +19,7 @@ import config from '../../../config/config';
 import SideMenu from 'react-native-side-menu';
 import HomePage from '../HomePage';
 import LoadingPage from '../reusable/LoadingPage'
+import io from "socket.io-client";
 
 const window = Dimensions.get('window');
 
@@ -51,7 +52,7 @@ class StartNewGame extends Component {
       lobbyName: '',
       selectedGame: null
     }
-
+    this.socket = io(config.localhost);
     this.modularListEntryButtonAction = this.modularListEntryButtonAction.bind(this);
     this.onStartNewGameListEntryClick = this.onStartNewGameListEntryClick.bind(this);
     this.onInputLobbyName = this.onInputLobbyName.bind(this);
@@ -88,11 +89,14 @@ class StartNewGame extends Component {
   }
 
   onInputLobbyName() {
-    const gamedata = Object.assign({room: this.state.lobbyName, createdBy: this.props.userId, roomId: "lobby-" + this.state.lobbyName + "-" + this.props.userId }, this.state.selectedGame)
+    const gamedata = Object.assign({room: this.state.lobbyName, createdBy: this.props.userId, roomId: "lobby-" + this.state.lobbyName + "-" + this.props.userId + '-' + Date.now() }, this.state.selectedGame)
+    console.log(`StartNewGame - onInputLobbyName() - gamedata is ${JSON.stringify(gamedata)}`)
+    this.socket.emit("startedANewRoom", gamedata);    
     Actions.lobby({ gamedata })
     this.props.getGameId(this.state.selectedGame.id);
     this.props.getGameInfo(this.state.selectedGame);
     this.setState({inputLobbyNameModal: false});
+    
   }
 
   onStartNewGameListEntryClick(game) {

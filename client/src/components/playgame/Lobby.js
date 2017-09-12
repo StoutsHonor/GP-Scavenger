@@ -85,7 +85,7 @@ class Lobby extends Component {
 
   componentDidMount() {
     this.socket = io(config.localhost);
-    this.socket.emit("createRoom", this.props.gamedata);
+    this.socket.emit("createRoom", this.props.gamedata.roomId);
     this.socket.on("joinLobby", this.onReceivedJoinedLobby);
     this.socket.on("message", this.onReceivedMessage);
     this.socket.on("updateOtherPlayer", this.updateOtherPlayer);

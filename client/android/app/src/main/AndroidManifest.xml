@@ -29,7 +29,7 @@
         android:value="AIzaSyA-HGZs8ar8yT2RpzkhR17J8mlq2hyBjo8"
       />
 
-    <activity android:name=".SplashActivity" android:theme="@style/SplashTheme">
+    <activity android:name=".SplashActivity" android:theme="@style/SplashTheme" android:exported="true">
         <intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
@@ -41,9 +41,11 @@
       <activity
         android:name=".MainActivity"
         android:label="@string/app_name"
-          android:screenOrientation="portrait"
+        android:screenOrientation="portrait"
         android:configChanges="keyboard|keyboardHidden|orientation|screenSize"
-        android:windowSoftInputMode="adjustResize">
+        android:windowSoftInputMode="adjustResize"
+        android:exported="true"
+        >
       </activity>
       <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
     </application>
