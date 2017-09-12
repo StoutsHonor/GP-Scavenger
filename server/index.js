@@ -52,12 +52,18 @@ websocket.on('connection', (socket) => {
     websocket.sockets.in(message.roomName).emit('getOtherUserName', message);
   });
 
-  socket.on('startGame', (message) => { 
+  socket.on('startGame', (message, team1, team2) => { 
     websocket.sockets.in(message).emit('startGame');
     const index = activeLobbies.findIndex( (e,i) => e.roomId === message );
     if (index > -1) {
       const startedGame = activeLobbies.splice(index,1)[0];
       startedGame.players = {};
+      for (let i = 0; i < team1.length; i++) {
+        startedGame.players[team1[i]] = {latitude: startedGame.startLocation[0], longitude: startedGame.startLocation[1], userId: team1[i] }
+      }
+      for (let i = 0; i < team2.length; i++) {
+        startedGame.players[team2[i]] = {latitude: startedGame.startLocation[0], longitude: startedGame.startLocation[1], userId: team2[i] }
+      }
       activeGames[startedGame.roomId] = startedGame;
       console.log(`activeGames is ${JSON.stringify(activeGames)}`)
       console.log(`activeLobbies is now ${JSON.stringify(activeLobbies)}`)
@@ -84,4 +90,11 @@ websocket.on('connection', (socket) => {
     websocket.sockets.in(message.roomName).emit('removePlayer', message.userId)
   });
   
+  socket.on('updatePlayerLocation', (playerInfo) => {
+    activeGames[playerInfo.gameName].players[playerInfo.userId] = { latitude: playerInfo.latitude, longitude: playerInfo.longitude, userId: playerInfo.userId};
+    console.log(`activeGames is ${JSON.stringify(activeGames)}`);
+    const playersLocations = activeGames[playerInfo.gameName].players;
+    websocket.sockets.emit('updatePlayersLocation', playersLocations);
+  })
+
 });

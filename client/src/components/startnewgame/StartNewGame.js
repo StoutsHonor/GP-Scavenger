@@ -94,7 +94,7 @@ class StartNewGame extends Component {
     this.socket.emit("startedANewRoom", gamedata);    
     Actions.lobby({ gamedata })
     this.props.getGameId(this.state.selectedGame.id);
-    this.props.getGameInfo(this.state.selectedGame);
+    this.props.getGameInfo(gamedata);
     this.setState({inputLobbyNameModal: false});
     
   }
