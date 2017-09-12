@@ -57,9 +57,9 @@ class HomePage extends Component {
     console.log('HomePage willMount')
   }
 
-  authSetUser(){
-    console.log('HomePage: setting user:', firebase.auth().currentUser)
-    this.props.userLoggedIn(firebase.auth().currentUser.providerData[0])
+  authSetUser(userInfo){
+    console.log('HomePage: setting user:', userInfo)
+    this.props.userLoggedIn(userInfo)
   }
 
   componentDidMount() {
@@ -98,17 +98,17 @@ class HomePage extends Component {
               GPScavenger
             </Text>
 
-            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bolder" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'public', color: "#211b07"}} title='Join Game' 
+            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'public', color: "#211b07"}} title='Join Game' 
               onPress={() => Actions.joingame({listtype: 'join'})}/>
-            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bolder" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'casino', color: "#211b07"}} title='Start New Game' 
+            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'casino', color: "#211b07"}} title='Start New Game' 
               onPress={() => Actions.startnewgame({listtype: 'start'})}/>
-            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bolder" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'build', color: "#211b07"}} title='Create Game' 
+            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'build', color: "#211b07"}} title='Create Game' 
               onPress={() => Actions.creategame()}/>
-            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bolder" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'poll', color: "#211b07"}} title=' Leaderboard' 
+            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'poll', color: "#211b07"}} title=' Leaderboard' 
               onPress={() => Actions.leaderboard()}/>
-            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bolder" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'group', color: "#211b07"}} title='Friends' 
+            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'group', color: "#211b07"}} title='Friends' 
               onPress={() => Actions.friends()}/>
-            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bolder" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'settings power', color: "#211b07"}} title=' Log Out' 
+            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight title=' Log Out' 
               onPress={() => {
               this.props.userLoggedIn({payload: {uid: null}})
               firebase.auth().signOut()

@@ -3,19 +3,22 @@ const Sequelize = require('sequelize');
 
 module.exports = {
   findUser: (req, res) => {
+    console.log('findUser: req.query: ', req.query)
     db.User.find({
       where: {
-        username: req.query.username
+        $or: [
+          {email: {$eq: req.query.email}}
+        ]
       }
     })
-    .then(user => res.status(200).send(user))
     .catch(err => res.status(500).send(`Error finding username! ${err}`))
+    .then(user => res.status(200).send(user))
   },
 
   findAllUserPoints: (req, res) => {
     db.User.findAll()
-    .then(data => res.status(200).send(data))
     .catch(err => res.status(500).send(`Error finding data! ${err}`))
+    .then(data => res.status(200).send(data))
   },
 
   findUserPoints: (req, res) => {

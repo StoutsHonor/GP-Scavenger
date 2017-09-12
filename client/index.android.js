@@ -68,7 +68,6 @@ import HomePage from './src/components/HomePage';
 import JoinGame from './src/components/joingame/JoinGame';
 import Leaderboard from './src/components/leaderboard/Leaderboard';
 import Lobby from './src/components/playgame/Lobby';
-import Login from './src/components/login/Login';
 import ModularList from './src/components/reusable/ModularList'
 import ModularMap from './src/components/reusable/ModularMap'
 import StartNewGame from './src/components/startnewgame/StartNewGame'
