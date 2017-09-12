@@ -145,10 +145,11 @@ class StartNewGame extends Component {
           animationType={"slide"}
           transparent={true}
           visible={this.state.inputLobbyNameModal}
-          onRequestClose={() => {alert("Modal has been closed.")}}
+          onRequestClose={() => {this.setState({inputLobbyNameModal: false})}}
+          presentationStyle={"overFullScreen"}
           >
-          <View style={{flex: 1, flexDirection: 'column', alignItems: 'center'}}>
-          <View style={{padding: 10, top: window.height*.40, width: window.width*.8, backgroundColor: '#FFF'}}>
+          <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.4)'}}>
+          <View style={{padding: 10, top: window.height*.40, width: window.width*.7, backgroundColor: '#FFF', borderRadius: 5, borderColor: '#000', borderStyle: 'solid', borderWidth: 1, elevation: 25}}>
           <TextInput
             style={{height: 40}}
             placeholder="Enter Lobby Name..."
