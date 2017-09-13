@@ -77,19 +77,13 @@ class Friends extends Component {
                 <Text style={styles.description}>Friends</Text>
               </View>
             </View>
-            <View style={styles.friend}>
-              <Button title={'Friends'}/>
-            </View>
         </View>
 
-      <Swiper style={styles.wrapper} height={240}
-        onMomentumScrollEnd={(e, state, context) => console.log('index:', state.index)}
-        dot={<View style={{backgroundColor: 'rgba(0,0,0,.2)', width: 5, height: 5, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
-        activeDot={<View style={{backgroundColor: '#000', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
-        paginationStyle={{
-          bottom: -23, left: null, right: 10
-        }} loop>
-        <View style={styles.slide} title={<Text numberOfLines={1}>Aussie tourist dies at Bali hotel</Text>}>
+      <Swiper style={styles.wrapper} height={240} 
+      paginationStyle={{
+            bottom: 50, left: null, right: 10
+          }} loop>
+        <View style={styles.slide}>
           <GiftedChat
           messages={this.state.messages}
           onSend={this.onSend}
@@ -133,12 +127,6 @@ const styles = StyleSheet.create({
   info: {
     height: 60,
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#ff372c"
-  },
-  friend: {
-    height: 60,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#ff372c"
@@ -216,8 +204,7 @@ const styles = StyleSheet.create({
   },
 
   image: {
-
-    backgroundColor: '#92BBD9'
+    flex: 1
   }
 });
 
