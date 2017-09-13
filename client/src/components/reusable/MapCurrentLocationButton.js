@@ -24,13 +24,13 @@ class MapCurrentLocationButton extends Component {
         width: 50,
         backgroundColor: 'white',
         borderRadius: 10,
-        borderColor: '#000000'
-
+        borderColor: '#000000',
+        borderWidth: 0.5
       },
       buttonContainer: {
         zIndex: 9999999,
         left: 165,
-        bottom: 20
+        bottom: 90
       }
     })
 
