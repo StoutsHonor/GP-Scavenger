@@ -104,9 +104,7 @@ class ModularMap extends Component {
           this.socket.emit("updatePlayerLocation", { gameName: this.props.gameName, userId: this.props.userId, latitude: position.coords.latitude, longitude: position.coords.longitude })
           const destLatitude = component.props.currentChallenge.location[0]
           const destLongitude = component.props.currentChallenge.location[1]
-          const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${position.coords.latitude},${position.coords.longitude}&destination=33.9760019,-118.3930801&mode=walking&key=AIzaSyC3OJfDUfekV_8cEV50e1MXqaRdyFnvU-c`          
-          // const url = `https://maps.googleapis.com/maps/api/directions/json?origin=42.60019,-118.3930801&destination=33.9760019,-118.3930801&mode=walking&key=AIzaSyC3OJfDUfekV_8cEV50e1MXqaRdyFnvU-c`
-          //const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${position.coords.latitude},${position.coords.longitude}&destination=${destLatitude},${destLongitude}&mode=walking&key=${config.maps}`
+          const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${position.coords.latitude},${position.coords.longitude}&destination=${destLatitude},${destLongitude}&mode=walking&key=${config.maps}`          
           console.log(`url is ${url}`)
           fetch(url)
           .then(response => {
