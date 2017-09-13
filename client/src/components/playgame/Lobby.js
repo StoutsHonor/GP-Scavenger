@@ -66,6 +66,7 @@ class Lobby extends Component {
     //make a call to the database for games
     //load the markers into
     //console.log(`im in Lobby.js componentWillMount`)
+    console.log(`this.props.gameId is ${this.props.gameId}`)
     fetch(
       `${config.localhost}/api/challenge/findChallengeByGameId/?gameId=${this.props.gameId}`
     )
