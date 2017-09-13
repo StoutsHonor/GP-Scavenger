@@ -14,6 +14,7 @@ import Swiper from 'react-native-swiper';
 import config from "../../../config/config";
 import { connect } from "react-redux";
 import { GiftedChat } from "react-native-gifted-chat";
+import { Thumbnail } from 'native-base';
 
 
 
@@ -50,13 +51,11 @@ class Friends extends Component {
 
   render() {
     return (
-      <SideMenu menu={<HomePage/>}>
-        <View style={styles.container}>
-          <View style={styles.profile}>
 
-            <View style={styles.name}>
-              <View style={styles.image}>
-              </View>
+      <View style={styles.container}>
+        <View style={styles.profile}>
+          <View style={styles.name}>
+          <Image style={styles.image1} source={{uri: 'https://i.redditmedia.com/lp3VESOLTRuOKCgKBIZZuW0jQiqNKOvwKoeT0dEbWH4.jpg?w=1000&s=acdf2acb7504abca49f9cbe55a0fd789'}} />
               <View>
                 <Text style={styles.description}>John Doe</Text>
                 <Text style={styles.digits}>Software Engineer Trainee at Hack Reactor</Text>
@@ -73,7 +72,7 @@ class Friends extends Component {
                 <Text style={styles.description}>Game</Text>
                 <Text style={styles.description}>Won</Text>
               </View>
-              <View style={styles.stats}>
+              <View style={styles.stats1}>
                 <Text style={styles.digits}>33</Text>
                 <Text style={styles.description}>Friends</Text>
               </View>
@@ -81,31 +80,38 @@ class Friends extends Component {
             <View style={styles.friend}>
               <Button title={'Friends'}/>
             </View>
-          </View>
-          <View style={styles.body}>
-          <Swiper style={styles.wrapper} >
-            <View style={styles.slide1}>
-              
-            </View>
-            <View style={styles.slide2}>
-              
-            </View>
-            <View style={styles.slide3}>
-              <GiftedChat
-                messages={this.state.messages}
-                onSend={this.onSend}
-                user={this.state.user}
-              />
-            </View>
-          </Swiper>
-          </View>
-
         </View>
-      </SideMenu>
+
+      <Swiper style={styles.wrapper} height={240}
+        onMomentumScrollEnd={(e, state, context) => console.log('index:', state.index)}
+        dot={<View style={{backgroundColor: 'rgba(0,0,0,.2)', width: 5, height: 5, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
+        activeDot={<View style={{backgroundColor: '#000', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
+        paginationStyle={{
+          bottom: -23, left: null, right: 10
+        }} loop>
+        <View style={styles.slide} title={<Text numberOfLines={1}>Aussie tourist dies at Bali hotel</Text>}>
+          <GiftedChat
+          messages={this.state.messages}
+          onSend={this.onSend}
+          user={this.state.user}
+          />
+        </View>
+        <View style={styles.slide} title={<Text numberOfLines={1}>Big lie behind Nine’s new show</Text>}>
+          <Image resizeMode='stretch' style={styles.image} source={{uri: 'https://i.redditmedia.com/lp3VESOLTRuOKCgKBIZZuW0jQiqNKOvwKoeT0dEbWH4.jpg?w=1000&s=acdf2acb7504abca49f9cbe55a0fd789'}} />
+        </View>
+        <View style={styles.slide} title={<Text numberOfLines={1}>Why Stone split from Garfield</Text>}>
+          <Image resizeMode='stretch' style={styles.image} source={{uri: 'http://i.imgur.com/yAEjSco.jpg'}} />
+        </View>
+        <View style={styles.slide} title={<Text numberOfLines={1}>Learn from Kim K to land that job</Text>}>
+          <Image resizeMode='stretch' style={styles.image} source={{uri: 'http://i.imgur.com/CKwLMLq.jpg'}} />
+        </View>
+      </Swiper>
+    </View>
     );
   }
 }
-
+//   <View style={styles.body}>
+//</View>
 const styles = StyleSheet.create({
   container: {
     flex:1,
@@ -113,53 +119,54 @@ const styles = StyleSheet.create({
     backgroundColor: '#5F9EA0' 
   },
   profile: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height / 3,
+    height: 240,
     marginTop: 1,
     backgroundColor: "#ff372c"
   },
-  body: {
-    width: Dimensions.get("window").width,
-    height: Dimensions.get("window").height,
-    marginTop: 1,
-    backgroundColor: "#4848ff"
-  },
   name: {
-    flex: 0.333333,
+    height: 120,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#ff372c"
   },
   info: {
-    flex: 0.333333,
+    height: 60,
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#ff372c"
   },
   friend: {
-    flex: 0.333333,
+    height: 60,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#ff372c"
   },
-  image: {
-    width: 50,
-    height: 50,
-    marginRight: 5,
-    backgroundColor: "#43e811"
+  image1: {
+    height: 110,
+    borderRadius: 55,
+    width: 110,
+    marginRight: 7
   },
   stats: {
-    width: 75,
-    height: 75,
+    width: 100,
+    height: 70,
     marginRight: 20,
-    paddingRight: 8,
+    marginLeft: 10,
+    paddingRight: 12,
     alignItems: "center",
     backgroundColor: "#ff372c",
     borderRightColor: 'white',
     borderRightWidth: 1,
-
+  },
+  stats1: {
+    width: 100,
+    height: 70,
+    marginRight: 20,
+    paddingRight: 8,
+    alignItems: "center",
+    backgroundColor: "#ff372c",
   },
   digits: {
     marginTop: 7,
@@ -168,36 +175,50 @@ const styles = StyleSheet.create({
   description: {
     fontSize: 16
   },
+  container: {
+    flex: 1
+  },
+
   wrapper: {
   },
+
+  slide: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: 'transparent'
+  },
+
   slide1: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#9DD6EB'
   },
+
   slide2: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#97CAE5'
   },
+
   slide3: {
     flex: 1,
-    width: Dimensions.get("window").width - 15,
-    height: Dimensions.get("window").height / 2,
+    justifyContent: 'center',
+    alignItems: 'center',
     backgroundColor: '#92BBD9'
   },
+
   text: {
     color: '#fff',
     fontSize: 30,
     fontWeight: 'bold'
   },
-  slide: {
-    flex: 1,
-    justifyContent: 'center',
-    backgroundColor: 'transparent'
-  },
+
+  image: {
+
+    backgroundColor: '#92BBD9'
+  }
 });
 
 export default connect(mapStateToProps)(Friends);
