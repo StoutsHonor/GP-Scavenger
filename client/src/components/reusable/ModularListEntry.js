@@ -6,8 +6,7 @@ import {
 } from 'react-native';
 import { ListItem, Left, Thumbnail, Text, Right, Button, Body, Separator, Container } from 'native-base';
 import { Actions } from 'react-native-router-flux';
-
-
+import config from "../../../config/config";
 
 class ModularListEntry extends Component {
   constructor(props) {
@@ -18,7 +17,32 @@ class ModularListEntry extends Component {
 
   }
 
+  componentDidMount() {
+    navigator.geolocation.getCurrentPosition( (position) => {
+      console.log(`Current position is latitude: ${position.coords.latitude} and longitude: ${position.coords.longitude}`)
+      console.log(`position.coords is ${JSON.stringify(position.coords)}`)
+      console.log(`ModularListEntry - this.props.data is ${JSON.stringify(this.props.listentry.startLocation)}`)
 
+      const destLatitude = this.props.listentry.startLocation[0]
+      const destLongitude = this.props.listentry.startLocation[1]
+      const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${position.coords.latitude},${position.coords.longitude}&destination=${destLatitude},${destLongitude}&mode=walking&key=${config.maps}`          
+      console.log(`url is ${url}`)
+      fetch(url)
+      .then(response => {
+        console.log(`Google Maps response is ${JSON.stringify(response)}`)
+        return response.json()})
+      .then(data => {
+        console.log(`Google Maps directions response is`)
+        const distanceAway = data.routes[0].legs[0].distance.text + ' away'
+        console.log(`distance is ${JSON.stringify(distanceAway)}`)
+        this.setState({distanceAway})
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+
+    }, (error) => {console.log(`geolocation fail ${JSON.stringify(error)}`)}, { enableHighAccuracy: true })
+  }
 
   componentWillReceiveProps(nextProps) {
     console.log(nextProps, 'nextProps')
@@ -42,7 +66,7 @@ class ModularListEntry extends Component {
           <Body>
             <Text>{this.props.listentry.room}</Text>
             <Text>{this.props.listentry.name}</Text>
-            <Text note>Start: {this.props.listentry.startLocation}</Text>
+            <Text note>{this.state.distanceAway}</Text>
             <Text note>Max Players: {this.props.listentry.maxPlayers}</Text>
           </Body>
           <Right>
