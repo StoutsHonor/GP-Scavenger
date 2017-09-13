@@ -78,42 +78,21 @@ class ChallengeListEntry extends Component {
     
     return (
       <View style={{backgroundColor: backColor}}>
-        <Card title={str} backgroundColor={this.state.color}> 
-          {this.state.displayInfo ? 
-            <View>
-              <Text style={styles.description} >{this.props.challenge.name}</Text>
-              <Button title="test" onPress={() => this.setState({opponentShow: ! this.state.opponentShow})}/>
-            </View>
-            :
-            <Image
-              style={styles.locked}
-              source={{uri: 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/matte-red-and-white-square-icons-business/122828-matte-red-and-white-square-icon-business-lock6-sc48.png'}}
-            />}
-          <View >
-          {/* <Modal
-            animationType={"slide"}
-            transparent={false}
-            visible={this.state.showReview}
-            onRequestClose={() => {alert("Modal has been closed.")}}
-            >
-            <View style={{marginTop: 22}}>
-              <View>
-                {this.state.reviews.map( (review, index) => {
-                  <Review review={review} key={index}/>
-                })}
-                <TouchableHighlight onPress={() => {
-                  this.setState({showReview: false});
-                }}>
-                  <Text>Back to Games</Text>
-                </TouchableHighlight>
-
-              </View>
-            </View>
-          </Modal> */}
+        <TouchableHighlight onPress={() => this.props.showChallengeDetails(this.props.challengeIndex)}>
+          <View>
+            <Card title={str} backgroundColor={this.state.color}> 
+              {this.state.displayInfo ? 
+                <View>
+                  <Text style={styles.description} >{this.props.challenge.name}</Text>
+                </View>
+                :
+                <Image
+                  style={styles.locked}
+                  source={{uri: 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/matte-red-and-white-square-icons-business/122828-matte-red-and-white-square-icon-business-lock6-sc48.png'}}
+                />}
+            </Card>
           </View>
-        </Card>
-        <Text></Text>
-        <Text></Text>
+        </TouchableHighlight>
       </View>
     )
   }

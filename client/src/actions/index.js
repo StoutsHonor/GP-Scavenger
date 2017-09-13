@@ -90,6 +90,8 @@ export const get_gameId = 'get_gameId';
 export const get_game = 'get_game';
 export const set_current_challenge_index = 'set_current_challenge_index';
 export const set_game_points = 'set_game_points';
+export const set_challenge_details = 'set_challenge_details';
+export const submit_answers = 'submit_answers';
 export const updated_teams = 'updated_teams';
 
 export const getGameId = (games) => {
@@ -127,6 +129,20 @@ export const setGamePoints = (points) => {
   return {
       type: set_game_points,
       payload: points
+  };
+};
+
+export const setChallengeDetails = (data) => {
+  return {
+      type: set_challenge_details,
+      payload: data
+  };
+};
+
+export const submitAnswers = (data) => {
+  return {
+      type: submit_answers,
+      payload: data
   };
 };
 
