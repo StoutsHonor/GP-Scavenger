@@ -42,7 +42,7 @@
   {
     "name": "Riddle #1",
     "description": "This is the first riddle",
-    "gameId": 3,
+    "gameId": 9,
     "sequence": 1,
     "location": [37.783692, -122.408967],
     "timeLimit": 30,
@@ -52,7 +52,7 @@
   {
     "name": "Riddle #2",
     "description": "This is the second riddle",
-    "gameId": 3,
+    "gameId": 9,
     "sequence": 2,
     "location": [37.783692, -122.408967],
     "timeLimit": 30,
@@ -63,7 +63,7 @@
     "name": "Riddle #3",
     "description": "This is the third riddle",
     "gameId": 3,
-    "sequence": 3,
+    "sequence": 1,
     "location":[37.783692, -122.408967],
     "timeLimit": 30,
     "questionTypeId": 2,

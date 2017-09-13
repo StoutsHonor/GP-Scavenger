@@ -20,14 +20,14 @@
     "description": "this is description #1"
   },
   {
-    "name": "5 times the fun!!!",
+    "name": "Only One Question!!!",
     "userId": 1, 
     "duration": 150,
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 500,
     "startLocation": [33.8120962,-117.9211629],
-    "description": "this is description #2"
+    "description": "Only One Question"
   },
   {
     "name": "Get over here!!!",
@@ -71,6 +71,16 @@
   },
   {
     "name": "Hollywood Stars",
+    "userId": 1,
+    "duration": 120,
+    "private": false,
+    "maxPlayers": 4,
+    "rewardPoints": 200,
+    "startLocation": [33.976025, -118.391093],
+    "description": "Get to know LA!"
+  },
+  {
+    "name": "Other Challenges",
     "userId": 1,
     "duration": 120,
     "private": false,
