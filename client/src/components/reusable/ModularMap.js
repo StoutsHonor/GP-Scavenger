@@ -19,6 +19,7 @@ import io from "socket.io-client";
 import config from "../../../config/config";
 import CustomCallout from './CustomCallout';
 import MapMarkerLocationButton from './MapMarkerLocationButton';
+import PriceMarker from '../PriceMarker';
 
 const {width, height} = Dimensions.get('window');
 
@@ -351,6 +352,7 @@ class ModularMap extends Component {
           if (this.props.data) {
             return (
               <MapView.Marker coordinate={loc} key={index} calloutOffset={{ x: -8, y: 28 }} calloutAnchor={{ x: 0.5, y: -0.4 }}>
+              <PriceMarker fontSize={20} amount={index}/>
                 <MapView.Callout onPress={() => {Actions.gameprofile({game: this.props.data[index], typeOfAction: this.props.viewmode, buttonaction: this.props.buttonaction})}} tooltip style={styles.customView}>
                   <CustomCallout>
                         <Text style={{fontFamily: 'serif', fontWeight: 'bold', fontStyle: 'italic', fontSize: 17, textAlign: 'center', color: '#FFF'}}>{this.props.data[index].name}....</Text>
@@ -359,7 +361,7 @@ class ModularMap extends Component {
               </MapView.Marker>)
           } else {
             return(
-              <MapView.Marker coordinate={loc} key={index} tooltip={true} style={styles.tooltip}>
+              <MapView.Marker coordinate={loc} key={index} tooltip={true} style={styles.tooltip} image={'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1505281773/71AUHAt_ix8uj5.png'}>
                 <MapView.Callout>
                   <Text style={styles.tooltipText}>{this.props.currentChallenge.name}</Text>
                   <Text style={styles.tooltipText}>{this.props.currentChallenge.description}</Text>
@@ -369,7 +371,7 @@ class ModularMap extends Component {
          })}
          {!!this.props.crosshair ? <MapCenterMarker height={styles.mapContainer.height} width={styles.mapContainer.width}/> : null }
          
-        <MapView.Marker coordinate={this.state.currentLocation} image={'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1504828467/currentLocationMarker_85x85_pw5bpq.png'}>
+        <MapView.Marker coordinate={this.state.currentLocation} image={'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1505282780/marker_self_50x50_zyzpqr.png'}>
          <MapView.Callout tooltip style={styles.customView}>
           <CustomCallout>
            <Text style={{fontFamily: 'serif', fontWeight: 'bold', fontStyle: 'italic', fontSize: 17, textAlign: 'center', color: '#FFF'}}>You are here :)</Text>
@@ -381,7 +383,7 @@ class ModularMap extends Component {
             (this.state.teamMemberMarkers.map( (playerLoc, index) => {
               console.log(`playerLoc is ${JSON.stringify(playerLoc)}`)
               return (
-                <MapView.Marker coordinate={playerLoc} key={index} pinColor={'black'}>
+                <MapView.Marker coordinate={playerLoc} key={index} image={'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1505283014/marker_team_50x50_juglgs.png'}>
                   <MapView.Callout>
                     <Text style={styles.tooltipText}>{playerLoc.userId}</Text>
                   </MapView.Callout>
