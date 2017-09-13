@@ -50,7 +50,7 @@ class MapStoreLocationButton extends Component {
     return(
         <Content style={styles.buttonContainer} >
           <Button primary onPress={this.props.storeMarker} style={styles.button}>
-            <Text style={styles.text}>I'm here now!</Text>
+            <Text style={styles.text}>{this.props.storeMarkerText}</Text>
           </Button>
         </Content>
     )
