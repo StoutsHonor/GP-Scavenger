@@ -23,9 +23,8 @@ module.exports = {
 
   findUserPoints: (req, res) => {
       db.User.find(
-        {attributes: ['rewardPoints']},
       {
-      where: {id: req.query.userId}
+      where: {email: req.query.email}
     })
     .then(data => res.status(200).send(data))
     .catch(err => res.status(500).send(`Error finding data! ${err}`))
@@ -56,10 +55,9 @@ module.exports = {
     console.log(req.body, 'this is req.body')
     db.User.update(
       {rewardPoints: req.body.rewardPoints},
-      {where: {id: req.body.userId}}
+      {where: {email: req.body.email}}
     )
     .then( user => {
-      console.log('this is hitting')
       res.status(201).send(user)
     })
     .catch(err => res.status(500).send(`Error updating reward points to database! ${err}`))

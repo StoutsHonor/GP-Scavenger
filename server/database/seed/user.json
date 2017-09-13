@@ -58,5 +58,15 @@
     "profileDescription": "reserve this card",
     "DOB": "2010-08-12",
     "rewardPoints": 4000
+  },
+  {
+    "firstName": "John",
+    "lastName": "Anderton",
+    "email": "123@gmail.com",
+    "username": "EverybodyRuns",
+    "profilePicture": "http://images.contentful.com/7h71s48744nc/4w9tDGlPLiMCMkOOM0GGyY/3a570018e592ecdec25b9fc5562d2a9e/minority-report.jpg",
+    "profileDescription": "Watch This Movie",
+    "DOB": "2010-08-12",
+    "rewardPoints": 0
   }
 ]

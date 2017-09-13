@@ -2,21 +2,70 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  Image
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { getAllGameChallenges, setCurrentChallengeIndex, getGameId, setGamePoints, getGameInfo } from '../../actions/index';
+import config from '../../../config/config';
 
-const FailedPage = () => {
-  return (
-    <View style={styles.container}>
-      <Text style={styles.welcome}>
-        The other team won! 
-        Aw well, try again.
-      </Text>
-      <Text onPress={() => Actions.homepage({type:'reset'})}>Back to Home</Text>
-      <Text onPress={() => Actions.leaderboard({type:'reset'})}>Leaderboard</Text>
-    </View>
-  );
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ getAllGameChallenges, setCurrentChallengeIndex, getGameId,setGamePoints, getGameInfo }, dispatch)
+}
+
+const mapStateToProps = (state) => {
+  return {
+    userId: state.client.userIdentity,
+    gameId: state.play.gameId,
+    gameInfo: state.play.gameInfo,
+    challenges: state.play.allChallenges,
+    currentChallengeIndex: state.play.currentChallengeIndex,
+    gamePoints: state.play.gamePoints
+  }
+}
+
+class FailedPage extends Component {
+
+  componentDidMount() {
+    let earnedPoints = this.props.gamePoints + Math.ceil(this.props.gameInfo.rewardPoints/this.props.challenges.length) - 250;
+    this.props.setGamePoints(earnedPoints);
+    
+    fetch(`${config.localhost}/api/user/findUserPoints/?email=${this.props.email}`)
+    .then(response => response.json())
+    .then(data => this.setState({userPoints: data.rewardPoints}))
+    .then(() => {
+      fetch(`${config.localhost}/api/user/updateRewardPoints/`,
+        {
+          method: 'POST',
+          headers: {"Content-type": "application/json", "Accept": "application/json" },
+          body: JSON.stringify({email: this.props.email,
+          rewardPoints: this.props.gamePoints + this.state.userPoints})
+        })
+    })
+    .catch(err => console.error(err))
+  }
+  render() {
+    return (
+      <View style={styles.container}>
+        <Image 
+            style={{width: 300, height: 200}}
+            source={{uri: 'https://media.licdn.com/mpr/mpr/AAEAAQAAAAAAAAswAAAAJDY3MGQxODUwLTExYjgtNDRlOS04NmJhLWMzNjNiZDk5ZjBiZQ.jpg'}}
+        />
+        <Text style={styles.welcome}>
+          The other team won! 
+          Aw well, try again.
+        </Text>
+        <Text style={styles.welcome}>The Other Team Won! Ah Well, Try Again Next Time!</Text>
+        <Text style={styles.welcome}>At Least You Earned: </Text>
+        <Text style={styles.points}>{this.props.gamePoints}</Text>
+        <Text style={styles.welcome}>Points From This Game.</Text>
+        <Text onPress={() => Actions.homepage({type:'reset'})}>Back to Home</Text>
+        <Text onPress={() => Actions.leaderboard({type:'reset'})}>Leaderboard</Text>
+      </View>
+    );
+  }
 }
 
 const styles = StyleSheet.create({
@@ -32,6 +81,11 @@ const styles = StyleSheet.create({
     margin: 10,
     color: '#ffffff',
   },
+  points: {
+    fontSize: 40,
+    textAlign: 'center',
+    color: '#00008B'
+  }
 });
 
-export default FailedPage;
+export default connect(mapStateToProps, mapDispatchToProps)(FailedPage);

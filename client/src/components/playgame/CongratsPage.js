@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import {
   StyleSheet,
   Text,
-  View
+  View,
+  Image
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -16,7 +17,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    userId: state.client.userIdentity,
+    email: state.client.userIdentity,
     gameId: state.play.gameId,
     gameInfo: state.play.gameInfo,
     challenges: state.play.allChallenges,
@@ -35,10 +36,10 @@ class CongratsPage extends Component {
   }
 
   componentDidMount() {
-    let earnedPoints = this.props.gamePoints + Math.ceil(this.props.gameInfo.rewardPoints/this.props.challenges.length) + 500;
+    let earnedPoints = this.props.gamePoints + Math.ceil(this.props.gameInfo.rewardPoints/this.props.challenges.length) + 250;
     this.props.setGamePoints(earnedPoints);
     
-    fetch(`${config.localhost}/api/user/findUserPoints/?userId=${1}`)
+    fetch(`${config.localhost}/api/user/findUserPoints/?email=${this.props.email}`)
     .then(response => response.json())
     .then(data => this.setState({userPoints: data.rewardPoints}))
     .then(() => {
@@ -46,7 +47,7 @@ class CongratsPage extends Component {
         {
           method: 'POST',
           headers: {"Content-type": "application/json", "Accept": "application/json" },
-          body: JSON.stringify({userId: 1,
+          body: JSON.stringify({email: this.props.email,
           rewardPoints: this.props.gamePoints + this.state.userPoints})
         })
     })
@@ -63,12 +64,16 @@ class CongratsPage extends Component {
   render() {
     return(
       <View style={styles.container}>
-      <Text style={styles.welcome}>You Won! You Earned A Total Of:</Text>
-      <Text style={styles.points}>{this.props.gamePoints}</Text>
-      <Text style={styles.welcome}>Points From This Game!!!</Text>
-      <Text onPress={() => this.handleClick('homepage')}>Back to Home</Text>
-      <Text onPress={() => this.handleClick('leaderboard')}>Leaderboard</Text>
-    </View>
+        <Image 
+          style={{width: 400, height: 200}}
+          source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT8_tzZ5qxzYgS7cX9ECqInFog9PAjNzvmTkWUI8oKfm-V8OWd'}}
+        />
+        <Text style={styles.welcome}>You Won! You Earned A Total Of:</Text>
+        <Text style={styles.points}>{this.props.gamePoints}</Text>
+        <Text style={styles.welcome}>Points From This Game!!!</Text>
+        <Text onPress={() => this.handleClick('homepage')}>Back to Home</Text>
+        <Text onPress={() => this.handleClick('leaderboard')}>Leaderboard</Text>
+      </View>
     )
   }
 }

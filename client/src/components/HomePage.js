@@ -72,7 +72,7 @@ class HomePage extends Component {
   }
 
   render () {
-    console.log(this.props.gameId, this.props.gameInfo, this.props.challenges, this.props.index, this.props.gamePoints, 'check')
+    console.log(this.props.userIdentity, 'user ID in lobby')
     return (
       <View style={styles.container}>
         {!this.props.userIdentity ? 

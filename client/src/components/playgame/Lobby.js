@@ -25,6 +25,7 @@ const mapStateToProps = state => {
     userId: state.client.userIdentity,
     gameId: state.play.gameId,
     gameInfo: state.play.gameInfo,
+    index: state.play.currentChallengeIndex,
     challenges: state.play.allChallenges,
     gamePoints: state.play.gamePoints,
     currentGameTeam1: state.play.currentGameTeam1,
@@ -57,7 +58,7 @@ class Lobby extends Component {
       team1: [],
       team2: [],
       styles: {},
-      showStart: false
+      showStart: true
     };
   }
 
@@ -66,17 +67,12 @@ class Lobby extends Component {
     //load the markers into
     //console.log(`im in Lobby.js componentWillMount`)
     fetch(
-      `${config.localhost}/api/challenge/findChallengeByGameId/?gameId=${this
-        .props.gameId}`
+      `${config.localhost}/api/challenge/findChallengeByGameId/?gameId=${this.props.gameId}`
     )
       .then(response => response.json())
       .then(data => {
-        console.log(
-          `Lobby.js - componentWillMount() - this is the data received ${JSON.stringify(
-            data
-          )}`
-        );
         this.props.getAllGameChallenges(data);
+        console.log(data, 'data fetched')
       })
       .catch(err => {
         console.error(err);
@@ -280,7 +276,7 @@ class Lobby extends Component {
    
    
     if (this.state.totalPlayer < 2) {
-      this.setState({ showStart: false });
+      this.setState({ showStart: true });
     }
     if(this.props.userId === message) {
       Actions.joingame({listtype: 'join'})
@@ -297,6 +293,8 @@ class Lobby extends Component {
   }
 
   render() {
+    console.log(this.props.gameId, 'gameId in lobby')
+    console.log(this.props.challenges, 'challenges in lobby')
     const styles = StyleSheet.create({
       container: {
         flex: 1,
@@ -314,6 +312,29 @@ class Lobby extends Component {
 
     return (
       <View style={this.state.styles.container}>
+
+        <View style={this.state.styles.divide}>
+          {this.state.showStart ? (
+            <Button
+              style={this.state.styles.button}
+              onPress={() => {
+                this.socket.emit("startGame", this.roomName, this.state.team1, this.state.team2);
+              }}
+              title="START GAME"
+            />
+          ) : (
+            <Button
+              style={this.state.styles.button}
+              title={"Need " + (2 - this.state.totalPlayer) + " More Players"}
+            />
+          )}
+          <Button
+              style={this.state.styles.button}
+              onPress={() => {this.leaveGame()}}
+              title="Leave Game"
+            />
+        </View>
+        
         <Text style={this.state.styles.lobbytext}>Lobby: {this.props.gamedata.room}</Text>
         <Text style={this.state.styles.lobbytext}>Created by: {this.props.gamedata.createdBy}</Text>
         <View style={this.state.styles.chat}>
@@ -341,7 +362,7 @@ class Lobby extends Component {
             })}
           </View>
         </View>
-        <View style={this.state.styles.divide}>
+        {/* <View style={this.state.styles.divide}>
           {this.state.showStart ? (
             <Button
               style={this.state.styles.button}
@@ -361,7 +382,7 @@ class Lobby extends Component {
               onPress={() => {this.leaveGame()}}
               title="Leave Game"
             />
-        </View>
+        </View> */}
       </View>
     );
   }
