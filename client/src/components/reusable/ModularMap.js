@@ -325,7 +325,7 @@ class ModularMap extends Component {
         { this.props.hideMapSubmit ?
           null
           : 
-          <MapStoreLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} storeMarker={this.storeMarker}/>
+          <MapStoreLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} storeMarker={this.storeMarker} storeMarkerText={this.props.storeMarkerText} storeMarkerButtonError={this.props.storeMarkerButtonError}/>
         }
         
         </View>

@@ -5,7 +5,8 @@ import {
   Button,
   TextInput,
   StyleSheet,
-  Dimensions
+  Dimensions,
+  Animated
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import ModularMap from '../../reusable/ModularMap';
@@ -17,13 +18,15 @@ class GPSChallengeTask extends Component {
     super(props)
     this.onMapMarkerSubmit = this.onMapMarkerSubmit.bind(this);
     this.checkLocation = this.checkLocation.bind(this);
+    this.showNotYetAtLocation = this.showNotYetAtLocation.bind(this);
     this.state = {
       name: '',
       description: '',
       time_limit: '',
       markers: [],
       currentLocation: [],
-      message: ''
+      message: 'Not yet! Get a little closer...',
+      fadeOutAnim: new Animated.Value(0)
     }
   }
 
@@ -53,8 +56,27 @@ class GPSChallengeTask extends Component {
       this.props.challengeCompleted()
     } else {
       console.log('WRONG LOCATION TRY AGAIN!!!')
-      this.setState({message: 'NOT THERE YET KEEP MOVIN!'})
+      this.showNotYetAtLocation()
     }
+  }
+
+  showNotYetAtLocation() {
+    console.log(`blaaaaaaaaah`)
+    this.setState({ fadeOutAnim: new Animated.Value(1)}, () => {
+      setTimeout( ()=> {
+        Animated.timing(
+          this.state.fadeOutAnim,
+          {
+            toValue: 0,
+            duration: 2000,
+            useNativeDriver: true
+          }
+        ).start(() => {
+          this.setState({ fadeOutAnim: 0})
+        });
+      },750)
+
+    })
   }
 
   render() {
@@ -62,11 +84,12 @@ class GPSChallengeTask extends Component {
     console.log(`this.props.currentChallenge.location is ${this.props.currentChallenge.location}`)
     return(
       <View style={styles.container}>
-        <ModularMap onMarkerSubmit={this.onMapMarkerSubmit} markers={this.state.markers} submitAction={'currentLocation'} currentChallenge={this.props.currentChallenge}/>
-          <View style={styles.challengeContainer}><Text style={styles.challengeText}>Challenge: {this.props.currentChallenge.name}</Text></View>
-          <View><Text>Location: {this.props.currentChallenge.location}</Text></View>
-          <View><Text>Current Location is: {JSON.stringify(this.state.currentLocation)}</Text></View>
-          <View><Text>{this.state.message}</Text></View>
+        <ModularMap onMarkerSubmit={this.onMapMarkerSubmit} markers={this.state.markers} submitAction={'currentLocation'} currentChallenge={this.props.currentChallenge} storeMarkerText={`I'm here now!`} storeMarkerButtonError={`Not yet! Get a little closer...`}/>
+        <View style={styles.challengeContainer}><Text style={styles.challengeText}>Challenge: {this.props.currentChallenge.name}</Text></View>
+        <Animated.View style={{ opacity: this.state.fadeOutAnim, position: 'absolute', backgroundColor: 'white', flex: 1, alignSelf: 'center', bottom: 145 }}>
+          <Text style={styles.messageText}>{this.state.message}</Text>
+        </Animated.View>
+        <View><Text>{this.state.message}</Text></View>
       </View>
     )
   }
@@ -85,7 +108,7 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
     elevation: 15,
     top: 5,
-    opacity: 0.5
+    opacity: 0.62
   },
   textContainer: {
     flex: 1,
@@ -99,6 +122,10 @@ const styles = StyleSheet.create({
     fontFamily: 'serif',
     textAlign: 'center',
     color: 'black'
+  },
+  messageText: {
+    fontSize: 19,
+    fontWeight: 'bold',
   }
 })
 
