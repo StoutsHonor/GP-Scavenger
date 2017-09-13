@@ -26,7 +26,8 @@ class GPSChallengeTask extends Component {
       markers: [],
       currentLocation: [],
       message: 'Not yet! Get a little closer...',
-      fadeOutAnim: new Animated.Value(0)
+      fadeOutAnim: new Animated.Value(0),
+      distanceAway: '999999 ft'
     }
   }
 
@@ -85,7 +86,10 @@ class GPSChallengeTask extends Component {
     return(
       <View style={styles.container}>
         <ModularMap onMarkerSubmit={this.onMapMarkerSubmit} markers={this.state.markers} submitAction={'currentLocation'} currentChallenge={this.props.currentChallenge} storeMarkerText={`I'm here now!`} storeMarkerButtonError={`Not yet! Get a little closer...`}/>
-        <View style={styles.challengeContainer}><Text style={styles.challengeText}>Challenge: {this.props.currentChallenge.name}</Text></View>
+        <View style={styles.challengeContainer}>
+          <Text style={styles.challengeText}>Challenge: {this.props.currentChallenge.name}</Text>
+          <Text style={styles.distanceAway}>Distance away: {this.state.distanceAway}</Text>
+        </View>
         <Animated.View style={{ opacity: this.state.fadeOutAnim, position: 'absolute', backgroundColor: 'white', flex: 1, alignSelf: 'center', bottom: 145 }}>
           <Text style={styles.messageText}>{this.state.message}</Text>
         </Animated.View>
@@ -126,6 +130,9 @@ const styles = StyleSheet.create({
   messageText: {
     fontSize: 19,
     fontWeight: 'bold',
+  },
+  distanceAway: {
+    textAlign: 'center',
   }
 })
 
