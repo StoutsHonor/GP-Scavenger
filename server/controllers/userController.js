@@ -61,5 +61,27 @@ module.exports = {
       res.status(201).send(user)
     })
     .catch(err => res.status(500).send(`Error updating reward points to database! ${err}`))
+  },
+
+  updateFriendsList: (req, res) => {
+    db.User.update(
+      {'friends': Sequelize.fn('array_append', Sequelize.col('friends'), req.body.friends)},
+      {where: {email: req.body.email}}
+    )
+    .then( user => {
+      res.status(201).send(user)
+    })
+    .catch(err => res.status(500).send(`Error updating friend list to database! ${err}`))
+  },
+  updateRecentlyPlayedWithList: (req, res) => {
+    db.User.update(
+      {'RecentlyPlayedWith': Sequelize.fn('array_cat', Sequelize.col('RecentlyPlayedWith'), req.body.RecentlyPlayedWith)},
+      {where: {email: req.body.email}}
+    )
+    .then( user => {
+      res.status(201).send(user)
+    })
+    .catch(err => res.status(500).send(`Error updating recently play with list to database! ${err}`))
+    
   }
 } 

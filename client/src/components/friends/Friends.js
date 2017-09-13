@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 import { GiftedChat } from "react-native-gifted-chat";
 import { Thumbnail } from 'native-base';
 
-
+import PlayedWith from './PlayedWith';
 
 const mapStateToProps = state => {
   return {
@@ -90,8 +90,8 @@ class Friends extends Component {
           user={this.state.user}
           />
         </View>
-        <View style={styles.slide} title={<Text numberOfLines={1}>Big lie behind Nine’s new show</Text>}>
-          <Image resizeMode='stretch' style={styles.image} source={{uri: 'https://i.redditmedia.com/lp3VESOLTRuOKCgKBIZZuW0jQiqNKOvwKoeT0dEbWH4.jpg?w=1000&s=acdf2acb7504abca49f9cbe55a0fd789'}} />
+        <View style={styles.slide}>
+          <PlayedWith/>
         </View>
         <View style={styles.slide} title={<Text numberOfLines={1}>Why Stone split from Garfield</Text>}>
           <Image resizeMode='stretch' style={styles.image} source={{uri: 'http://i.imgur.com/yAEjSco.jpg'}} />
@@ -111,6 +111,9 @@ const styles = StyleSheet.create({
     flex:1,
     alignItems:'center',
     backgroundColor: '#5F9EA0' 
+  },
+  list: {
+    backgroundColor: '#ffffff'
   },
   profile: {
     height: 240,
