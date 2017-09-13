@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
 import {
-  StyleSheet,
   Text,
   View,
   Button,
-  TextInput
+  TextInput,
+  StyleSheet,
+  Dimensions
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import ModularMap from '../../reusable/ModularMap';
+
+const {width, height} = Dimensions.get('window');
 
 class GPSChallengeTask extends Component {
   constructor(props) {
@@ -58,17 +61,46 @@ class GPSChallengeTask extends Component {
     console.log(`GPSChallengeTask this.state.markers: ${JSON.stringify(JSON.stringify(this.state.markers))}`)
     console.log(`this.props.currentChallenge.location is ${this.props.currentChallenge.location}`)
     return(
-      <View style={{padding:10}}>
+      <View style={styles.container}>
         <ModularMap onMarkerSubmit={this.onMapMarkerSubmit} markers={this.state.markers} submitAction={'currentLocation'} currentChallenge={this.props.currentChallenge}/>
-        <Text>Title: {this.props.currentChallenge.name}</Text>
-        <Text>Description: {this.props.currentChallenge.description}</Text>
-        <Text>Description: {this.props.currentChallenge.location}</Text>
-        <Text>Current Location is: {JSON.stringify(this.state.currentLocation)}</Text>
-        <Text>{this.state.message}</Text>
+          <View style={styles.challengeContainer}><Text style={styles.challengeText}>Challenge: {this.props.currentChallenge.name}</Text></View>
+          <View><Text>Location: {this.props.currentChallenge.location}</Text></View>
+          <View><Text>Current Location is: {JSON.stringify(this.state.currentLocation)}</Text></View>
+          <View><Text>{this.state.message}</Text></View>
       </View>
     )
   }
-
 }
+
+const styles = StyleSheet.create({
+  challengeContainer: {
+    flex: 1,
+    width: width,
+    position: 'absolute',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    padding: 10,
+    backgroundColor: 'white',
+    borderRadius: 20,
+    borderWidth: 0.5,
+    elevation: 15,
+    top: 5,
+    opacity: 0.5
+  },
+  textContainer: {
+    flex: 1,
+    position: 'absolute',
+    justifyContent: 'center',
+    alignSelf: 'center'
+  },
+  challengeText: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    fontFamily: 'serif',
+    textAlign: 'center',
+    color: 'black'
+  }
+})
+
 
 export default GPSChallengeTask

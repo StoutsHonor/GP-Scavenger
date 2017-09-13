@@ -194,12 +194,12 @@ export default class client extends Component {
             <Scene key="gameplay" tabs={true}
               hideNavBar={true}
             >
-              <Scene key="currentchallenge"
+              <Scene key="Current Challenge"
                 component={CurrentChallenge}
                 title="Current"
                 hideNavBar={true}
               />
-              <Scene key="challengelist"
+              <Scene key="Challenge List"
                 component={ChallengeList}
                 title="All Challenges"
                 hideNavBar={true}

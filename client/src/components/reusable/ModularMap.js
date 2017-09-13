@@ -208,7 +208,7 @@ class ModularMap extends Component {
 
     const styles = StyleSheet.create({
       mapContainer: {
-        height: height*.85,
+        height: height*.87,
         width: width,
         justifyContent: 'flex-end',
         alignItems: 'center',

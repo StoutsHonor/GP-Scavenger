@@ -5,9 +5,12 @@ import {
   View,
   Image,
   TouchableOpacity,
-  Button
+  Dimensions
 } from 'react-native';
 
+import { Button, Content, Container } from 'native-base';
+
+const {width, height} = Dimensions.get('window');
 
 class MapStoreLocationButton extends Component {
   constructor(props) {
@@ -21,29 +24,35 @@ class MapStoreLocationButton extends Component {
 
     const styles = StyleSheet.create({
       button: {
-        height: 50,
-        width: 50,
-        backgroundColor: 'white',
         borderRadius: 10,
-        borderColor: '#000000'
-
+        borderColor: '#000000',
+        borderWidth: 0.5,
+        paddingHorizontal: 45,
+        height: 65,
+        width: 270,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: '#841584'
       },
       buttonContainer: {
-        zIndex: 9999999,
-        left: 165,
+        position: 'absolute',
+        zIndex: 999999999999,
         bottom: 20
+      },
+      text: {
+        fontSize: 35,
+        fontWeight: 'bold',
+        color: 'white'
       }
     })
 
     return(
-      <View style={styles.buttonContainer} >
-        <TouchableOpacity>
-          <Button onPress={this.props.storeMarker}
-            title="Submit"
-            color="#841584"
-          />
-        </TouchableOpacity>
-      </View>
+        <Content style={styles.buttonContainer} >
+          <Button primary onPress={this.props.storeMarker} style={styles.button}>
+            <Text style={styles.text}>I'm here now!</Text>
+          </Button>
+        </Content>
     )
   }
 }
