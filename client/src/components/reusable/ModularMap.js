@@ -102,6 +102,25 @@ class ModularMap extends Component {
         if (component.props.currentChallenge) {
           console.log(`ModularMap - watchPosition() - if currentChallenge statement`)
           this.socket.emit("updatePlayerLocation", { gameName: this.props.gameName, userId: this.props.userId, latitude: position.coords.latitude, longitude: position.coords.longitude })
+          const destLatitude = component.props.currentChallenge.location[0]
+          const destLongitude = component.props.currentChallenge.location[1]
+          const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${position.coords.latitude},${position.coords.longitude}&destination=${destLatitude},${destLongitude}&mode=walking&key=${config.maps}`          
+          console.log(`url is ${url}`)
+          fetch(url)
+          .then(response => {
+            console.log(`Google Maps response is ${JSON.stringify(response)}`)
+            return response.json()})
+          .then(data => {
+            console.log(`Google Maps directions response is`)
+            let distance = data.routes[0].legs[0].distance.text
+            console.log(`distance is ${JSON.stringify(distance)}`)
+            this.props.onUpdateDistanceFromCheckpoint(distance)
+          })
+          .catch((err) => {
+            console.error(err);
+          });
+          
+          
         }
       },
       (error) => this.setState({ error: error.message }),
@@ -179,6 +198,23 @@ class ModularMap extends Component {
         if (component.props.currentChallenge) {
           console.log(`ModularMap - getCurrentLocation() - if currentChallenge statement`)
           this.socket.emit("updatePlayerLocation", { gameName: this.props.gameName, userId: this.props.userId, latitude: position.coords.latitude, longitude: position.coords.longitude })
+          const destLatitude = component.props.currentChallenge.location[0]
+          const destLongitude = component.props.currentChallenge.location[1]
+          const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${position.coords.latitude},${position.coords.longitude}&destination=${destLatitude},${destLongitude}&mode=walking&key=${config.maps}`          
+          console.log(`url is ${url}`)
+          fetch(url)
+          .then(response => {
+            console.log(`Google Maps response is ${JSON.stringify(response)}`)
+            return response.json()})
+          .then(data => {
+            console.log(`Google Maps directions response is`)
+            let distance = data.routes[0].legs[0].distance.text
+            console.log(`distance is ${JSON.stringify(distance)}`)
+            this.props.onUpdateDistanceFromCheckpoint(distance)
+          })
+          .catch((err) => {
+            console.error(err);
+          });
         }
       }, (error) => {console.log(`geolocation fail ${JSON.stringify(error)}`)}, { enableHighAccuracy: true })
   }

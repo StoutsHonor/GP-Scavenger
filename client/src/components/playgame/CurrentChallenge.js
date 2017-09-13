@@ -60,7 +60,22 @@ class CurrentChallenge extends Component {
   }
 
   componentWillMount() {
+  }
+
+  componentDidMount() {
+    this.socket = io(config.localhost);
+    this.socket.emit('createRoom',  this.gameName);
+    this.socket.on('congratsPage', this.congratsPage);
+    this.socket.on('congratsNext', this.congratsNext);
+    this.socket.on('loserPage', this.loserPage);
+    this.determinedTeam();
+
     if(this.props.challenges) {
+      console.log(`this.props.challenges is ${JSON.stringify(this.props.challenges)}`)
+      console.log(`this.props.currentChallengeIndex is ${JSON.stringify(this.props.currentChallengeIndex)}`)
+      if (!this.props.currentChallengeIndex) {
+        this.props.currentChallengeIndex = 0;
+      }
       if(this.props.challenges[this.props.currentChallengeIndex].questionTypeId) {
         let currentChallengeType = this.props.challenges[this.props.currentChallengeIndex].questionTypeId;
         let val = currentChallengeType;
@@ -74,23 +89,19 @@ class CurrentChallenge extends Component {
         }
       }
     }
-  }
 
-  componentDidMount() {
-    this.socket = io(config.localhost);
-    this.socket.emit('createRoom',  this.gameName);
-    this.socket.on('congratsPage', this.congratsPage);
-    this.socket.on('congratsNext', this.congratsNext);
-    this.socket.on('loserPage', this.loserPage);
-    this.determinedTeam();
+
   }
 
   componentWillReceiveProps(nextProps) {
-    if (nextProps.challenges) {
+    if (nextProps.challenges.length > 0) {
+      if (!nextProps.currentChallengeIndex) {
+        nextProps.currentChallengeIndex = 0;
+      }
       if (nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId) {
         let currentChallengeType = nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId;
         let val = currentChallengeType;
-        if(currentChallengeType === null) {
+        if(currentChallengeType === null || currentChallengeType === 1) {
           this.setState({ currentChallengeType: 'GPS' })
         } else if(currentChallengeType === 2 || currentChallengeType === 3) {
           this.setState({ currentChallengeType: 'riddle' })
