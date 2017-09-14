@@ -136,10 +136,10 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#ffffff',
+    backgroundColor: '#e9cfa3',
   },
   type: {
-    color: '#9da3b2',
+    color: '#000',
     fontSize: 50,
     fontFamily: 'notoserif',
     top: 10
