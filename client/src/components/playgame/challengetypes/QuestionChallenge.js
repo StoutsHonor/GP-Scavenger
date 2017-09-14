@@ -3,13 +3,12 @@ import {
   StyleSheet,
   Text,
   View,
-  Button,
   Image,
   Modal,
   TouchableHighlight
 } from 'react-native';
 import { Divider, FormLabel, FormInput } from 'react-native-elements';
-import {Container, Content, Card, CardItem, Item, Input, Header, Body} from 'native-base';
+import { Button, Container, Content, Card, CardItem, Item, Input, Header, Body} from 'native-base';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
@@ -79,7 +78,7 @@ class QuestionChallenge extends Component {
               <Text style={styles.type}>
                 {this.state.info.type ? this.state.info.type.toUpperCase() : ''}
               </Text>
-              <Text style={styles.title}>"{this.state.data.title}"</Text>
+              <Text style={styles.title}>{this.state.data.title}</Text>
               <Text style={styles.question}>
                 {this.state.data.question}
               </Text>
@@ -91,21 +90,26 @@ class QuestionChallenge extends Component {
               <Input
                 style={styles.form} 
                 onChangeText={userInput => this.setState({userInput})}
-                placeholder='Enter Your Answer Here'
+                placeholder='Answer Here!'
               />
             </Item>
-          <Button
-            onPress={this.handleClickSubmit}
-            title="Submit"
-            color="#32CD32"
-            style={styles.button}
-          />
-          <Button
-            onPress={this.handleClickSkip}
-            title="Give Up"
-            color="#800000"
-            style={styles.button}
-          />
+          <View style={styles.buttonContainer}>
+              <Button success large
+                onPress={this.handleClickSubmit}
+                color="#32CD32"
+                style={styles.button}
+              >
+                <Text style={styles.buttonFont}>Submit!</Text>
+              </Button>
+              <Button danger large
+                onPress={this.handleClickSkip}
+                color="#800000"
+                style={styles.button}
+              >
+                <Text style={styles.buttonFont}>Give Up :(</Text>
+                </Button>
+          </View>
+
           {this.state.showTryAgain ? <View style={styles.tryAgain}><Text style={styles.tryAgainText}>Try Again</Text></View> : null}
           </Content>
         </Container>
@@ -115,24 +119,39 @@ class QuestionChallenge extends Component {
 
 const styles = StyleSheet.create({
   button: {
-    width: 120
+    width: 200,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginBottom: 10
+  },
+  buttonContainer: {
+    top: 15,
+    flex: 1,
+    padding: 10
+  },
+  buttonFont: {
+    color: 'white',
+    fontWeight: 'bold',
+    fontSize: 30
   },
   container: {
     flex: 1,
-    backgroundColor: '#e9cfa3',
+    backgroundColor: '#ffffff',
   },
   type: {
-    color: '#000000',
+    color: '#9da3b2',
     fontSize: 50,
-    fontFamily: 'cursive'
+    fontFamily: 'notoserif',
+    top: 10
   },
   title: {
     margin: 10,
-    fontSize: 20
+    fontSize: 25,
+    fontWeight: 'bold',
+    color: '#000'
   },
   question: {
-    fontSize: 20,
-    textAlign: 'center'
+    fontSize: 35,
   },
   tryAgain: {
     alignItems: 'center'
@@ -143,8 +162,13 @@ const styles = StyleSheet.create({
   },
   form: {
     textAlign: 'center',
-    marginTop: 10,
-    marginBottom: 10
+    marginTop: 27,
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: 'black',
+    elevation: 15,
+    fontSize: 40,
+    height: 75
   },
   bigFont: {
     fontSize: 30
