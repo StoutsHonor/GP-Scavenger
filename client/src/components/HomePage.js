@@ -109,7 +109,7 @@ class HomePage extends Component {
               onPress={() => Actions.joingame({listtype: 'join'})}/>
             <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'casino', color: "#211b07"}} title='Start New Game' 
               onPress={() => Actions.startnewgame({listtype: 'start'})}/>
-            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'build', color: "#211b07"}} title='Create Game' 
+            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'brush', color: "#211b07"}} title='Design a Game' 
               onPress={() => Actions.creategame()}/>
             <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'poll', color: "#211b07"}} title=' Leaderboard' 
               onPress={() => Actions.leaderboard()}/>

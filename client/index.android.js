@@ -213,7 +213,7 @@ export default class client extends Component {
 
             <Scene key="creategame"
               component={CreateGame}
-              title="Create a Game"
+              title="Design a Game"
             />
 
             <Scene key="leaderboard"
