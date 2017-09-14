@@ -75,7 +75,7 @@ export default class GameProfile extends Component {
                 <Thumbnail source={{uri: 'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1504828528/gamedetailimage_vvfmsq.png'}} />
                 <Body>
                   <Text>{this.props.game.name}</Text>
-                  <Text note>Game Duration: {this.props.game.duration}</Text>
+                  <Text note><Icon active name="alarm"/> {this.props.game.duration}</Text>
                 </Body>
               </Left>
             </CardItem>
