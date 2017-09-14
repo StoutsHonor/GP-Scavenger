@@ -74,32 +74,19 @@ class QuestionChallenge extends Component {
     return (
       
         <Container style={styles.container}>
-          <Image
-            style={{
-              flex: 1,
-              position: 'absolute',
-              width: '140%',
-              height: '140%',
-              justifyContent: 'center',
-            }}
-            source={{ uri: "https://afterwordsbooks.files.wordpress.com/2013/02/riddle.jpg" }}
-          />
-          <Header><Text style={styles.type}>{this.state.info.type ? this.state.info.type.toUpperCase() : ''}</Text></Header>
           <Content>
-            <Card>
-              <CardItem header>
-                <Text style={styles.title}>{this.state.data.title}</Text>
-              </CardItem>
-              <CardItem>
-                <Body>
-                  <Text style={styles.question}>
-                    {this.state.data.question}
-                  </Text>
-                </Body>
-              </CardItem>
-          </Card>
-          </Content>
-          <Content>
+            <Body>
+              <Text style={styles.type}>
+                {this.state.info.type ? this.state.info.type.toUpperCase() : ''}
+              </Text>
+              <Text style={styles.title}>"{this.state.data.title}"</Text>
+              <Text style={styles.question}>
+                {this.state.data.question}
+              </Text>
+            </Body>
+         
+                <Image source={{uri: this.state.data.imageURL}} style={{height: 200, width: null, flex: 1}}/>
+       
             <Item rounded>
               <Input
                 style={styles.form} 
@@ -127,33 +114,30 @@ class QuestionChallenge extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#2F4F4F',
+    backgroundColor: '#e9cfa3',
   },
   type: {
-    justifyContent: 'center',
-    color: '#FFFFFF',
-    fontSize: 30,
+    color: '#000000',
+    fontSize: 50,
     fontFamily: 'cursive'
   },
   title: {
     margin: 10,
-    fontSize: 20,
-    alignItems: 'center',
-    backgroundColor: '#F0FFFF',
+    fontSize: 20
   },
   question: {
+    fontSize: 20
   },
   tryAgain: {
-    alignItems: 'center',
-    backgroundColor: "#800000"
+    alignItems: 'center'
   },
   tryAgainText: {
-    color: "#FFFFFF",
+    color: "#800000",
     fontSize: 30
   },
   form: {
-    color:'#F0FFFF',
     textAlign: 'center',
+    marginTop: 10,
     marginBottom: 10
   },
   bigFont: {

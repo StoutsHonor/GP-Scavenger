@@ -9,6 +9,7 @@ import {
   TouchableHighlight,
   Dimensions
 } from 'react-native';
+import { Header, Container, List, ListItem, Content, Separator } from 'native-base';
 import { Card } from 'react-native-elements';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -50,28 +51,15 @@ class ChallengeList extends Component {
     return (
       <ScrollView contentContainerStyle={styles.container}>
         <Text>{this.props.gamePoints} Points Earned So Far</Text>
+        <Container>
+          <Content>
+            <List listNoteColor={'#59270a'}>
         {this.props.challenges ? this.props.challenges.map((challenge, i) => {
           return <ChallengeListEntry challenge={challenge} challengeIndex={i} index={this.props.index} key={i} showChallengeDetails={this.showChallengeDetails}/>
         }) : null}
-
-        {/* <Modal
-          animationType={"fade"}
-          transparent={true}
-          visible={this.state.showChallengeModal}
-          presentationStyle={"overFullScreen"}
-          >
-          
-            <View style={{flex: 1, flexDirection: 'column', alignItems: 'center', backgroundColor: 'rgba(255,255,255,0.4)'}}>
-            <TouchableHighlight onPress={() => this.setState({showChallengeModal: false})}>
-            <View style={{padding: 10, width: window.width*.7, backgroundColor: '#FFF', borderRadius: 5, borderColor: '#000', borderStyle: 'solid', borderWidth: 1, elevation: 25}}>
-              <Text>Question Here</Text>
-              <Text>Answer Here</Text>
-            </View>
-            </TouchableHighlight>
-            </View>
-          
-        </Modal> */}
-
+            </List>
+          </Content>
+        </Container>
       </ScrollView>
     )
   }
@@ -80,7 +68,7 @@ class ChallengeList extends Component {
 const styles = StyleSheet.create({
   container: {
      flex: 1,
-    backgroundColor: '#87CEFA'
+    backgroundColor: '#e9cfa3'
   }
 });
 

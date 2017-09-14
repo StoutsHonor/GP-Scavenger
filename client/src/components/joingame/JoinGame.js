@@ -6,7 +6,7 @@ import {
   Button,
   Image,
   ScrollView,
-  TouchableOpacity
+  TouchableHighlight
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -52,7 +52,8 @@ class JoinGame extends Component {
     this.toggleSideMenu = this.toggleSideMenu.bind(this);
     this.modularListEntryButtonAction = this.modularListEntryButtonAction.bind(this);
     this.onJoinGameListEntryClick = this.onJoinGameListEntryClick.bind(this);
-    this.openDrawer = this.openDrawer.bind(this);
+    // this.openDrawer = this.openDrawer.bind(this);
+    // this.closeDrawer = this.closeDrawer.bind(this);
   }
 
   componentWillMount() {
@@ -123,23 +124,25 @@ class JoinGame extends Component {
       isOpen: !this.state.isOpen
     })
   }
-  closeDrawer = () => {
-    this.drawer._root.close()
-  };
-  openDrawer = () => {
-    this.drawer._root.open()
-  };
 
-  static renderRightButton = (props) => {
-    return (
-      <TouchableOpacity onPress={() => { console.log('pressed')}}>
-          <Image 
-            source={{uri: 'https://lh3.ggpht.com/Hx7-WlRNMo20ifN60izH06mo0fwzo8nzKWxC4RstuKCULEwwQWh4UY4ELoappRVRcz4=w300'}}
-            style={{width: 30, height: 30}}
-          />
-      </TouchableOpacity>
-    ); 
-  }
+  // closeDrawer() {
+  //   this.drawer._root.close()
+  // };
+
+  // openDrawer() {
+  //   this.drawer._root.open()
+  // };
+
+  // static renderRightButton = () => {
+  //   return (
+  //     <TouchableHighlight onPress={() => this.openDrawer()}>
+  //         <Image 
+  //           source={{uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Ei-navicon.svg/768px-Ei-navicon.svg.png'}}
+  //           style={{width: 30, height: 30}}
+  //         />
+  //     </TouchableHighlight>
+  //   ); 
+  // }
 
   render() {
     const styles = StyleSheet.create({
@@ -152,29 +155,30 @@ class JoinGame extends Component {
     });
     
     return (
-      <Drawer 
-        ref={(ref) => {this.drawer = ref;}}
-        content={<HomePage/>}
-        onClose={() => this.closeDrawer()}
-      >
-      {this.state.loading ? <LoadingPage/> :
-        <Container style={styles.container}>
-          <Content style={styles.content}>
-            <Button title="Menu" onPress={() => this.openDrawer()}/>
-          <Button title="Toggle View"
-          onPress={() => {
-            if (this.state.view === 'map') {
-            this.setState({view: 'list'})
-            } else {
-            this.setState({view: 'map'})
-            } 
-          }}/>
-          {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} data={this.state.games} buttonaction={this.modularListEntryButtonAction} hideMapSubmit={true}/> : null}
-          {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games} listentryclick={this.onJoinGameListEntryClick}/> : null}
-          </Content>
-        </Container>
-      }
-      </Drawer>
+      // <Drawer 
+      //   ref={(ref) => {this.drawer = ref;}}
+      //   content={<HomePage/>}
+      //   onClose={() => this.closeDrawer()}
+      // >
+      <SideMenu menu={<HomePage/>}>
+        {this.state.loading ? <LoadingPage/> :
+          <Container style={styles.container}>
+            <Content style={styles.content}>
+              {/* <Button title="Menu" onPress={() => this.openDrawer()}/> */}
+            <Button title="Toggle View"
+            onPress={() => {
+              if (this.state.view === 'map') {
+              this.setState({view: 'list'})
+              } else {
+              this.setState({view: 'map'})
+              } 
+            }}/>
+            {this.state.view === 'map' ? <ModularMap viewmode={this.props.listtype} data={this.state.games} buttonaction={this.modularListEntryButtonAction} hideMapSubmit={true}/> : null}
+            {this.state.view === 'list' ? <ModularList viewmode={this.props.listtype} buttonaction={this.modularListEntryButtonAction} data={this.state.games} listentryclick={this.onJoinGameListEntryClick}/> : null}
+            </Content>
+          </Container>
+        }
+      </SideMenu>
     );
   }
 }
