@@ -16,7 +16,7 @@
     "private": true,
     "maxPlayers": 4,
     "rewardPoints": 100,
-    "startLocation": [33.9759479,-118.3929176],
+    "startLocation": [33.975695, -118.393123],
     "description": "this is description #1"
   },
   {
@@ -26,7 +26,7 @@
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 500,
-    "startLocation": [33.8120962,-117.9211629],
+    "startLocation": [33.977368, -118.390763],
     "description": "Only One Question"
   },
   {
@@ -36,7 +36,7 @@
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 600,
-    "startLocation": [33.7860938,-117.9462329],
+    "startLocation": [33.979894, -118.389518],
     "description": "this is description #3"
   },
   {
@@ -46,7 +46,7 @@
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 400,
-    "startLocation": [33.7860938,-117.9462329],
+    "startLocation": [33.973560, -118.392694],
     "description": "this is description #4"
   },
   {
@@ -56,7 +56,7 @@
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 3900,
-    "startLocation": [32.4966818, -117.0878919],
+    "startLocation": [33.977225, -118.392436],
     "description": "this is description #5"
   },
   {
@@ -66,7 +66,7 @@
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 3900,
-    "startLocation": [33.976025, -118.391093],
+    "startLocation": [33.982172, -118.393037],
     "description": "this is description #6"
   },
   {
@@ -76,7 +76,7 @@
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 200,
-    "startLocation": [33.976025, -118.391093],
+    "startLocation": [33.976536, -118.388746],
     "description": "Get to know LA!"
   },
   {
@@ -96,7 +96,7 @@
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 200,
-    "startLocation": [33.976025, -118.391093],
+    "startLocation": [33.973991, -118.389196],
     "description": "Get to know LA!"
   }
 ]

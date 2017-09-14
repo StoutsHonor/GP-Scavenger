@@ -99,9 +99,9 @@ class StartNewGame extends Component {
     
   }
 
-  onStartNewGameListEntryClick(game) {
+  onStartNewGameListEntryClick(game, distanceAway) {
     console.log(`StartNewGame - onJoinGameListEntryClick()`)
-    Actions.gameprofile({game, typeOfAction: 'start game', buttonaction: this.modularListEntryButtonAction})
+    Actions.gameprofile({game, typeOfAction: 'start game', buttonaction: this.modularListEntryButtonAction, distanceAway: distanceAway })
 
   }
 
