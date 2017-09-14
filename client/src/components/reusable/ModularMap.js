@@ -18,6 +18,7 @@ import GameDetailCallout from '../reusable/GameDetailCallout';
 import io from "socket.io-client";
 import config from "../../../config/config";
 import CustomCallout from './CustomCallout';
+import MapMarkerLocationButton from './MapMarkerLocationButton';
 
 const {width, height} = Dimensions.get('window');
 
@@ -49,6 +50,8 @@ class ModularMap extends Component {
     this.getCurrentLocation = this.getCurrentLocation.bind(this);
     this.storeMarker = this.storeMarker.bind(this);
     this.socket = io(config.localhost);
+    this.distanceAway = this.distanceAway.bind(this);
+    this.getGPSChallengeMarkerLocation = this.getGPSChallengeMarkerLocation.bind(this);
     
     this.state = {
       region: {
@@ -177,6 +180,19 @@ class ModularMap extends Component {
 
   }
 
+  getGPSChallengeMarkerLocation() {
+    console.log(`this.state.markers is ${JSON.stringify(this.state.markers)}`)
+    console.log(`this.state.markers[0] is ${JSON.stringify(this.state.markers[0])}`)
+    this.setState({
+      region: {
+        latitude: this.state.markers[0].latitude,
+        longitude: this.state.markers[0].longitude,
+        latitudeDelta: LATITUDE_DELTA,
+        longitudeDelta: LONGITUDE_DELTA
+      }
+    })
+  }
+
   getCurrentLocation() {
     console.log(`Im in getCurrentLocation in ModularMap.js!!`)
     let component = this;
@@ -227,6 +243,26 @@ class ModularMap extends Component {
     this.setState({ region: region })
   }
 
+  distanceAway(marker, callback) {
+    const destLatitude = this.props.currentChallenge.location[0]
+    const destLongitude = this.props.currentChallenge.location[1]
+    const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${position.coords.latitude},${position.coords.longitude}&destination=${destLatitude},${destLongitude}&mode=walking&key=${config.maps}`          
+    console.log(`url is ${url}`)
+    fetch(url)
+    .then(response => {
+      console.log(`Google Maps response is ${JSON.stringify(response)}`)
+      return response.json()})
+    .then(data => {
+      console.log(`Google Maps directions response is`)
+      let distance = data.routes[0].legs[0].distance.text
+      console.log(`distance is ${JSON.stringify(distance)}`)
+      callback(distance)
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+  }
+
   storeMarker() {
     console.log(`im in storeMarker in ModularMap.js now!`)
     this.setState({ marker: { latitude: this.state.region.latitude, longitude: this.state.region.longitude }}, () => {
@@ -244,7 +280,7 @@ class ModularMap extends Component {
 
     const styles = StyleSheet.create({
       mapContainer: {
-        height: height*.87,
+        height: height*.90,
         width: width,
         justifyContent: 'flex-end',
         alignItems: 'center',
@@ -356,6 +392,11 @@ class ModularMap extends Component {
          }
 
         </MapView>
+        { this.props.currentChallenge ?
+          <MapMarkerLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getGPSChallengeMarkerLocation={this.getGPSChallengeMarkerLocation}/>
+          :
+          null
+        }
         <MapCurrentLocationButton height={styles.mapContainer.height} width={styles.mapContainer.width} getCurrentLocation={this.getCurrentLocation}/>
         
         { this.props.hideMapSubmit ?
@@ -365,8 +406,6 @@ class ModularMap extends Component {
         }
         
         </View>
-
-        <View><Text>Current Location: {JSON.stringify(this.state.currentLocation)}</Text></View>
       </View>
     )
   }

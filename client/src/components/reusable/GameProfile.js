@@ -5,6 +5,7 @@ import {
   View
 } from 'react-native';
 import { Header, ListItem, Left, Center, Thumbnail, Text, Right, Button, Body, Separator, Container, Content, Card, CardItem, Icon } from 'native-base';
+import config from "../../../config/config";
 
 //const thumbnail = require('../../media/gamedetailimage.png')
 
@@ -12,13 +13,44 @@ export default class GameProfile extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      buttonText: 'Start Game'
+      buttonText: 'Start Game',
+      distanceAway: ''
     }
 
   }
 
   componentWillMount() {
     this.setState({buttonText: this.props.typeOfAction});
+  }
+
+  componentDidMount() {
+    if (this.props.game) {
+      navigator.geolocation.getCurrentPosition( (position) => {
+        console.log(`Current position is latitude: ${position.coords.latitude} and longitude: ${position.coords.longitude}`)
+        console.log(`position.coords is ${JSON.stringify(position.coords)}`)
+        console.log(`ModularListEntry - this.props.data is ${JSON.stringify(this.props.game.startLocation)}`)
+
+        const destLatitude = this.props.game.startLocation[0]
+        const destLongitude = this.props.game.startLocation[1]
+        const url = `https://maps.googleapis.com/maps/api/directions/json?origin=${position.coords.latitude},${position.coords.longitude}&destination=${destLatitude},${destLongitude}&mode=walking&key=${config.maps}`          
+        console.log(`url is ${url}`)
+        fetch(url)
+        .then(response => {
+          console.log(`Google Maps response is ${JSON.stringify(response)}`)
+          return response.json()})
+        .then(data => {
+          console.log(`Google Maps directions response is`)
+          const distanceAway = data.routes[0].legs[0].distance.text + ' away'
+          console.log(`distance is ${JSON.stringify(distanceAway)}`)
+          this.props.distanceAway = distanceAway
+          this.setState({distanceAway})
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+
+      }, (error) => {console.log(`geolocation fail ${JSON.stringify(error)}`)}, { enableHighAccuracy: true })
+    }
   }
 
   render() {
@@ -67,7 +99,7 @@ export default class GameProfile extends Component {
                   <Text>{this.props.game.rewardPoints + ' Points'}</Text>
                 </Button>
               <Right>
-                <Text>{this.props.game.startLocation}</Text>
+                <Text>{this.state.distanceAway}</Text>
               </Right>
             </CardItem>
               <Button success large full onPress={() => this.props.buttonaction(this.props.game)}><Text>{this.state.buttonText}</Text></Button>

@@ -99,7 +99,6 @@ class GPSChallengeTask extends Component {
         <Animated.View style={{ opacity: this.state.fadeOutAnim, position: 'absolute', backgroundColor: 'white', flex: 1, alignSelf: 'center', bottom: 145 }}>
           <Text style={styles.messageText}>{this.state.message}</Text>
         </Animated.View>
-        <View><Text>{this.state.message}</Text></View>
       </View>
     )
   }

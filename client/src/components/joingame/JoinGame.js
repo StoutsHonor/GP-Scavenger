@@ -107,9 +107,9 @@ class JoinGame extends Component {
     this.props.getGameInfo(gamedata);
   }
 
-  onJoinGameListEntryClick(game) {
+  onJoinGameListEntryClick(game, distanceAway) {
     console.log(`JoinGame - onJoinGameListEntryClick()`)
-    Actions.gameprofile({game, typeOfAction: 'join game', buttonaction: this.modularListEntryButtonAction})
+    Actions.gameprofile({game, typeOfAction: 'join game', buttonaction: this.modularListEntryButtonAction, distanceAway: distanceAway})
   }
 
   onSideMenuChange(isOpen) {

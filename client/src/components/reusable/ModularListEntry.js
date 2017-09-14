@@ -12,7 +12,8 @@ class ModularListEntry extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: {}
+      data: {},
+      distanceAway: ''
     }
 
   }
@@ -54,7 +55,9 @@ class ModularListEntry extends Component {
   onListEntryClick() {
     console.log(`ModularListEntryClick - onListEntryClick()`)
     if (this.props.listentryclick) {
-      this.props.listentryclick(this.props.listentry)
+      if (this.state.distanceAway) {
+        this.props.listentryclick(this.props.listentry, this.state.distanceAway)
+      }
     }
   }
 

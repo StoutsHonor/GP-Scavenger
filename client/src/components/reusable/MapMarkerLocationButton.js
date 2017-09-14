@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 
 
-class MapCurrentLocationButton extends Component {
+class MapMarkerLocationButton extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -30,18 +30,18 @@ class MapCurrentLocationButton extends Component {
       buttonContainer: {
         zIndex: 9999999,
         left: 165,
-        bottom: 120
+        bottom: 150
       }
     })
 
     return(
       <View style={styles.buttonContainer} >
-        <TouchableOpacity onPress={this.props.getCurrentLocation}>
-          <Image source={require('../../media/getCurrentLocation_83x83.png')} style={styles.button} />
+        <TouchableOpacity onPress={this.props.getGPSChallengeMarkerLocation}>
+          <Image source={{uri: 'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1505355421/target_button_50x50_s6qoiy.png'}} style={styles.button} />
         </TouchableOpacity>
       </View>
     )
   }
 }
 
-export default MapCurrentLocationButton;
+export default MapMarkerLocationButton;
