@@ -22,7 +22,8 @@ const mapStateToProps = (state) => {
   return {
     gameId: state.play.gameId,
     userId: state.client.userIdentity,
-    opponentIndex: state.play.opponentIndex
+    opponentIndex: state.play.opponentIndex,
+    borderWidth: 2.5
   }
 }
 
@@ -51,15 +52,17 @@ class ChallengeListEntry extends Component {
 
     if(this.props.challengeIndex < this.props.index) {
       this.setState({displayInfo: true});
-      this.setState({color: '#008000'});
+      this.setState({color: '#5cb85c'});
       this.setState({status: 'Completed'});
       this.setState({imageDisplay: 'http://diysolarpanelsv.com/images/check-mark-clipart-png-42.png'});
+      this.setState({borderWidth: 1.5})
     }
     if(this.props.challengeIndex === this.props.index) {
       this.setState({displayInfo: true});
       this.setState({color: '#FFD700'});
       this.setState({status: 'Pending'});
       this.setState({imageDisplay: 'https://incendia.net/wiki/images/2/23/Example_Texture1.png'});
+      this.setState({borderWidth: 1.5})
     }
     
     if(this.props.challengeIndex === this.props.opponentIndex) {
@@ -81,24 +84,41 @@ class ChallengeListEntry extends Component {
     }
   }
   
-  render() {
-    console.log(this.state.opponentShow, 'opponent show')
-    let str = (this.props.challengeIndex + 1) + '';
-    let backColor = '#87CEFA';
-    if(this.state.opponentShow) {
-      str = 'Opponent Team Is On This Challenge';
-      setTimeout(() => this.setState({flash: !this.state.flash}), 1000);
-      this.state.flash ? backColor = "#87CEFA" : backColor = "#DC143C";
-    } else {
-      let backColor = '#87CEFA';
-    }
-    
+  render() {    
+    const styles = StyleSheet.create({
+      description: {
+        textAlign: 'center'
+      },
+      locked: {
+        width: 30,
+        height: 30,
+        alignItems: 'center'
+      },
+      entry: {
+        backgroundColor: this.state.color, 
+        borderWidth: this.state.borderWidth,
+        marginBottom: 15,
+        padding: 7,
+        borderRadius: 10,
+        elevation: 10,
+        borderColor: 'black',
+      },
+      challengeName: {
+        color: 'white',
+        fontSize: 20,
+        fontWeight: 'bold'
+      },
+      status: {
+        fontSize: 17,
+      }
+    });
+
     return (
-      <ListItem avatar style={{backgroundColor: this.state.color}} >
+      <ListItem avatar style={styles.entry} >
         <Left><Thumbnail source={{uri: this.state.imageDisplay}} /></Left>
         <Body>
-          {this.state.displayInfo ? <Text>{this.props.challenge.name}</Text> : <Text> Locked</Text>}
-          {this.state.displayInfo ? <Text note>{this.state.status}</Text> : null}
+          {this.state.displayInfo ? <Text style={styles.challengeName}>{this.props.challenge.name}</Text> : <Text> Locked</Text>}
+          {this.state.displayInfo ? <Text note style={styles.status}>{this.state.status}</Text> : null}
         </Body>
         <Right>
           {this.state.opponentShow ? <Thumbnail source={{uri: 'http://www.pngmart.com/files/1/Cross-Sword-PNG-Clipart.png'}}/> : null}
@@ -123,15 +143,6 @@ class ChallengeListEntry extends Component {
   }
 }
 
-const styles = StyleSheet.create({
-  description: {
-    textAlign: 'center'
-  },
-  locked: {
-    width: 30,
-    height: 30,
-    alignItems: 'center'
-  }
-});
+
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChallengeListEntry);
