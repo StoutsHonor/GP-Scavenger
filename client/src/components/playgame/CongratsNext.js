@@ -11,6 +11,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { setGamePoints, getAllGameChallenges, geatAllUserGames, setCurrentChallengeIndex } from '../../actions/index';
 
+import Confetti from 'react-native-confetti';
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ setGamePoints, getAllGameChallenges, setCurrentChallengeIndex }, dispatch)
 }
@@ -43,26 +45,44 @@ class CongratsNext extends Component {
     } else {
       this.props.setCurrentChallengeIndex(this.props.index + 1);
     }
+
+    if(this._confettiView) {
+      this._confettiView.startConfetti();
+   }
+  }
+
+  componentWillUnmount ()
+  {
+      if (this._confettiView)
+      {
+          this._confettiView.stopConfetti();
+      }
   }
 
   render() {
     let earnedPoints = Math.ceil(this.props.gameInfo.rewardPoints/this.props.challenges.length);
     return (
       <View style={styles.container}>
+       
         <View style={styles.modal}>
-        <Image style={{ flex: .75, resizeMode: 'contain', width: 150, padding: 0}} source={ require('../../media/trophyART.png') } />
-            <Text style={styles.welcome}>
-              Congratulations! You Earned:
+        <Image style={{ flex: .90, resizeMode: 'contain', width: 100, padding: 0}} source={ require('../../media/star.png') } />
+            
+  
+            <Text style={styles.welcome1}>Congratulations! </Text>
+           
+ 
+            <Text style={styles.welcome2}>
+              You Earned:
             </Text>
             <Text style={styles.points}>{earnedPoints || null}</Text>
-            <Text style={styles.welcome}>Points from this Challenge.</Text>
+            <Text style={styles.welcome2}>Points from this Challenge.</Text>
             {this.state.displayFinal ? 
               <Text onPress={() => Actions.congratspage()}>Go to Finish</Text> : 
               <Text onPress={() => Actions.Challenge()}>Go To Your Next Task</Text>
             }
             <Text onPress={() => Actions.List()}>Go To Your Challenge List</Text>
             <Text onPress={() => Actions.Chat()}>Brag About It In Chat</Text>
-        </View>      
+        </View>     
       </View>
     );
   }
@@ -76,7 +96,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#e9cfa3'
   },
   modal: {
-    height: 400,
+    height: 350,
     width: 350,
     justifyContent: 'center',
     alignItems: 'center',
@@ -85,16 +105,25 @@ const styles = StyleSheet.create({
     borderColor: '#000',
     backgroundColor: '#5cb85c'
   },
-  welcome: {
-    fontSize: 20,
+
+  welcome1: {
+    marginTop: 5,
+    fontSize: 22,
     textAlign: 'center',
-    margin: 10,
     color: '#ffffff',
+    fontWeight: 'bold'
   },
   points: {
     fontSize: 40,
     textAlign: 'center',
     color: '#00008B'
+  },
+  welcome2: {
+    fontSize: 20,
+    textAlign: 'center',
+    margin: 10,
+    color: '#ffffff',
+
   }
 });
 

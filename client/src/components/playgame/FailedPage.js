@@ -49,20 +49,23 @@ class FailedPage extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.modal}>
         <Image 
-            style={{width: 300, height: 200}}
+            style={{width: 250, height: 150, borderWidth: 1, borderColor: '#000'}}
             source={{uri: 'https://media.licdn.com/mpr/mpr/AAEAAQAAAAAAAAswAAAAJDY3MGQxODUwLTExYjgtNDRlOS04NmJhLWMzNjNiZDk5ZjBiZQ.jpg'}}
+     
         />
         <Text style={styles.welcome}>
           The other team won! 
           Aw well, try again.
         </Text>
-        <Text style={styles.welcome}>The Other Team Won! Ah Well, Try Again Next Time!</Text>
+
         <Text style={styles.welcome}>At Least You Earned: </Text>
         <Text style={styles.points}>{this.props.gamePoints}</Text>
         <Text style={styles.welcome}>Points From This Game.</Text>
         <Text onPress={() => Actions.homepage({type:'reset'})}>Back to Home</Text>
         <Text onPress={() => Actions.leaderboard({type:'reset'})}>Leaderboard</Text>
+        </View>   
       </View>
     );
   }
@@ -73,7 +76,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#DC143C',
+    backgroundColor: '#e9cfa3',
+  },
+  modal: {
+    height: 500,
+    width: 350,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius:10,
+    borderWidth: 2,
+    borderColor: '#000',
+    backgroundColor: '#d75452'
   },
   welcome: {
     fontSize: 20,
