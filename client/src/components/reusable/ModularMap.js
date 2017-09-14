@@ -352,7 +352,7 @@ class ModularMap extends Component {
           if (this.props.data) {
             return (
               <MapView.Marker coordinate={loc} key={index} calloutOffset={{ x: -8, y: 28 }} calloutAnchor={{ x: 0.5, y: -0.4 }}>
-              <PriceMarker fontSize={20} amount={index}/>
+              <PriceMarker fontSize={20} amount={index+1}/>
                 <MapView.Callout onPress={() => {Actions.gameprofile({game: this.props.data[index], typeOfAction: this.props.viewmode, buttonaction: this.props.buttonaction})}} tooltip style={styles.customView}>
                   <CustomCallout>
                         <Text style={{fontFamily: 'serif', fontWeight: 'bold', fontStyle: 'italic', fontSize: 17, textAlign: 'center', color: '#FFF'}}>{this.props.data[index].name}....</Text>
