@@ -23,7 +23,7 @@ class LeaderboardEntry extends Component {
 
   render() {
     return (
-      <ListItem avatar onPress={() => {this.onUserEntryClick(this.props.player)}}>
+      <ListItem avatar style={styles.entry} onPress={() => {this.onUserEntryClick(this.props.player)}}>
         <Left>
         <Text style={styles.rank}>{this.props.index + 1}</Text>
         </Left>
@@ -32,7 +32,7 @@ class LeaderboardEntry extends Component {
         <Text style={styles.text}>{this.props.player.username}</Text>
         </Body>
         <Right>
-        <Text style={styles.text}>{this.props.player.rewardPoints + " points"}</Text>
+        <Text style={styles.points}>{this.props.player.rewardPoints + " Points"}</Text>
         </Right>
       </ListItem>
     );
@@ -41,9 +41,19 @@ class LeaderboardEntry extends Component {
 
 
 const styles = StyleSheet.create({
+  entry: {
+    marginBottom: 10,
+    borderRadius: 5,
+    borderColor: '#000000',
+    elevation: 2,
+    width: 350
+  },
   rank: {
     fontSize: 25
   },
+  points: {
+    fontSize: 30,
+  }
 
 })
 
