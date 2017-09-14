@@ -30,7 +30,7 @@ class MapMarkerLocationButton extends Component {
       buttonContainer: {
         zIndex: 9999999,
         left: 165,
-        bottom: 55
+        bottom: 150
       }
     })
 
