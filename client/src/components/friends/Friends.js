@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 import { GiftedChat } from "react-native-gifted-chat";
 import { Thumbnail } from 'native-base';
 
-import PlayedWith from './PlayedWith';
+//import PlayedWith from './PlayedWith';
 
 const mapStateToProps = state => {
   return {
@@ -91,7 +91,7 @@ class Friends extends Component {
           />
         </View>
         <View style={styles.slide}>
-          <PlayedWith/>
+    
         </View>
         <View style={styles.slide} title={<Text numberOfLines={1}>Why Stone split from Garfield</Text>}>
           <Image resizeMode='stretch' style={styles.image} source={{uri: 'http://i.imgur.com/yAEjSco.jpg'}} />

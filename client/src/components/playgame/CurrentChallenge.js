@@ -73,7 +73,7 @@ class CurrentChallenge extends Component {
     this.socket.on('loserPage', this.loserPage);
     this.determinedTeam();
 
-    this.addPlayersToList();
+    //this.addPlayersToList();
     if(this.props.challenges) {
       console.log(`this.props.challenges is ${JSON.stringify(this.props.challenges)}`)
       console.log(`this.props.currentChallengeIndex is ${JSON.stringify(this.props.currentChallengeIndex)}`)
