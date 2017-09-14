@@ -71,6 +71,7 @@ class ChallengeListEntry extends Component {
   }
 
   changeOpponentShow(message) {
+    console.log('changeOpponentShow: message: ', message)
     for(let i = 0; i < message.team.length; ++i) {
       if(this.props.userId === message.team[i]) return;
     }

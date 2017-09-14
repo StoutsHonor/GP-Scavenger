@@ -206,12 +206,19 @@ class CurrentChallenge extends Component {
 
   congratsNext(team) {
     if(team === this.team) {
-     
+      Actions.congratsnext();
+      let myTeam = null;
+      if(team === 'team1') {
+        myTeam = this.props.currentGameTeam1;
+      } else {
+        myTeam = this.props.currentGameTeam2;
+      }
       let obj = {
         gameName: this.gameName,
-        team: this.team,
+        team: myTeam,
         index : this.props.currentChallengeIndex
       };
+      console.log('congratsNext: object: ', obj);
       this.socket.emit('changeOpponentShow', obj);
       Actions.congratsnext();
     }
