@@ -49,8 +49,11 @@ class CurrentChallenge extends Component {
     this.congratsNext = this.congratsNext.bind(this);
     this.determinedTeam = this.determinedTeam.bind(this);
     this.loserPage = this.loserPage.bind(this);
+    this.addPlayersToList = this.addPlayersToList.bind(this);
+    this.parseTeam = this.parseTeam.bind(this);
     this.gameName = 'game' + this.props.gameId;
     this.team = null;
+    
 
     this.state = {
       modalVisible: false,
@@ -70,6 +73,7 @@ class CurrentChallenge extends Component {
     this.socket.on('loserPage', this.loserPage);
     this.determinedTeam();
 
+    //this.addPlayersToList();
     if(this.props.challenges) {
       console.log(`this.props.challenges is ${JSON.stringify(this.props.challenges)}`)
       console.log(`this.props.currentChallengeIndex is ${JSON.stringify(this.props.currentChallengeIndex)}`)
@@ -133,10 +137,52 @@ class CurrentChallenge extends Component {
     if (this.props.currentChallengeIndex+1 === this.props.challenges.length) {
       this.socket.emit('congratsPage', message);
       this.socket.emit('loserPage', message);
+      
     } else {
       this.socket.emit('congratsNext', message);
     }
     //this.setModalVisible(true)
+  }
+
+  parseTeam() {
+    let arr = this.props.currentGameTeam1.concat(this.props.currentGameTeam2);
+    console.log('arr is ', arr);
+    for(let i = 0; i < arr.length; ++i) {
+      console.log('element is ' + i);
+      console.log('i is ' + arr[i]);
+      if(this.props.userId === arr[i]) {
+        arr.splice(i, 1);
+      }
+    }
+
+    return arr;
+  }
+
+
+  addPlayersToList(){
+    let arr = this.parseTeam();
+    let message = {
+      RecentlyPlayedWith: arr,
+      email: this.props.userId
+    };
+
+    let obj = {};
+    obj.method = 'put';
+    obj.headers = {"Content-type": "application/json"};
+    obj.body = JSON.stringify(message);
+
+    fetch(`${config.localhost}/api/user/updateRecentlyPlayedWithList`, obj)
+    .then((response) => {
+      return response;      
+    })
+    .then((data) => {
+     
+      console.log('Players successfully added to recently play with list');
+
+    })
+    .catch((err) => {
+      console.error(err);
+    }); 
   }
 
   congratsPage(team) {

@@ -197,14 +197,6 @@
     "questionId": 5
   },
   {
-    "name": "Dance the night away",
-    "description": "Your mobile app code is compiling. You wanna play DDR - where go now?",
-    "gameId": 1,
-    "sequence": 3,
-    "location": [33.977563, -118.391625],
-    "questionTypeId": 1
-  },
-  {
     "name": "selfie time...",
     "description": "need friendz",
     "gameId": 1,

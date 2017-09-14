@@ -4,6 +4,7 @@ import {
   Text,
   View
 } from 'react-native';
+import FriendsListEntry from './FriendsListEntry';
 
 export default class FriendsList extends Component {
   constructor(props){

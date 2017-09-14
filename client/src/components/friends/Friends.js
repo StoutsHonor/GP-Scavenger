@@ -16,7 +16,7 @@ import { connect } from "react-redux";
 import { GiftedChat } from "react-native-gifted-chat";
 import { Thumbnail } from 'native-base';
 
-
+//import PlayedWith from './PlayedWith';
 
 const mapStateToProps = state => {
   return {
@@ -77,27 +77,21 @@ class Friends extends Component {
                 <Text style={styles.description}>Friends</Text>
               </View>
             </View>
-            <View style={styles.friend}>
-              <Button title={'Friends'}/>
-            </View>
         </View>
 
-      <Swiper style={styles.wrapper} height={240}
-        onMomentumScrollEnd={(e, state, context) => console.log('index:', state.index)}
-        dot={<View style={{backgroundColor: 'rgba(0,0,0,.2)', width: 5, height: 5, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
-        activeDot={<View style={{backgroundColor: '#000', width: 8, height: 8, borderRadius: 4, marginLeft: 3, marginRight: 3, marginTop: 3, marginBottom: 3}} />}
-        paginationStyle={{
-          bottom: -23, left: null, right: 10
-        }} loop>
-        <View style={styles.slide} title={<Text numberOfLines={1}>Aussie tourist dies at Bali hotel</Text>}>
+      <Swiper style={styles.wrapper} height={240} 
+      paginationStyle={{
+            bottom: 50, left: null, right: 10
+          }} loop>
+        <View style={styles.slide}>
           <GiftedChat
           messages={this.state.messages}
           onSend={this.onSend}
           user={this.state.user}
           />
         </View>
-        <View style={styles.slide} title={<Text numberOfLines={1}>Big lie behind Nine’s new show</Text>}>
-          <Image resizeMode='stretch' style={styles.image} source={{uri: 'https://i.redditmedia.com/lp3VESOLTRuOKCgKBIZZuW0jQiqNKOvwKoeT0dEbWH4.jpg?w=1000&s=acdf2acb7504abca49f9cbe55a0fd789'}} />
+        <View style={styles.slide}>
+    
         </View>
         <View style={styles.slide} title={<Text numberOfLines={1}>Why Stone split from Garfield</Text>}>
           <Image resizeMode='stretch' style={styles.image} source={{uri: 'http://i.imgur.com/yAEjSco.jpg'}} />
@@ -118,6 +112,9 @@ const styles = StyleSheet.create({
     alignItems:'center',
     backgroundColor: '#5F9EA0' 
   },
+  list: {
+    backgroundColor: '#ffffff'
+  },
   profile: {
     height: 240,
     marginTop: 1,
@@ -133,12 +130,6 @@ const styles = StyleSheet.create({
   info: {
     height: 60,
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "#ff372c"
-  },
-  friend: {
-    height: 60,
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "#ff372c"
@@ -216,8 +207,7 @@ const styles = StyleSheet.create({
   },
 
   image: {
-
-    backgroundColor: '#92BBD9'
+    flex: 1
   }
 });
 
