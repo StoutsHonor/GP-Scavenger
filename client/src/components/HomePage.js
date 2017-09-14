@@ -97,8 +97,8 @@ class HomePage extends Component {
             <Text style={styles.welcome}>
               GPScavenger
             </Text>
-            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'public', color: "#211b07"}} title='Camera' 
-              onPress={() => Actions.joinCameraChallenge()}/>
+            {/* <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'public', color: "#211b07"}} title='Camera' 
+              onPress={() => Actions.joinCameraChallenge()}/> */}
 
 
             <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'public', color: "#211b07"}} title='Join Game' 
