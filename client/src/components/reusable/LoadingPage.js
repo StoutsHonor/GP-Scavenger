@@ -47,7 +47,7 @@ class LoadingPage extends Component {
         <Animated.Image 
         style={{width: 280, height: 285, flex: 0, flexDirection: 'column', justifyContent: 'center', transform: [{rotate: spin}] }}
           source={{uri: 'http://i.imgur.com/qIaUrfj.png'}} />
-        <Text style={{fontFamily: 'Roboto', fontSize: 40, color: '#f2f2f2', flex: 0, flexDirection: 'column', justifyContent: 'center'}}>Now Loading...</Text>
+        <Text style={{fontFamily: 'Roboto', fontSize: 40, color: '#f2f2f2', flex: 0, flexDirection: 'column', justifyContent: 'center'}}>{this.props.text ? this.props.text: 'Now Loading...' }</Text>
       </View>
     )
   }

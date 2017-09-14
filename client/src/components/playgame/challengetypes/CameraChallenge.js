@@ -58,7 +58,6 @@ class CameraChallenge extends Component {
         <Text style={styles.mediumFont}>{this.state.data.title}</Text>
         <Text style={styles.margin}>{this.state.data.instruction}</Text>
         <Text style={styles.camera} onPress={() => {Actions.camera({ accept: this.handleClickSubmit })}}>camera</Text>
-        
       </View>
     );
   }

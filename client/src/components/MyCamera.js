@@ -8,7 +8,9 @@ import {
   Text,
 } from 'react-native';
 import Camera from 'react-native-camera';
-import config from '../../config/config'
+import config from '../../config/config';
+import LoadingPage from '../components/reusable/LoadingPage';
+
 
 // import { bindActionCreators } from 'redux';
 // import { connect } from 'react-redux'; 
@@ -74,7 +76,8 @@ export default class MyCamera extends Component {
 
     this.state = {
       path: null,
-      camera: true
+      camera: true,
+      loading: true
     };
     this.acceptPicture = this.acceptPicture.bind(this);
   }
@@ -114,28 +117,30 @@ export default class MyCamera extends Component {
     .catch((err) => {
       console.error(err);
     });
-    this.setState({ path: null });
+    this.setState({ path: null, loading: false });
   }
 
   uploadImage(){
-    let file = this.state.path;
-    let data = new FormData();
-    let position = this.getPosition(file);
-    let name = file.slice(position);
-    console.log('file name is ' + file);
-    data.append('file', {uri: file, type: 'image/jpg', name: name});
-    data.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-    
-   let xhr = new XMLHttpRequest();
-   xhr.open('POST', CLOUDINARY_UPLOAD_URL);
-   xhr.onload = (res) => {
-     let res_parse = JSON.parse(res.target._response);
-     console.log('Response is ', res_parse.secure_url);
-     this.acceptPicture(res_parse.secure_url);
-     this.props.accept();
-   }
-
-   xhr.send(data);
+    this.setState({loading: true}, () => {
+      let file = this.state.path;
+      let data = new FormData();
+      let position = this.getPosition(file);
+      let name = file.slice(position);
+      console.log('file name is ' + file);
+      data.append('file', {uri: file, type: 'image/jpg', name: name});
+      data.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+      
+      let xhr = new XMLHttpRequest();
+      xhr.open('POST', CLOUDINARY_UPLOAD_URL);
+      xhr.onload = (res) => {
+        let res_parse = JSON.parse(res.target._response);
+        console.log('Response is ', res_parse.secure_url);
+        this.acceptPicture(res_parse.secure_url);
+        this.props.accept();
+      }
+  
+     xhr.send(data);
+    })
   }
 
   getPosition(file) {
@@ -194,20 +199,28 @@ export default class MyCamera extends Component {
   renderImage() {
     return (
       <View>
-        <Image
-          source={{ uri: this.state.path }}
-          style={styles.preview}
-        />
-        <Text
-          style={styles.cancel}
-          onPress={() => this.setState({ path: null })}
-        >Cancel
-        </Text>
-        <Text
-          style={styles.accept}
-          onPress={this.uploadImage.bind(this)}
-        >Accept
-        </Text>
+
+        {
+          this.state.loading ? 
+            <LoadingPage text={'Uploading...'}/>
+            :
+            (<View>
+            <Image
+            source={{ uri: this.state.path }}
+            style={styles.preview}
+            />
+            <Text
+              style={styles.cancel}
+              onPress={() => this.setState({ path: null })}
+            >Cancel
+            </Text>
+            <Text
+              style={styles.accept}
+              onPress={this.uploadImage.bind(this)}
+            >Accept
+            </Text>
+            </View>)
+        }
       </View>
     );
   }
