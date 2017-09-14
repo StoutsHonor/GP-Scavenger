@@ -43,12 +43,17 @@ export default class GameProfile extends Component {
                 <Thumbnail source={{uri: 'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1504828528/gamedetailimage_vvfmsq.png'}} />
                 <Body>
                   <Text>{this.props.game.name}</Text>
-                  <Text note>{this.props.game.description}</Text>
+                  <Text note>Game Duration: {this.props.game.duration}</Text>
                 </Body>
               </Left>
             </CardItem>
-            <CardItem cardBody>
-              <Image source={{uri: 'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1504828528/gamedetailimage_vvfmsq.png'}} style={{height: 200, width: null, flex: 1}}/>
+            <CardItem>
+              <Body>
+                <Image source={{uri: 'http://brainchase.com/public/uploads/Scavenger-Hunt.jpg'}} style={{height: 200, width: 345, flex: 1}}/>
+                <Text>
+                  {this.props.game.description}
+                </Text>
+              </Body>
             </CardItem>
             <CardItem>
               <Left>
