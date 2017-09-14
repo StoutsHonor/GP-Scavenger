@@ -52,9 +52,9 @@ class FailedChallenge extends Component {
         </Text>
         {this.state.displayFinal ? 
           <Text onPress={() => Actions.congratspage()}>Go to Finish</Text> : 
-          <Text onPress={() => Actions.currentchallenge()}>Go To Your Next Task</Text>
+          <Text onPress={() => Actions.challenge()}>Go To Your Next Task</Text>
         }
-        <Text onPress={() => Actions.challengelist()}>Go To Your Challenge List</Text>
+        <Text onPress={() => Actions.list()}>Go To Your Challenge List</Text>
         <Text onPress={() => Actions.chat()}>Go To Chat</Text>
       </View>
     );

@@ -55,9 +55,9 @@ class CongratsNext extends Component {
         <Text style={styles.welcome}>Points from this Challenge.</Text>
         {this.state.displayFinal ? 
           <Text onPress={() => Actions.congratspage()}>Go to Finish</Text> : 
-          <Text onPress={() => Actions.Current()}>Go To Your Next Task</Text>
+          <Text onPress={() => Actions.challenge()}>Go To Your Next Task</Text>
         }
-        <Text onPress={() => Actions.challengelist()}>Go To Your Challenge List</Text>
+        <Text onPress={() => Actions.list()}>Go To Your Challenge List</Text>
         <Text onPress={() => Actions.chat()}>Brag About It In Chat</Text>
       </View>
     );

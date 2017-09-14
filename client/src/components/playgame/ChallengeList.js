@@ -54,7 +54,7 @@ class ChallengeList extends Component {
           return <ChallengeListEntry challenge={challenge} challengeIndex={i} index={this.props.index} key={i} showChallengeDetails={this.showChallengeDetails}/>
         }) : null}
 
-        <Modal
+        {/* <Modal
           animationType={"fade"}
           transparent={true}
           visible={this.state.showChallengeModal}
@@ -70,7 +70,7 @@ class ChallengeList extends Component {
             </TouchableHighlight>
             </View>
           
-        </Modal>
+        </Modal> */}
 
       </ScrollView>
     )

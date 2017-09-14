@@ -30,6 +30,13 @@
     "answer": "pikachu",
     "difficulty": "easy",
     "default": true
+  },
+  {
+    "title": "Mr. A",
+    "question": "How old is this man?",
+    "imageURL": "https://scontent-dft4-1.xx.fbcdn.net/v/t1.0-9/575286_10151934729642526_235787298_n.jpg?oh=02034bcae0d2b6cdc2ccfc07f530368f&oe=5A5F824C",
+    "answer": "25",
+    "difficulty": "easy",
+    "default": true
   }
-  
 ]

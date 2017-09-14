@@ -11,6 +11,9 @@ import {
 import { Divider, FormLabel, FormInput } from 'react-native-elements';
 import {Container, Content, Card, CardItem, Item, Input, Header, Body} from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { set_challenge_details, submit_answers } from '../../../actions/index';
 import config from '../../../../config/config';
 
 const mapDispatchToProps = (dispatch) => {
@@ -48,7 +51,6 @@ class QuestionChallenge extends Component {
       .then(response => response.json())
       .then(data => {
         this.setState({data: data});
-        this.props.setChallengeDetails(this.props.challengeDetails.concat(data))
       })
       .catch(err => console.error(err))
     })
@@ -159,4 +161,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default QuestionChallenge;
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionChallenge);
