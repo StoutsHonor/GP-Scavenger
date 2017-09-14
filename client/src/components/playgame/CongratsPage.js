@@ -11,6 +11,9 @@ import { bindActionCreators } from 'redux';
 import { getAllGameChallenges, setCurrentChallengeIndex, getGameId, setGamePoints, getGameInfo } from '../../actions/index';
 import config from '../../../config/config';
 
+import Confetti from 'react-native-confetti';
+
+
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ getAllGameChallenges, setCurrentChallengeIndex, getGameId,setGamePoints, getGameInfo }, dispatch)
 }
@@ -64,15 +67,15 @@ class CongratsPage extends Component {
   render() {
     return(
       <View style={styles.container}>
-        <Image 
-          style={{width: 400, height: 200}}
-          source={{uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT8_tzZ5qxzYgS7cX9ECqInFog9PAjNzvmTkWUI8oKfm-V8OWd'}}
-        />
+         <View style={styles.modal}>
+         <Image style={{ flex: .75, resizeMode: 'contain', width: 150, padding: 0}} source={ require('../../media/trophyART.png') } />
         <Text style={styles.welcome}>You Won! You Earned A Total Of:</Text>
         <Text style={styles.points}>{this.props.gamePoints}</Text>
         <Text style={styles.welcome}>Points From This Game!!!</Text>
         <Text onPress={() => this.handleClick('homepage')}>Back to Home</Text>
         <Text onPress={() => this.handleClick('leaderboard')}>Leaderboard</Text>
+        </View>   
+        <Confetti confettiCount={500} duration={3000} timeout={1} ref={(node) => this._confettiView = node}/> 
       </View>
     )
   }
@@ -84,7 +87,17 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#006400',
+    backgroundColor: '#e9cfa3',
+  },
+  modal: {
+    height: 400,
+    width: 350,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius:10,
+    borderWidth: 2,
+    borderColor: '#000',
+    backgroundColor: '#5cb85c'
   },
   welcome: {
     fontSize: 20,
