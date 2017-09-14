@@ -321,14 +321,14 @@ class Lobby extends Component {
                 this.socket.emit("startGame", this.roomName, this.state.team1, this.state.team2);
               }}
               title="START GAME"
-              color = "#be5521"
+              color = "#2395F6"
               
             /></View>
           ) : (
             <View  style={this.state.styles.button}><Button
            
               title={"Need " + (2 - this.state.totalPlayer) + " More Players"}
-              color = "#be5521"
+              color = "#2395F6"
           
             /></View>
           )}
@@ -336,13 +336,12 @@ class Lobby extends Component {
 
               onPress={() => {this.leaveGame()}}
               title="Leave Game"
-              color = "#be5521"
-             
+              color = "#2395F6"
             /></View>
         </View>
         
         <Text style={this.state.styles.lobbytext}>Lobby: {this.props.gamedata.room}</Text>
-        <Text style={this.state.styles.lobbytext}>Created by: {this.props.gamedata.createdBy}</Text>
+        <Text>Created by: {this.props.gamedata.createdBy}</Text>
         <View style={this.state.styles.chat}>
           <GiftedChat
             messages={this.state.messages}
@@ -423,13 +422,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#e9cfa3"
+    backgroundColor: "#EACFA4"
   },
   lobbytext: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#000000",
-    marginTop: 7
+    color: "#111111",
+    marginTop: 7,
+    textShadowRadius: 8,
+    textShadowColor: 'grey'
   },
   divide: {
     flexDirection: "row"
@@ -438,36 +439,42 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width - 15,
     height: Dimensions.get("window").height / 2,
     margin: 10,
-    backgroundColor: "#be5521"
+    backgroundColor: "#ffffff",
+    borderRadius: 10,
+    elevation: 15
   },
   playerL: {
     width: Dimensions.get("window").width / 2 - 15,
     height: Dimensions.get("window").height / 6,
     margin: 10,
     marginRight: 5,
-    backgroundColor: "#be5521"
+    backgroundColor: "#ffffff",
+    borderRadius: 10,
+    elevation: 15
   },
   playerR: {
     width: Dimensions.get("window").width / 2 - 15,
     height: Dimensions.get("window").height / 6,
     margin: 10,
     marginLeft: 5,
-    backgroundColor: "#be5521"
+    backgroundColor: "#ffffff",
+    borderRadius: 10,
+    elevation: 15
   },
   team: {
     fontSize: 16,
     fontWeight: "bold",
-    color: '#000000'
+    color: '#378C72'
   },
   button: {
     margin: 7,
-    marginBottom: 0
-      
+    marginBottom: 0,
+    borderRadius: 10
   },
   player: {
     fontWeight: "bold",
     fontSize: 14,
-    color: '#000000'
+    color: '#378C72'
   },
   divide: {
     flexDirection: "row",
