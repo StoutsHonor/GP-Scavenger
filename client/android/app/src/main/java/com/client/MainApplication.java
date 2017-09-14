@@ -1,4 +1,4 @@
-package com.client;
+package com.gpscavenger;
 
 import android.app.Application;
 
