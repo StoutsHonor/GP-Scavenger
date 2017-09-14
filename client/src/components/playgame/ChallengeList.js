@@ -49,26 +49,48 @@ class ChallengeList extends Component {
 
   render() {
     return (
-      <ScrollView contentContainerStyle={styles.container}>
-        <Text>{this.props.gamePoints} Points Earned So Far</Text>
-        <Container>
-          <Content>
-            <List listNoteColor={'#59270a'}>
-        {this.props.challenges ? this.props.challenges.map((challenge, i) => {
-          return <ChallengeListEntry challenge={challenge} challengeIndex={i} index={this.props.index} key={i} showChallengeDetails={this.showChallengeDetails}/>
-        }) : null}
-            </List>
-          </Content>
-        </Container>
-      </ScrollView>
+      <Container style={styles.container}>
+        <View style={styles.points}>
+          <Text style={styles.pointText}>Points: </Text>
+          <Text style={styles.gamePoints}>{this.props.gamePoints}</Text>
+        </View>
+
+        <Content style={styles.content}>
+          <List listNoteColor={'#59270a'}>
+            {this.props.challenges ? this.props.challenges.map((challenge, i) => {
+              return <ChallengeListEntry challenge={challenge} challengeIndex={i} index={this.props.index} key={i} showChallengeDetails={this.showChallengeDetails}/>
+            }) : null}
+          </List>
+        </Content>
+
+      </Container>
     )
   }
 }
 
 const styles = StyleSheet.create({
   container: {
-     flex: 1,
-    backgroundColor: '#e9cfa3'
+    flex: 1,
+    backgroundColor: '#ffffff'
+  },
+  points: {
+    flex: 1, 
+    flexDirection: 'row', 
+    justifyContent:'center',
+    top: 10
+  },
+  pointText: {
+    fontWeight: 'bold',
+    fontSize: 25,
+    color: 'black'
+  },
+  gamePoints: {
+    fontSize: 25,
+    color: 'green'
+  },
+  content: {
+    marginTop: -500,
+    width: window.width*.96
   }
 });
 
