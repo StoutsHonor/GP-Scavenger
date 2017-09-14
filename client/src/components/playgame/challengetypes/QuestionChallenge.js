@@ -98,11 +98,13 @@ class QuestionChallenge extends Component {
             onPress={this.handleClickSubmit}
             title="Submit"
             color="#32CD32"
+            style={styles.button}
           />
           <Button
             onPress={this.handleClickSkip}
             title="Give Up"
             color="#800000"
+            style={styles.button}
           />
           {this.state.showTryAgain ? <View style={styles.tryAgain}><Text style={styles.tryAgainText}>Try Again</Text></View> : null}
           </Content>
@@ -112,6 +114,9 @@ class QuestionChallenge extends Component {
 }
 
 const styles = StyleSheet.create({
+  button: {
+    width: 120
+  },
   container: {
     flex: 1,
     backgroundColor: '#e9cfa3',
@@ -126,7 +131,8 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   question: {
-    fontSize: 20
+    fontSize: 20,
+    textAlign: 'center'
   },
   tryAgain: {
     alignItems: 'center'

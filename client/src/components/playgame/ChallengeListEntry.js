@@ -11,14 +11,20 @@ import { Card } from 'react-native-elements';
 import config from '../../../config/config';
 import io from 'socket.io-client';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { setOpponentIndex } from '../../actions/index';
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ setOpponentIndex }, dispatch)
+}
 
 const mapStateToProps = (state) => {
   return {
     gameId: state.play.gameId,
     userId: state.client.userIdentity,
+    opponentIndex: state.play.opponentIndex
   }
 }
-
 
 class ChallengeListEntry extends Component {
   constructor(props) {
@@ -55,7 +61,10 @@ class ChallengeListEntry extends Component {
       this.setState({status: 'Pending'});
       this.setState({imageDisplay: 'https://incendia.net/wiki/images/2/23/Example_Texture1.png'});
     }
-    setTimeout(() => this.setState({flash: !this.state.flash}), 1000)
+    
+    if(this.props.challengeIndex === this.props.opponentIndex) {
+      this.setState({opponentShow: true});
+    }
   }
 
   changeOpponentShow(message) {
@@ -64,9 +73,11 @@ class ChallengeListEntry extends Component {
     }
 
     if(this.props.challengeIndex === message.index) {
+      this.props.setOpponentIndex(message.index);
       this.setState({ opponentShow: true });
     } else {
       this.setState({ opponentShow: false });
+      this.props.setOpponentIndex(message.index);
     }
   }
   
@@ -123,4 +134,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default connect(mapStateToProps)(ChallengeListEntry);
+export default connect(mapStateToProps, mapDispatchToProps)(ChallengeListEntry);
