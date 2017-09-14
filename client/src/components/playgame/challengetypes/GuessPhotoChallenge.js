@@ -58,7 +58,7 @@ class GuessPhotoChallenge extends Component {
       <View >
         <Text style={styles.bigFont}>{this.state.type}</Text>
         <Text style={styles.mediumFont}>{this.state.data.title}</Text>
-        <Text style={styles.margin}>{this.state.data.question}</Text>
+        <Text>{this.state.data.question}</Text>
         <Image
           style={{
             width: Dimensions.get('window').width,

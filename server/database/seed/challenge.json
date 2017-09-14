@@ -60,14 +60,13 @@
     "questionId": 3
   },
   {
-    "name": "Riddle #3",
-    "description": "This is the third riddle",
+    "name": "Your Annoying Neighbors...",
+    "description": "This is the test riddle",
     "gameId": 3,
     "sequence": 1,
-    "location":[37.783692, -122.408967],
-    "timeLimit": 30,
+    "timeLimit": 1,
     "questionTypeId": 2,
-    "questionId": 4
+    "questionId": 6
   },
   {
     "name": "GPS #1",
@@ -188,12 +187,12 @@
     "questionTypeId": 1
   },
   {
-    "name": "?!?!",
+    "name": "Mr. A",
     "description": "Greater or less than",
     "gameId": 1,
     "sequence": 2,
     "timeLimit": 3,
-    "questionTypeId": 2,
+    "questionTypeId": 6,
     "questionId": 5
   },
   {
@@ -230,5 +229,23 @@
     "timeLimit": 1,
     "questionTypeId": 5,
     "questionId": 3
+  },
+  {
+    "name": "Your Annoying Neighbors...",
+    "description": "",
+    "gameId": 1,
+    "sequence": 6,
+    "timeLimit": 1,
+    "questionTypeId": 2,
+    "questionId": 6
+  },
+  {
+    "name": "Mr. A",
+    "description": "",
+    "gameId": 10,
+    "sequence": 1,
+    "timeLimit": 1,
+    "questionTypeId": 6,
+    "questionId": 5
   }
 ]

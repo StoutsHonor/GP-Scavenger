@@ -78,21 +78,19 @@ class ChallengeListEntry extends Component {
     
     return (
       <View style={{backgroundColor: backColor}}>
-        <TouchableHighlight onPress={() => this.props.showChallengeDetails(this.props.challengeIndex)}>
-          <View>
-            <Card title={str} backgroundColor={this.state.color}> 
-              {this.state.displayInfo ? 
-                <View>
-                  <Text style={styles.description} >{this.props.challenge.name}</Text>
-                </View>
-                :
-                <Image
-                  style={styles.locked}
-                  source={{uri: 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/matte-red-and-white-square-icons-business/122828-matte-red-and-white-square-icon-business-lock6-sc48.png'}}
-                />}
-            </Card>
-          </View>
-        </TouchableHighlight>
+        <View>
+          <Card title={str} backgroundColor={this.state.color}> 
+            {this.state.displayInfo ? 
+              <View>
+                <Text style={styles.description} >{this.props.challenge.name}</Text>
+              </View>
+              :
+              <Image
+                style={styles.locked}
+                source={{uri: 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/matte-red-and-white-square-icons-business/122828-matte-red-and-white-square-icon-business-lock6-sc48.png'}}
+              />}
+          </Card>
+        </View>
       </View>
     )
   }
