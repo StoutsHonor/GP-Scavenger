@@ -18,11 +18,7 @@ class CameraChallenge extends Component {
     super(props);
     this.handleClickSubmit = this.handleClickSubmit.bind(this);
     this.state = {
-      type: 'Take A Picture',
       data: {},
-      showTryAgain: false,
-      userInput: ''
-  
     }
   }
 
@@ -52,12 +48,16 @@ class CameraChallenge extends Component {
     
     return (
       
-      //add image to background, fetch image from database preferred
-      <View>
-        <Text style={styles.bigFont}>{this.state.type}</Text>
+     
+      <View style={styles.container}>
+ 
         <Text style={styles.mediumFont}>{this.state.data.title}</Text>
-        <Text style={styles.margin}>{this.state.data.instruction}</Text>
-        <Text style={styles.camera} onPress={() => {Actions.camera({ accept: this.handleClickSubmit })}}>camera</Text>
+        <Text style={styles.smallFonts}>{this.state.data.instruction}</Text>
+        <Button onPress={Actions.camera({ accept: this.handleClickSubmit })} title='Camera'/>
+       
+       
+        <Image style={{ flex: 1, resizeMode: 'contain', width: 350, padding: 0}} source={ require('../../../media/camera-icon-hi.png') } />
+
       </View>
     );
   }
@@ -66,29 +66,21 @@ class CameraChallenge extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-  
+    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#00ffff',
-  },
-  bigFont: {
-    top: 20,
-    fontSize: 30
+    backgroundColor: '#e9cfa3',
   },
   mediumFont: {
-    top: 60,
-    fontSize: 20
+    fontSize: 20,
+    color: '#be5521'
   },
-  camera: {
-    top: 100,
-    backgroundColor: '#F0FFFF'
-  },
-  button: {
-    top: 120,
-    backgroundColor: '#F0FFFF'
-  },
-  margin: {
-    top: 80
+  smallFont: {
+    fontSize: 17,
+    color: '#be5521'
   }
+
+
+
 
 
 });

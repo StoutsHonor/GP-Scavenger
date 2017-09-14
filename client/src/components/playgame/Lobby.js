@@ -441,7 +441,9 @@ const styles = StyleSheet.create({
     margin: 10,
     backgroundColor: "#ffffff",
     borderRadius: 10,
-    elevation: 15
+    elevation: 15,
+    borderWidth: 1,
+    borderColor: '#000',
   },
   playerL: {
     width: Dimensions.get("window").width / 2 - 15,
@@ -450,7 +452,9 @@ const styles = StyleSheet.create({
     marginRight: 5,
     backgroundColor: "#ffffff",
     borderRadius: 10,
-    elevation: 15
+    elevation: 15,
+    borderWidth: 1,
+    borderColor: '#000'
   },
   playerR: {
     width: Dimensions.get("window").width / 2 - 15,
@@ -459,7 +463,9 @@ const styles = StyleSheet.create({
     marginLeft: 5,
     backgroundColor: "#ffffff",
     borderRadius: 10,
-    elevation: 15
+    elevation: 15,
+    borderWidth: 1,
+    borderColor: '#000'
   },
   team: {
     fontSize: 16,

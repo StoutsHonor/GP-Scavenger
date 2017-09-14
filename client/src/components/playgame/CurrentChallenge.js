@@ -94,6 +94,13 @@ class CurrentChallenge extends Component {
       }
     }
 
+    let obj = {
+      gameName: this.gameName,
+      team: this.team,
+      index : this.props.currentChallengeIndex
+    };
+    this.socket.emit('changeOpponentShow', obj);
+
 
   }
 
@@ -199,13 +206,14 @@ class CurrentChallenge extends Component {
 
   congratsNext(team) {
     if(team === this.team) {
-      Actions.congratsnext();
+     
       let obj = {
         gameName: this.gameName,
         team: this.team,
         index : this.props.currentChallengeIndex
       };
       this.socket.emit('changeOpponentShow', obj);
+      Actions.congratsnext();
     }
   }
 
