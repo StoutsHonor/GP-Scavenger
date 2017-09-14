@@ -136,6 +136,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     textAlign: 'center',
     margin: 10,
+    marginBottom: 7,
     color: '#6d5809',
   },
   text: {
@@ -150,6 +151,7 @@ const styles = StyleSheet.create({
   },
   buttons: {
     backgroundColor: 'transparent',
+    padding: 8
 
   }
 });

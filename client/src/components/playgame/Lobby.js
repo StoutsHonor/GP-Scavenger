@@ -58,7 +58,7 @@ class Lobby extends Component {
       team1: [],
       team2: [],
       styles: {},
-      showStart: true
+      showStart: false
     };
   }
 
@@ -277,7 +277,7 @@ class Lobby extends Component {
    
    
     if (this.state.totalPlayer < 2) {
-      this.setState({ showStart: true });
+      this.setState({ showStart: false });
     }
     if(this.props.userId === message) {
       Actions.joingame({listtype: 'join'})
@@ -294,46 +294,51 @@ class Lobby extends Component {
   }
 
   render() {
-    console.log(this.props.gameId, 'gameId in lobby')
-    console.log(this.props.challenges, 'challenges in lobby')
-    const styles = StyleSheet.create({
-      container: {
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: "#5F9EA0"
-      },
-      welcome: {
-        fontSize: 20,
-        textAlign: "center",
-        margin: 10,
-        color: "#ffffff"
-      }
-    });
+    // console.log(this.props.gameId, 'gameId in lobby')
+    // console.log(this.props.challenges, 'challenges in lobby')
+    // const styles = StyleSheet.create({
+    //   container: {
+    //     flex: 1,
+    //     justifyContent: "center",
+    //     alignItems: "center",
+    //     backgroundColor: "#5F9EA0"
+    //   },
+    //   welcome: {
+    //     fontSize: 20,
+    //     textAlign: "center",
+    //     margin: 10,
+    //     color: "#ffffff"
+    //   }
+    // });
 
     return (
       <View style={this.state.styles.container}>
 
         <View style={this.state.styles.divide}>
           {this.state.showStart ? (
-            <Button
-              style={this.state.styles.button}
+            <View  style={this.state.styles.button}><Button
               onPress={() => {
                 this.socket.emit("startGame", this.roomName, this.state.team1, this.state.team2);
               }}
               title="START GAME"
-            />
+              color = "#be5521"
+              
+            /></View>
           ) : (
-            <Button
-              style={this.state.styles.button}
+            <View  style={this.state.styles.button}><Button
+           
               title={"Need " + (2 - this.state.totalPlayer) + " More Players"}
-            />
+              color = "#be5521"
+          
+            /></View>
           )}
-          <Button
-              style={this.state.styles.button}
+          <View style={this.state.styles.button}><Button
+
               onPress={() => {this.leaveGame()}}
               title="Leave Game"
-            />
+              color = "#be5521"
+             
+            /></View>
         </View>
         
         <Text style={this.state.styles.lobbytext}>Lobby: {this.props.gamedata.room}</Text>
@@ -418,13 +423,13 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: "center",
-    backgroundColor: "#5F9EA0"
+    backgroundColor: "#e9cfa3"
   },
   lobbytext: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#ffffff",
-    marginTop: 10
+    color: "#000000",
+    marginTop: 7
   },
   divide: {
     flexDirection: "row"
@@ -433,33 +438,36 @@ const styles = StyleSheet.create({
     width: Dimensions.get("window").width - 15,
     height: Dimensions.get("window").height / 2,
     margin: 10,
-    backgroundColor: "#ff372c"
+    backgroundColor: "#be5521"
   },
   playerL: {
     width: Dimensions.get("window").width / 2 - 15,
     height: Dimensions.get("window").height / 6,
     margin: 10,
     marginRight: 5,
-    backgroundColor: "#5fffd7"
+    backgroundColor: "#be5521"
   },
   playerR: {
     width: Dimensions.get("window").width / 2 - 15,
     height: Dimensions.get("window").height / 6,
     margin: 10,
     marginLeft: 5,
-    backgroundColor: "#5fffd7"
+    backgroundColor: "#be5521"
   },
   team: {
     fontSize: 16,
-    fontWeight: "bold"
+    fontWeight: "bold",
+    color: '#000000'
   },
   button: {
-    marginTop: 15,
-    marginLeft: 15
+    margin: 7,
+    marginBottom: 0
+      
   },
   player: {
     fontWeight: "bold",
-    fontSize: 14
+    fontSize: 14,
+    color: '#000000'
   },
   divide: {
     flexDirection: "row",

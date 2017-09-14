@@ -33,7 +33,7 @@ class ModularListEntry extends Component {
         console.log(`Google Maps response is ${JSON.stringify(response)}`)
         return response.json()})
       .then(data => {
-        console.log(`Google Maps directions response is`)
+        console.log(`Google Maps directions response is `, data)
         const distanceAway = data.routes[0].legs[0].distance.text + ' away'
         console.log(`distance is ${JSON.stringify(distanceAway)}`)
         this.setState({distanceAway})
