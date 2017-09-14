@@ -1,18 +1,18 @@
 [
   {
-    "name": "Da best game EVA",
+    "name": "Scout's Honor Special",
     "userId": 1,
-    "duration": 15,
+    "duration": "a few hours",
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 4242,
     "startLocation": [33.9759435,-118.3929176],
-    "description": "PLAYPLAYPLAYNOW!!!!"
+    "description": "A Grab Bag of GPS, Riddles, Logic Puzzles, Photo, and Video Challenges to Keep you Entertained!!!"
   },
   {
     "name": "Bery Simple Scavenger Hunt",
     "userId": 1, 
-    "duration": 30,
+    "duration": "less than an hour",
     "private": true,
     "maxPlayers": 4,
     "rewardPoints": 100,
@@ -22,7 +22,7 @@
   {
     "name": "Only One Question!!!",
     "userId": 1, 
-    "duration": 150,
+    "duration": "a few minutes",
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 500,
@@ -32,7 +32,7 @@
   {
     "name": "Get over here!!!",
     "userId": 1,
-    "duration": 180,
+    "duration": "less than an hour",
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 600,
@@ -42,7 +42,7 @@
   {
     "name": "Game #3",
     "userId": 1, 
-    "duration": 120,
+    "duration": "less than an hour",
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 400,
@@ -52,7 +52,7 @@
   {
     "name": "Mixed game of CHALLENGES",
     "userId": 1,
-    "duration": 120,
+    "duration": "less than an hour",
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 3900,
@@ -62,7 +62,7 @@
   {
     "name": "WALKING GPS TEST",
     "userId": 1,
-    "duration": 120,
+    "duration": "less than an hour",
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 3900,
@@ -72,7 +72,7 @@
   {
     "name": "Hollywood Stars",
     "userId": 1,
-    "duration": 120,
+    "duration": "less than an hour",
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 200,
@@ -82,7 +82,17 @@
   {
     "name": "Other Challenges",
     "userId": 1,
-    "duration": 120,
+    "duration": "less than an hour",
+    "private": false,
+    "maxPlayers": 4,
+    "rewardPoints": 200,
+    "startLocation": [33.976025, -118.391093],
+    "description": "Get to know LA!"
+  },
+  {
+    "name": "Photo Test",
+    "userId": 1,
+    "duration": "less than an hour",
     "private": false,
     "maxPlayers": 4,
     "rewardPoints": 200,

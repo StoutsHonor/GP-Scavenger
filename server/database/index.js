@@ -28,7 +28,7 @@ const User = sequelize.define('user', {
 const Game = sequelize.define('game', {
   name: { type: Sequelize.STRING, allowNull: false },
   description: { type: Sequelize.STRING },
-  duration: { type: Sequelize.INTEGER },
+  duration: { type: Sequelize.STRING },
   private: { type: Sequelize.BOOLEAN},
   maxPlayers: { type: Sequelize.INTEGER, allowNull: false },
   rewardPoints: { type: Sequelize.INTEGER, allowNull: false},

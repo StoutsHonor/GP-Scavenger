@@ -11,17 +11,30 @@ import {
 import { Divider, FormLabel, FormInput } from 'react-native-elements';
 import {Container, Content, Card, CardItem, Item, Input, Header, Body} from 'native-base';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { set_challenge_details, submit_answers } from '../../../actions/index';
 import config from '../../../../config/config';
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({ set_challenge_details, submit_answers }, dispatch)
+}
+
+const mapStateToProps = (state) => {
+  console.log('mapStateToProps: ', state)
+  return {
+    challengeDetails: state.play.challengeDetails,
+    submittedAnswers: state.play.submittedAnswers,
+  }
+}
 
 class QuestionChallenge extends Component {
   constructor(props) {
     super(props);
     this.handleClickSubmit = this.handleClickSubmit.bind(this);
     this.handleClickSkip = this.handleClickSkip.bind(this);
-    this.handleClickProceed = this.handleClickProceed.bind(this);
     this.state = {
       userInput: '',
-      timeRemaining: 500,
       showTryAgain: false,
       info: {},
       data: {}
@@ -29,11 +42,6 @@ class QuestionChallenge extends Component {
   }
 
   componentWillMount() {
-    // setInterval(() => {
-    //   let count = this.state.timeRemaining - 1;
-    //   this.setState({timeRemaining: count});
-    // },1000);
-
     fetch(`${config.localhost}/api/questionType/findQuestionType/?questionTypeId=${this.props.challenge.questionTypeId}`)
     .then(response => response.json())
     .then(data => this.setState({info: data}))
@@ -41,13 +49,12 @@ class QuestionChallenge extends Component {
       let endPoint = `${config.localhost}/api/${this.state.info.type}/find${((this.state.info.type).charAt(0).toUpperCase() + this.state.info.type.slice(1))}/?id=${this.props.challenge.questionId}`;
       fetch(endPoint)
       .then(response => response.json())
-      .then(data => this.setState({data: data}))
+      .then(data => {
+        this.setState({data: data});
+      })
       .catch(err => console.error(err))
-    }
-    )
+    })
     .catch(err => console.error(err));
-
-    
   }
 
   handleClickSubmit() {
@@ -60,23 +67,10 @@ class QuestionChallenge extends Component {
   }
 
   handleClickSkip() {
-    // if(this.state.timeRemaining > 10) {
-    // this.setState({timeRemaining: this.state.timeRemaining - 10});
-    // } else {
-    //   this.setState({timeRemaining: 0});
-    // }
     this.props.challengeSkipped();
   }
 
-  handleClickProceed() {
-    Actions.congratspage();
-  }
-
   render() {
-    //timer runs out
-    if(this.state.timeRemaining === 0) {
-      Actions.failedpage();
-    }
     return (
       
         <Container style={styles.container}>
@@ -167,4 +161,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default QuestionChallenge;
+export default connect(mapStateToProps, mapDispatchToProps)(QuestionChallenge);

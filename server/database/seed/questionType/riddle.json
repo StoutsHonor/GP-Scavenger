@@ -38,5 +38,13 @@
     "difficulty": "moderate",
     "default": true,
     "imageURL": "https://afterwordsbooks.files.wordpress.com/2013/02/riddle.jpg"
+  },
+  {
+    "title": "Our Annoying Neighbors",
+    "question": "What is louder than an explosion?",
+    "answer": "cohort 16",
+    "difficulty": "moderate",
+    "default": true,
+    "imageURL": "https://afterwordsbooks.files.wordpress.com/2013/02/riddle.jpg"
   }
 ]
