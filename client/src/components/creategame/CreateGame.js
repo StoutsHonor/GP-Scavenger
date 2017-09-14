@@ -271,22 +271,22 @@ class CreateGame extends Component {
           <Tab heading="Info">
 
             <View>
-              <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../../media/createGameBackground2.png') } />
+              <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../../media/createGameBackground4.png') } />
             </View>
 
             <Form style={styles.containerMenu}>
-              <Item>
+              <Item style={{backgroundColor: 'rgba(255, 255, 255, 0.4)'}}>
                 <Text style={styles.labelText}>Name: </Text>
                 <Input placeholder="Enter Here.." value={this.props.createGameName} onChangeText={(e) => {this.props.enteredField('createGameName', e)}} style={styles.inputText}/>
               </Item>
 
-              <Item>
+              <Item style={{backgroundColor: 'rgba(255, 255, 255, 0.4)'}}>
                 <Text style={styles.labelText}>Description: </Text>
                 <Input placeholder="Enter Here.." value={this.props.createGameDescription} onChangeText={(e) => {this.props.enteredField('createGameDescription', e)}}
                 style={styles.inputText}/>
               </Item>
 
-              <Item>
+              <Item style={{backgroundColor: 'rgba(255, 255, 255, 0.4)'}}>
                 <Text style={styles.labelText}>Duration (Minutes): </Text>
                 <Input placeholder="Enter Here.." value={this.props.createGameDuration}
                 onChangeText={(e) => {
@@ -304,7 +304,7 @@ class CreateGame extends Component {
                 style={styles.inputText}/>
               </Item>
 
-              <Item>
+              <Item style={{backgroundColor: 'rgba(255, 255, 255, 0.4)'}}>
                 <Text style={styles.labelText}>Max Players: </Text>
                 <Input placeholder="Enter Here.." value={this.props.createGameMaxPlayers}
                 onChangeText={(e) => {
@@ -322,37 +322,37 @@ class CreateGame extends Component {
                 style={styles.inputText}/>
               </Item>
 
-              <Item>
+              <Item style={{backgroundColor: 'rgba(255, 255, 255, 0.4)'}}>
                 <Text style={styles.labelText}>Start Location: </Text>
                 <Text style={styles.inputText}>
                   {this.props.createGameStartingLocation ? 'Latitude: ' + JSON.stringify(this.props.createGameStartingLocation.latitude.toFixed(2)) + ', Longitude: ' + JSON.stringify(this.props.createGameStartingLocation.longitude.toFixed(2)) : '(No Location Set)'}
                 </Text>
               </Item>
 
-              <Item>
+              <Item style={{backgroundColor: 'rgba(255, 255, 255, 0.4)'}}>
                 <Button onPress={() => {Actions.createMap({setting: 'createStartLoc'})}}
                 title="Set Starting Location"
-                color="#423527"/>
-
-                <Icon name='home'/>
-
+                color="#a5cfff"/>
 
                 <Button onPress={() => {this.props.enteredField('createGameStartingLocation', null)}}
                 title="Clear Starting Location"
-                color="#423527"/>
+                color="#d75452"/>
               </Item>
 
 
-
-              <Item>
+              {/* <Item>
                 <Button onPress={() => {console.log('props: ', this.props)}}
                 title="See Props"
                 color="#423527"/>
+              </Item> */}
 
+              {/* <Item>
                 <Button onPress={() => {Actions.createChallenge()} }
                 title="Add a Challenge"
-                color="#423527"/>
-              
+                color="#a5cfff"/>
+              </Item> */}
+
+              {/* <Item style={{backgroundColor: 'rgba(255, 255, 255, 0.4)'}}>
                 <Button onPress={() => {
                   let canSubmit = this.checkValidGame();
                   if (canSubmit) {
@@ -360,22 +360,36 @@ class CreateGame extends Component {
                   }
                 }}
                 title="Submit Game"
-                color="#423527"/>
-              </Item>
+                color="#5cb85c"/>
+              </Item> */}
 
             </Form>
+
+            <Item style={styles.outOfFormButton}>
+              <Button onPress={() => {
+                let canSubmit = this.checkValidGame();
+                if (canSubmit) {
+                  this.submitGame();
+                }
+              }}
+              title="Submit Game"
+              color="#5cb85c"/>
+            </Item>
+
+
+
 
           </Tab>
           <Tab heading="Challenges">
             <View>
-              <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../../media/createGameBackground2.png') } />
+              <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../../media/createGameBackground4.png') } />
             </View>
 
             <Form style={styles.containerMenu}>
             {this.props.createGameChallenges.map((challenge, index) => {
               return (
                 <Item key={index}>
-                  <View>
+                  <View style={{backgroundColor: 'rgba(255, 255, 255, 0.4)'}}>
                   <Text style={styles.labelText}>{'#' + JSON.stringify(index + 1) + ': ' + challenge.ChallengeTitle + ' - ' + challenge.ChallengeType}</Text>
                   <Text style={styles.labelText}>{ challenge.ChallengeType === 'GPSChallenge' ? 'Latitude: ' + JSON.stringify(challenge.ChallengeLocation.latitude) + ', Longitude: ' + JSON.stringify(challenge.ChallengeLocation.longitude) : null}</Text>
                   <Text style={styles.labelText}>{ challenge.ChallengeType === 'riddleQuestion' ? 'Question: ' + challenge.ChallengeObjective : null}</Text>
@@ -386,6 +400,13 @@ class CreateGame extends Component {
               )
             })}
             </Form>
+            <Item style={styles.outOfFormButton}>
+              <Button onPress={() => {Actions.createChallenge()} }
+              title="Add a Challenge"
+              color="#a5cfff"
+              />
+            </Item>
+
           </Tab>
         </Tabs>
 
@@ -407,21 +428,28 @@ const styles = StyleSheet.create({
   },
   labelText: {
     fontSize: 20,
-    color: '#fff5ea',
+    color: '#000000',
     fontWeight: 'bold',
   },
   inputText: {
     marginTop: 3,
     fontSize: 18,
-    color: '#fff5ea',
+    color: '#000000',
   },
   listItemText: {
     fontSize: 18,
-    color: '#fff5ea',
+    color: '#000000',
   },
   containerMenu: {
     flex: 1,
     position: 'absolute',
+  },
+  outOfFormButton: {
+    flex: 1,
+    position: 'absolute',
+    justifyContent: 'center',
+    alignItems: 'center',
+    bottom: 100,
   },
 });
 

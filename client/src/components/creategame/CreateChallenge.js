@@ -98,21 +98,21 @@ class CreateChallenge extends Component {
         <Content>
 
           <View>
-            <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../../media/createGameBackground2.png') } />
+            <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../../media/createGameBackground4.png') } />
           </View>
 
           <Form style={styles.containerMenu}>
-            <Item>
+            <Item style={{backgroundColor: 'rgba(255, 255, 255, 0.4)'}}>
               <Text style={styles.labelText}>Challenge Title: </Text>
               <Input placeholder="Enter Here.." value={this.props.createChallengeTitle} onChangeText={(e) => {this.props.enteredField('createChallengeTitle', e)}} style={styles.inputText}/>
             </Item>
 
-            <Item>
+            <Item style={{backgroundColor: 'rgba(255, 255, 255, 0.4)'}}>
               <Text style={styles.labelText}>Challenge Description: </Text>
               <Input placeholder="Enter Here.." value={this.props.createChallengeDescription} onChangeText={(e) => {this.props.enteredField('createChallengeDescription', e)}} style={styles.inputText}/>
             </Item>
 
-            <Item>
+            <Item style={{backgroundColor: 'rgba(255, 255, 255, 0.4)'}}>
               <Text style={styles.labelText}>Challenge Type:</Text>
               <Picker prompt='Select a Challenge Type' selectedValue={this.props.createChallengeType} onValueChange={(itemValue, itemIndex) => {this.props.enteredField('createChallengeType', itemValue)}} style={{height: 40, width: 175}} >
                 <Picker.Item label='Select..' value={null} />
@@ -126,7 +126,7 @@ class CreateChallenge extends Component {
             </Item>
             
 
-            <Item>
+            <Item style={{backgroundColor: 'rgba(255, 255, 255, 0.4)'}}>
             {
               (this.props.createChallengeType === 'GPSChallenge') ?
 
@@ -135,18 +135,18 @@ class CreateChallenge extends Component {
 
               <Button onPress={() => {Actions.createMap({setting: 'createChallengeLoc'})}}
               title="Set Location"
-              color="#841584"/>
+              color="#a5cfff"/>
 
               <Button onPress={() => {this.props.challengeLocationSet(null)}}
               title="Clear Location"
-              color="#841584"/>
+              color="#d75452"/>
               </View>
 
               : null
             }
             </Item>
 
-            <Item>
+            <Item style={{backgroundColor: 'rgba(255, 255, 255, 0.4)'}}>
             {
               (this.props.createChallengeType === 'GPSChallenge' || this.props.createChallengeType === null) ? null : 
               
@@ -159,7 +159,7 @@ class CreateChallenge extends Component {
             }
             </Item>
 
-            <Item>
+            <Item style={{backgroundColor: 'rgba(255, 255, 255, 0.4)'}}>
             {
               (this.props.createChallengeType === 'cameraPrompt' || this.props.createChallengeType === 'GPSChallenge' || this.props.createChallengeType === null) ? null : 
 
@@ -174,16 +174,16 @@ class CreateChallenge extends Component {
 
 
 
-            <Item>
-            <Button onPress={() => {
+            <Item style={{backgroundColor: 'rgba(255, 255, 255, 0.4)'}}>
+            {/* <Button onPress={() => {
               console.log('props: ', this.props)
             }}
             title="See Props"
-            color="#841584"/>
+            color="#841584"/> */}
 
             <Button onPress={() => {this.onSubmitChallenge()}}
               title="Submit Challenge"
-              color="#841584"/>
+              color="#5cb85c"/>
             </Item>
 
 
@@ -216,17 +216,17 @@ const styles = StyleSheet.create({
   },
   labelText: {
     fontSize: 20,
-    color: '#fff5ea',
+    color: '#000000',
     fontWeight: 'bold',
   },
   inputText: {
     marginTop: 3,
     fontSize: 18,
-    color: '#fff5ea',
+    color: '#000000',
   },
   listItemText: {
     fontSize: 18,
-    color: '#fff5ea',
+    color: '#000000',
   },
   containerMenu: {
     flex: 1,
