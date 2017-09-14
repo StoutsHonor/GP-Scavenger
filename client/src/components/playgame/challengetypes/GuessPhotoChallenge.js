@@ -55,10 +55,10 @@ class GuessPhotoChallenge extends Component {
     
     return (
       //add image to background, fetch image from database preferred
-      <View >
+      <View style={styles.container}>
         <Text style={styles.bigFont}>{this.state.type}</Text>
-        <Text style={styles.mediumFont}>{this.state.data.title}</Text>
-        <Text>{this.state.data.question}</Text>
+     
+        <Text style={styles.question}>{this.state.data.question}</Text>
         <Image
           style={{
             width: Dimensions.get('window').width,
@@ -86,11 +86,12 @@ const styles = StyleSheet.create({
     flex: 10,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#46cc16',
+    backgroundColor: '#e9cfa3',
   },
   bigFont: {
     top: 10,
-    fontSize: 25
+    fontSize: 25,
+    fontWeight: 'bold'
   },
   mediumFont: {
     top: 15,
@@ -109,6 +110,11 @@ const styles = StyleSheet.create({
   tryAgain: {
     backgroundColor: "#800000",
   },
+  question: {
+    marginTop: 8,
+    fontSize: 18
+   
+  }
 });
 
 export default GuessPhotoChallenge;

@@ -75,12 +75,12 @@ class CongratsPage extends Component {
         <Text onPress={() => this.handleClick('homepage')}>Back to Home</Text>
         <Text onPress={() => this.handleClick('leaderboard')}>Leaderboard</Text>
         </View>   
-        <Confetti confettiCount={500} duration={3000} timeout={1} ref={(node) => this._confettiView = node}/> 
+        
       </View>
     )
   }
 }
-
+//<Confetti confettiCount={500} duration={3000} timeout={1} ref={(node) => this._confettiView = node}/> 
 
 const styles = StyleSheet.create({
   container: {
