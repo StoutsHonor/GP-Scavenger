@@ -74,32 +74,19 @@ class QuestionChallenge extends Component {
     return (
       
         <Container style={styles.container}>
-          {/* <Image
-            style={{
-              flex: 1,
-              position: 'absolute',
-              width: '140%',
-              height: '140%',
-              justifyContent: 'center',
-            }}
-            source={{ uri: "https://afterwordsbooks.files.wordpress.com/2013/02/riddle.jpg" }}
-          /> */}
-          
           <Content>
             <Body>
               <Text style={styles.type}>
                 {this.state.info.type ? this.state.info.type.toUpperCase() : ''}
               </Text>
-              <Text style={styles.title}>{this.state.data.title}</Text>
+              <Text style={styles.title}>"{this.state.data.title}"</Text>
               <Text style={styles.question}>
                 {this.state.data.question}
               </Text>
             </Body>
-          </Content>
-          <Content>
+         
                 <Image source={{uri: this.state.data.imageURL}} style={{height: 200, width: null, flex: 1}}/>
-          </Content>
-          <Content>
+       
             <Item rounded>
               <Input
                 style={styles.form} 
@@ -142,11 +129,10 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   tryAgain: {
-    alignItems: 'center',
-    backgroundColor: "#800000"
+    alignItems: 'center'
   },
   tryAgainText: {
-    color: "#FFFFFF",
+    color: "#800000",
     fontSize: 30
   },
   form: {

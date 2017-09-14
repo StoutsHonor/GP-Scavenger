@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
 import {
   StyleSheet,
-  Text,
   Image,
   View,
   Modal,
   TouchableHighlight,
-  Button
 } from 'react-native';
+import { ListItem, Left, Thumbnail, Text, Right, Button, Body, Separator, Container } from 'native-base';
 import { Card } from 'react-native-elements';
 import config from '../../../config/config';
 import io from 'socket.io-client';
@@ -32,7 +31,10 @@ class ChallengeListEntry extends Component {
       displayInfo: false,
       color: '#A9A9A9',
       opponentShow: false,
-      flash: false
+      flash: false,
+      status: 'locked',
+      imageDisplay: 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/matte-red-and-white-square-icons-business/122828-matte-red-and-white-square-icon-business-lock6-sc48.png'
+
     }
   }
   
@@ -43,11 +45,15 @@ class ChallengeListEntry extends Component {
 
     if(this.props.challengeIndex < this.props.index) {
       this.setState({displayInfo: true});
-      this.setState({color: '#008000'})
+      this.setState({color: '#008000'});
+      this.setState({status: 'Completed'});
+      this.setState({imageDisplay: 'http://diysolarpanelsv.com/images/check-mark-clipart-png-42.png'});
     }
     if(this.props.challengeIndex === this.props.index) {
       this.setState({displayInfo: true});
-      this.setState({color: '#FFD700'})
+      this.setState({color: '#FFD700'});
+      this.setState({status: 'Pending'});
+      this.setState({imageDisplay: 'https://incendia.net/wiki/images/2/23/Example_Texture1.png'});
     }
     setTimeout(() => this.setState({flash: !this.state.flash}), 1000)
   }
@@ -77,21 +83,31 @@ class ChallengeListEntry extends Component {
     }
     
     return (
-      <View style={{backgroundColor: backColor}}>
-        <View>
-          <Card title={str} backgroundColor={this.state.color}> 
-            {this.state.displayInfo ? 
-              <View>
-                <Text style={styles.description} >{this.props.challenge.name}</Text>
-              </View>
-              :
-              <Image
-                style={styles.locked}
-                source={{uri: 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/matte-red-and-white-square-icons-business/122828-matte-red-and-white-square-icon-business-lock6-sc48.png'}}
-              />}
-          </Card>
-        </View>
-      </View>
+      <ListItem avatar style={{backgroundColor: this.state.color}} >
+        <Left><Thumbnail source={{uri: this.state.imageDisplay}} /></Left>
+        <Body>
+          {this.state.displayInfo ? <Text>{this.props.challenge.name}</Text> : <Text> Locked</Text>}
+          {this.state.displayInfo ? <Text note>{this.state.status}</Text> : null}
+        </Body>
+        <Right>
+          {this.state.opponentShow ? <Thumbnail source={{uri: 'http://www.pngmart.com/files/1/Cross-Sword-PNG-Clipart.png'}}/> : null}
+        </Right>
+      </ListItem>
+      // <View style={{backgroundColor: backColor}}>
+      //   <View>
+      //     <Card title={str} backgroundColor={this.state.color}> 
+      //       {this.state.displayInfo ? 
+      //         <View>
+      //           <Text style={styles.description} >{this.props.challenge.name}</Text>
+      //         </View>
+      //         :
+      //         <Image
+      //           style={styles.locked}
+      //           source={{uri: 'http://cdn.mysitemyway.com/etc-mysitemyway/icons/legacy-previews/icons/matte-red-and-white-square-icons-business/122828-matte-red-and-white-square-icon-business-lock6-sc48.png'}}
+      //         />}
+      //     </Card>
+      //   </View>
+      // </View>
     )
   }
 }
