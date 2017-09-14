@@ -76,8 +76,8 @@ class ChallengeListEntry extends Component {
     }
 
     if(this.props.challengeIndex === message.index) {
-      this.props.setOpponentIndex(message.index);
       this.setState({ opponentShow: true });
+      this.props.setOpponentIndex(message.index);
     } else {
       this.setState({ opponentShow: false });
       this.props.setOpponentIndex(message.index);
