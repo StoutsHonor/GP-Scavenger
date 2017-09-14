@@ -77,7 +77,7 @@ export default class MyCamera extends Component {
     this.state = {
       path: null,
       camera: true,
-      loading: true
+      loading: false
     };
     this.acceptPicture = this.acceptPicture.bind(this);
   }
@@ -100,6 +100,7 @@ export default class MyCamera extends Component {
     imageObj.createdAt = new Date();
     imageObj.roomName = 'room1';
 
+    component = this;
  
     let obj = {};
     obj.method = 'post';
@@ -113,34 +114,34 @@ export default class MyCamera extends Component {
     })
     .then((data) => {
       console.log('Image successfully added');
+      component.setState({ path: null, loading: false });
     })
     .catch((err) => {
       console.error(err);
     });
-    this.setState({ path: null, loading: false });
   }
 
   uploadImage(){
-    this.setState({loading: true}, () => {
-      let file = this.state.path;
-      let data = new FormData();
-      let position = this.getPosition(file);
-      let name = file.slice(position);
-      console.log('file name is ' + file);
-      data.append('file', {uri: file, type: 'image/jpg', name: name});
-      data.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-      
-      let xhr = new XMLHttpRequest();
-      xhr.open('POST', CLOUDINARY_UPLOAD_URL);
-      xhr.onload = (res) => {
+    let file = this.state.path;
+    let data = new FormData();
+    let position = this.getPosition(file);
+    let name = file.slice(position);
+    console.log('file name is ' + file);
+    data.append('file', {uri: file, type: 'image/jpg', name: name});
+    data.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+    
+    let xhr = new XMLHttpRequest();
+    xhr.open('POST', CLOUDINARY_UPLOAD_URL);
+    xhr.onload = (res) => {
+      this.setState({ loading: true}, () => {
         let res_parse = JSON.parse(res.target._response);
         console.log('Response is ', res_parse.secure_url);
         this.acceptPicture(res_parse.secure_url);
         this.props.accept();
-      }
-  
-     xhr.send(data);
-    })
+      })
+    }
+
+    xhr.send(data);
   }
 
   getPosition(file) {
