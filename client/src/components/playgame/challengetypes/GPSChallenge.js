@@ -69,7 +69,7 @@ class GPSChallengeTask extends Component {
 
   showNotYetAtLocation() {
     console.log(`blaaaaaaaaah`)
-    this.setState({ fadeOutAnim: new Animated.Value(1)}, () => {
+    this.setState({ fadeOutAnim: new Animated.Value(0.5)}, () => {
       setTimeout( ()=> {
         Animated.timing(
           this.state.fadeOutAnim,
@@ -96,7 +96,7 @@ class GPSChallengeTask extends Component {
           <Text style={styles.challengeText}>Challenge: {this.props.currentChallenge.name}</Text>
           <Text style={styles.distanceAway}>Your distance away: {this.state.distanceAway}</Text>
         </View>
-        <Animated.View style={{ opacity: this.state.fadeOutAnim, position: 'absolute', backgroundColor: 'white', flex: 1, alignSelf: 'center', bottom: 145 }}>
+        <Animated.View style={{ opacity: this.state.fadeOutAnim, position: 'absolute', backgroundColor: 'white', flex: 1, alignSelf: 'center', bottom: 95 }}>
           <Text style={styles.messageText}>{this.state.message}</Text>
         </Animated.View>
       </View>
@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
   messageText: {
     fontSize: 19,
     fontWeight: 'bold',
+    color: 'black'
   },
   distanceAway: {
     textAlign: 'center',
