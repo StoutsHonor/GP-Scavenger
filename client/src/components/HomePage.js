@@ -97,6 +97,13 @@ class HomePage extends Component {
             <Text style={styles.welcome}>
               GPScavenger
             </Text>
+            <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'public', color: "#211b07"}} title='CongratsNext' 
+              onPress={() => Actions.congratsnext()}/>
+              <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'public', color: "#211b07"}} title='congratspage' 
+              onPress={() => Actions.congratspage()}/>
+              <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'public', color: "#211b07"}} title='failedpage' 
+              onPress={() => Actions.failedpage()}/>
+
 
             <Button buttonStyle={styles.buttons} color="#211b07" fontWeight="bold" fontSize={30} fontFamily="cursive" iconRight icon={{name: 'public', color: "#211b07"}} title='Join Game' 
               onPress={() => Actions.joingame({listtype: 'join'})}/>

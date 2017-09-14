@@ -3,7 +3,8 @@ import {
   StyleSheet,
   Text,
   View,
-  Button
+  Button,
+  Image
 } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
@@ -48,28 +49,41 @@ class CongratsNext extends Component {
     let earnedPoints = Math.ceil(this.props.gameInfo.rewardPoints/this.props.challenges.length);
     return (
       <View style={styles.container}>
-        <Text style={styles.welcome}>
-          Congratulations! You Earned:
-        </Text>
-        <Text style={styles.points}>{earnedPoints || null}</Text>
-        <Text style={styles.welcome}>Points from this Challenge.</Text>
-        {this.state.displayFinal ? 
-          <Text onPress={() => Actions.congratspage()}>Go to Finish</Text> : 
-          <Text onPress={() => Actions.Challenge()}>Go To Your Next Task</Text>
-        }
-        <Text onPress={() => Actions.List()}>Go To Your Challenge List</Text>
-        <Text onPress={() => Actions.Chat()}>Brag About It In Chat</Text>
+        <View style={styles.modal}>
+        <Image style={{ flex: .75, resizeMode: 'contain', width: 150, padding: 0}} source={ require('../../media/trophyART.png') } />
+            <Text style={styles.welcome}>
+              Congratulations! You Earned:
+            </Text>
+            <Text style={styles.points}>{earnedPoints || null}</Text>
+            <Text style={styles.welcome}>Points from this Challenge.</Text>
+            {this.state.displayFinal ? 
+              <Text onPress={() => Actions.congratspage()}>Go to Finish</Text> : 
+              <Text onPress={() => Actions.Challenge()}>Go To Your Next Task</Text>
+            }
+            <Text onPress={() => Actions.List()}>Go To Your Challenge List</Text>
+            <Text onPress={() => Actions.Chat()}>Brag About It In Chat</Text>
+        </View>      
       </View>
     );
   }
 }
-
+//backgroundColor: '#006400',
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#006400',
+    backgroundColor: '#e9cfa3'
+  },
+  modal: {
+    height: 400,
+    width: 350,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius:10,
+    borderWidth: 2,
+    borderColor: '#000',
+    backgroundColor: '#5cb85c'
   },
   welcome: {
     fontSize: 20,

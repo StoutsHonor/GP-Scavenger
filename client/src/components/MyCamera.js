@@ -176,7 +176,7 @@ export default class MyCamera extends Component {
         style={styles.preview}
         aspect={Camera.constants.Aspect.fill}
         captureTarget={Camera.constants.CaptureTarget.disk}
-        type={this.state.camera ? 'front' : 'back'}
+        type={this.state.camera ? 'back' : 'front'}
       >
       <TouchableHighlight
         style={styles.switchCamera}
