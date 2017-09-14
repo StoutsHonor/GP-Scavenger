@@ -113,7 +113,7 @@ class ChallengeListEntry extends Component {
         fontSize: 17,
       }
     });
-
+    // <Thumbnail source={{uri: 'http://www.pngmart.com/files/1/Cross-Sword-PNG-Clipart.png'}}/>
     return (
       <ListItem avatar style={styles.entry} >
         <Left><Thumbnail source={{uri: this.state.imageDisplay}} /></Left>
@@ -122,7 +122,7 @@ class ChallengeListEntry extends Component {
           {this.state.displayInfo ? <Text note style={styles.status}>{this.state.status}</Text> : null}
         </Body>
         <Right>
-          {this.state.opponentShow ? <Thumbnail source={{uri: 'http://www.pngmart.com/files/1/Cross-Sword-PNG-Clipart.png'}}/> : null}
+          {this.state.opponentShow ? null : null}
         </Right>
       </ListItem>
       // <View style={{backgroundColor: backColor}}>
