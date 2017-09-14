@@ -39,6 +39,15 @@ const styles = StyleSheet.create({
     borderColor: '#FFF',
     marginBottom: 15,
   },
+  switchCamera: {
+    position: 'absolute',
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    borderWidth: 8,
+    borderColor: '#FFF',
+    top: 10,
+  },
   cancel: {
     position: 'absolute',
     left: 20,
@@ -65,6 +74,7 @@ export default class MyCamera extends Component {
 
     this.state = {
       path: null,
+      camera: true
     };
     this.acceptPicture = this.acceptPicture.bind(this);
   }
@@ -136,6 +146,12 @@ export default class MyCamera extends Component {
     }
   }
 
+  switchCamera() {
+    this.setState({
+      camera: !this.state.camera
+    });
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -146,14 +162,24 @@ export default class MyCamera extends Component {
 
   renderCamera() {
     return (
+      
       <Camera
+      
         ref={(cam) => {
           this.camera = cam;
         }}
         style={styles.preview}
         aspect={Camera.constants.Aspect.fill}
         captureTarget={Camera.constants.CaptureTarget.disk}
+        type={this.state.camera ? 'front' : 'back'}
       >
+      <TouchableHighlight
+        style={styles.switchCamera}
+        onPress={this.switchCamera.bind(this)}
+        underlayColor="rgba(255, 255, 255, 0.5)"
+      >
+      <View />
+    </TouchableHighlight>
         <TouchableHighlight
           style={styles.capture}
           onPress={this.takePicture.bind(this)}
