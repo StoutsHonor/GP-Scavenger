@@ -98,15 +98,9 @@ class CurrentChallenge extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-<<<<<<< HEAD
     if (nextProps.challenges.length > 0) {
       if (!nextProps.currentChallengeIndex) {
         nextProps.currentChallengeIndex = 0;
-=======
-    if (nextProps.challenges) {
-      if (!nextProps.currentChallengeIndex){
-        nextProps.currentChallengeIndex = 0
->>>>>>> restyling for map component
       }
       if (nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId) {
         let currentChallengeType = nextProps.challenges[nextProps.currentChallengeIndex].questionTypeId;
