@@ -76,7 +76,7 @@ import UserProfile from './src/components/reusable/UserProfile'
 import GameProfile from './src/components/reusable/GameProfile'
 
 
-export default class client extends Component {
+export default class GPScavenger extends Component {
   constructor() {
     super()
     this.dummyGet = this.dummyGet.bind(this)
@@ -315,4 +315,4 @@ const styles = StyleSheet.create({
   },
 });
 
-AppRegistry.registerComponent('client', () => client);
+AppRegistry.registerComponent('GPScavenger', () => GPScavenger);

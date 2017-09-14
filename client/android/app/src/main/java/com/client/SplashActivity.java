@@ -1,4 +1,4 @@
-package com.client;
+package com.gpscavenger;
 
 import android.support.v7.app.AppCompatActivity;
 import android.content.Intent;
