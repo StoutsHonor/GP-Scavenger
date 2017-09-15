@@ -28,7 +28,7 @@ class GPSChallengeTask extends Component {
       currentLocation: [],
       message: 'Not yet! Get a little closer...',
       fadeOutAnim: new Animated.Value(0),
-      distanceAway: '999999 ft'
+      distanceAway: '0.3 mi'
     }
   }
 
