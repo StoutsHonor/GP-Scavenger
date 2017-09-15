@@ -179,11 +179,11 @@
     "questionTypeId": 1
   },
   {
-    "name": "I WANT ICE CREAM",
-    "description": "Long day of coding. You want ice cream. Where do you go???",
+    "name": "I WANT MINTS",
+    "description": "Long day of coding. You want mints. Where do you go???",
     "gameId": 1,
     "sequence": 1,
-    "location": [33.977087, -118.392290],
+    "location": [33.9760041, -118.3919857],
     "questionId": 1,
     "questionTypeId": 1
   },
