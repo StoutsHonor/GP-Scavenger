@@ -158,7 +158,7 @@ class StartNewGame extends Component {
           <Button
             onPress={this.onInputLobbyName}
             title="OK"
-            color="#841584"
+            color="#5cb85c"
           />
           </View>
           </View>

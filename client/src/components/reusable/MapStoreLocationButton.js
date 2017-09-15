@@ -33,7 +33,7 @@ class MapStoreLocationButton extends Component {
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
-        backgroundColor: '#841584'
+        backgroundColor: '#5cb85c'
       },
       buttonContainer: {
         position: 'absolute',

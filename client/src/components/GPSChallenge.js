@@ -48,7 +48,7 @@ class GPSChallenge extends Component {
 
         <Button onPress={() => {console.log('button pressed!')}}
           title="Finished Challenge"
-          color="#841584"/>
+          color="#5cb85c"/>
       </View>
     )
   }

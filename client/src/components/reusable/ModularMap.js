@@ -361,7 +361,7 @@ class ModularMap extends Component {
               </MapView.Marker>)
           } else {
             return(
-              <MapView.Marker coordinate={loc} key={index} tooltip={true} style={styles.tooltip} image={'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1505281773/71AUHAt_ix8uj5.png'}>
+              <MapView.Marker coordinate={loc} key={index} tooltip={true} style={styles.tooltip} image={ require('../../media/targetx_75x75.png') }>
                 <MapView.Callout>
                   <Text style={styles.tooltipText}>{this.props.currentChallenge.name}</Text>
                   <Text style={styles.tooltipText}>{this.props.currentChallenge.description}</Text>
