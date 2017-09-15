@@ -37,7 +37,7 @@ class MapCurrentLocationButton extends Component {
     return(
       <View style={styles.buttonContainer} >
         <TouchableOpacity onPress={this.props.getCurrentLocation}>
-          <Image source={require('../../media/getCurrentLocation_83x83.png')} style={styles.button} />
+          <Image source={{uri: 'http://res.cloudinary.com/dyrwrlv2h/image/upload/v1505433617/getCurrentLocation_83x83_uqhkmn.png'}} style={styles.button} />
         </TouchableOpacity>
       </View>
     )
