@@ -40,7 +40,7 @@ class CreateMapStoreLocationButton extends Component {
         <TouchableOpacity>
           <Button onPress={() => {this.props.storeMarker()}}
             title="Submit"
-            color="#841584"
+            color="#5cb85c"
           />
         </TouchableOpacity>
       </View>
