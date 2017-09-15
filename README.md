@@ -162,12 +162,12 @@ react-native run-android
 
 
 ## Known Bugs
-- Breaking: JSON Parse Error: Unexpected EOF
 - Breaking: roomId null
 - Breaking: questionTypeId undefined
 - Breaking: JSON Parse Error: unexpected token (usually error handling after promises)
 - Med Priority (usage restriction): All GPS locations used must be traversable between each other. Google Distance calculation: returns undefined if the origin or destination is untraversable terrain (ex: within bodies of water, separated landmass). Error reads something like 'cannot read 'legs' of undefined'
 - Med Priority (usage restriction): Must pause video before answering a video challenge. Audio will continue playing even when view changes: videoplayer component does not unmount (since a page is just added to the stack on react-router-flux).
 - Med Priority (performance): various timer warnings
+- Low Priority (development case): JSON Parse Error: Unexpected EOF (occurs at the end of game on fetch for points if user is not in the database)
 - Low Priority (feature lacking polish): no check for player in vicinity before the game can be started
 
