@@ -199,7 +199,7 @@
     "name": "selfie time...",
     "description": "need friendz",
     "gameId": 1,
-    "sequence": 4,
+    "sequence": 3,
     "timeLimit": 1,
     "questionTypeId": 4,
     "questionId": 10
@@ -208,7 +208,7 @@
     "name": "A star studded cast...",
     "description": "Who b dis?",
     "gameId": 1,
-    "sequence": 5,
+    "sequence": 4,
     "timeLimit": 1,
     "questionTypeId": 5,
     "questionId": 3
@@ -221,15 +221,6 @@
     "timeLimit": 1,
     "questionTypeId": 5,
     "questionId": 3
-  },
-  {
-    "name": "Your Annoying Neighbors...",
-    "description": "",
-    "gameId": 1,
-    "sequence": 3,
-    "timeLimit": 1,
-    "questionTypeId": 2,
-    "questionId": 6
   },
   {
     "name": "Mr. A",
