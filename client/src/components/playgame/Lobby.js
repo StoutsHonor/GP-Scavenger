@@ -72,7 +72,11 @@ class Lobby extends Component {
     )
       .then(response => response.json())
       .then(data => {
-        this.props.getAllGameChallenges(data);
+        this.props.getAllGameChallenges(data.sort( (a,b) => {
+          a = a.sequence;
+          b = b.sequence;
+          return a < b ? -1 : a > b ? 1 : 0;
+        }));
         console.log(data, 'data fetched')
       })
       .catch(err => {
