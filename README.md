@@ -108,9 +108,6 @@ npm run seed
 - Google Play Services is required on the device. (Adding Google Player Services to Genymotion emulator: http://opengapps.org/, x86 platform, Android 6.0, nano variant. Drop the zip file into the running emulator)
 - AndroidManifeset.xml is already updated with appropriate information (refer to Google API docs if needed)
 
-#### Build the app to a physical device running Android:
-- To Be Written
-
 #### Build the app to an emulator:
 - in terminal: navigate within the client folder and install app dependencies with npm install.
 - have at least 1 instance of an emulator running the correct android version
@@ -120,6 +117,14 @@ react-native run-android
 ```
 - this will start a local service which builds the android app and runs it on the emulator
 
+#### Build the app to a physical device running Android:
+- in terminal: navigate within the client folder and install app dependencies with npm install.
+- have at least 1 physical device connected to the computer (via USB, enabling USB Debugging may be required)
+- after dependencies are installed, run:
+```sh
+react-native run-android
+```
+- this will start a local service which builds the android app and runs it on the emulator
 
 
 
