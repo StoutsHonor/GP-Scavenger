@@ -75,7 +75,7 @@ class ModularListEntry extends Component {
           <Right>
             <View style={{flex: 1, justifyContent: 'center'}}>
               <View>
-            <Button rounded primary onPress={() => {
+            <Button rounded style={{backgroundColor: '#5cb85c'}} onPress={() => {
                 console.log('list entry!')
                 this.props.buttonaction(this.props.listentry)}}><Text>{this.props.buttontext}</Text></Button>
               </View>

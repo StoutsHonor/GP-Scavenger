@@ -268,7 +268,7 @@ class CreateGame extends Component {
         <Content>
 
         <Tabs initialPage={0}>
-          <Tab heading="Info">
+          <Tab heading="GAME INFO" tabStyle={{backgroundColor: '#2196f3'}} activeTabStyle={{backgroundColor: '#2196f3'}}>
 
             <View>
               <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../../media/createGameBackground4.png') } />
@@ -380,7 +380,7 @@ class CreateGame extends Component {
 
 
           </Tab>
-          <Tab heading="Challenges">
+          <Tab heading="CHALLENGES" tabStyle={{backgroundColor: '#2196f3'}} activeTabStyle={{backgroundColor: '#2196f3'}}>
             <View>
               <Image style={{ flex:1, resizeMode: 'cover' }} source={ require('../../media/createGameBackground4.png') } />
             </View>
