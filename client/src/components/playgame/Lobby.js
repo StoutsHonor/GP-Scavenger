@@ -474,7 +474,7 @@ const styles = StyleSheet.create({
   team: {
     fontSize: 16,
     fontWeight: "bold",
-    color: '#378C72'
+    color: '#000'
   },
   button: {
     margin: 7,
@@ -484,7 +484,7 @@ const styles = StyleSheet.create({
   player: {
     fontWeight: "bold",
     fontSize: 14,
-    color: '#378C72'
+    color: '#000'
   },
   divide: {
     flexDirection: "row",
