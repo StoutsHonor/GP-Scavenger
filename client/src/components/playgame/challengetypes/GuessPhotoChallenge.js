@@ -70,12 +70,13 @@ class GuessPhotoChallenge extends Component {
           <FormLabel >Enter Answer Here:</FormLabel>
           <FormInput onChangeText={userInput => this.setState({userInput})}/>
         </View>
-        {this.state.showTryAgain ? <View style={styles.tryAgain}><Text style={styles.tryAgainText}>Try Again</Text></View> : null}
+       
         <Button
           onPress={this.handleClickSubmit}
           title="Submit"
           color="#32CD32"
         />
+        {this.state.showTryAgain ? <View style={styles.tryAgain}><Text style={styles.tryAgainText}>Try Again</Text></View> : null}
       </View>
     );
   }
@@ -108,7 +109,15 @@ const styles = StyleSheet.create({
     backgroundColor:'#F0FFFF'
   },
   tryAgain: {
+    marginTop: 10,
     backgroundColor: "#800000",
+  },
+  tryAgainText: {
+    padding: 5,
+    color: '#fff',
+    fontSize: 18,
+    fontWeight: 'bold'
+
   },
   question: {
     marginTop: 8,
