@@ -1,24 +1,24 @@
 # [GPScavenger](#https://github.com/StoutsHonor/AR.T) (development name)
 
 > A location based multiplayer scavenger hunt app for Android, built in React Native.
-
-- __Features__:
-- Reach GPS marker on the map to advance
-- Answer riddle / question challenges
-- Social features (lobby, chat)
-- Design your own games
-
-- __Use Cases__:
-- Social: It’s a game! Flexible game modes for different tastes. (competitive, cooperative, etc.)
-- Educational: Learn more about a subject by making the learning interactive. Example use case: a museum where students can visit various exhibits and answer questions.
-- Explorative: See the unseen and expand your horizons. Example use case: Get to know a part of town you’ve never checked out.
+>
+> __Features__:
+> Reach GPS marker on the map to advance
+> Answer riddle / question challenges
+> Social features (lobby, chat)
+> Design your own games
+>
+> __Use Cases__:
+> Social: It’s a game! Flexible game modes for different tastes. (competitive, cooperative, etc.)
+> Educational: Learn more about a subject by making the learning interactive. Example use case: a museum where students can visit various exhibits and answer questions.
+> Explorative: See the unseen and expand your horizons. Example use case: Get to know a part of town you’ve never checked out.
 
 
 ## Table of Contents
 
 1. [Team](#team)
-1. [Usage](#Usage)
-1. [Dependencies & Setting Up](#dependencies&settingup)
+1. [Usage](#usage)
+1. [Dependencies & Setting Up](#dependencies--setting-up)
 1. [Contributing](#contributing)
 1. [Known Bugs](#known-bugs)
 
