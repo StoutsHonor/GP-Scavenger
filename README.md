@@ -36,11 +36,11 @@
 
 #### Start a game (creating a lobby)
 - fetches available games from the database and displays as a (map view also available)
-- touch on a game (or map marker) to view further details
+- tap on a game (or map marker) to view further details
 
 #### Join a game
 - checks active lobbies on the server and displays a list (map view also available)
-- touch on a game (or map marker) to view further details
+- tap on a game (or map marker) to view further details
 
 #### Starting a game (from within a lobby)
 - once the minimum number of players has been reached, the lobby will allow the game to be started
