@@ -17,7 +17,7 @@ const mapDispatchToProps = (dispatch) => {
 
 const mapStateToProps = (state) => {
   return {
-    userId: state.client.userIdentity,
+    email: state.client.userIdentity,
     gameId: state.play.gameId,
     gameInfo: state.play.gameInfo,
     challenges: state.play.allChallenges,
