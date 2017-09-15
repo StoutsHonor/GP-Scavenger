@@ -68,14 +68,14 @@ Client: Google Maps
 Database: PostgreSQL (on ElephantSQL)
 - Knowledge of the native language (in this case, Java for Android apps) is helpful, since updates to native project files may be required to modify features.
 
-#### install and set up dependencies
+#### Install and set up dependencies
 - set up server (that can be acessed from the web, if on a physical device), and run server
 - set up database, and initalize it (can also seed here if needed)
 - set up authentication via firebase, and allow for email/password login
 - clone this repo
 - refer to the dependencies section for further details
 
-#### for macOS developers, working on an Android App:
+#### For macOS developers, working on an Android App:
 - Android SDK (by installing Android Studio 2.3.3 for macOS)
 - Configure the Android SDK: React Native supports Android 6.0 (API 23) at the time of this writing. Install the Android SDK files for 6.0 (System Image, Tools, etc.)
 - Update environment variables for Android SDK: (in .bash_profile for macOS users). "ANDROID_HOME" should point to the path in given by the SDK manager (where SDK is located).
@@ -90,7 +90,7 @@ export PATH="$HOME/Android/platform-tools:$PATH"
 - Genymotion 2.10.0 Revision 20170719-0eb896a (Android Emulator)
 - Genymotion Configuration: Create an Android Emulator running Android 6.0 (API 23).
 
-#### for Windows (10?) developers, working on an Android App:
+#### For Windows (10?) developers, working on an Android App:
 - To Be Written
 
 
@@ -108,10 +108,10 @@ npm run seed
 - Google Play Services is required on the device. (Adding Google Player Services to Genymotion emulator: http://opengapps.org/, x86 platform, Android 6.0, nano variant. Drop the zip file into the running emulator)
 - AndroidManifeset.xml is already updated with appropriate information (refer to Google API docs if needed)
 
-#### build the app to a physical device running Android:
+#### Build the app to a physical device running Android:
 - To Be Written
 
-#### build the app to an emulator:
+#### Build the app to an emulator:
 - in terminal: navigate within the client folder and install app dependencies with npm install.
 - have at least 1 instance of an emulator running the correct android version
 - after dependencies are installed, run:
