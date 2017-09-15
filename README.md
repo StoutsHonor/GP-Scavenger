@@ -3,10 +3,10 @@
 > A location based multiplayer scavenger hunt app for Android, built in React Native.
 >
 > __Features__:
-> Reach GPS marker on the map to advance
-> Answer riddle / question challenges
-> Social features (lobby, chat)
-> Design your own games
+> Reach GPS marker on the map to advance,
+> Answer riddle / question challenges,
+> Social features (lobby, chat),
+> Design your own games.
 >
 > __Use Cases__:
 > Social: It’s a game! Flexible game modes for different tastes. (competitive, cooperative, etc.)
